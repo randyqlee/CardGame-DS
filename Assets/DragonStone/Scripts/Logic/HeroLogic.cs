@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
-public class CreatureLogic: ICharacter 
-{
-    // PUBLIC FIELDS
-    public Player owner;
+public class HeroLogic : ICharacter {
+
+   public Player owner;
     public CardAsset ca;
     public CreatureEffect effect;
     public int UniqueCreatureID;
@@ -70,7 +69,7 @@ public class CreatureLogic: ICharacter
     }
 
     // CONSTRUCTOR
-    public CreatureLogic(Player owner, CardAsset ca)
+    public HeroLogic(Player owner, CardAsset ca)
     {
         this.ca = ca;
         baseHealth = ca.MaxHealth;
@@ -119,7 +118,7 @@ public class CreatureLogic: ICharacter
         owner.otherPlayer.Health -= Attack;
     }
 
-    public void AttackCreature (CreatureLogic target)
+    public void AttackCreature (HeroLogic target)
     {
         AttacksLeftThisTurn--;
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent
@@ -133,11 +132,11 @@ public class CreatureLogic: ICharacter
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
-        CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
+        HeroLogic target = HeroLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         AttackCreature(target);
     }
 
     // STATIC For managing IDs
-    public static Dictionary<int, CreatureLogic> CreaturesCreatedThisGame = new Dictionary<int, CreatureLogic>();
+    public static Dictionary<int, HeroLogic> CreaturesCreatedThisGame = new Dictionary<int, HeroLogic>();
 
 }

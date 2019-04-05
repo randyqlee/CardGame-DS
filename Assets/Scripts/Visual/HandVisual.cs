@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class HandVisual : MonoBehaviour
 {
+
     // PUBLIC FIELDS
     public AreaPosition owner;
     public bool TakeCardsOpenly = true;
@@ -189,6 +190,8 @@ public class HandVisual : MonoBehaviour
         w.SetHandSortingOrder();
         // end command execution for DrawACArdCommand
         Command.CommandExecutionComplete();
+
+       
     }
 
    

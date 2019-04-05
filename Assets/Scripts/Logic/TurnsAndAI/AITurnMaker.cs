@@ -89,6 +89,7 @@ public class AITurnMaker: TurnMaker {
     bool AttackWithACreature()
     {
         foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+        //foreach (HeroLogic cl in p.table.CreaturesOnTable)
         {
             if (cl.AttacksLeftThisTurn > 0)
             {
@@ -97,6 +98,7 @@ public class AITurnMaker: TurnMaker {
                 {
                     int index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
                     CreatureLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
+                    //HeroLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
                     cl.AttackCreature(targetCreature);
                 }                    
                 else

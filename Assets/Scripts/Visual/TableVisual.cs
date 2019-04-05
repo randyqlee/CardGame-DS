@@ -18,6 +18,8 @@ public class TableVisual : MonoBehaviour
     // list of all the creature cards on the table as GameObjects
     private List<GameObject> CreaturesOnTable = new List<GameObject>();
 
+
+
     // are we hovering over this table`s collider with a mouse
     private bool cursorOverThisTable = false;
 

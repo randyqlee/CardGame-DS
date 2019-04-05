@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour, ICharacter
 {
+
+
     // PUBLIC FIELDS
     // int ID that we get from ID factory
     public int PlayerID;
@@ -130,6 +132,7 @@ public class Player : MonoBehaviour, ICharacter
         ManaThisTurn++;
         ManaLeft = ManaThisTurn;
         foreach (CreatureLogic cl in table.CreaturesOnTable)
+        //foreach (HeroLogic cl in table.CreaturesOnTable)
             cl.OnTurnStart();
         PArea.HeroPower.WasUsedThisTurn = false;
     }
@@ -176,6 +179,8 @@ public class Player : MonoBehaviour, ICharacter
                 deck.cards.RemoveAt(0);
                 // 2) create a command
                 new DrawACardCommand(hand.CardsInHand[0], this, fast, fromDeck: true).AddToQueue(); 
+
+                
             }
         }
         else
@@ -218,7 +223,7 @@ public class Player : MonoBehaviour, ICharacter
         else
         {
             // target is a creature
-            PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], CreatureLogic.CreaturesCreatedThisGame[TargetUniqueID]);
+            //PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], CreatureLogic.CreaturesCreatedThisGame[TargetUniqueID]);
         }
           
     }
@@ -258,6 +263,7 @@ public class Player : MonoBehaviour, ICharacter
         // Debug.Log("Mana Left after played a creature: " + ManaLeft);
         // create a new creature object and add it to Table
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
+        //HeroLogic newCreature = new HeroLogic(this, playedCard.ca);
         table.CreaturesOnTable.Insert(tablePos, newCreature);
         // 
         new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
@@ -299,6 +305,7 @@ public class Player : MonoBehaviour, ICharacter
         }
 
         foreach (CreatureLogic crl in table.CreaturesOnTable)
+        //foreach (HeroLogic crl in table.CreaturesOnTable)
         {
             GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
             if(g!= null)

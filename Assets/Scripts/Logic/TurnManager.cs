@@ -99,11 +99,17 @@ public class TurnManager : MonoBehaviour {
                     whoGoesSecond.DrawACard(true);
                     // first player draws a card
                     whoGoesFirst.DrawACard(true);
+                
+                    //DS
+
+                    whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
+                    whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
                 }
                 // add one more card to second player`s hand
-                whoGoesSecond.DrawACard(true);
+                //DS
+                //whoGoesSecond.DrawACard(true);
                 //new GivePlayerACoinCommand(null, whoGoesSecond).AddToQueue();
-                whoGoesSecond.GetACardNotFromDeck(CoinCard);
+                //whoGoesSecond.GetACardNotFromDeck(CoinCard);
                 new StartATurnCommand(whoGoesFirst).AddToQueue();
             });
     }
