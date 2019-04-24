@@ -63,10 +63,20 @@ public class CreatureLogic: ICharacter
      
     // number of attacks for one turn if (attacksForOneTurn==2) => Windfury
     private int attacksForOneTurn = 1;
+
+    private int attacksLeftThisTurn;
     public int AttacksLeftThisTurn
     {
-        get;
-        set;
+        get{
+            return attacksLeftThisTurn;
+        }
+
+        set{
+            if(value < 0)
+                attacksLeftThisTurn = 0;
+            else
+                attacksLeftThisTurn = value;
+        }
     }
 
     // CONSTRUCTOR
@@ -76,10 +86,13 @@ public class CreatureLogic: ICharacter
         baseHealth = ca.MaxHealth;
         Health = ca.MaxHealth;
         baseAttack = ca.Attack;
+        
         attacksForOneTurn = ca.AttacksForOneTurn;
-        // AttacksLeftThisTurn is now equal to 0
-        if (ca.Charge)
-            AttacksLeftThisTurn = attacksForOneTurn;
+
+        // Remove Charge
+        // if (ca.Charge)
+        //     AttacksLeftThisTurn = attacksForOneTurn;
+
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID();
         if (ca.CreatureScriptName!= null && ca.CreatureScriptName!= "")
@@ -93,12 +106,13 @@ public class CreatureLogic: ICharacter
     // METHODS
     public void OnTurnStart()
     {
+        // will be granted by Player
         AttacksLeftThisTurn = attacksForOneTurn;
     }
 
     public void Die()
     {   
-        //owner.table.CreaturesOnTable.Remove(this);
+        owner.table.CreaturesOnTable.Remove(this);
 
         // cause Deathrattle Effect
         if (effect != null)
@@ -124,11 +138,22 @@ public class CreatureLogic: ICharacter
         AttacksLeftThisTurn--;
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent
         int targetHealthAfter = target.Health - Attack;
-        int attackerHealthAfter = Health - target.Attack;
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+
+        //original
+        //int attackerHealthAfter = Health - target.Attack;
+
+        int attackerHealthAfter = Health;
+
+        //original
+        //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+
+        //set target attack to 0 to reflect non-damage for the attacker
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, 0, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         target.Health -= Attack;
-        Health -= target.Attack;
+        
+        //originally enabled
+        //Health -= target.Attack;
     }
 
     public void AttackCreatureWithID(int uniqueCreatureID)

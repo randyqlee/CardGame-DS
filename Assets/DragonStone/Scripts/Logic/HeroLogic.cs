@@ -77,8 +77,10 @@ public class HeroLogic : ICharacter {
         baseAttack = ca.Attack;
         attacksForOneTurn = ca.AttacksForOneTurn;
         // AttacksLeftThisTurn is now equal to 0
-        if (ca.Charge)
-            AttacksLeftThisTurn = attacksForOneTurn;
+
+        // if (ca.Charge)
+        //     AttacksLeftThisTurn = attacksForOneTurn;
+
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID();
         if (ca.CreatureScriptName!= null && ca.CreatureScriptName!= "")
