@@ -105,6 +105,8 @@ public class TurnManager : MonoBehaviour {
                     whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
                 }
+
+
                 // add one more card to second player`s hand
                 //DS
                 //whoGoesSecond.DrawACard(true);

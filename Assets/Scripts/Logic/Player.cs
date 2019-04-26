@@ -142,7 +142,8 @@ public class Player : MonoBehaviour, ICharacter
 
         //logic to check if creature not dead
         
-        
+        //DS
+        //Iterate through Creatures on table so that only 1 creature gets active each turn
         Debug.Log("Creature Index: " +creatureTurn);       
                
       table.CreaturesOnTable[creatureTurn].OnTurnStart();
@@ -154,6 +155,9 @@ public class Player : MonoBehaviour, ICharacter
                              
                
         PArea.HeroPower.WasUsedThisTurn = false;
+        
+        //DS
+        HighlightPlayableCards();
     }
 
     
@@ -249,6 +253,8 @@ public class Player : MonoBehaviour, ICharacter
             CardLogic newCard = new CardLogic(cardAsset);
             newCard.owner = this;
             hand.CardsInHand.Insert(0, newCard);
+
+            Debug.Log ("Drawing Card Not From Deck");
             // 2) send message to the visual Deck
             new DrawACardCommand(hand.CardsInHand[0], this, fast: true, fromDeck: false).AddToQueue(); 
         }
@@ -297,6 +303,7 @@ public class Player : MonoBehaviour, ICharacter
         // check if this is a creature or a spell
     }
 
+
     // METHODS TO PLAY CREATURES 
     // 1st overload - by ID
     public void PlayACreatureFromHand(int UniqueID, int tablePos)
@@ -322,7 +329,10 @@ public class Player : MonoBehaviour, ICharacter
             newCreature.effect.WhenACreatureIsPlayed();
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
-        HighlightPlayableCards();
+
+        //DS
+        //comment out
+        //HighlightPlayableCards();
     }
 
     public void Die()
@@ -360,10 +370,45 @@ public class Player : MonoBehaviour, ICharacter
             GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
             if(g!= null)
                 g.GetComponent<OneCreatureManager>().CanAttackNow = (crl.AttacksLeftThisTurn > 0) && !removeAllHighlights;
+
+            //DS
+            //insert here script to clear the hand and call the "Hand" or Abilities for the HIghlighted Creature
+            
+            ClearHand();
+            //DrawAbilityCards(crl);
+
+            //DS
+            
+           
         }   
         // highlight hero power
         PArea.HeroPower.Highlighted = (!usedHeroPowerThisTurn) && (ManaLeft > 1) && !removeAllHighlights;
     }
+
+    //DS
+
+    public void ClearHand()
+    {
+        foreach(CardLogic cl in hand.CardsInHand)
+        {
+            new PlayASpellCardCommand(this, cl).AddToQueue();
+            hand.CardsInHand.Remove(cl);
+        }
+
+    }
+    //DS
+
+    //DS
+    public void DrawAbilityCards(CreatureLogic crl)
+    {
+        foreach (CardAsset ca in crl.abilities)
+        {
+            
+            GetACardNotFromDeck(ca);
+        }
+
+    }
+    //DS
 
     // START GAME METHODS
     public void LoadCharacterInfoFromAsset()

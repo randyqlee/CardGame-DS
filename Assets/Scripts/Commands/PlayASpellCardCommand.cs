@@ -13,6 +13,7 @@ public class PlayASpellCardCommand: Command
         this.p = p;
     }
 
+
     public override void StartCommandExecution()
     {
         // move this card to the spot

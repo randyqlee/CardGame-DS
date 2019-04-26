@@ -13,6 +13,10 @@ public class CreatureLogic: ICharacter
     public bool Frozen = false;
     public bool isDead;
 
+    //DS
+    //Adding Abilities
+    public List<CardAsset> abilities;
+
     // PROPERTIES
     // property from ICharacter interface
     public int ID
@@ -84,6 +88,11 @@ public class CreatureLogic: ICharacter
     public CreatureLogic(Player owner, CardAsset ca)
     {
         this.ca = ca;
+
+        //DS
+        abilities = ca.Abilities;
+
+
         baseHealth = ca.MaxHealth;
         Health = ca.MaxHealth;
         baseAttack = ca.Attack;
