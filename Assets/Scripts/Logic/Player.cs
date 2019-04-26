@@ -167,14 +167,12 @@ public class Player : MonoBehaviour, ICharacter
         GetComponent<TurnMaker>().StopAllCoroutines();
 
         //Check if Game Over - all creatures empty
-        if(CheckIfGameOver()){
-            Die();            
-        }
+        CheckIfGameOver();
 
         //cl active this turn needs to have attacksleft this turn set to 0
     }
 
-    public bool CheckIfGameOver()
+    public void CheckIfGameOver()
     {
 
       isDeadStatus.Clear();
@@ -189,9 +187,12 @@ public class Player : MonoBehaviour, ICharacter
       } 
 
         if(!isDeadStatus.Contains(false))
-            return true;
-        else
-            return false;
+            Die();
+            //return true;
+        else if(!otherPlayer.isDeadStatus.Contains(false))
+            otherPlayer.Die();
+            //return true;
+        
 
     }//Check if Game is Over
 

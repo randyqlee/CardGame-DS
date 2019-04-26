@@ -134,6 +134,11 @@ public class CreatureLogic: ICharacter
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();
     }
 
+    
+
+
+
+
     public void GoFace()
     {
         AttacksLeftThisTurn--;
