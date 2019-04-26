@@ -10,7 +10,7 @@ public class BiteOwner : CreatureEffect
     {
         owner.EndTurnEvent += CauseEventEffect;
         //owner.otherPlayer.EndTurnEvent += CauseEventEffect;
-        Debug.Log("Registered bite effect!!!!");
+        //Debug.Log("Registered bite effect!!!!");
     }
 
     public override void UnRegisterEventEffect()
@@ -20,7 +20,7 @@ public class BiteOwner : CreatureEffect
 
     public override void CauseEventEffect()
     {
-        Debug.Log("InCauseEffect: owner: "+ owner + " specialAmount: "+ specialAmount);
+        //Debug.Log("InCauseEffect: owner: "+ owner + " specialAmount: "+ specialAmount);
         new DealDamageCommand(owner.PlayerID, specialAmount, owner.Health - specialAmount).AddToQueue();
         owner.Health -= specialAmount;
     }

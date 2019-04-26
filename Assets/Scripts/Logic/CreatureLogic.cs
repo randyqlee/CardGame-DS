@@ -11,6 +11,7 @@ public class CreatureLogic: ICharacter
     public CreatureEffect effect;
     public int UniqueCreatureID;
     public bool Frozen = false;
+    public bool isDead;
 
     // PROPERTIES
     // property from ICharacter interface
@@ -110,9 +111,17 @@ public class CreatureLogic: ICharacter
         AttacksLeftThisTurn = attacksForOneTurn;
     }
 
+    public void OnTurnEnd(){
+        AttacksLeftThisTurn = 0;
+    }
+
     public void Die()
     {   
-        owner.table.CreaturesOnTable.Remove(this);
+        //ORIGINAL SCRIPT
+        //owner.table.CreaturesOnTable.Remove(this);
+
+        //New SCRIPT
+        this.isDead = true;
 
         // cause Deathrattle Effect
         if (effect != null)

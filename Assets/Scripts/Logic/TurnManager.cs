@@ -134,6 +134,10 @@ public class TurnManager : MonoBehaviour {
         // send all commands in the end of current player`s turn
         whoseTurn.OnTurnEnd();
 
+        //New SCRIPT - also end each creature's turn
+        foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)        
+             cl.OnTurnEnd();
+
         new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
     }
 

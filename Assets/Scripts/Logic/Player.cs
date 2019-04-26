@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour, ICharacter
 {
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour, ICharacter
 
     // this value used exclusively for our coin spell
     private int bonusManaThisTurn = 0;
+    private int creatureTurn = 0;
+    private List<bool> isDeadStatus = new List<bool>();
 
 
     // PROPERTIES 
@@ -127,15 +130,33 @@ public class Player : MonoBehaviour, ICharacter
     public virtual void OnTurnStart()
     {
         // add one mana crystal to the pool;
-        Debug.Log("In ONTURNSTART for "+ gameObject.name);
+        //Debug.Log("In ONTURNSTART for "+ gameObject.name);
         usedHeroPowerThisTurn = false;
         ManaThisTurn++;
         ManaLeft = ManaThisTurn;
-        foreach (CreatureLogic cl in table.CreaturesOnTable)
-        //foreach (HeroLogic cl in table.CreaturesOnTable)
-            cl.OnTurnStart();
+        
+        //ORIGINAL SCRIPT
+        // foreach (CreatureLogic cl in table.CreaturesOnTable)        
+        //     cl.OnTurnStart();
+        // PArea.HeroPower.WasUsedThisTurn = false;
+
+        //logic to check if creature not dead
+        
+        
+        Debug.Log("Creature Index: " +creatureTurn);       
+               
+      table.CreaturesOnTable[creatureTurn].OnTurnStart();
+
+        if(creatureTurn < table.CreaturesOnTable.Count)
+            creatureTurn++;            
+        if(creatureTurn >= table.CreaturesOnTable.Count)
+            creatureTurn = 0;
+                             
+               
         PArea.HeroPower.WasUsedThisTurn = false;
     }
+
+    
 
     public void OnTurnEnd()
     {
@@ -144,7 +165,35 @@ public class Player : MonoBehaviour, ICharacter
         ManaThisTurn -= bonusManaThisTurn;
         bonusManaThisTurn = 0;
         GetComponent<TurnMaker>().StopAllCoroutines();
+
+        //Check if Game Over - all creatures empty
+        if(CheckIfGameOver()){
+            Die();            
+        }
+
+        //cl active this turn needs to have attacksleft this turn set to 0
     }
+
+    public bool CheckIfGameOver()
+    {
+
+      isDeadStatus.Clear();
+      otherPlayer.isDeadStatus.Clear();
+
+      foreach(CreatureLogic cl in table.CreaturesOnTable){
+          isDeadStatus.Add(cl.isDead);     
+      } 
+
+      foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable){
+          otherPlayer.isDeadStatus.Add(cl.isDead);     
+      } 
+
+        if(!isDeadStatus.Contains(false))
+            return true;
+        else
+            return false;
+
+    }//Check if Game is Over
 
     // STUFF THAT OUR PLAYER CAN DO
 

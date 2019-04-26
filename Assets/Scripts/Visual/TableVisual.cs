@@ -145,11 +145,17 @@ public class TableVisual : MonoBehaviour
                 
         //    });
         GameObject creatureToRemove = IDHolder.GetGameObjectWithID(IDToRemove);
-        CreaturesOnTable.Remove(creatureToRemove);
-        Destroy(creatureToRemove);
+        
+        //ORIGINAL SCRIPT
+        // CreaturesOnTable.Remove(creatureToRemove);
+        // Destroy(creatureToRemove);
+        // ShiftSlotsGameObjectAccordingToNumberOfCreatures();
+        // PlaceCreaturesOnNewSlots();
 
-        ShiftSlotsGameObjectAccordingToNumberOfCreatures();
-        PlaceCreaturesOnNewSlots();
+        //New SCRIPT
+        creatureToRemove.SetActive(false);
+
+
         Command.CommandExecutionComplete();
     }
 
