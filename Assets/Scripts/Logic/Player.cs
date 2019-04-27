@@ -204,6 +204,10 @@ public class Player : MonoBehaviour, ICharacter
         //CheckIfGameOver();
 
         //cl active this turn needs to have attacksleft this turn set to 0
+
+        //DS
+        HighlightPlayableCards(true);
+        
     }
 
     public void CheckIfGameOver()
