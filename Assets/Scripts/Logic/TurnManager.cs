@@ -138,6 +138,7 @@ public class TurnManager : MonoBehaviour {
 
         //New SCRIPT - also end each creature's turn
         foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)        
+             if(cl.isActive)
              cl.OnTurnEnd();
 
         new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();

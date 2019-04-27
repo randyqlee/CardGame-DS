@@ -31,6 +31,7 @@ public class Player : MonoBehaviour, ICharacter
     private int bonusManaThisTurn = 0;
     private int creatureTurn = 0;
     private List<bool> isDeadStatus = new List<bool>();
+    private bool gameIsOver = false;
 
 
     // PROPERTIES 
@@ -103,8 +104,10 @@ public class Player : MonoBehaviour, ICharacter
                 health = charAsset.MaxHealth;
             else
                 health = value;
-            if (value <= 0)
-                Die(); 
+            
+            //DS
+            // if (value <= 0)
+            //     Die(); 
         }
     }
 
@@ -144,18 +147,31 @@ public class Player : MonoBehaviour, ICharacter
         
         //DS
         //Iterate through Creatures on table so that only 1 creature gets active each turn
-        Debug.Log("Creature Index: " +creatureTurn);       
+       // Debug.Log("Creature Index: " +creatureTurn);       
                
-      table.CreaturesOnTable[creatureTurn].OnTurnStart();
+      
+      //DS
+       if(!gameIsOver)
+       {
+           while(table.CreaturesOnTable[creatureTurn].isDead){
+            if(creatureTurn < table.CreaturesOnTable.Count)
+                creatureTurn++;            
+            if(creatureTurn >= table.CreaturesOnTable.Count)
+                creatureTurn = 0;
+           }
 
-        if(creatureTurn < table.CreaturesOnTable.Count)
-            creatureTurn++;            
-        if(creatureTurn >= table.CreaturesOnTable.Count)
-            creatureTurn = 0;
+            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
+            if(creatureTurn < table.CreaturesOnTable.Count)
+                creatureTurn++;            
+            if(creatureTurn >= table.CreaturesOnTable.Count)
+                creatureTurn = 0;
+       }     
+      
+      //table.CreaturesOnTable[creatureTurn].OnTurnStart();    
                              
                
         PArea.HeroPower.WasUsedThisTurn = false;
-        
+
         //DS
         HighlightPlayableCards();
     }
@@ -171,7 +187,7 @@ public class Player : MonoBehaviour, ICharacter
         GetComponent<TurnMaker>().StopAllCoroutines();
 
         //Check if Game Over - all creatures empty
-        CheckIfGameOver();
+        //CheckIfGameOver();
 
         //cl active this turn needs to have attacksleft this turn set to 0
     }
@@ -179,6 +195,7 @@ public class Player : MonoBehaviour, ICharacter
     public void CheckIfGameOver()
     {
 
+      
       isDeadStatus.Clear();
       otherPlayer.isDeadStatus.Clear();
 
@@ -339,6 +356,7 @@ public class Player : MonoBehaviour, ICharacter
     {
         // game over
         // block both players from taking new moves 
+        gameIsOver = true;
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;
         TurnManager.Instance.StopTheTimer();

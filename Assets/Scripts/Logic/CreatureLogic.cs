@@ -12,11 +12,13 @@ public class CreatureLogic: ICharacter
     public int UniqueCreatureID;
     public bool Frozen = false;
     public bool isDead;
+    public bool isActive;
 
     //DS
     //Adding Abilities
-    public List<CardAsset> abilities;
-
+    public List<CardAsset> abilities;  
+    
+    
     // PROPERTIES
     // property from ICharacter interface
     public int ID
@@ -113,22 +115,27 @@ public class CreatureLogic: ICharacter
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
     }
 
+    
     // METHODS
     public void OnTurnStart()
     {
         // will be granted by Player
-        AttacksLeftThisTurn = attacksForOneTurn;
+        isActive = true;
+        AttacksLeftThisTurn = attacksForOneTurn; 
+                
     }
 
     public void OnTurnEnd(){
+        isActive = false;
         AttacksLeftThisTurn = 0;
+              
     }
 
     public void Die()
     {   
         //ORIGINAL SCRIPT
-        //owner.table.CreaturesOnTable.Remove(this);
-
+        //owner.table.CreaturesOnTable.Remove(this);        
+        
         //New SCRIPT
         this.isDead = true;
 
@@ -140,13 +147,12 @@ public class CreatureLogic: ICharacter
             effect = null;
         }
 
-        new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();
+        new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();  
+
+        owner.CheckIfGameOver();   
+
+        
     }
-
-    
-
-
-
 
     public void GoFace()
     {

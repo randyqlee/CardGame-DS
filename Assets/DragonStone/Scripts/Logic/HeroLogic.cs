@@ -36,8 +36,13 @@ public class HeroLogic : ICharacter {
         {
             if (value > MaxHealth)
                 health = MaxHealth;
-            else if (value <= 0)
-                Die();
+            
+            //DS 
+            //Players Do not die due to Health
+            // else if (value <= 0)
+            //     Die();
+
+
             else
                 health = value;
         }
