@@ -29,9 +29,10 @@ public class Command
         else
             playingQueue = false;
         if (TurnManager.Instance.whoseTurn != null) 
+        {}
         //DS
         //comment out
-            TurnManager.Instance.whoseTurn.HighlightPlayableCards();
+        //    TurnManager.Instance.whoseTurn.HighlightPlayableCards();
     }
 
     public static void PlayFirstCommandFromQueue()

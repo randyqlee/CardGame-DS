@@ -54,11 +54,14 @@ public class CreatureLogic: ICharacter
     // returns true if we can attack with this creature now
     public bool CanAttack
     {
+
         get
         {
             bool ownersTurn = (TurnManager.Instance.whoseTurn == owner);
             return (ownersTurn && (AttacksLeftThisTurn > 0) && !Frozen);
         }
+        
+        
     }
 
     // property for Attack

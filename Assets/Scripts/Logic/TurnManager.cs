@@ -38,10 +38,10 @@ public class TurnManager : MonoBehaviour {
             tm.OnTurnStart();
             if (tm is PlayerTurnMaker)
             {
-                whoseTurn.HighlightPlayableCards();
+            //DS    whoseTurn.HighlightPlayableCards();
             }
             // remove highlights for opponent.
-            whoseTurn.otherPlayer.HighlightPlayableCards(true);
+            //DS whoseTurn.otherPlayer.HighlightPlayableCards(true);
                 
         }
     }
@@ -104,7 +104,12 @@ public class TurnManager : MonoBehaviour {
 
                     whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
+
                 }
+
+
+                //DS
+                
 
 
                 // add one more card to second player`s hand
@@ -114,6 +119,7 @@ public class TurnManager : MonoBehaviour {
                 //whoGoesSecond.GetACardNotFromDeck(CoinCard);
                 new StartATurnCommand(whoGoesFirst).AddToQueue();
             });
+
     }
 
     void Update()

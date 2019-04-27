@@ -15,6 +15,8 @@ public class CardLogic: IIdentifiable
     // a script of type spell effect that will be attached to this card when it`s created
     public SpellEffect effect;
 
+    //DS
+    public int heroID;
 
     // STATIC (for managing IDs)
     public static Dictionary<int, CardLogic> CardsCreatedThisGame = new Dictionary<int, CardLogic>();
