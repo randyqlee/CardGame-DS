@@ -18,6 +18,8 @@ public class CreatureLogic: ICharacter
     //Adding Abilities
     public List<CardAsset> abilities; 
     public List<CreatureEffect> creatureEffects; 
+
+    public List<BuffEffect> buffEffects; 
     
     
     // PROPERTIES
@@ -117,7 +119,10 @@ public class CreatureLogic: ICharacter
             effect.RegisterEventEffect();
         }
 
+        //DS
+        //placeholder for effects
         creatureEffects = new List<CreatureEffect>();
+        buffEffects = new List<BuffEffect>();
 
         //DS
         //Add activator for abilities
