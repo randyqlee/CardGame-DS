@@ -12,6 +12,8 @@ public abstract class CreatureEffect
         this.creature = creature;
         this.owner = owner;
         this.specialAmount = specialAmount;
+
+        Debug.Log ("Activating: " + this.ToString() + " with Cooldown: " + this.specialAmount);
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS

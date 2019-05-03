@@ -31,9 +31,13 @@ public class CardAsset : ScriptableObject
     public string CreatureScriptName;
     public int specialCreatureAmount;
 
+
+
     //DS
     [Header("Abilities")]
     public List<CardAsset> Abilities;
+
+    public List<AbilityEffect> abilityEffect; 
     //DS
 
     [Header("SpellInfo")]

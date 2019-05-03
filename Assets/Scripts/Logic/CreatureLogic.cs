@@ -115,6 +115,25 @@ public class CreatureLogic: ICharacter
             effect = System.Activator.CreateInstance(System.Type.GetType(ca.CreatureScriptName), new System.Object[]{owner, this, ca.specialCreatureAmount}) as CreatureEffect;
             effect.RegisterEventEffect();
         }
+
+        //DS
+        //Add activator for abilities
+        if (ca.abilityEffect != null)
+        {
+            foreach (AbilityEffect ae in ca.abilityEffect)
+            {
+                if (ae.CreatureScriptName != null && ae.CreatureScriptName != "")
+                {
+                    effect = System.Activator.CreateInstance(System.Type.GetType(ae.CreatureScriptName), new System.Object[]{owner, this, ae.coolDown}) as CreatureEffect;
+                    effect.RegisterEventEffect();
+                }
+            }
+        }
+
+        //DS
+
+
+
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
     }
 
