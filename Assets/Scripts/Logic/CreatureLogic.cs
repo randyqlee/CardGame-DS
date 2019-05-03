@@ -16,7 +16,8 @@ public class CreatureLogic: ICharacter
 
     //DS
     //Adding Abilities
-    public List<CardAsset> abilities;  
+    public List<CardAsset> abilities; 
+    public List<CreatureEffect> creatureEffects; 
     
     
     // PROPERTIES
@@ -116,6 +117,8 @@ public class CreatureLogic: ICharacter
             effect.RegisterEventEffect();
         }
 
+        creatureEffects = new List<CreatureEffect>();
+
         //DS
         //Add activator for abilities
         if (ca.abilityEffect != null)
@@ -126,6 +129,7 @@ public class CreatureLogic: ICharacter
                 {
                     effect = System.Activator.CreateInstance(System.Type.GetType(ae.CreatureScriptName), new System.Object[]{owner, this, ae.coolDown}) as CreatureEffect;
                     effect.RegisterEventEffect();
+                    creatureEffects.Add(effect);
                 }
             }
         }
@@ -144,6 +148,13 @@ public class CreatureLogic: ICharacter
         // will be granted by Player
         isActive = true;
         AttacksLeftThisTurn = attacksForOneTurn; 
+
+        foreach(CreatureEffect ce in creatureEffects)
+        {
+            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.specialAmount);
+
+        }
+
                 
     }
 
@@ -205,6 +216,15 @@ public class CreatureLogic: ICharacter
         
         //originally enabled
         //Health -= target.Attack;
+
+
+        //DS
+        foreach(CreatureEffect ce in creatureEffects)
+        {
+            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
+            if(ce.specialAmount == 0)
+                Debug.Log ("CreatureEffect: " + ce.ToString());
+        }
     }
 
     public void AttackCreatureWithID(int uniqueCreatureID)

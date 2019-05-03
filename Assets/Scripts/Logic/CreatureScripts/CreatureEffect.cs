@@ -5,15 +5,16 @@ public abstract class CreatureEffect
 {
     protected Player owner;
     protected CreatureLogic creature;
-    protected int specialAmount;
+    //protected int specialAmount;
+
+    //DS
+    public int specialAmount;
 
     public CreatureEffect(Player owner, CreatureLogic creature, int specialAmount)
     {
         this.creature = creature;
         this.owner = owner;
         this.specialAmount = specialAmount;
-
-        Debug.Log ("Activating: " + this.ToString() + " with Cooldown: " + this.specialAmount);
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
