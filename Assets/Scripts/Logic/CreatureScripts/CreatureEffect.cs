@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class CreatureEffect 
+[System.Serializable]
+public abstract class CreatureEffect
 {
     protected Player owner;
     protected CreatureLogic creature;
-    //protected int specialAmount;
+    //protected int creatureEffectCooldown;
 
     //DS
-    public int specialAmount;
+    public int creatureEffectCooldown;
+    public int remainingCooldown;
+   
 
-    public CreatureEffect(Player owner, CreatureLogic creature, int specialAmount)
+   
+    public CreatureEffect(Player owner, CreatureLogic creature, int creatureEffectCooldown)
     {
         this.creature = creature;
         this.owner = owner;
-        this.specialAmount = specialAmount;
+        this.creatureEffectCooldown = creatureEffectCooldown;
+        
+        //initialize remaining cooldown
+        remainingCooldown = creatureEffectCooldown;
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
@@ -29,6 +36,5 @@ public abstract class CreatureEffect
 
     // DEATHRATTLE
     public virtual void WhenACreatureDies(){}
-
 
 }

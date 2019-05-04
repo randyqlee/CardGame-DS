@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestBuff : BuffEffect {
 
 
-    public TestBuff(Player owner, CreatureLogic creature, int specialAmount): base(owner, creature, specialAmount)
+    public TestBuff(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
    public override void RegisterEventEffect()
@@ -22,8 +22,8 @@ public class TestBuff : BuffEffect {
     {
         if (creature.isActive == true)
         {
-            if (specialAmount > 0)
-                specialAmount -= 1;
+            if (creatureEffectCooldown > 0)
+                creatureEffectCooldown -= 1;
         }
     }		
 	

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class CreatureLogic: ICharacter 
+public class CreatureLogic: ICharacter
 {
     // PUBLIC FIELDS
     public Player owner;
@@ -16,10 +16,17 @@ public class CreatureLogic: ICharacter
 
     //DS
     //Adding Abilities
-    public List<CardAsset> abilities; 
-    public List<CreatureEffect> creatureEffects; 
+    public List<CardAsset> abilities;    
+    
+    [SerializeField]
+    public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
-    public List<BuffEffect> buffEffects; 
+    public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
+
+   public delegate void CreatureOnTurnStart();    
+    public event CreatureOnTurnStart e_CreatureOnTurnStart;
+
+    
     
     
     // PROPERTIES
@@ -113,16 +120,17 @@ public class CreatureLogic: ICharacter
 
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID();
-        if (ca.CreatureScriptName!= null && ca.CreatureScriptName!= "")
-        {
-            effect = System.Activator.CreateInstance(System.Type.GetType(ca.CreatureScriptName), new System.Object[]{owner, this, ca.specialCreatureAmount}) as CreatureEffect;
-            effect.RegisterEventEffect();
-        }
+        
+        // if (ca.CreatureScriptName!= null && ca.CreatureScriptName!= "")
+        // {
+        //     effect = System.Activator.CreateInstance(System.Type.GetType(ca.CreatureScriptName), new System.Object[]{owner, this, ca.specialCreatureAmount}) as CreatureEffect;
+        //     effect.RegisterEventEffect();
+        // }
 
         //DS
         //placeholder for effects
-        creatureEffects = new List<CreatureEffect>();
-        buffEffects = new List<BuffEffect>();
+        // creatureEffects = new List<CreatureEffect>();
+        // buffEffects = new List<BuffEffect>();
 
         //DS
         //Add activator for abilities
@@ -154,18 +162,38 @@ public class CreatureLogic: ICharacter
         isActive = true;
         AttacksLeftThisTurn = attacksForOneTurn; 
 
+        //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects
+
+        //TODO:  Check Stun, Skip Turn.  Don't load Effects and EndTurn.
+
+        //TODO: Buff/Debuff effects (like Poison, Heal)
+       
+        //TODO:  CreatureEffect Cooldown Reduction
         foreach(CreatureEffect ce in creatureEffects)
         {
-            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.specialAmount);
-
+            if(ce.remainingCooldown > 0)
+                ce.remainingCooldown--;
+            else
+                ce.remainingCooldown = ce.creatureEffectCooldown;            
         }
 
+         //TODO:  Ability Effects (BattleCry, etc.)
+        foreach(CreatureEffect ce in creatureEffects)
+        {
+            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
+        }
+
+        if(e_CreatureOnTurnStart != null)
+            e_CreatureOnTurnStart.Invoke();
                 
     }
 
     public void OnTurnEnd(){
         isActive = false;
         AttacksLeftThisTurn = 0;
+
+        //TODO:  Buff Duration Reduction
+        
               
     }
 
@@ -181,8 +209,10 @@ public class CreatureLogic: ICharacter
         if (effect != null)
         {
             effect.WhenACreatureDies();
-            effect.UnRegisterEventEffect();
+            effect.UnRegisterEventEffect();            
             effect = null;
+            
+            creatureEffects.Clear();
         }
 
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();  
@@ -227,7 +257,7 @@ public class CreatureLogic: ICharacter
         foreach(CreatureEffect ce in creatureEffects)
         {
             Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
-            if(ce.specialAmount == 0)
+            if(ce.creatureEffectCooldown == 0)
                 Debug.Log ("CreatureEffect: " + ce.ToString());
         }
     }
@@ -238,6 +268,8 @@ public class CreatureLogic: ICharacter
         AttackCreature(target);
     }
 
+
+    
     // STATIC For managing IDs
     public static Dictionary<int, CreatureLogic> CreaturesCreatedThisGame = new Dictionary<int, CreatureLogic>();
 

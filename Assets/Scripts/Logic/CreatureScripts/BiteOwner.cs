@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BiteOwner : CreatureEffect
 {  
-    public BiteOwner(Player owner, CreatureLogic creature, int specialAmount): base(owner, creature, specialAmount)
+    public BiteOwner(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
     public override void RegisterEventEffect()
@@ -20,9 +20,9 @@ public class BiteOwner : CreatureEffect
 
     public override void CauseEventEffect()
     {
-        //Debug.Log("InCauseEffect: owner: "+ owner + " specialAmount: "+ specialAmount);
-        new DealDamageCommand(owner.PlayerID, specialAmount, owner.Health - specialAmount).AddToQueue();
-        owner.Health -= specialAmount;
+        //Debug.Log("InCauseEffect: owner: "+ owner + " creatureEffectCooldown: "+ creatureEffectCooldown);
+        new DealDamageCommand(owner.PlayerID, creatureEffectCooldown, owner.Health - creatureEffectCooldown).AddToQueue();
+        owner.Health -= creatureEffectCooldown;
     }
 
 

@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class OasisBlessing : CreatureEffect {
 
-	public OasisBlessing(Player owner, CreatureLogic creature, int specialAmount): base(owner, creature, specialAmount)
+	public OasisBlessing(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
 
    public override void RegisterEventEffect()
     {
-        owner.EndTurnEvent += CauseEventEffect;
+        creature.e_CreatureOnTurnStart += CauseEventEffect;
     }
 
     public override void UnRegisterEventEffect()
     {
-        owner.EndTurnEvent -= CauseEventEffect;
+        creature.e_CreatureOnTurnStart -= CauseEventEffect;
     }
 
     public override void CauseEventEffect()
     {
-        if (creature.isActive == true)
-        {
-            if (specialAmount > 0)
-                specialAmount -= 1;
-        }
+        if(remainingCooldown <=0)
+        Debug.Log("Activate Effect: " +this.ToString());
     }
 }
