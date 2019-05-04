@@ -78,9 +78,9 @@ public class TurnManager : MonoBehaviour {
         }
 
         Sequence s = DOTween.Sequence();
-        s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 1f).SetEase(Ease.InQuad));
-        s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 1f).SetEase(Ease.InQuad));
-        s.PrependInterval(3f);
+        s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        s.PrependInterval(0.5f);
         s.OnComplete(() =>
             {
                 // determine who starts the game.

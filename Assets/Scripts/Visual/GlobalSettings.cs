@@ -17,6 +17,9 @@ public class GlobalSettings: MonoBehaviour
     public float CardTransitionTime= 1f;
     public float CardPreviewTimeFast = 0.2f;
     public float CardTransitionTimeFast = 0.5f;
+    public float MessageTime = 0.2f;
+
+
     [Header("Prefabs and Assets")]
     public GameObject NoTargetSpellCardPrefab;
     public GameObject TargetedSpellCardPrefab;
