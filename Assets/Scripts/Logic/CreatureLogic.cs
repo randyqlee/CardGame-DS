@@ -26,6 +26,9 @@ public class CreatureLogic: ICharacter
    public delegate void CreatureOnTurnStart();    
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
 
+    public delegate void CreatureOnTurnEnd();    
+    public event CreatureOnTurnEnd e_CreatureOnTurnEnd;
+
     
     
     
@@ -119,19 +122,8 @@ public class CreatureLogic: ICharacter
         //     AttacksLeftThisTurn = attacksForOneTurn;
 
         this.owner = owner;
-        UniqueCreatureID = IDFactory.GetUniqueID();
-        
-        // if (ca.CreatureScriptName!= null && ca.CreatureScriptName!= "")
-        // {
-        //     effect = System.Activator.CreateInstance(System.Type.GetType(ca.CreatureScriptName), new System.Object[]{owner, this, ca.specialCreatureAmount}) as CreatureEffect;
-        //     effect.RegisterEventEffect();
-        // }
-
-        //DS
-        //placeholder for effects
-        // creatureEffects = new List<CreatureEffect>();
-        // buffEffects = new List<BuffEffect>();
-
+        UniqueCreatureID = IDFactory.GetUniqueID();        
+       
         //DS
         //Add activator for abilities
         if (ca.abilityEffect != null)
@@ -141,6 +133,7 @@ public class CreatureLogic: ICharacter
                 if (ae.CreatureScriptName != null && ae.CreatureScriptName != "")
                 {
                     effect = System.Activator.CreateInstance(System.Type.GetType(ae.CreatureScriptName), new System.Object[]{owner, this, ae.coolDown}) as CreatureEffect;
+                    effect.RegisterCooldown();
                     effect.RegisterEventEffect();
                     creatureEffects.Add(effect);
                 }
@@ -148,8 +141,6 @@ public class CreatureLogic: ICharacter
         }
 
         //DS
-
-
 
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
     }
@@ -168,23 +159,14 @@ public class CreatureLogic: ICharacter
 
         //TODO: Buff/Debuff effects (like Poison, Heal)
        
-        //TODO:  CreatureEffect Cooldown Reduction
-        foreach(CreatureEffect ce in creatureEffects)
-        {
-            if(ce.remainingCooldown > 0)
-                ce.remainingCooldown--;
-            else
-                ce.remainingCooldown = ce.creatureEffectCooldown;            
-        }
+        if(e_CreatureOnTurnStart != null)
+            e_CreatureOnTurnStart.Invoke();
 
          //TODO:  Ability Effects (BattleCry, etc.)
         foreach(CreatureEffect ce in creatureEffects)
         {
             Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
         }
-
-        if(e_CreatureOnTurnStart != null)
-            e_CreatureOnTurnStart.Invoke();
                 
     }
 
@@ -192,8 +174,11 @@ public class CreatureLogic: ICharacter
         isActive = false;
         AttacksLeftThisTurn = 0;
 
-        //TODO:  Buff Duration Reduction
+        //TODO:  End of Turn Effects
+        if(e_CreatureOnTurnEnd != null)
+            e_CreatureOnTurnEnd.Invoke();
         
+        //TODO:  Buff Duration Reduction          
               
     }
 
@@ -209,7 +194,8 @@ public class CreatureLogic: ICharacter
         if (effect != null)
         {
             effect.WhenACreatureDies();
-            effect.UnRegisterEventEffect();            
+            effect.UnRegisterEventEffect();
+            effect.UnregisterCooldown();            
             effect = null;
             
             creatureEffects.Clear();
@@ -266,8 +252,7 @@ public class CreatureLogic: ICharacter
     {
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         AttackCreature(target);
-    }
-
+    }   
 
     
     // STATIC For managing IDs

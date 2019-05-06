@@ -25,7 +25,10 @@ public abstract class CreatureEffect
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
-    public virtual void RegisterEventEffect(){}
+    public virtual void RegisterEventEffect()
+    {
+        
+    }
 
     public virtual void UnRegisterEventEffect(){}
 
@@ -36,5 +39,24 @@ public abstract class CreatureEffect
 
     // DEATHRATTLE
     public virtual void WhenACreatureDies(){}
+
+    public virtual void RegisterCooldown()
+    {
+        creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+    }
+
+    public virtual void UnregisterCooldown()
+    {
+        creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+    }
+
+    public void ReduceCreatureEffectCooldown()
+    {       
+        if(remainingCooldown > 0)
+            remainingCooldown--;
+        else
+            remainingCooldown = creatureEffectCooldown;            
+    }
+    
 
 }

@@ -121,9 +121,7 @@ public class Player : MonoBehaviour, ICharacter
     //public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
 
-    public delegate void CreatureOnTurnStart();
-    
-    public event CreatureOnTurnStart e_CreatureOnTurnStart;
+   
 
 
     // ALL METHODS

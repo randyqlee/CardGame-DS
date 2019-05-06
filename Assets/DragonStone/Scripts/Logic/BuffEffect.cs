@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuffEffect : CreatureEffect {
 
-    public BuffEffect(Player owner, CreatureLogic creature, int specialAmount): base(owner, creature, specialAmount)
+    public BuffEffect(Player owner, CreatureLogic creature, int buffCooldown): base(owner, creature, buffCooldown)
     {}
 
 }
