@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DecreaseAttack : BuffEffect {
 
-	public DecreaseAttack(Player owner, CreatureLogic creature, int buffCooldown): base(owner, creature, buffCooldown)
+	public DecreaseAttack(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {}
 
     

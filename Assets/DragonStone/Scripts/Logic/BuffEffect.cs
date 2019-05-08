@@ -3,15 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BuffEffect : CreatureEffect {
+public class BuffEffect {
 
+    public CreatureLogic source;
+    public CreatureLogic target;
     public int buffCooldown;
-    public BuffEffect(Player owner, CreatureLogic creature, int buffCooldown): base(owner, creature, buffCooldown)
+    public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {
-        this.creature = creature;
-        this.owner = owner;
+        this.source = source;
+        this.target = target;
         this.buffCooldown = buffCooldown;
 
+    }
+
+    public virtual void RegisterCooldown()
+    {
+        target.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+    }
+
+    public virtual void UnregisterCooldown()
+    {
+        target.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+    }
+
+    public void ReduceCreatureEffectCooldown()
+    {       
+        if(buffCooldown > 0)
+            buffCooldown--;
+        // else remove buff
+                        
     }
 
 }

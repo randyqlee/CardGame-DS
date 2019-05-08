@@ -5,6 +5,10 @@ using UnityEngine;
 public class TestBuff : BuffEffect {
 
 
+    public TestBuff(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
+    {}
+
+/*
     public TestBuff(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
@@ -26,5 +30,5 @@ public class TestBuff : BuffEffect {
                 creatureEffectCooldown -= 1;
         }
     }		
-	
+*/	
 }

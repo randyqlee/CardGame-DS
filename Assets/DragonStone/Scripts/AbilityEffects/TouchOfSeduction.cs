@@ -30,7 +30,7 @@ public class TouchOfSeduction : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {
-        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType("DecreaseAttack"), new System.Object[]{owner, target, buffCooldown}) as BuffEffect;
+        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType("DecreaseAttack"), new System.Object[]{creature, target, buffCooldown}) as BuffEffect;
         target.buffEffects.Add(buffEffect);
         
     }
