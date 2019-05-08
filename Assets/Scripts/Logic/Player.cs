@@ -375,6 +375,10 @@ public class Player : MonoBehaviour, ICharacter
         // Debug.Log("Mana Left after played a creature: " + ManaLeft);
         // create a new creature object and add it to Table
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
+
+        //DS
+        GameObject.Find("CardLogic").GetComponent<AllCardLogic>().creatureLogic.Add(newCreature);
+
         //HeroLogic newCreature = new HeroLogic(this, playedCard.ca);
         table.CreaturesOnTable.Insert(tablePos, newCreature);
         // 

@@ -2,11 +2,18 @@
 using System.Collections;
 
 [System.Serializable]
-public abstract class CreatureEffect
+
+//DS
+public class CreatureEffect
+//public abstract class CreatureEffect
 {
-    protected Player owner;
-    protected CreatureLogic creature;
+    //protected Player owner;
+    //protected CreatureLogic creature;
     //protected int creatureEffectCooldown;
+
+    //DS
+    public Player owner;
+    public CreatureLogic creature;
 
     //DS
     public int creatureEffectCooldown;
@@ -57,6 +64,17 @@ public abstract class CreatureEffect
         else
             remainingCooldown = creatureEffectCooldown;            
     }
-    
+
+    //DS
+    //Use ability overrides
+    public virtual void UseEffect(CreatureLogic target)
+    {
+
+    }
+
+    public virtual void UseEffect(int uniqueCreatureID)
+    {
+
+    }     
 
 }

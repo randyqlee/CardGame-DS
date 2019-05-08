@@ -18,10 +18,13 @@ public class CreatureLogic: ICharacter
     //Adding Abilities
     public List<CardAsset> abilities;    
     
-    [SerializeField]
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
     public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
+
+    //public List<CreatureEffect> creatureEffects; 
+
+    //public List<BuffEffect> buffEffects;
 
    public delegate void CreatureOnTurnStart();    
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
@@ -122,7 +125,13 @@ public class CreatureLogic: ICharacter
         //     AttacksLeftThisTurn = attacksForOneTurn;
 
         this.owner = owner;
-        UniqueCreatureID = IDFactory.GetUniqueID();        
+        UniqueCreatureID = IDFactory.GetUniqueID(); 
+
+        //DS
+
+        //creatureEffects = new List<CreatureEffect>(); 
+
+        //buffEffects = new List<BuffEffect>();        
        
         //DS
         //Add activator for abilities
@@ -233,18 +242,23 @@ public class CreatureLogic: ICharacter
         //set target attack to 0 to reflect non-damage for the attacker
         new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, 0, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
-        target.Health -= Attack;
+        //target.Health -= Attack;
         
         //originally enabled
         //Health -= target.Attack;
 
+ 
 
         //DS
         foreach(CreatureEffect ce in creatureEffects)
         {
             Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
             if(ce.creatureEffectCooldown == 0)
-                Debug.Log ("CreatureEffect: " + ce.ToString());
+            {
+                Debug.Log ("Using CreatureEffect: " + ce.ToString());
+                ce.UseEffect(target);
+
+            }
         }
     }
 
