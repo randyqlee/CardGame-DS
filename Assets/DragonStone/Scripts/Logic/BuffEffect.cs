@@ -16,6 +16,11 @@ public class BuffEffect {
 
     }
 
+    ~BuffEffect()
+    {
+        Debug.Log("Buffeffect destroyed");
+    }
+
     public virtual void RegisterCooldown()
     {
         target.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
@@ -30,8 +35,16 @@ public class BuffEffect {
     {       
         if(buffCooldown > 0)
             buffCooldown--;
-        // else remove buff
+        if(buffCooldown == 0)
+            RemoveBuff();
                         
+    }
+
+    public void RemoveBuff()
+    {
+        UnregisterCooldown();
+        target.buffEffects.Remove(this);
+
     }
 
 }

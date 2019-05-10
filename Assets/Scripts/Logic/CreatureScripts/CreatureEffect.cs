@@ -75,6 +75,20 @@ public class CreatureEffect
     public virtual void UseEffect(int uniqueCreatureID)
     {
 
+    }
+
+    public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
+    {
+        //the BuffEffect will be instantiated here
+        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{creature, target, buffCooldown}) as BuffEffect;
+        
+        //the logic of adding buff to the CReatureLogic will be in a method at CreatureLogic
+        target.AddBuff(buffEffect);
+    }
+
+    public virtual void RemoveBuff(CreatureLogic target, BuffEffect buff)
+    {
+
     }     
 
 }

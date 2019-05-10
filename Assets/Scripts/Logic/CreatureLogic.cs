@@ -266,7 +266,43 @@ public class CreatureLogic: ICharacter
     {
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         AttackCreature(target);
+    }
+
+    public void AddBuff(BuffEffect buff)
+    {
+        bool buffExists = false;
+
+        //check if same buff already exists, just update the buff
+        foreach (BuffEffect be in buffEffects)
+        {
+            if (be.GetType().Name == buff.GetType().Name)
+            {
+                be.source = buff.source;
+                be.target = buff.target;
+                
+                if (be.buffCooldown < buff.buffCooldown)
+                    be.buffCooldown = buff.buffCooldown;
+
+                buffExists = true;
+            }
+
+        }
+
+        //if buff is new, add it to the CL
+
+        if (!buffExists)
+        {
+            buff.RegisterCooldown();
+            buffEffects.Add(buff);
+        }
+        
+
     }   
+
+    public void RemoveBuff(BuffEffect buff)
+    {
+
+    }
 
     
     // STATIC For managing IDs

@@ -7,6 +7,7 @@ using UnityEngine;
 public class TouchOfSeduction : CreatureEffect {
 
     public int buffCooldown = 2;
+
     public TouchOfSeduction(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
@@ -30,9 +31,9 @@ public class TouchOfSeduction : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {
-        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType("DecreaseAttack"), new System.Object[]{creature, target, buffCooldown}) as BuffEffect;
-        target.buffEffects.Add(buffEffect);
-        
+        //AddBuff will be called from parent CreatureEffect
+        AddBuff(target,"DecreaseAttack",buffCooldown);
+       
     }
 
 }
