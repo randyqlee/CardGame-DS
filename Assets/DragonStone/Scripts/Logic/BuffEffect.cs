@@ -8,6 +8,7 @@ public class BuffEffect {
     public CreatureLogic source;
     public CreatureLogic target;
     public int buffCooldown;
+    
     public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {
         this.source = source;
@@ -23,28 +24,33 @@ public class BuffEffect {
 
     public virtual void RegisterCooldown()
     {
-        target.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+        target.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
-        target.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+        target.e_CreatureOnTurnEnd -= ReduceCreatureEffectCooldown;
+        
     }
+
+    public virtual void CauseEventEffect(){}
+
+    public virtual void UndoEventEffect(){}
 
     public void ReduceCreatureEffectCooldown()
     {       
         if(buffCooldown > 0)
             buffCooldown--;
-        if(buffCooldown == 0)
+        if(buffCooldown <= 0)
             RemoveBuff();
                         
     }
 
-    public void RemoveBuff()
+    public virtual void RemoveBuff()
     {
-        UnregisterCooldown();
+        UndoEventEffect();
+        UnregisterCooldown();        
         target.buffEffects.Remove(this);
-
     }
 
 }

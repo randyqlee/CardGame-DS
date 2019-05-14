@@ -85,6 +85,8 @@ public class CreatureLogic: ICharacter
     public int Attack
     {
         get{ return baseAttack; }
+
+        set{ baseAttack = value;}
     }
      
     // number of attacks for one turn if (attacksForOneTurn==2) => Windfury
@@ -242,7 +244,7 @@ public class CreatureLogic: ICharacter
         //set target attack to 0 to reflect non-damage for the attacker
         new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, 0, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
-        //target.Health -= Attack;
+        target.Health -= Attack;
         
         //originally enabled
         //Health -= target.Attack;
@@ -293,6 +295,8 @@ public class CreatureLogic: ICharacter
         if (!buffExists)
         {
             buff.RegisterCooldown();
+            
+            buff.CauseEventEffect();
             buffEffects.Add(buff);
         }
         
