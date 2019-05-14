@@ -201,6 +201,10 @@ public class CreatureLogic: ICharacter
         //New SCRIPT
         this.isDead = true;
 
+        
+        //Remove all buffs/debuffs        
+        RemoveAllBuffs(); 
+
         // cause Deathrattle Effect
         if (effect != null)
         {
@@ -307,6 +311,16 @@ public class CreatureLogic: ICharacter
     {
 
     }
+
+    public void RemoveAllBuffs()
+    {
+        foreach (BuffEffect be in buffEffects)
+        {          
+            be.UndoEventEffect();                
+            be.UnregisterCooldown();                         
+        }
+        buffEffects.Clear();
+    }//RemoveAllBuffs
 
     
     // STATIC For managing IDs
