@@ -12,11 +12,18 @@ public class DecreaseAttack : BuffEffect {
 
     public override void CauseBuffEffect()
     {
+        
+        int attackAfter = target.Attack - attackModifier;
+        new UpdateAttackCommand(target.ID, attackAfter).AddToQueue();
+
         target.Attack -= attackModifier;    
     }
 
     public override void UndoBuffEffect()
     {
+        int attackAfter = target.Attack + attackModifier;
+        new UpdateAttackCommand(target.ID, attackAfter).AddToQueue();    
+        
         target.Attack += attackModifier;        
     }
 

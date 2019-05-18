@@ -31,7 +31,7 @@ public class TouchOfSeduction : CreatureEffect {
     public override void UseEffect(CreatureLogic target)
     {
         //AddBuff will be called from parent CreatureEffect
-        //AddBuff(target,"DecreaseAttack",buffCooldown);
+        AddBuff(target,"DecreaseAttack",buffCooldown);
         AddBuff(target,"Poison",buffCooldown);  
         AddBuff(target,"Brand",buffCooldown);         
        

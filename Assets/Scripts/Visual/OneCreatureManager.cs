@@ -57,5 +57,11 @@ public class OneCreatureManager : MonoBehaviour
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
         }
-    }
+    }//TakeDamage
+
+    public void ChangeAttack(int attackAfter)
+    {
+        AttackText.text = attackAfter.ToString();
+
+    }//Change Attack
 }
