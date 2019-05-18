@@ -278,9 +278,14 @@ public class CreatureLogic: ICharacter
     }//Attack Creature
 
     //Method to override for damage modifiers
-    public virtual int Damage(int damage)
+    public int Damage(int damage)
     {
-        return damage;
+        if(damage < 0){
+            damage = 0;
+            return damage;
+        }else{
+            return damage;
+        }
     }
 
 

@@ -61,7 +61,12 @@ public class OneCreatureManager : MonoBehaviour
 
     public void ChangeAttack(int attackAfter)
     {
-        AttackText.text = attackAfter.ToString();
-
+        
+        if(attackAfter <0)
+        {
+            AttackText.text = 0.ToString();
+        }else{
+            AttackText.text = attackAfter.ToString();
+        }
     }//Change Attack
 }
