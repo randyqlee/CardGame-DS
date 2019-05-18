@@ -5,16 +5,17 @@ using UnityEngine;
 public class DecreaseAttack : BuffEffect {
 
     int attackModifier = 2;
+    
 	
     public DecreaseAttack(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    {}
+    { isDebuff = true;}
 
-    public override void CauseEventEffect()
+    public override void CauseBuffEffect()
     {
         target.Attack -= attackModifier;    
     }
 
-    public override void UndoEventEffect()
+    public override void UndoBuffEffect()
     {
         target.Attack += attackModifier;        
     }

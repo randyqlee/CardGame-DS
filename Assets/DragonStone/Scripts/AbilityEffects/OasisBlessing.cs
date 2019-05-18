@@ -22,7 +22,7 @@ public class OasisBlessing : CreatureEffect {
 
     public override void CauseEventEffect()
     {
-        if(remainingCooldown <=0)
-        Debug.Log("Activate Effect: " +this.ToString());
+        // if(remainingCooldown <=0)
+        // Debug.Log("Activate Effect: " +this.ToString());
     }
 }

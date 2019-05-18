@@ -8,6 +8,8 @@ public class BuffEffect {
     public CreatureLogic source;
     public CreatureLogic target;
     public int buffCooldown;
+    public bool isBuff;
+    public bool isDebuff;
     
     public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {
@@ -33,9 +35,9 @@ public class BuffEffect {
         
     }
 
-    public virtual void CauseEventEffect(){}
+    public virtual void CauseBuffEffect(){}
 
-    public virtual void UndoEventEffect(){}
+    public virtual void UndoBuffEffect(){}
 
     public void ReduceCreatureEffectCooldown()
     {       
@@ -49,9 +51,9 @@ public class BuffEffect {
     public virtual void RemoveBuff()
     {
         Debug.Log("Remove Buff " +this.GetType().Name);
-        UndoEventEffect();
+        UndoBuffEffect();
         UnregisterCooldown();        
-        target.buffEffects.Remove(this);
+        target.buffEffects.Remove(this);        
 
         
     }

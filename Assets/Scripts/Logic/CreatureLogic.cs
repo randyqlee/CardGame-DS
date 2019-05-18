@@ -30,9 +30,13 @@ public class CreatureLogic: ICharacter
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
 
     public delegate void CreatureOnTurnEnd();    
-    public event CreatureOnTurnEnd e_CreatureOnTurnEnd;
+    public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
+    public delegate void CreatureIsAttacked();    
+    public event CreatureIsAttacked e_CreatureIsAttacked;   
     
+    //Debuff flags
+    public bool isAttacked;   
     
     
     // PROPERTIES
@@ -176,7 +180,7 @@ public class CreatureLogic: ICharacter
          //TODO:  Ability Effects (BattleCry, etc.)
         foreach(CreatureEffect ce in creatureEffects)
         {
-            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
+            //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
         }
                 
     }
@@ -233,9 +237,11 @@ public class CreatureLogic: ICharacter
 
     public void AttackCreature (CreatureLogic target)
     {
-        AttacksLeftThisTurn--;
+        
+        AttacksLeftThisTurn--;         
+        
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent
-        int targetHealthAfter = target.Health - Attack;
+        int targetHealthAfter = target.Health - Damage(Attack);
 
         //original
         //int attackerHealthAfter = Health - target.Attack;
@@ -248,17 +254,18 @@ public class CreatureLogic: ICharacter
         //set target attack to 0 to reflect non-damage for the attacker
         new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, 0, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
-        target.Health -= Attack;
+        target.Health -= Damage(Attack);
         
         //originally enabled
-        //Health -= target.Attack;
+        //Health -= target.Attack;       
 
- 
-
+        if(target.e_CreatureIsAttacked != null)
+            target.e_CreatureIsAttacked.Invoke();        
+        
         //DS
         foreach(CreatureEffect ce in creatureEffects)
         {
-            Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
+            //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
             if(ce.creatureEffectCooldown == 0)
             {
                 Debug.Log ("Using CreatureEffect: " + ce.ToString());
@@ -266,7 +273,17 @@ public class CreatureLogic: ICharacter
 
             }
         }
+
+        
+    }//Attack Creature
+
+    //Method to override for damage modifiers
+    public virtual int Damage(int damage)
+    {
+        return damage;
     }
+
+
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
@@ -300,7 +317,7 @@ public class CreatureLogic: ICharacter
         {
             buff.RegisterCooldown();
             
-            buff.CauseEventEffect();
+            buff.CauseBuffEffect();
             buffEffects.Add(buff);
         }
         
@@ -316,7 +333,7 @@ public class CreatureLogic: ICharacter
     {
         foreach (BuffEffect be in buffEffects)
         {          
-            be.UndoEventEffect();                
+            be.UndoBuffEffect();                
             be.UnregisterCooldown();                         
         }
         buffEffects.Clear();

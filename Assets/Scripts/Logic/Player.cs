@@ -98,6 +98,7 @@ public class Player : MonoBehaviour, ICharacter
     }
 
     private int health;
+
     public int Health
     {
         get { return health;}
@@ -335,8 +336,7 @@ public class Player : MonoBehaviour, ICharacter
         {
             // target is a creature
             //PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], CreatureLogic.CreaturesCreatedThisGame[TargetUniqueID]);
-        }
-          
+        }          
     }
 
     // 2nd overload - takes CardLogic and ICharacter interface - 
@@ -490,7 +490,6 @@ public class Player : MonoBehaviour, ICharacter
             new PlayASpellCardCommand(this, cl).AddToQueue();
             hand.CardsInHand.Remove(cl);
         }
-
     }
     //DS
 
@@ -503,8 +502,6 @@ public class Player : MonoBehaviour, ICharacter
             
            GetACardNotFromDeck(ca,crl.UniqueCreatureID);
         }
-        
-
     }
     //DS
 
