@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BuffEffect {
+public class BuffEffect
+{
 
+    public string Name; 
+    
+    [HideInInspector]
     public CreatureLogic source;
+    [HideInInspector]
     public CreatureLogic target;
+
     public int buffCooldown;
     public bool isBuff;
     public bool isDebuff;
@@ -16,6 +22,9 @@ public class BuffEffect {
         this.source = source;
         this.target = target;
         this.buffCooldown = buffCooldown;
+
+        Name = this.GetType().Name.ToString();
+        
 
     }
 

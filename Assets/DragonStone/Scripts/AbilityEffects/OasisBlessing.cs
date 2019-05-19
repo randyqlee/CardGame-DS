@@ -22,6 +22,7 @@ public class OasisBlessing : CreatureEffect {
 
     public override void CauseEventEffect()
     {
+        creature.Heal(1);
         // if(remainingCooldown <=0)
         // Debug.Log("Activate Effect: " +this.ToString());
     }

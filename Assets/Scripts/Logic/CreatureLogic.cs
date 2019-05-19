@@ -111,9 +111,47 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    private int attackDamage;
+    public int AttackDamage
+    {
+        get {return attackDamage;}
+        set{
+            if(value < 0)
+                attackDamage = 0;
+            else
+                attackDamage = value;
+        }
+    }
+
+
+    private int criticalFactor = 1;
+    public float CriticalChance
+    {
+        get{return criticalFactor;}
+        set{
+            if(value < 1)
+                criticalFactor = 1;
+            else
+                criticalFactor = 2;
+        }
+    }
+
+    //Flags
+    [HideInInspector]
+    public int damageFactor = 1;
+    [HideInInspector]
+    public int healFactor = 1;
+    [HideInInspector]
+    public bool canBuff,canDebuff = true;
+    [HideInInspector]
+    public bool canBeBuffed,canBeDebuffed = true;
+    [HideInInspector]
+    public int targetAttackDamage = 0;
+
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
     {
+        
         this.ca = ca;
 
         //DS
@@ -158,6 +196,9 @@ public class CreatureLogic: ICharacter
         //DS
 
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
+
+        
+        
     }
 
     
@@ -174,6 +215,8 @@ public class CreatureLogic: ICharacter
 
         //TODO: Buff/Debuff effects (like Poison, Heal)
        
+        
+        //Implement silence here
         if(e_CreatureOnTurnStart != null)
             e_CreatureOnTurnStart.Invoke();
 
@@ -240,8 +283,13 @@ public class CreatureLogic: ICharacter
         
         AttacksLeftThisTurn--;         
         
-        // calculate the values so that the creature does not fire the DIE command before the Attack command is sent
-        int targetHealthAfter = target.Health - Damage(Attack);
+        // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
+        //attackFactor is for critical strike or damage prevention
+        AttackDamage = Attack*criticalFactor;
+
+        int targetHealthAfter = target.Health - AttackDamage;
+        if(targetHealthAfter > MaxHealth)
+        targetHealthAfter = MaxHealth;
 
         //original
         //int attackerHealthAfter = Health - target.Attack;
@@ -252,17 +300,18 @@ public class CreatureLogic: ICharacter
         //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //set target attack to 0 to reflect non-damage for the attacker
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, 0, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, targetAttackDamage, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
-        target.Health -= Damage(Attack);
+        target.Health -= AttackDamage;
         
-        //originally enabled
+        //originally enabled 
         //Health -= target.Attack;       
 
         if(target.e_CreatureIsAttacked != null)
             target.e_CreatureIsAttacked.Invoke();        
         
         //DS
+        //implement silence here
         foreach(CreatureEffect ce in creatureEffects)
         {
             //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
@@ -275,20 +324,7 @@ public class CreatureLogic: ICharacter
         }
 
         
-    }//Attack Creature
-
-    //Method to override for damage modifiers
-    public int Damage(int damage)
-    {
-        if(damage < 0){
-            damage = 0;
-            return damage;
-        }else{
-            return damage;
-        }
-    }
-
-
+    }//Attack Creature   
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
@@ -329,6 +365,8 @@ public class CreatureLogic: ICharacter
 
     }   
 
+    
+
     public void RemoveBuff(BuffEffect buff)
     {
 
@@ -343,6 +381,43 @@ public class CreatureLogic: ICharacter
         }
         buffEffects.Clear();
     }//RemoveAllBuffs
+
+    
+    public void Heal(int amount)
+    {
+        ChangeHealth(amount, healFactor);
+    }
+
+    //for direct non-attcak damage
+    public void Damage(int amount)
+    {
+        ChangeHealth(amount, damageFactor);
+    }
+    
+    
+    public void ChangeHealth(int changeAmount, int factor)
+    {    
+       int amount = changeAmount*factor; 
+
+       int healthAfter = Health + amount;
+       if(healthAfter > MaxHealth)
+            healthAfter = MaxHealth;
+            
+       
+      
+       new DelayCommand(0.5f).AddToQueue();
+       if(amount>=0)
+        {          
+            new DealHealingCommand(this.ID, amount, healthAfter).AddToQueue();           
+
+        }
+        else if(amount < 0)
+        {           
+            new DealDamageCommand(this.ID, -amount, healthAfter).AddToQueue();            
+        }
+        
+        Health += amount;
+    }
 
     
     // STATIC For managing IDs

@@ -13,4 +13,6 @@ public interface IIdentifiable
     int ID { get; }
 }
 
+
+
 //public interface ICreature{}

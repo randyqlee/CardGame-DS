@@ -13,6 +13,8 @@ public class CreatureEffect
 
     //DS
     public Player owner;
+
+    [HideInInspector]
     public CreatureLogic creature;
 
     //DS
@@ -82,8 +84,33 @@ public class CreatureEffect
         //the BuffEffect will be instantiated here
         BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{creature, target, buffCooldown}) as BuffEffect;
         
+
+        //if buff, can only affect allies
+        if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed)
+        {
+            //check if same team
+            if(target.owner == creature.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }
+
+        //if debuff, can only affect enemies
+        if(buffEffect.isDebuff && creature.canDebuff && target.canBeDebuffed)
+        {
+            //check if same team
+            if(target.owner != creature.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }
+        
+        
+        
+
         //the logic of adding buff to the CReatureLogic will be in a method at CreatureLogic
-        target.AddBuff(buffEffect);
+        //target.AddBuff(buffEffect);
+       
     }
 
     public virtual void RemoveBuff(CreatureLogic target, BuffEffect buff)

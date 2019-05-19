@@ -56,8 +56,20 @@ public class OneCreatureManager : MonoBehaviour
         {
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
-        }
+        } 
     }//TakeDamage
+
+
+    public void TakeHealing(int amount, int healthAfter)
+    {
+        if (amount > 0)
+        {
+            //use negative in amount to channel healing effect
+            DamageEffect.CreateDamageEffect(transform.position, -amount);
+            HealthText.text = healthAfter.ToString();
+        } 
+    }//TakeDamage
+
 
     public void ChangeAttack(int attackAfter)
     {
