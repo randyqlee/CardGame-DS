@@ -147,6 +147,9 @@ public class CreatureLogic: ICharacter
     public bool canBeBuffed,canBeDebuffed = true;
     [HideInInspector]
     public int targetAttackDamage = 0;
+    [HideInInspector]
+    public bool canUseAbility = true;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)

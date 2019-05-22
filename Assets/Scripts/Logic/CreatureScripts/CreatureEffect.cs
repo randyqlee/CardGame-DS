@@ -61,7 +61,7 @@ public class CreatureEffect
 
     public void ReduceCreatureEffectCooldown()
     {       
-        if(remainingCooldown > 0)
+        if(remainingCooldown > 0 && creature.canUseAbility)
             remainingCooldown--;
         else
             remainingCooldown = creatureEffectCooldown;            
