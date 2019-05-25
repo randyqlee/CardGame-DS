@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TouchOfSeduction : CreatureEffect {
 
-    public int buffCooldown = 2;
+    public int buffCooldown = 3;
 
     public TouchOfSeduction(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -30,12 +30,22 @@ public class TouchOfSeduction : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {
-        //AddBuff will be called from parent CreatureEffect
-        //AddBuff(target,"DecreaseAttack",buffCooldown);
-        //AddBuff(target,"Poison",buffCooldown);  
-        AddBuff(target,"Brand",buffCooldown);         
-        //AddBuff(target,"Unhealable",buffCooldown);  
-        //AddBuff(target,"CrippledStrike",buffCooldown);         
+        
+        
+        if(remainingCooldown <=0)
+        {
+            //AddBuff will be called from parent CreatureEffect
+            //AddBuff(target,"DecreaseAttack",buffCooldown);
+            //AddBuff(target,"Poison",buffCooldown);  
+            //AddBuff(target,"Brand",buffCooldown);         
+            //AddBuff(target,"Unhealable",buffCooldown);  
+            //AddBuff(target,"CrippledStrike",buffCooldown);  
+            //AddBuff(target,"Silence",buffCooldown);  
+            AddBuff(target,"Stun",buffCooldown);            
+        }
+        
+        
+        
        
     }
 

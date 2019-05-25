@@ -21,6 +21,7 @@ public class CreatureEffect
     public int creatureEffectCooldown;
     public int remainingCooldown;
    
+    
 
    
     public CreatureEffect(Player owner, CreatureLogic creature, int creatureEffectCooldown)
@@ -61,10 +62,19 @@ public class CreatureEffect
 
     public void ReduceCreatureEffectCooldown()
     {       
-        if(remainingCooldown > 0 && creature.canUseAbility)
+        if(remainingCooldown > 0){
             remainingCooldown--;
-        else
+        }
+        else if(remainingCooldown<=0 && creature.canUseAbility)
+        {
             remainingCooldown = creatureEffectCooldown;            
+        }
+        //this is for silence scenario
+        else if(remainingCooldown<=0 && !creature.canUseAbility)
+        {
+            remainingCooldown = 0;
+        }
+            
     }
 
     //DS

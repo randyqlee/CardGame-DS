@@ -26,8 +26,11 @@ public class CreatureLogic: ICharacter
 
     //public List<BuffEffect> buffEffects;
 
-   public delegate void CreatureOnTurnStart();    
+    public delegate void CreatureOnTurnStart();    
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
+
+    public delegate void CreatureOnTurnStart2();    
+    public event CreatureOnTurnStart2 e_CreatureOnTurnStart2;
 
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
@@ -215,22 +218,20 @@ public class CreatureLogic: ICharacter
         isActive = true;
         AttacksLeftThisTurn = attacksForOneTurn; 
 
-        //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects
+        //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects       
 
-        //TODO:  Check Stun, Skip Turn.  Don't load Effects and EndTurn.
-
-        //TODO: Buff/Debuff effects (like Poison, Heal)
-       
-        
-        //Implement silence here
-        if(e_CreatureOnTurnStart != null)
-            e_CreatureOnTurnStart.Invoke();
+        //TODO: Buff/Debuff effects (like Poison, Heal)   
 
          //TODO:  Ability Effects (BattleCry, etc.)
         foreach(CreatureEffect ce in creatureEffects)
         {
             //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
         }
+
+         if(e_CreatureOnTurnStart != null)
+            e_CreatureOnTurnStart.Invoke();
+
+        
                 
     }
 
