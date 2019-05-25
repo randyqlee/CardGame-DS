@@ -79,6 +79,10 @@ public class CreatureEffect
 
     }
 
+    public virtual void UseEffect()
+    {
+
+    }
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
         //the BuffEffect will be instantiated here

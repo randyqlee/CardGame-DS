@@ -12,13 +12,13 @@ public class Brand : BuffEffect {
 
     public override void CauseBuffEffect()
     {        
-        target.e_CreatureIsAttacked += DealBrandDamage;
+        target.e_IsAttacked += DealBrandDamage;
         
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_CreatureIsAttacked -= DealBrandDamage;
+        target.e_IsAttacked -= DealBrandDamage;
     }
 
     

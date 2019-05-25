@@ -32,8 +32,11 @@ public class CreatureLogic: ICharacter
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
-    public delegate void CreatureIsAttacked();    
-    public event CreatureIsAttacked e_CreatureIsAttacked;   
+    public delegate void IsAttacked();    
+    public event IsAttacked e_IsAttacked;   
+
+    public delegate void AfterAttacking(CreatureLogic target);    
+    public event AfterAttacking e_AfterAttacking; 
     
     //Debuff flags
     public bool isAttacked;   
@@ -291,8 +294,8 @@ public class CreatureLogic: ICharacter
         AttackDamage = Attack*criticalFactor;
 
         int targetHealthAfter = target.Health - AttackDamage;
-        if(targetHealthAfter > MaxHealth)
-        targetHealthAfter = MaxHealth;
+        if(targetHealthAfter > target.MaxHealth)
+        targetHealthAfter = target.MaxHealth;
 
         //original
         //int attackerHealthAfter = Health - target.Attack;
@@ -310,23 +313,31 @@ public class CreatureLogic: ICharacter
         //originally enabled 
         //Health -= target.Attack;       
 
-        if(target.e_CreatureIsAttacked != null)
-            target.e_CreatureIsAttacked.Invoke();        
+        
+        //call enemy targets Is Attacked event
+        if(target.e_IsAttacked != null)
+            target.e_IsAttacked.Invoke();      
+
+        //call this creatures attack event
+        if(this.e_AfterAttacking != null)
+            this.e_AfterAttacking.Invoke(target);     
         
         //DS
         //implement silence here
-        foreach(CreatureEffect ce in creatureEffects)
-        {
-            //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
-            if(ce.creatureEffectCooldown == 0)
-            {
-                Debug.Log ("Using CreatureEffect: " + ce.ToString());
-                ce.UseEffect(target);
+        // foreach(CreatureEffect ce in creatureEffects)
+        // {
+        //     //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
+        //     if(ce.creatureEffectCooldown == 0)
+        //     {
+        //         Debug.Log ("Using CreatureEffect: " + ce.ToString());
+        //         ce.UseEffect(target);
 
-            }
-        }
+        //     }
+        // }
 
         
+        TurnManager.Instance.EndTurn();
+
     }//Attack Creature   
 
     public void AttackCreatureWithID(int uniqueCreatureID)
@@ -352,7 +363,6 @@ public class CreatureLogic: ICharacter
 
                 buffExists = true;
             }
-
         }
 
         //if buff is new, add it to the CL
