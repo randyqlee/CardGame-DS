@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stun : BuffEffect {
    
-    List<CreatureEffect> creatureEffects = new List<CreatureEffect>();    
+    
 	
     public Stun(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     { isDebuff = true;}

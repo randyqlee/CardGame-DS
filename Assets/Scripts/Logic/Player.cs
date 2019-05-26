@@ -19,6 +19,11 @@ public class Player : MonoBehaviour, ICharacter
     // a flag not to use hero power twice
     public bool usedHeroPowerThisTurn = false;
 
+
+    //REFERENCCES To enemy and ally creatures (including self)
+    public List<CreatureLogic> enemies = new List<CreatureLogic>();
+    public List<CreatureLogic> allies = new List<CreatureLogic>();
+
     // REFERENCES TO LOGICAL STUFF THAT BELONGS TO THIS PLAYER
     public Deck deck;
     public Hand hand;
@@ -163,6 +168,7 @@ public class Player : MonoBehaviour, ICharacter
       //DS
        if(!gameIsOver)
        {
+           //implement stun here
            while(table.CreaturesOnTable[creatureTurn].isDead){
             if(creatureTurn < table.CreaturesOnTable.Count)
                 creatureTurn++;            
@@ -536,6 +542,35 @@ public class Player : MonoBehaviour, ICharacter
             // allow turn making for this character
             PArea.AllowedToControlThisPlayer = true;
         }
+    }
+
+
+    public List<CreatureLogic> EnemyList()
+    {
+        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
+       {
+           CreatureLogic value = creature.Value;
+           if(value.owner != this)
+           {
+               enemies.Add(value);
+           }                     
+       }
+
+       return enemies;
+    }
+
+    public List<CreatureLogic> AllyList()
+    {
+        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
+       {
+           CreatureLogic value = creature.Value;
+           if(value.owner == this)
+           {
+               allies.Add(value);
+           }                     
+       }
+
+       return allies;
     }
        
         

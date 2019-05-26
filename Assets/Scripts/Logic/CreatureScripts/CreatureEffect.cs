@@ -101,6 +101,7 @@ public class CreatureEffect
 
         //if buff, can only affect allies
         if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed)
+        //if(buffEffect.isBuff)
         {
             //check if same team
             if(target.owner == creature.owner)
@@ -119,7 +120,13 @@ public class CreatureEffect
             }
         }
         
-        
+        // Debug.Log("Is Buff? " +buffEffect.isBuff);
+        // Debug.Log("can Buff? " +creature.canBuff);
+        // Debug.Log("target can be Buffed? " +target.canBeBuffed);
+
+        // Debug.Log("Is Debuff? " +buffEffect.isDebuff);
+        // Debug.Log("can Debuff? " +creature.canDebuff);
+        // Debug.Log("target can be Debuffed? " +target.canBeDebuffed);
         
 
         //the logic of adding buff to the CReatureLogic will be in a method at CreatureLogic

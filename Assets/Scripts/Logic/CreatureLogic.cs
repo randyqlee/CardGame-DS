@@ -148,9 +148,13 @@ public class CreatureLogic: ICharacter
     [HideInInspector]
     public int healFactor = 1;
     [HideInInspector]
-    public bool canBuff,canDebuff = true;
+    public bool canDebuff = true;
     [HideInInspector]
-    public bool canBeBuffed,canBeDebuffed = true;
+    public bool canBuff = true;
+    [HideInInspector]
+    public bool canBeDebuffed = true;
+    [HideInInspector]
+    public bool canBeBuffed = true;
     [HideInInspector]
     public int targetAttackDamage = 0;
     [HideInInspector]
@@ -293,23 +297,33 @@ public class CreatureLogic: ICharacter
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
         //attackFactor is for critical strike or damage prevention
         AttackDamage = Attack*criticalFactor;
+        
+        target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
+        //target.targetAttackDamage = target.Attack;
 
         int targetHealthAfter = target.Health - AttackDamage;
         if(targetHealthAfter > target.MaxHealth)
         targetHealthAfter = target.MaxHealth;
 
+
         //original
         //int attackerHealthAfter = Health - target.Attack;
 
-        int attackerHealthAfter = Health;
+        int attackerHealthAfter = Health - target.targetAttackDamage;
+        if(Health > MaxHealth)
+        attackerHealthAfter = MaxHealth;
 
         //original
         //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //set target attack to 0 to reflect non-damage for the attacker
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, targetAttackDamage, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
+        //Target's Health minus my attack damage
         target.Health -= AttackDamage;
+
+        //My Health minus my target's attack damage
+        Health -= target.targetAttackDamage;
         
         //originally enabled 
         //Health -= target.Attack;       
