@@ -37,7 +37,7 @@ public class TouchOfSeduction : CreatureEffect {
             //AddBuff will be called from parent CreatureEffect
             //AddBuff(target,"DecreaseAttack",buffCooldown);
             AddBuff(target,"Poison",buffCooldown);  
-            //AddBuff(target,"Brand",buffCooldown);         
+            AddBuff(target,"Brand",buffCooldown);         
             //AddBuff(target,"Unhealable",buffCooldown);  
             //AddBuff(target,"CrippledStrike",buffCooldown);  
             //AddBuff(target,"Silence",buffCooldown);  

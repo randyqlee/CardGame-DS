@@ -142,9 +142,18 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    private int damageReduction = 1;
+    public int DamageReduction
+    {
+        get{return damageReduction;}
+        set
+        {
+            damageReduction = value;
+        }
+    }
+
     //Flags
-    [HideInInspector]
-    public int damageFactor = 1;
+   
     [HideInInspector]
     public int healFactor = 1;
     [HideInInspector]
@@ -295,11 +304,18 @@ public class CreatureLogic: ICharacter
         AttacksLeftThisTurn--;         
         
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
-        //attackFactor is for critical strike or damage prevention
-        AttackDamage = Attack*criticalFactor;
         
-        target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
-        //target.targetAttackDamage = target.Attack;
+        //original
+        //AttackDamage = Attack*criticalFactor;
+        
+        //TEST
+        AttackDamage = Damage(Attack, target);
+        
+        //target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
+
+        //TEST
+        target.targetAttackDamage = target.Damage(targetAttackDamage, this);
+        
 
         int targetHealthAfter = target.Health - AttackDamage;
         if(targetHealthAfter > target.MaxHealth)
@@ -417,9 +433,10 @@ public class CreatureLogic: ICharacter
     }
 
     //for direct non-attcak damage
-    public void Damage(int amount)
+    public int Damage(int amount, CreatureLogic target)
     {
-        ChangeHealth(amount, damageFactor);
+        int damage = amount*target.DamageReduction*criticalFactor;
+        return damage;
     }
     
     

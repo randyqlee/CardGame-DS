@@ -7,7 +7,7 @@ using UnityEngine;
 public class OasisBlessing : CreatureEffect {
 
     List<CreatureLogic> allies = new List<CreatureLogic>();
-    public int buffCooldown = 2;
+    public int buffCooldown = 3;
 
 	public OasisBlessing(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -41,7 +41,8 @@ public class OasisBlessing : CreatureEffect {
             AddBuff(randomAlly, "IncreaseAttack",buffCooldown);
             //AddBuff(randomAlly, "Recovery",buffCooldown);
             //AddBuff(randomAlly, "Retaliate",buffCooldown);
-             AddBuff(randomAlly, "Immunity",buffCooldown);
+             //AddBuff(randomAlly, "Immunity",buffCooldown);
+             AddBuff(randomAlly, "Invincibility",buffCooldown);
         }
     }
 }
