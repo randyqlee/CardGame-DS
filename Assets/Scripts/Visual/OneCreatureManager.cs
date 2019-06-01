@@ -81,4 +81,15 @@ public class OneCreatureManager : MonoBehaviour
             AttackText.text = attackAfter.ToString();
         }
     }//Change Attack
+
+    public void ChangeHealth(int healthAfter)
+    {
+        
+        if(healthAfter <0)
+        {
+            HealthText.text = 0.ToString();
+        }else{
+            HealthText.text = healthAfter.ToString();
+        }
+    }//Change Attack
 }

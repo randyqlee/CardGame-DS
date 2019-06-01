@@ -159,6 +159,26 @@ public class TableVisual : MonoBehaviour
         Command.CommandExecutionComplete();
     }
 
+    public void ResurrectCreatureWithID(int IDToResurrect)
+    {
+        
+                
+        //    });
+        GameObject creatureToResurrect = IDHolder.GetGameObjectWithID(IDToResurrect);
+        
+        //ORIGINAL SCRIPT
+        // CreaturesOnTable.Remove(creatureToRemove);
+        // Destroy(creatureToRemove);
+        // ShiftSlotsGameObjectAccordingToNumberOfCreatures();
+        // PlaceCreaturesOnNewSlots();
+
+        //New SCRIPT
+        creatureToResurrect.SetActive(true);
+
+
+        Command.CommandExecutionComplete();
+    }
+
     /// <summary>
     /// Shifts the slots game object according to number of creatures.
     /// </summary>

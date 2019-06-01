@@ -35,11 +35,19 @@ public class CreatureLogic: ICharacter
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
+    public delegate void ThisCreatureDies();    
+    public event ThisCreatureDies e_ThisCreatureDies;
+
     public delegate void IsAttacked();    
-    public event IsAttacked e_IsAttacked;   
+    public event IsAttacked e_IsAttacked; 
+
+    public delegate void IsComputeDamage();    
+    public event IsComputeDamage e_IsComputeDamage;     
 
     public delegate void AfterAttacking(CreatureLogic target);    
     public event AfterAttacking e_AfterAttacking; 
+
+    
     
     //Debuff flags
     public bool isAttacked;   
@@ -168,6 +176,7 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
+    
 
 
     // CONSTRUCTOR
@@ -254,10 +263,11 @@ public class CreatureLogic: ICharacter
 
         //TODO:  End of Turn Effects
         if(e_CreatureOnTurnEnd != null)
-            e_CreatureOnTurnEnd.Invoke();
+            e_CreatureOnTurnEnd.Invoke();               
         
-        //TODO:  Buff Duration Reduction          
-              
+        
+
+        //TODO:  Buff Duration Reduction                       
     }
 
     public void Die()
@@ -266,28 +276,36 @@ public class CreatureLogic: ICharacter
         //owner.table.CreaturesOnTable.Remove(this);        
         
         //New SCRIPT
+      
         this.isDead = true;
 
         
         //Remove all buffs/debuffs        
         RemoveAllBuffs(); 
 
-        // cause Deathrattle Effect
-        if (effect != null)
-        {
-            effect.WhenACreatureDies();
-            effect.UnRegisterEventEffect();
-            effect.UnregisterCooldown();            
-            effect = null;
-            
-            creatureEffects.Clear();
-        }
-
-        new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();  
-
-        owner.CheckIfGameOver();   
-
         
+        foreach(CreatureEffect ce in creatureEffects)
+        {
+            if(effect !=null)
+            {
+                ce.remainingCooldown = ce.creatureEffectCooldown;
+                ce.WhenACreatureDies();
+                ce.UnRegisterEventEffect();
+                ce.UnregisterCooldown();                                   
+            }
+        }        
+            
+        //if(!hasResurrect)
+        creatureEffects.Clear();
+        
+
+        new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();         
+        
+
+        if(e_ThisCreatureDies != null)
+        e_ThisCreatureDies.Invoke();
+        
+        owner.CheckIfGameOver();           
     }
 
     public void GoFace()
@@ -302,6 +320,12 @@ public class CreatureLogic: ICharacter
     {
         
         AttacksLeftThisTurn--;         
+
+         
+
+        //call this creatures attack event
+        if(this.e_AfterAttacking != null)
+            this.e_AfterAttacking.Invoke(target);     
         
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
         
@@ -309,12 +333,12 @@ public class CreatureLogic: ICharacter
         //AttackDamage = Attack*criticalFactor;
         
         //TEST
-        AttackDamage = Damage(Attack, target);
+        AttackDamage = ComputeDamage(Attack, target);
         
         //target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
 
         //TEST
-        target.targetAttackDamage = target.Damage(targetAttackDamage, this);
+        target.targetAttackDamage = target.ComputeDamage(targetAttackDamage, this);
         
 
         int targetHealthAfter = target.Health - AttackDamage;
@@ -344,14 +368,10 @@ public class CreatureLogic: ICharacter
         //originally enabled 
         //Health -= target.Attack;       
 
-        
         //call enemy targets Is Attacked event
         if(target.e_IsAttacked != null)
             target.e_IsAttacked.Invoke();      
-
-        //call this creatures attack event
-        if(this.e_AfterAttacking != null)
-            this.e_AfterAttacking.Invoke(target);     
+       
         
         //DS
         //implement silence here
@@ -418,6 +438,7 @@ public class CreatureLogic: ICharacter
 
     public void RemoveAllBuffs()
     {
+        if(buffEffects != null)
         foreach (BuffEffect be in buffEffects)
         {          
             be.UndoBuffEffect();                
@@ -433,11 +454,17 @@ public class CreatureLogic: ICharacter
     }
 
     //for direct non-attcak damage
-    public int Damage(int amount, CreatureLogic target)
+    public int ComputeDamage(int amount, CreatureLogic target)
     {
         int damage = amount*target.DamageReduction*criticalFactor;
+
+        if(e_IsComputeDamage!=null)
+        e_IsComputeDamage();
+
         return damage;
     }
+
+  
     
     
     public void ChangeHealth(int changeAmount, int factor)
