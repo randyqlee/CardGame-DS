@@ -176,7 +176,10 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
-    
+
+    //[HideInInspector]
+    public bool canBeAttacked = true;
+    public bool hasTaunt = false;
 
 
     // CONSTRUCTOR

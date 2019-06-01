@@ -44,7 +44,7 @@ public class OasisBlessing : CreatureEffect {
              //AddBuff(randomAlly, "Immunity",buffCooldown);
             //AddBuff(randomAlly, "Invincibility",buffCooldown);
             //AddBuff(randomAlly, "Resurrect",buffCooldown);
-              AddBuff(randomAlly, "Shield",buffCooldown);
+              AddBuff(randomAlly, "Taunt",buffCooldown);
         }
     }
 }

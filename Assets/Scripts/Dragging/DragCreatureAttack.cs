@@ -122,11 +122,20 @@ public class DragCreatureAttack : DraggingActions {
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
                 targetValid = true;
             }
-            else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null)
+            //ORIGINAL
+            //else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null)
+
+            else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null && CreatureLogic.CreaturesCreatedThisGame[targetID].canBeAttacked)
             {
                 // if targeted creature is still alive, attack creature
                 targetValid = true;
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);
+                //Debug.Log("Attacking "+Target);
+            }
+            else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null && !CreatureLogic.CreaturesCreatedThisGame[targetID].canBeAttacked)
+            {
+                // if targeted creature is still alive, attack creature
+                Debug.Log("Invalid Target: Attack a Taunt Creature");
                 //Debug.Log("Attacking "+Target);
             }
                 
