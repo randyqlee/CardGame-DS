@@ -16,6 +16,8 @@ public class BuffEffect
     public int buffCooldown;
     public bool isBuff;
     public bool isDebuff;
+
+    public Sprite buffIcon;
     
     public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {

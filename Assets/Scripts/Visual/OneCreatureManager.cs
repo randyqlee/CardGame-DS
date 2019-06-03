@@ -13,6 +13,8 @@ public class OneCreatureManager : MonoBehaviour
     public Image CreatureGraphicImage;
     public Image CreatureGlowImage;
 
+    public BuffPanel buffPanel;
+
     void Awake()
     {
         if (cardAsset != null)
