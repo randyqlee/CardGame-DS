@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class AddBuffCommand : Command {
 
-	private BuffAsset buff;
-	private int buffCooldown;
+	private BuffEffect buffEffect;
 	private int TargetUniqueID;
 	//private int AttackerUniqueID;
 
 
-	public AddBuffCommand(BuffAsset buff, int buffCooldown, int TargetUniqueID)
+	public AddBuffCommand(BuffEffect buffEffect, int TargetUniqueID)
 
 	{
-		this.buff = buff;
-		this.buffCooldown = buffCooldown;
+		Debug.Log ("Call AddBuffCommand");
+		this.buffEffect = buffEffect;
 		this.TargetUniqueID = TargetUniqueID;
 
 	}
 
 	public override void StartCommandExecution()
 	{
+		Debug.Log ("StartCommand AddBuffCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		BuffPanel buffPanel = creature.GetComponentInChildren<BuffPanel>();
 		
 
-		//IDHolder id = .AddComponent<IDHolder>();
-        //id.UniqueID = UniqueID;
+		buffPanel.AddBuffItem(buffEffect);
+		Command.CommandExecutionComplete();
 
 	}
 

@@ -427,6 +427,8 @@ public class CreatureLogic: ICharacter
             
             buff.CauseBuffEffect();
             buffEffects.Add(buff);
+
+           new AddBuffCommand(buff, UniqueCreatureID).AddToQueue();
         }
         
 

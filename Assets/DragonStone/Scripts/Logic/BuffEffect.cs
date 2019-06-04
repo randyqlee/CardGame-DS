@@ -18,12 +18,20 @@ public class BuffEffect
     public bool isDebuff;
 
     public Sprite buffIcon;
+
+    //DS
+    //Added buffID for Logic and Visual link
+    public int buffID;
     
     public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {
         this.source = source;
         this.target = target;
         this.buffCooldown = buffCooldown;
+
+    //DS
+    //Added buffID for Logic and Visual link
+        this.buffID = IDFactory.GetUniqueID();
 
         Name = this.GetType().Name.ToString();
         

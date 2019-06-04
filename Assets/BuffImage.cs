@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BuffImage : MonoBehaviour {
 
-	public Text coolDown;
+	public int buffID;
 
 	// Use this for initialization
 	void Start () {
