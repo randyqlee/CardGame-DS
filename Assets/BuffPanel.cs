@@ -12,8 +12,10 @@ public class BuffPanel : MonoBehaviour {
 		GameObject go = Instantiate(buffImage);
 		go.transform.SetParent(this.transform);
 		go.transform.localScale = new Vector3(1,1,1);
+		IDHolder id = go.AddComponent<IDHolder>();
+        id.UniqueID = buffEffect.buffID;
 		go.GetComponent<Image>().sprite = buffEffect.buffIcon;
-		go.GetComponent<BuffImage>().buffID = buffEffect.buffID;
 		go.GetComponentInChildren<Text>().text = buffEffect.buffCooldown.ToString();
 	}
+
 }

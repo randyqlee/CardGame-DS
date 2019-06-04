@@ -61,7 +61,14 @@ public class BuffEffect
     public void ReduceCreatureEffectCooldown()
     {       
         if(buffCooldown > 0)
+        {
             buffCooldown--;
+            //insert UpdateBuffCommand to update the cooldown text
+            new UpdateBuffCommand(this).AddToQueue();
+
+        
+
+        }
         if(buffCooldown <= 0)
             RemoveBuff();
                         

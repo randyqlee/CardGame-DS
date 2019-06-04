@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BuffImage : MonoBehaviour {
 
-	public int buffID;
-
 	// Use this for initialization
 	void Start () {
 		

@@ -1,16 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UpdateBuffCommand : MonoBehaviour {
+public class UpdateBuffCommand : Command {
 
-	// Use this for initialization
-	void Start () {
-		
+	private BuffEffect buffEffect;
+	private int buffCooldown;
+	public UpdateBuffCommand(BuffEffect buffEffect)
+	{
+		Debug.Log ("Call UpdateBuffCommand");
+		this.buffEffect = buffEffect;
+		this.buffCooldown = buffEffect.buffCooldown;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	public override void StartCommandExecution()
+	{
+		Debug.Log ("StartCommand UpdateBuffCommand");
 		
+		GameObject buffImage = IDHolder.GetGameObjectWithID(buffEffect.buffID);
+		buffImage.GetComponentInChildren<Text>().text = buffEffect.buffCooldown.ToString();
+		Command.CommandExecutionComplete();
+
 	}
+
 }
