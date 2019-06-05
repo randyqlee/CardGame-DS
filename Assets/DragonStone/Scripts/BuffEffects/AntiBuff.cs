@@ -9,7 +9,11 @@ public class AntiBuff : BuffEffect
     
 	
     public AntiBuff(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    { 
+      buffIcon = Resources.Load<Sprite>("BuffIcons/AntiBuff");  
+      isDebuff = true;
+      
+    }
 
     public override void CauseBuffEffect()
     {

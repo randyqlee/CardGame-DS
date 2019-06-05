@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class BuffPanel : MonoBehaviour {
 
 	public GameObject buffImage;
+	
+	[HideInInspector]
+	public List<GameObject> Buffs = new List<GameObject>();
 	// Use this for initialization
 	public void AddBuffItem(BuffEffect buffEffect)
 	{
@@ -16,6 +19,14 @@ public class BuffPanel : MonoBehaviour {
         id.UniqueID = buffEffect.buffID;
 		go.GetComponent<Image>().sprite = buffEffect.buffIcon;
 		go.GetComponentInChildren<Text>().text = buffEffect.buffCooldown.ToString();
+
+		Buffs.Add(go);
+	}
+
+
+	public void DestroyBuff(GameObject buff)
+	{
+		Destroy(buff);
 	}
 
 }

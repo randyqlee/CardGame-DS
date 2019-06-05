@@ -70,7 +70,9 @@ public class BuffEffect
 
         }
         if(buffCooldown <= 0)
+
             RemoveBuff();
+            
                         
     }
 
@@ -80,6 +82,7 @@ public class BuffEffect
         UndoBuffEffect();
         UnregisterCooldown();        
         target.buffEffects.Remove(this);        
+        new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
 
         
     }

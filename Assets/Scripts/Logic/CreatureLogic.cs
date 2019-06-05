@@ -416,6 +416,8 @@ public class CreatureLogic: ICharacter
                     be.buffCooldown = buff.buffCooldown;
 
                 buffExists = true;
+
+                new UpdateBuffCommand(be).AddToQueue();
             }
         }
 

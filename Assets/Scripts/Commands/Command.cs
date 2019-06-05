@@ -10,7 +10,7 @@ public class Command
     public virtual void AddToQueue()
     {
         CommandQueue.Enqueue(this);
-        Debug.Log ("Enqueue: " + this.ToString());
+        //Debug.Log ("Enqueue: " + this.ToString());
         if (!playingQueue)
             PlayFirstCommandFromQueue();
     }

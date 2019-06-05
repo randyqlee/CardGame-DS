@@ -25,7 +25,7 @@ public class CreatureAttackCommand : Command
 
     public override void StartCommandExecution()
     {
-        Debug.Log ("StartCommand CreatureAttackCommand");
+        //Debug.Log ("StartCommand CreatureAttackCommand");
         GameObject Attacker = IDHolder.GetGameObjectWithID(AttackerUniqueID);
 
         //Debug.Log(TargetUniqueID);
