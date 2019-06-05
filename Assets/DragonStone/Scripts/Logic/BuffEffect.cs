@@ -14,6 +14,33 @@ public class BuffEffect
     public CreatureLogic target;
 
     public int buffCooldown;
+
+/*
+    private int buffCooldownValue;
+    public int buffCooldown
+    {
+        get
+        {
+            return buffCooldownValue;
+        }
+        set
+        {
+            buffCooldownValue = value;
+            
+            if (buffCooldownValue > 0)
+            {
+                new UpdateBuffCommand(this).AddToQueue();
+            }
+
+            else
+            {
+
+            }
+
+            
+        }
+    }
+*/
     public bool isBuff;
     public bool isDebuff;
 
