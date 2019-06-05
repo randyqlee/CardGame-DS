@@ -8,7 +8,9 @@ public class Unhealable : BuffEffect {
     
 	
     public Unhealable(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    { 
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Unhealable");
+        isDebuff = true;}
 
     public override void CauseBuffEffect()
     {

@@ -7,7 +7,10 @@ public class Brand : BuffEffect {
     int brandDamage = 2;
 	
     public Brand(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    {
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Brand");
+        isDebuff = true;
+    }
 
 
     public override void CauseBuffEffect()

@@ -8,7 +8,10 @@ public class CrippledStrike : BuffEffect {
     
 	
     public CrippledStrike(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    {
+       buffIcon = Resources.Load<Sprite>("BuffIcons/CrippledStrike");
+       isDebuff = true;
+   }
 
     public override void CauseBuffEffect()
     {

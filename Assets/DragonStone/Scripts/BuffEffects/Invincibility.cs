@@ -8,7 +8,9 @@ public class Invincibility : BuffEffect {
     
 	
     public Invincibility(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isBuff = true;}
+    {
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Invincibility");
+        isBuff = true;}
 
     public override void CauseBuffEffect()
     {

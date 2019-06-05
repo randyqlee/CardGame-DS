@@ -8,7 +8,9 @@ public class Immunity : BuffEffect {
     
 	
     public Immunity(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isBuff = true;}
+    {
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Immunity");
+        isBuff = true;}
 
     public override void CauseBuffEffect()
     {

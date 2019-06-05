@@ -7,7 +7,9 @@ public class Stun : BuffEffect {
     
 	
     public Stun(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    { 
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Stun");
+        isDebuff = true;}
 
     public override void CauseBuffEffect()
     {        

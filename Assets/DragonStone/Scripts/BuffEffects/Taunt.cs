@@ -5,7 +5,9 @@ using UnityEngine;
 public class Taunt : BuffEffect {   
 	
     public Taunt(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isBuff = true;}
+    { 
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Taunt");
+        isBuff = true;}
 
     
     List<bool> tauntStatus = new List<bool>();

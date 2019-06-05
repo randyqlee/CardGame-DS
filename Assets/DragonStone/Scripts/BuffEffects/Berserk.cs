@@ -8,7 +8,9 @@ public class Berserk : BuffEffect {
     List<CreatureLogic> enemies = new List<CreatureLogic>();
 	
     public Berserk(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    {
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Berserk");
+        isDebuff = true;}
 
     public override void CauseBuffEffect()
     {           

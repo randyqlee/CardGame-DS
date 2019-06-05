@@ -7,7 +7,9 @@ public class Silence : BuffEffect {
     List<CreatureEffect> creatureEffects = new List<CreatureEffect>();    
 	
     public Silence(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
-    { isDebuff = true;}
+    {
+        buffIcon = Resources.Load<Sprite>("BuffIcons/Silence");
+        isDebuff = true;}
 
     public override void CauseBuffEffect()
     {        
