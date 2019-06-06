@@ -19,7 +19,9 @@ public class UpdateBuffCommand : Command {
 		Debug.Log ("StartCommand UpdateBuffCommand");
 		
 		GameObject buffImage = IDHolder.GetGameObjectWithID(buffEffect.buffID);
+
 		buffImage.GetComponentInChildren<Text>().text = buffEffect.buffCooldown.ToString();
+		
 		Command.CommandExecutionComplete();
 
 	}
