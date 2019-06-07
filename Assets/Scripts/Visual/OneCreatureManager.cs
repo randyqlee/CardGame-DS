@@ -15,6 +15,8 @@ public class OneCreatureManager : MonoBehaviour
 
     public BuffPanel buffPanel;
 
+    public OverheadText overheadText;
+
     void Awake()
     {
         if (cardAsset != null)
