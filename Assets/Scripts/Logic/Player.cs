@@ -34,7 +34,20 @@ public class Player : MonoBehaviour, ICharacter
 
     // this value used exclusively for our coin spell
     private int bonusManaThisTurn = 0;
-    private int creatureTurn = 0;
+    private int creatureTurn;
+    private int extraCreatureTurn;
+    public int ExtraCreatureTurn
+    {
+        get{return extraCreatureTurn;}
+        set{
+            if(value >= 1)
+            extraCreatureTurn = 1;
+            else
+            extraCreatureTurn = 0;
+        }
+    }
+
+
     private List<bool> isDeadStatus = new List<bool>();
     private bool gameIsOver = false;
 
@@ -168,25 +181,31 @@ public class Player : MonoBehaviour, ICharacter
       //DS
        if(!gameIsOver)
        {
-           //implement stun here
-           while(table.CreaturesOnTable[creatureTurn].isDead){
+           //iterate if dead
+           while(table.CreaturesOnTable[creatureTurn].isDead)
+           {
             if(creatureTurn < table.CreaturesOnTable.Count)
-                creatureTurn++;            
+                creatureTurn++;                         
             if(creatureTurn >= table.CreaturesOnTable.Count)
                 creatureTurn = 0;
            }
 
-            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
+            creatureTurn -= ExtraCreatureTurn;
+            if(creatureTurn<0)
+            creatureTurn = table.CreaturesOnTable.Count;
 
+            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
             ShowHand(table.CreaturesOnTable[creatureTurn]);
 
             //DS
             //DrawAbilityCards(table.CreaturesOnTable[creatureTurn]);
 
             if(creatureTurn < table.CreaturesOnTable.Count)
-                creatureTurn++;            
+                creatureTurn++;                              
             if(creatureTurn >= table.CreaturesOnTable.Count)
                 creatureTurn = 0;
+
+            ExtraCreatureTurn--;
        }     
       
       //table.CreaturesOnTable[creatureTurn].OnTurnStart();    

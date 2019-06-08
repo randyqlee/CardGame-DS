@@ -13,36 +13,7 @@ public class BuffEffect
     [HideInInspector]
     public CreatureLogic target;
 
-    //public int buffCooldown;
-
-
-    private int buffCooldownValue;
-    public int buffCooldown
-    {
-        get
-        {
-            return buffCooldownValue;
-        }
-        set
-        {
-            buffCooldownValue = value;
-            
-            if (isActive && buffCooldownValue > 0)
-            {
-                Debug.Log ("Calling Property update cooldown");
-                new UpdateBuffCommand(this).AddToQueue();
-                    
-            }
-
-            else
-            {
-
-            }
-
-            
-        }
-    }
-
+    public int buffCooldown;
     public bool isBuff;
     public bool isDebuff;
 
@@ -51,10 +22,6 @@ public class BuffEffect
     //DS
     //Added buffID for Logic and Visual link
     public int buffID;
-
-    //DS
-    //Use this flag to ensure that UpdateBUffCommand in buffCooldown prop is only called when the Buff Visual already exists
-    public bool isActive = false;
     
     public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown)
     {
@@ -114,7 +81,8 @@ public class BuffEffect
         Debug.Log("Remove Buff " +this.GetType().Name);
         UndoBuffEffect();
         UnregisterCooldown();        
-        target.buffEffects.Remove(this);        
+        target.buffEffects.Remove(this);       
+         
         new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
 
         

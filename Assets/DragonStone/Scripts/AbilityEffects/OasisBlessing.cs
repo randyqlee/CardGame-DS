@@ -36,10 +36,11 @@ public class OasisBlessing : CreatureEffect {
 
             CreatureLogic randomAlly = allies[Random.Range(0,allies.Count)];
 
-            Debug.Log("Random Ally: " +randomAlly.UniqueCreatureID);
+            //Debug.Log("Random Ally: " +randomAlly.UniqueCreatureID);
+            base.UseEffect();
             
-            //AddBuff(randomAlly, "IncreaseAttack",buffCooldown);
-            //AddBuff(randomAlly, "Recovery",buffCooldown);
+            AddBuff(randomAlly, "IncreaseAttack",buffCooldown);
+            AddBuff(randomAlly, "Recovery",buffCooldown);
             //AddBuff(randomAlly, "Retaliate",buffCooldown);
              //AddBuff(randomAlly, "Immunity",buffCooldown);
             //AddBuff(randomAlly, "Invincibility",buffCooldown);

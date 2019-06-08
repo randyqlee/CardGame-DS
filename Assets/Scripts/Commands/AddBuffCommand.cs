@@ -23,8 +23,9 @@ public class AddBuffCommand : Command {
 		Debug.Log ("StartCommand AddBuffCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		BuffPanel buffPanel = creature.GetComponentInChildren<BuffPanel>();
-		GameObject Target = IDHolder.GetGameObjectWithID(TargetUniqueID);
-		Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
+
+		// GameObject Target = IDHolder.GetGameObjectWithID(TargetUniqueID);
+		// Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
 
 		buffPanel.AddBuffItem(buffEffect);
 		Command.CommandExecutionComplete();

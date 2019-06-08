@@ -21,7 +21,7 @@ public class BuffPanel : MonoBehaviour {
 		go.GetComponentInChildren<Text>().text = buffEffect.buffCooldown.ToString();
 
 		Buffs.Add(go);
-		buffEffect.isActive = true;
+		//buffEffect.isActive = true;
 	}
 
 

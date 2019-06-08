@@ -46,6 +46,22 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    //Extra Turn
+    private int turnCounter = 0;
+    public int TurnCounter
+    {
+        get{return turnCounter;}
+        set
+        {
+            
+            if(value>=1)
+            turnCounter=1;
+
+            if(value<=0)
+            turnCounter=0;
+        }
+    }
+
 
     // METHODS
     void Awake()
@@ -136,18 +152,32 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void EndTurn()
-    {
-        // stop timer
-        timer.StopTimer();
-        // send all commands in the end of current player`s turn
-        whoseTurn.OnTurnEnd();
+    {        
+        
+            // stop timer
+            timer.StopTimer();
+            // send all commands in the end of current player`s turn
+            whoseTurn.OnTurnEnd();
 
-        //New SCRIPT - also end each creature's turn
-        foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)        
+            //New SCRIPT - also end each creature's turn
+            foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)        
              if(cl.isActive)
              cl.OnTurnEnd();
 
-        new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+            if(TurnCounter<=0)
+            {
+              new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+            }
+            else            
+            {
+              new StartATurnCommand(whoseTurn).AddToQueue();
+            }
+            
+            
+        
+
+        TurnCounter--;
+
     }
 
     public void StopTheTimer()
