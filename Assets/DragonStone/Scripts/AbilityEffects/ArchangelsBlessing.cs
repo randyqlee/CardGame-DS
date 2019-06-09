@@ -9,6 +9,8 @@ using UnityEngine;
 public class ArchangelsBlessing : CreatureEffect {
 
     public int buffCooldown = 1;
+    CreatureLogic weakestAlly;
+    
 
     public ArchangelsBlessing(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -29,21 +31,35 @@ public class ArchangelsBlessing : CreatureEffect {
        
     }
 
-    public override void UseEffect(CreatureLogic target)
+    public override void UseEffect()
     {     
         if(remainingCooldown <=0)
-        {     
-          
-        }
+        {           
+            weakestAlly = creature;   
+            foreach(CreatureLogic cl in owner.allies)
+            {            
+               
+                if(cl.Health < weakestAlly.Health)
+                weakestAlly = cl;
+                         
+            }
 
-        base.UseEffect();         
-    }
+            HealWeakestAlly(weakestAlly);
+
+              base.UseEffect();    
+
+              Debug.Log("Archangels Blessing");
+
+        }           
+
+    }//UseEffect
 
     public void HealWeakestAlly(CreatureLogic target)
     {
-        
+        //owner.allies
+       int healAmount;
+       healAmount = Mathf.Abs(target.MaxHealth - target.Health);
+       target.Heal(healAmount);
     }
-
-
 
 }

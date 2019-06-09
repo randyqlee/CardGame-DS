@@ -12,7 +12,9 @@ public class CreatureEffect
     //protected int creatureEffectCooldown;
 
     //DS
-    public Player owner;
+    
+    public Player owner;    
+    public string Name;
 
     [HideInInspector]
     public CreatureLogic creature;
@@ -32,6 +34,8 @@ public class CreatureEffect
         
         //initialize remaining cooldown
         remainingCooldown = creatureEffectCooldown;
+        Name = this.GetType().Name.ToString();
+        
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS

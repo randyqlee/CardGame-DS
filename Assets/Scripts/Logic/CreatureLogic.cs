@@ -7,6 +7,7 @@ public class CreatureLogic: ICharacter
 {
     // PUBLIC FIELDS
     public Player owner;
+    public string Name;
     public CardAsset ca;
     public CreatureEffect effect;
     public int UniqueCreatureID;
@@ -204,6 +205,7 @@ public class CreatureLogic: ICharacter
 
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID(); 
+        Name = this.GetType().Name.ToString();
 
         //DS
 
@@ -460,10 +462,27 @@ public class CreatureLogic: ICharacter
         ChangeHealth(amount, healFactor);
     }
 
-    //for direct non-attcak damage
+    
+    // //Used to compute Damage this creature takes
+    // public void TakeDamage(int amount, CreatureLogic source)
+    // {
+    //     int damage = amount*DamageReduction;
+
+    //     new DelayCommand(0.5f).AddToQueue();
+    //     new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.ComputeDamage(poisonDamage, target)).AddToQueue();
+
+    //     target.Health -= target.ComputeDamage(poisonDamage, target);    
+    //     Debug.Log("Poison Activated" +target.UniqueCreatureID);
+
+        
+    // }  
+    
+    
+    
+    //Used to compute Damage this creature deals
     public int ComputeDamage(int amount, CreatureLogic target)
     {
-        int damage = amount*target.DamageReduction*criticalFactor;
+        int damage = amount*criticalFactor;
 
         if(e_IsComputeDamage!=null)
         e_IsComputeDamage();
