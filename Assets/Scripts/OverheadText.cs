@@ -14,11 +14,20 @@ public class OverheadText : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+	
+
+		
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		//FloatingText ("Text");
+
+
+		
 		
 	}
 

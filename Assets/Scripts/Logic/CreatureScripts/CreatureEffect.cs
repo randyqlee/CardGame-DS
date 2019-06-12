@@ -96,7 +96,12 @@ public class CreatureEffect
     public virtual void UseEffect()
     {
             GameObject Target = IDHolder.GetGameObjectWithID(creature.UniqueCreatureID);
-		    Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
+		    
+            //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
+            new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+
+
+
     }
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
