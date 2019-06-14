@@ -23,9 +23,9 @@ public class UseAbilityFloatingTextCommand : Command {
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
 		Command.CommandExecutionComplete();
+		
 
 	}
-
 
 
 }

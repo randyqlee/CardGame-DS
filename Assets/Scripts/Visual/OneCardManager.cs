@@ -22,6 +22,7 @@ public class OneCardManager : MonoBehaviour {
     public Image CardFaceGlowImage;
     public Image CardBackGlowImage;
 
+
     void Awake()
     {
         if (cardAsset != null)
@@ -70,6 +71,8 @@ public class OneCardManager : MonoBehaviour {
         DescriptionText.text = cardAsset.Description;
         // 5) Change the card graphic sprite
         CardGraphicImage.sprite = cardAsset.CardImage;
+
+
 
         if (cardAsset.MaxHealth != 0)
         {

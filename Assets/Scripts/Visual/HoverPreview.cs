@@ -9,6 +9,14 @@ public class HoverPreview: MonoBehaviour
     public Vector3 TargetPosition;
     public float TargetScale;
     public GameObject previewGameObject;
+
+    //DS
+
+    //public Vector3 originalPosition;
+
+    public Vector3 TargetPositionCreature;
+    public float TargetScaleCreature;
+    public GameObject previewGameObjectCreature;
     public bool ActivateInAwake = false;
 
     // PRIVATE FIELDS
@@ -48,6 +56,7 @@ public class HoverPreview: MonoBehaviour
     void Awake()
     {
         ThisPreviewEnabled = ActivateInAwake;
+        //originalPosition = this.transform.localPosition;
     }
             
     void OnMouseEnter()
@@ -84,13 +93,24 @@ public class HoverPreview: MonoBehaviour
 
         previewGameObject.transform.DOLocalMove(TargetPosition, 1f).SetEase(Ease.OutQuint);
         previewGameObject.transform.DOScale(TargetScale, 1f).SetEase(Ease.OutQuint);
+
+
+//DS
+        previewGameObjectCreature.transform.DOScale(TargetScaleCreature, 1f).SetEase(Ease.OutQuint);
     }
 
     void StopThisPreview()
     {
+        
         previewGameObject.SetActive(false);
         previewGameObject.transform.localScale = Vector3.one;
         previewGameObject.transform.localPosition = Vector3.zero;
+
+//DS
+        if (previewGameObjectCreature != null){
+        previewGameObjectCreature.transform.localScale = Vector3.one;
+        }
+
         if (TurnThisOffWhenPreviewing!=null)
             TurnThisOffWhenPreviewing.SetActive(true); 
     }
@@ -98,11 +118,20 @@ public class HoverPreview: MonoBehaviour
     // STATIC METHODS
     private static void StopAllPreviews()
     {
+        Debug.Log("Stop All Preview");
         if (currentlyViewing != null)
         {
             currentlyViewing.previewGameObject.SetActive(false);
             currentlyViewing.previewGameObject.transform.localScale = Vector3.one;
             currentlyViewing.previewGameObject.transform.localPosition = Vector3.zero;
+
+//DS        
+            if (currentlyViewing.previewGameObjectCreature != null){
+            
+            Debug.Log("Stop All Zoom");
+            currentlyViewing.previewGameObjectCreature.transform.localScale = Vector3.one;
+            }
+
             if (currentlyViewing.TurnThisOffWhenPreviewing!=null)
                 currentlyViewing.TurnThisOffWhenPreviewing.SetActive(true); 
         }
