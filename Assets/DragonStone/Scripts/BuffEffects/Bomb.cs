@@ -13,12 +13,12 @@ public class Bomb : BuffEffect {
 
     public override void CauseBuffEffect()
     {        
-        target.e_CreatureOnTurnStart += bombEffect;
+        target.e_CreatureOnTurnEnd += bombEffect;
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_CreatureOnTurnStart -= bombEffect;
+        target.e_CreatureOnTurnEnd -= bombEffect;
     }
 
     public void bombEffect()
@@ -26,10 +26,23 @@ public class Bomb : BuffEffect {
         if(buffCooldown <= 0)
         {
             
-        }
+           new DelayCommand(0.5f).AddToQueue();
 
+            //new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.DealDamage(poisonDamage)).AddToQueue();
+
+            new DealDamageCommand(target.ID, bombDamage, healthAfter: target.TakeDamageVisual(target.DealDamage(bombDamage))).AddToQueue();
+            
+            
+            target.TakeDamage(bombDamage);
+            Debug.Log("BOOM! " +target.UniqueCreatureID);
+            base.AddBuff(target, "Stun", 1);
+           
+            //TurnManager.Instance.EndTurn();
+
+        }
         
     }
+
     
     
 }//DecreaseAttack Method

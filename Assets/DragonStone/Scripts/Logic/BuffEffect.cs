@@ -88,4 +88,35 @@ public class BuffEffect
         
     }
 
+
+    public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
+    {
+        //the BuffEffect will be instantiated here
+        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{source, target, buffCooldown}) as BuffEffect;
+        
+
+        //if buff, can only affect allies
+        if(buffEffect.isBuff && source.canBuff && target.canBeBuffed)
+        //if(buffEffect.isBuff)
+        {
+            //check if same team
+            if(target.owner == source.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }
+
+        //if debuff, can only affect enemies
+        if(buffEffect.isDebuff && source.canDebuff && target.canBeDebuffed)
+        {
+            //check if same team
+            if(target.owner != source.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }
+        
+        
+    }      
+
 }

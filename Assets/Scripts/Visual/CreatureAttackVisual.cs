@@ -26,11 +26,10 @@ public class CreatureAttackVisual : MonoBehaviour
 
         transform.DOMove(target.transform.position, 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InCubic).OnComplete(() =>
             {
-                if(damageTakenByTarget>0)
+                if(damageTakenByTarget>0)                    
                     DamageEffect.CreateDamageEffect(target.transform.position, damageTakenByTarget);
-                if(damageTakenByAttacker>0)
-                    DamageEffect.CreateDamageEffect(transform.position, damageTakenByAttacker);
-                
+                if(damageTakenByAttacker>0)                    
+                    DamageEffect.CreateDamageEffect(transform.position, damageTakenByAttacker);                
                 if (targetUniqueID == GlobalSettings.Instance.LowPlayer.PlayerID || targetUniqueID == GlobalSettings.Instance.TopPlayer.PlayerID)
                 {
                     // target is a player

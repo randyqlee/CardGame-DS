@@ -57,7 +57,7 @@ public class OneCreatureManager : MonoBehaviour
     public void TakeDamage(int amount, int healthAfter)
     {
         if (amount > 0)
-        {
+        {            
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
         } 

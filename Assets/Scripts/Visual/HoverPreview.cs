@@ -83,20 +83,20 @@ public class HoverPreview: MonoBehaviour
         // 2) save this HoverPreview as curent
         currentlyViewing = this;
         // 3) enable Preview game object
-        previewGameObject.SetActive(true);
+        //previewGameObject.SetActive(true);
         // 4) disable if we have what to disable
         if (TurnThisOffWhenPreviewing!=null)
             TurnThisOffWhenPreviewing.SetActive(false); 
         // 5) tween to target position
-        previewGameObject.transform.localPosition = Vector3.zero;
-        previewGameObject.transform.localScale = Vector3.one;
+        //previewGameObject.transform.localPosition = Vector3.zero;
+        //previewGameObject.transform.localScale = Vector3.one;
 
-        previewGameObject.transform.DOLocalMove(TargetPosition, 1f).SetEase(Ease.OutQuint);
-        previewGameObject.transform.DOScale(TargetScale, 1f).SetEase(Ease.OutQuint);
+        //previewGameObject.transform.DOLocalMove(TargetPosition, 1f).SetEase(Ease.OutQuint);
+        //previewGameObject.transform.DOScale(TargetScale, 1f).SetEase(Ease.OutQuint);
 
 
 //DS
-        previewGameObjectCreature.transform.DOScale(TargetScaleCreature, 1f).SetEase(Ease.OutQuint);
+        previewGameObjectCreature.transform.DOScale(TargetScaleCreature, 0.1f).SetEase(Ease.OutQuint);
     }
 
     void StopThisPreview()
@@ -109,6 +109,7 @@ public class HoverPreview: MonoBehaviour
 //DS
         if (previewGameObjectCreature != null){
         previewGameObjectCreature.transform.localScale = Vector3.one;
+        previewGameObjectCreature.transform.DOScale(1f,0.1f).SetEase(Ease.OutQuint);
         }
 
         if (TurnThisOffWhenPreviewing!=null)

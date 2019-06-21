@@ -35,10 +35,11 @@ public class SweetDreams : CreatureEffect {
         if(remainingCooldown <=0)
         {     
            RemoveAllBuffs(target);            
-           AddBuff(target,"Stun",buffCooldown);                 
+           AddBuff(target,"Stun",buffCooldown);   
+           base.UseEffect();                       
         }
 
-        base.UseEffect();         
+        
     }
 
     public void RemoveAllBuffs(CreatureLogic target)

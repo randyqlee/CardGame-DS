@@ -26,12 +26,17 @@ public class Brand : BuffEffect {
 
     
      public void DealBrandDamage()
-    {
-        
+    {        
         new DelayCommand(0.5f).AddToQueue();
-        new DealDamageCommand(target.ID, brandDamage, healthAfter: target.Health - target.ComputeDamage(brandDamage, target)).AddToQueue();
-        target.Health -= target.ComputeDamage(brandDamage, target);    
+
+        //new DealDamageCommand(target.ID, brandDamage, healthAfter: target.Health - target.ComputeDamage(brandDamage, target)).AddToQueue();
+
+        new DealDamageCommand(target.ID, brandDamage, healthAfter: target.TakeDamageVisual(target.DealDamage(brandDamage))).AddToQueue();               
+
+        target.TakeDamage(target.DealDamage(brandDamage));    
+
         Debug.Log("Brand Damage Activated, Health is " +target.Health.ToString());
+
     }
    
     

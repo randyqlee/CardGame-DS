@@ -161,6 +161,7 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    
     //Flags
    
     [HideInInspector]
@@ -177,6 +178,8 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
+
+   
 
     //[HideInInspector]
     public bool canBeAttacked = true;
@@ -338,15 +341,21 @@ public class CreatureLogic: ICharacter
         //AttackDamage = Attack*criticalFactor;
         
         //TEST
-        AttackDamage = ComputeDamage(Attack, target);
+        //DS:  DealDamage
+        AttackDamage = DealDamage(Attack);
         
         //target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
 
         //TEST
-        target.targetAttackDamage = target.ComputeDamage(targetAttackDamage, this);
+        //DS:target.DealDamage
+        target.targetAttackDamage = target.DealDamage(targetAttackDamage);
         
 
-        int targetHealthAfter = target.Health - AttackDamage;
+        //DS:  replace with target.TakeDamage
+        //int targetHealthAfter = target.Health - AttackDamage;
+        int targetHealthAfter = target.TakeDamageVisual(AttackDamage);
+
+
         if(targetHealthAfter > target.MaxHealth)
         targetHealthAfter = target.MaxHealth;
 
@@ -354,7 +363,10 @@ public class CreatureLogic: ICharacter
         //original
         //int attackerHealthAfter = Health - target.Attack;
 
-        int attackerHealthAfter = Health - target.targetAttackDamage;
+        //replace with, TakeDamage
+        //int attackerHealthAfter = Health - target.targetAttackDamage;
+        int attackerHealthAfter = TakeDamageVisual(target.targetAttackDamage);
+
         if(Health > MaxHealth)
         attackerHealthAfter = MaxHealth;
 
@@ -362,13 +374,16 @@ public class CreatureLogic: ICharacter
         //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //set target attack to 0 to reflect non-damage for the attacker
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //Target's Health minus my attack damage
-        target.Health -= AttackDamage;
+        //DS:  target.TakeDamage;
+        //target.Health -= AttackDamage;
+        target.TakeDamage(AttackDamage);
 
         //My Health minus my target's attack damage
-        Health -= target.targetAttackDamage;
+        //TakeDamage;
+        TakeDamage(target.targetAttackDamage);
         
         //originally enabled 
         //Health -= target.Attack;       
@@ -479,8 +494,18 @@ public class CreatureLogic: ICharacter
     
     
     
-    //Used to compute Damage this creature deals
-    public int ComputeDamage(int amount, CreatureLogic target)
+    // //Used to compute Damage this creature deals
+    // public int ComputeDamage(int amount, CreatureLogic target)
+    // {
+    //     int damage = amount*criticalFactor;
+
+    //     if(e_IsComputeDamage!=null)
+    //     e_IsComputeDamage();
+
+    //     return damage;
+    // }
+
+    public int DealDamage(int amount)
     {
         int damage = amount*criticalFactor;
 
@@ -488,6 +513,28 @@ public class CreatureLogic: ICharacter
         e_IsComputeDamage();
 
         return damage;
+    }
+
+    //input: DealDamage
+    public void TakeDamage(int damage)
+    {
+        //new DelayCommand(0.1f).AddToQueue();
+
+        //new DealDamageCommand(target.ID, brandDamage, healthAfter: target.Health - target.ComputeDamage(brandDamage, target)).AddToQueue();
+
+        //new DealDamageCommand(this.ID, damage, healthAfter: TakeDamageVisual(damage)).AddToQueue(); 
+        
+        
+        int finalDamage = DamageReduction*damage;
+        Health-=finalDamage;
+    }
+
+    public int TakeDamageVisual(int damage)
+    {
+        int finalDamage = DamageReduction*damage;
+        int healthAfter = Health;
+        healthAfter-=finalDamage;
+        return healthAfter;
     }
 
   
