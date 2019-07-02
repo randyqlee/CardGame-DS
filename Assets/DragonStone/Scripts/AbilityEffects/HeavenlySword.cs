@@ -9,6 +9,7 @@ using UnityEngine;
 public class HeavenlySword : CreatureEffect {
 
     public int buffCooldown = 1;
+    int skillDamage = 5;
 
     public HeavenlySword(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -49,6 +50,7 @@ public class HeavenlySword : CreatureEffect {
         if(randList.Count>1)
         {
             randList[Random.Range(0,randList.Count)].RemoveBuff();
+            target.TakeDamage(skillDamage);
         }
        
     }

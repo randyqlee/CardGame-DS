@@ -40,7 +40,7 @@ public class BuffEffect
 
     ~BuffEffect()
     {
-        Debug.Log("Buffeffect destroyed: " +this.GetType().Name);
+        //Debug.Log("Buffeffect destroyed: " +this.GetType().Name);
     }
 
     public virtual void RegisterCooldown()
@@ -78,7 +78,7 @@ public class BuffEffect
 
     public virtual void RemoveBuff()
     {
-        Debug.Log("Remove Buff " +this.GetType().Name);
+        //Debug.Log("Remove Buff " +this.GetType().Name);
         UndoBuffEffect();
         UnregisterCooldown();        
         target.buffEffects.Remove(this);       

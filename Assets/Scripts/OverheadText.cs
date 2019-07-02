@@ -37,7 +37,7 @@ public class OverheadText : MonoBehaviour {
 		//StartCoroutine (DelayMessage(message));
 		//DelayMessage(message);
 
-		Debug.Log("calling Floatingtext " +message);
+		//Debug.Log("calling Floatingtext " +message);
 
 		FloatingText popupText = Resources.Load<FloatingText>("Prefabs/PopupTextParent");
 		FloatingText instance = Instantiate(popupText);

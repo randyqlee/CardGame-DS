@@ -7,6 +7,7 @@ using UnityEngine;
 public class TouchOfSeduction : CreatureEffect {
 
     public int buffCooldown = 1;
+    int chance = 65;
 
     public TouchOfSeduction(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -24,29 +25,22 @@ public class TouchOfSeduction : CreatureEffect {
 
     public override void CauseEventEffect()
     {
-       if(remainingCooldown <=0)
-        Debug.Log("Activate Effect: " +this.ToString());
+   
     }
 
     public override void UseEffect(CreatureLogic target)
     {
         
-        
-      
-            //AddBuff will be called from parent CreatureEffect
-            //AddBuff(target,"DecreaseAttack",buffCooldown);
-            AddBuff(target,"Poison",buffCooldown);  
-            AddBuff(target,"Brand",buffCooldown);         
-            //AddBuff(target,"Unhealable",buffCooldown);  
-            //AddBuff(target,"CrippledStrike",buffCooldown);  
-            //AddBuff(target,"Silence",buffCooldown);  
-            //AddBuff(target,"Stun",buffCooldown);      
-             //AddBuff(target,"Berserk",buffCooldown);
-             AddBuff(target,"Bomb",buffCooldown);                 
-        
+            if(remainingCooldown <=0)
+            {
+                AddBuff(target,"DecreaseAttack",buffCooldown);  
+                
+                if(Random.Range(0,100)<chance)
+                AddBuff(creature,"CriticalStrike",buffCooldown);                     
+                base.UseEffect();   
+                //AddBuff(target,"Bomb",buffCooldown);         
 
-        base.UseEffect();   
-       
+            }       
     }
 
 }

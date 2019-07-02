@@ -26,8 +26,8 @@ public class BladeFan : CreatureEffect {
 
     public override void CauseEventEffect()
     {
-       if(remainingCooldown <=0)
-        Debug.Log("Activate Effect: " +this.ToString());
+    //    if(remainingCooldown <=0)
+    //     Debug.Log("Activate Effect: " +this.ToString());
     }
 
     public override void UseEffect(CreatureLogic target)
@@ -35,10 +35,11 @@ public class BladeFan : CreatureEffect {
         if(remainingCooldown <=0)
         {     
            RemoveAllBuffs(target);            
-           //AddBuff(target,"Stun",buffCooldown);                 
+           //AddBuff(target,"Stun",buffCooldown);      
+           base.UseEffect();               
         }
 
-        base.UseEffect();         
+             
     }
 
     public void RemoveAllBuffs(CreatureLogic target)
@@ -54,14 +55,15 @@ public class BladeFan : CreatureEffect {
             }            
         }
 
-        Debug.Log("Buffs Removed: " +buffCounter);
-        if(buffCounter>=3)
-        {
-            Extraturn();
-        }
+        // Debug.Log("Buffs Removed: " +buffCounter);
+        // if(buffCounter>=3)
+        // {
+        //     Extraturn();
+        // }
+        ExtraTurnEffect();
     }
 
-    public void Extraturn()
+    public void ExtraTurnEffect()
     {
         TurnManager.Instance.TurnCounter++;
         owner.ExtraCreatureTurn = 1;

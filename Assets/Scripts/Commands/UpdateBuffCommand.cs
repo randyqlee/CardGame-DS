@@ -9,14 +9,14 @@ public class UpdateBuffCommand : Command {
 	private int buffCooldown;
 	public UpdateBuffCommand(BuffEffect buffEffect)
 	{
-		Debug.Log ("Call UpdateBuffCommand");
+		//Debug.Log ("Call UpdateBuffCommand");
 		this.buffEffect = buffEffect;
 		this.buffCooldown = buffEffect.buffCooldown;
 	}
 
 	public override void StartCommandExecution()
 	{
-		Debug.Log ("StartCommand UpdateBuffCommand");
+		//Debug.Log ("StartCommand UpdateBuffCommand");
 		
 		GameObject buffImage = IDHolder.GetGameObjectWithID(buffEffect.buffID);
 

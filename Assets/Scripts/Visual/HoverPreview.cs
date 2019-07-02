@@ -119,7 +119,7 @@ public class HoverPreview: MonoBehaviour
     // STATIC METHODS
     private static void StopAllPreviews()
     {
-        Debug.Log("Stop All Preview");
+        //Debug.Log("Stop All Preview");
         if (currentlyViewing != null)
         {
             currentlyViewing.previewGameObject.SetActive(false);
@@ -129,7 +129,7 @@ public class HoverPreview: MonoBehaviour
 //DS        
             if (currentlyViewing.previewGameObjectCreature != null){
             
-            Debug.Log("Stop All Zoom");
+            //Debug.Log("Stop All Zoom");
             currentlyViewing.previewGameObjectCreature.transform.localScale = Vector3.one;
             }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 public class PassingTime : CreatureEffect {
 
     public int buffCooldown = 0;
-    int criticalChance = 75;
+    int chance = 100;
 
     public PassingTime(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -15,7 +15,7 @@ public class PassingTime : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_CreatureOnTurnStart += UseEffect;      
+       creature.e_CreatureOnTurnEnd += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
@@ -28,15 +28,25 @@ public class PassingTime : CreatureEffect {
        
     }
 
-    public override void UseEffect()
+    public override void UseEffect(CreatureLogic target)
     {        
-        int x = Random.Range(0,101);
-
-        if(x<=criticalChance)
+        
+        if(remainingCooldown<=0)
         {
-            AddBuff(creature,"CriticalStrike",buffCooldown);               
-            base.UseEffect();          
+            //AddBuff(creature,"CriticalStrike",buffCooldown);    
+
+            //if(Random.Range(0,100)<chance)           
+            //SecondAttack(target);
+
+            base.UseEffect();
+
         }        
         
+    }
+
+    void SecondAttack(CreatureLogic target)
+    {               
+        creature.AttacksLeftThisTurn++;
+        creature.AttackCreature(target);
     }
 }

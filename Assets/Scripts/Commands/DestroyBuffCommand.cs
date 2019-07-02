@@ -12,7 +12,7 @@ public class DestroyBuffCommand : Command {
 	public DestroyBuffCommand(BuffEffect buffEffect,int TargetUniqueID)
 
 	{
-		Debug.Log ("Call DestroyBuffCommand");
+		//Debug.Log ("Call DestroyBuffCommand");
 		this.buffEffect = buffEffect;
 		this.TargetUniqueID = TargetUniqueID;
 
@@ -20,7 +20,7 @@ public class DestroyBuffCommand : Command {
 
 	public override void StartCommandExecution()
 	{
-		Debug.Log ("StartCommand DestroyBuffCommand");
+		//Debug.Log ("StartCommand DestroyBuffCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		BuffPanel buffPanel = creature.GetComponentInChildren<BuffPanel>();
 		//buffPanel.DestroyBuffwithID(buffEffect.buffID);

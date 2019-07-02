@@ -11,7 +11,7 @@ public class UseAbilityFloatingTextCommand : Command {
 
 	public UseAbilityFloatingTextCommand (string text, int TargetUniqueID)
 	{
-		Debug.Log ("Call UseAbilityFloatingTextCommand");
+		//Debug.Log ("Call UseAbilityFloatingTextCommand");
 		this.text = text;
 		this.TargetUniqueID = TargetUniqueID;
 
@@ -19,7 +19,7 @@ public class UseAbilityFloatingTextCommand : Command {
 
 	public override void StartCommandExecution()
 	{
-		Debug.Log ("StartCommand UseAbilityFloatingTextCommand");
+		//Debug.Log ("StartCommand UseAbilityFloatingTextCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
 		Command.CommandExecutionComplete();

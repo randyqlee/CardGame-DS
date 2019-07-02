@@ -12,7 +12,7 @@ public class AddBuffCommand : Command {
 	public AddBuffCommand(BuffEffect buffEffect, int TargetUniqueID)
 
 	{
-		Debug.Log ("Call AddBuffCommand");
+		//Debug.Log ("Call AddBuffCommand");
 		this.buffEffect = buffEffect;
 		this.TargetUniqueID = TargetUniqueID;
 
@@ -20,7 +20,7 @@ public class AddBuffCommand : Command {
 
 	public override void StartCommandExecution()
 	{
-		Debug.Log ("StartCommand AddBuffCommand");
+		//Debug.Log ("StartCommand AddBuffCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		BuffPanel buffPanel = creature.GetComponentInChildren<BuffPanel>();
 

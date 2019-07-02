@@ -35,7 +35,8 @@ public class Player : MonoBehaviour, ICharacter
     // this value used exclusively for our coin spell
     private int bonusManaThisTurn = 0;
     private int creatureTurn;
-    private int extraCreatureTurn;
+    private int extraCreatureTurn=0;
+
     public int ExtraCreatureTurn
     {
         get{return extraCreatureTurn;}
@@ -192,7 +193,7 @@ public class Player : MonoBehaviour, ICharacter
 
             creatureTurn -= ExtraCreatureTurn;
             if(creatureTurn<0)
-            creatureTurn = table.CreaturesOnTable.Count;
+            creatureTurn = table.CreaturesOnTable.Count-1;
 
             table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
             ShowHand(table.CreaturesOnTable[creatureTurn]);

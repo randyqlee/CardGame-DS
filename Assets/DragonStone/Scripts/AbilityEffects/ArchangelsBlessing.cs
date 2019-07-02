@@ -60,6 +60,7 @@ public class ArchangelsBlessing : CreatureEffect {
        int healAmount;
        healAmount = Mathf.Abs(target.MaxHealth - target.Health);
        target.Heal(healAmount);
+       
     }
 
 }

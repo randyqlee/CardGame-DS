@@ -7,6 +7,7 @@ using UnityEngine;
 public class GracefulTouch : CreatureEffect {
 
     public int buffCooldown = 1;
+    int chance = 60;
 
     public GracefulTouch(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -24,14 +25,22 @@ public class GracefulTouch : CreatureEffect {
 
     public override void CauseEventEffect()
     {
-       if(remainingCooldown <=0)
-        Debug.Log("Activate Effect: " +this.ToString());
+       
     }
 
     public override void UseEffect(CreatureLogic target)
-    {                      
-        AddBuff(target,"CrippledStrike",buffCooldown);                          
-        base.UseEffect();       
+    {
+        
+            if(remainingCooldown <=0)
+            {
+                AddBuff(target,"CrippledStrike",buffCooldown);  
+                
+                if(Random.Range(0,100)<chance)
+                AddBuff(creature,"CriticalStrike",buffCooldown);                     
+                base.UseEffect();   
+                //AddBuff(target,"Bomb",buffCooldown);         
+
+            }       
     }
 
 }

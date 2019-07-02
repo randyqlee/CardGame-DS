@@ -13,7 +13,7 @@ public class FloatingText : MonoBehaviour {
 		Destroy(gameObject, 0.9f * clipInfo[0].clip.length);
 		//Destroy(gameObject, 3f * clipInfo[0].clip.length);
 		
-		Debug.Log ("Instantiate Floating text");
+		//Debug.Log ("Instantiate Floating text");
 
 
 	}

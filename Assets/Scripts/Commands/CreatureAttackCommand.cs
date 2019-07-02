@@ -14,7 +14,7 @@ public class CreatureAttackCommand : Command
 
     public CreatureAttackCommand(int targetID, int attackerID, int damageTakenByAttacker, int damageTakenByTarget, int attackerHealthAfter, int targetHealthAfter)
     {
-        Debug.Log ("Call CreatureAttackCommand");
+        //Debug.Log ("Call CreatureAttackCommand");
         this.TargetUniqueID = targetID;
         this.AttackerUniqueID = attackerID;
         this.AttackerHealthAfter = attackerHealthAfter;
