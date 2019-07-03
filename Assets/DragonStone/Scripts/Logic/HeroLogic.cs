@@ -121,7 +121,7 @@ public class HeroLogic : ICharacter {
     {
         AttacksLeftThisTurn--;
         int targetHealthAfter = owner.otherPlayer.Health - Attack;
-        new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, false).AddToQueue();
         owner.otherPlayer.Health -= Attack;
     }
 
@@ -131,7 +131,7 @@ public class HeroLogic : ICharacter {
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent
         int targetHealthAfter = target.Health - Attack;
         int attackerHealthAfter = Health - target.Attack;
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter, false).AddToQueue();
 
         target.Health -= Attack;
         Health -= target.Attack;

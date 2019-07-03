@@ -6,18 +6,30 @@ public class CreatureAttackVisual : MonoBehaviour
 {
     private OneCreatureManager manager;
     private WhereIsTheCardOrCreature w;
+    
 
     void Awake()
     {
         manager = GetComponent<OneCreatureManager>();    
         w = GetComponent<WhereIsTheCardOrCreature>();
+        
     }
 
-    public void AttackTarget(int targetUniqueID, int damageTakenByTarget, int damageTakenByAttacker, int attackerHealthAfter, int targetHealthAfter)
+    public void AttackTarget(int targetUniqueID, int damageTakenByTarget, int damageTakenByAttacker, int attackerHealthAfter, int targetHealthAfter,int attackerUniqueID, bool CanAttack)
     {
         //Debug.Log(targetUniqueID);
-        manager.CanAttackNow = false;
+       
+        
+        manager.CanAttackNow = CanAttack;        
+
         GameObject target = IDHolder.GetGameObjectWithID(targetUniqueID);
+
+      
+        
+        
+
+       
+        
 
         // bring this creature to front sorting-wise.
         w.BringToFront();

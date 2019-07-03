@@ -95,10 +95,12 @@ public class CreatureLogic: ICharacter
             bool ownersTurn = (TurnManager.Instance.whoseTurn == owner);
             return (ownersTurn && (AttacksLeftThisTurn > 0) && !Frozen);
         }
+        set{}
         
         
     }
 
+    
     // property for Attack
     private int baseAttack;
     public int Attack
@@ -181,7 +183,7 @@ public class CreatureLogic: ICharacter
 
    
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool canBeAttacked = true;
     public bool hasTaunt = false;
 
@@ -244,6 +246,8 @@ public class CreatureLogic: ICharacter
     // METHODS
     public void OnTurnStart()
     {
+        
+       
         // will be granted by Player
         isActive = true;
         AttacksLeftThisTurn = attacksForOneTurn; 
@@ -320,7 +324,7 @@ public class CreatureLogic: ICharacter
     {
         AttacksLeftThisTurn--;
         int targetHealthAfter = owner.otherPlayer.Health - Attack;
-        new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, CanAttack).AddToQueue();
         owner.otherPlayer.Health -= Attack;
     }
 
@@ -374,7 +378,7 @@ public class CreatureLogic: ICharacter
         //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //set target attack to 0 to reflect non-damage for the attacker
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter).AddToQueue();
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
 
         //Target's Health minus my attack damage
         //DS:  target.TakeDamage;
@@ -407,7 +411,7 @@ public class CreatureLogic: ICharacter
         // }
 
         
-        TurnManager.Instance.EndTurn();
+        //TurnManager.Instance.EndTurn();
 
     }//Attack Creature   
 
