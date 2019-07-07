@@ -48,6 +48,8 @@ public class CreatureLogic: ICharacter
     public delegate void AfterAttacking(CreatureLogic target);    
     public event AfterAttacking e_AfterAttacking; 
 
+    public delegate void SecondAttack(CreatureLogic target);    
+    public event SecondAttack e_SecondAttack; 
     
     
     //Debuff flags
@@ -409,10 +411,16 @@ public class CreatureLogic: ICharacter
 
         //     }
         // }
-
         
-        //TurnManager.Instance.EndTurn();
-
+        if(!CanAttack)
+        {
+            TurnManager.Instance.EndTurn();
+        }else{            
+            if(e_SecondAttack != null)
+            e_SecondAttack.Invoke(target);      
+        }
+        
+        
     }//Attack Creature   
 
     public void AttackCreatureWithID(int uniqueCreatureID)

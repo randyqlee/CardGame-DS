@@ -15,12 +15,14 @@ public class PassingTime : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_CreatureOnTurnEnd += UseEffect;      
+       creature.e_CreatureOnTurnStart += IncreaseAttackCount;
+       creature.e_SecondAttack += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_CreatureOnTurnEnd -= UseEffect;      
+         creature.e_CreatureOnTurnStart -= IncreaseAttackCount;
+         creature.e_SecondAttack -= UseEffect;      
     }
 
     public override void CauseEventEffect()
@@ -33,20 +35,29 @@ public class PassingTime : CreatureEffect {
         
         if(remainingCooldown<=0)
         {
-            //AddBuff(creature,"CriticalStrike",buffCooldown);    
-
-            //if(Random.Range(0,100)<chance)           
-            //SecondAttack(target);
-
             base.UseEffect();
+            SecondAttack(target);          
 
         }        
         
     }
 
+    void IncreaseAttackCount()
+    {
+       
+        if(remainingCooldown<=0)
+        {
+            creature.AttacksLeftThisTurn++;     
+        }                             
+    }
+
     void SecondAttack(CreatureLogic target)
     {               
-        creature.AttacksLeftThisTurn++;
         creature.AttackCreature(target);
+    }
+
+    void CriticalStrike()
+    {
+        AddBuff(creature, "CriticalStrike", 1);
     }
 }

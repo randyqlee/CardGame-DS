@@ -87,7 +87,7 @@ yield return null;
 	{
 		
 		ShowText();
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (10f);
 		HideText();
 
 		yield return null;
