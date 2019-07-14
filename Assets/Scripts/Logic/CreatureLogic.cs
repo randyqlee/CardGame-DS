@@ -483,6 +483,36 @@ public class CreatureLogic: ICharacter
         buffEffects.Clear();
     }//RemoveAllBuffs
 
+    public void RemoveDeBuffsAll()
+    {
+        int i = this.buffEffects.Count;
+        int buffCounter = 0;
+        for(int x = i-1; x>=0; x--)
+        {
+            if(this.buffEffects[x].isDebuff)
+            {
+                this.buffEffects[x].RemoveBuff();
+                buffCounter++;
+            }            
+        }
+    }
+
+    public void RemoveBuffsAll()
+    {
+        int i = this.buffEffects.Count;
+        int buffCounter = 0;
+        for(int x = i-1; x>=0; x--)
+        {
+            if(this.buffEffects[x].isBuff)
+            {
+                this.buffEffects[x].RemoveBuff();
+                buffCounter++;
+            }            
+        }
+    }
+
+    
+
     
     public void Heal(int amount)
     {

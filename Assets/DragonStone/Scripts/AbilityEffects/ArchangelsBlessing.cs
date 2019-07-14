@@ -10,10 +10,13 @@ public class ArchangelsBlessing : CreatureEffect {
 
     public int buffCooldown = 1;
     CreatureLogic weakestAlly;
+    List<CreatureLogic> temp;
     
 
     public ArchangelsBlessing(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
+    {
+        
+    }
 
 
    public override void RegisterEventEffect()
@@ -35,20 +38,25 @@ public class ArchangelsBlessing : CreatureEffect {
     {     
         if(remainingCooldown <=0)
         {           
+            
+            temp = owner.AllyList();
             weakestAlly = creature;   
-            foreach(CreatureLogic cl in owner.allies)
+            
+            foreach(CreatureLogic cl in temp)
             {            
                
                 if(cl.Health < weakestAlly.Health)
                 weakestAlly = cl;
+                Debug.Log("Ally Creature: " +cl.GetType().Name);               
                          
             }
 
+            Debug.Log("Allies List Size " +temp.ToString());
             HealWeakestAlly(weakestAlly);
 
               base.UseEffect();    
 
-              Debug.Log("Archangels Blessing");
+              
 
         }           
 

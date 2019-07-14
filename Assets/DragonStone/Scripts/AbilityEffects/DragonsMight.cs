@@ -8,7 +8,7 @@ public class DragonsMight : CreatureEffect {
 
     public int buffCooldown = 1;
     public int buffCooldown2 = 0;
-    public int chance = 50;
+    public int chance = 100;
 
     public DragonsMight(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -57,6 +57,9 @@ public class DragonsMight : CreatureEffect {
                 if(x<=chance)
                 {
                    AddBuff(creature,"CriticalStrike",buffCooldown2);
+
+                   //Test
+                   AddBuff(creature,"Invincibility",2);
                    base.UseEffect();          
                 }            
                 

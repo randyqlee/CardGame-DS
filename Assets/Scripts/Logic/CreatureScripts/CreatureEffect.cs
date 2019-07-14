@@ -22,7 +22,7 @@ public class CreatureEffect
     //DS
     public int creatureEffectCooldown;
     public int remainingCooldown;
-   
+    public bool hasUsedEffect = false;
     
 
    
@@ -71,7 +71,11 @@ public class CreatureEffect
         }
         else if(remainingCooldown<=0 && creature.canUseAbility)
         {
+            if(hasUsedEffect)
             remainingCooldown = creatureEffectCooldown;            
+            //don't reset cooldown if creature has not used effect
+            else if(!hasUsedEffect)
+            remainingCooldown = 0;
         }
         //this is for silence scenario
         else if(remainingCooldown<=0 && !creature.canUseAbility)
@@ -85,12 +89,12 @@ public class CreatureEffect
     //Use ability overrides
     public virtual void UseEffect(CreatureLogic target)
     {
-
+        hasUsedEffect = true;
     }
 
     public virtual void UseEffect(int uniqueCreatureID)
     {
-
+        hasUsedEffect = true;
     }
 
     public virtual void UseEffect()
@@ -99,8 +103,7 @@ public class CreatureEffect
 		    
             //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
             new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
-
-
+            hasUsedEffect = true;
 
     }
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
