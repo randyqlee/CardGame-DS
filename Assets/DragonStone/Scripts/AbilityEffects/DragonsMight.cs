@@ -39,7 +39,9 @@ public class DragonsMight : CreatureEffect {
             {
                 int x = Random.Range(0,101);
 
-                if(x<=chance)     
+                int totalChance = TotalChance(chance);
+                
+                if(x<=totalChance)     
                 {
                    AddBuff(target,"Poison",buffCooldown);                    
                    base.UseEffect();         
@@ -53,8 +55,10 @@ public class DragonsMight : CreatureEffect {
             if(remainingCooldown<=0)
             {
                 int x = Random.Range(0,101);
+
+                int totalChance = TotalChance(chance);
             
-                if(x<=chance)
+                if(x<=totalChance)
                 {
                    AddBuff(creature,"CriticalStrike",buffCooldown2);
 

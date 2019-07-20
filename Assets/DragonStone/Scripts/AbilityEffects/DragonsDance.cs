@@ -39,7 +39,10 @@ public class DragonsDance : CreatureEffect {
             foreach(CreatureLogic cl in owner.enemies)
             {            
                
-              if(Random.Range(0,100) <= chance)
+              
+              int totalChance = TotalChance(chance);
+              
+              if(Random.Range(0,100) <= totalChance)
               {
                   AddBuff(target,"Stun",1);
               }

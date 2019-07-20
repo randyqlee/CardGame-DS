@@ -28,6 +28,8 @@ public class CardAsset : ScriptableObject
     public int Attack;
     public int AttacksForOneTurn = 1;
     public bool Charge;
+    //DS
+    public int Chance;
     public string CreatureScriptName;
     public int specialCreatureAmount;
 

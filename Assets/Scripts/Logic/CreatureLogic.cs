@@ -14,6 +14,7 @@ public class CreatureLogic: ICharacter
     public bool Frozen = false;
     public bool isDead;
     public bool isActive;
+    public int chance;
 
     //DS
     //Adding Abilities
@@ -165,6 +166,16 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    private int otherDamageReduction = 1;
+    public int OtherDamageReduction
+    {
+        get{return otherDamageReduction;}
+        set
+        {
+            otherDamageReduction = value;
+        }
+    }
+
     
     //Flags
    
@@ -198,6 +209,7 @@ public class CreatureLogic: ICharacter
 
         //DS
         abilities = ca.Abilities;
+        chance = ca.Chance;
 
 
         baseHealth = ca.MaxHealth;
@@ -560,16 +572,12 @@ public class CreatureLogic: ICharacter
     //input: DealDamage
     public void TakeDamage(int damage)
     {
-        //new DelayCommand(0.1f).AddToQueue();
-
-        //new DealDamageCommand(target.ID, brandDamage, healthAfter: target.Health - target.ComputeDamage(brandDamage, target)).AddToQueue();
-
-        //new DealDamageCommand(this.ID, damage, healthAfter: TakeDamageVisual(damage)).AddToQueue(); 
-        
-        
+              
         int finalDamage = DamageReduction*damage;
         Health-=finalDamage;
     }
+
+    
 
     public int TakeDamageVisual(int damage)
     {
@@ -578,6 +586,24 @@ public class CreatureLogic: ICharacter
         healthAfter-=finalDamage;
         return healthAfter;
     }
+
+
+    // for non-attack damage
+    public void TakeOtherDamage(int damage)
+    {
+              
+        int finalOtherDamage = OtherDamageReduction*damage;
+        Health-=finalOtherDamage;
+    }
+
+    public int TakeOtherDamageVisual(int damage)
+    {
+        int finalOtherDamage = OtherDamageReduction*damage;
+        int healthAfter = Health;
+        healthAfter-=finalOtherDamage;
+        return healthAfter;
+    }
+
 
   
     

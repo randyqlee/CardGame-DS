@@ -35,7 +35,9 @@ public class TouchOfSeduction : CreatureEffect {
             {
                 AddBuff(target,"DecreaseAttack",buffCooldown);  
                 
-                if(Random.Range(0,100)<chance)
+                int totalChance = TotalChance(chance);
+
+                if(Random.Range(0,100)<totalChance)
                 AddBuff(creature,"CriticalStrike",buffCooldown);                     
                 base.UseEffect();   
                 //AddBuff(target,"Bomb",buffCooldown);         

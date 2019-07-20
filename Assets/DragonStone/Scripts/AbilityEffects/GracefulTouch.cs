@@ -35,7 +35,9 @@ public class GracefulTouch : CreatureEffect {
             {
                 AddBuff(target,"CrippledStrike",buffCooldown);  
                 
-                if(Random.Range(0,100)<chance)
+                int totalChance = TotalChance(chance);
+                
+                if(Random.Range(0,100)<totalChance)
                 AddBuff(creature,"CriticalStrike",buffCooldown);                     
                 base.UseEffect();   
                 //AddBuff(target,"Bomb",buffCooldown);         

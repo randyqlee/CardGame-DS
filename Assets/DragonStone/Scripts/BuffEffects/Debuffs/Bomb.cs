@@ -30,10 +30,10 @@ public class Bomb : BuffEffect {
 
             //new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.DealDamage(poisonDamage)).AddToQueue();
 
-            new DealDamageCommand(target.ID, bombDamage, healthAfter: target.TakeDamageVisual(target.DealDamage(bombDamage))).AddToQueue();
+            new DealDamageCommand(target.ID, bombDamage, healthAfter: target.TakeOtherDamageVisual(target.DealDamage(bombDamage))).AddToQueue();
             
             
-            target.TakeDamage(bombDamage);
+            target.TakeOtherDamage(bombDamage);
             Debug.Log("BOOM! " +target.UniqueCreatureID);
             base.AddBuff(target, "Stun", 1);
            

@@ -35,8 +35,15 @@ public class PassingTime : CreatureEffect {
         
         if(remainingCooldown<=0)
         {
+            
             base.UseEffect();
-            SecondAttack(target);          
+
+            int totalChance = TotalChance(chance);                
+            if(Random.Range(0,100)<totalChance)
+            {                
+                SecondAttack(target); 
+            }
+            
 
         }        
         

@@ -152,4 +152,13 @@ public class CreatureEffect
 
     }     
 
+    public int TotalChance(int effectChance)
+    {
+        int totalChance;
+
+        totalChance = effectChance + creature.chance;
+
+        return totalChance;
+    }
+
 }
