@@ -31,9 +31,9 @@ public class Poison : BuffEffect {
 
         //new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.DealDamage(poisonDamage)).AddToQueue();
 
-        new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.TakeOtherDamageVisual(target.DealDamage(poisonDamage))).AddToQueue();
+        new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.TakeOtherDamageVisual(target.DealOtherDamage(poisonDamage))).AddToQueue();
 
-        target.TakeOtherDamage(target.DealDamage(poisonDamage));    
+        target.TakeOtherDamage(poisonDamage);    
         Debug.Log("Poison Activated" +target.UniqueCreatureID);
     }
 

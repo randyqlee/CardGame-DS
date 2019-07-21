@@ -96,4 +96,21 @@ public class OneCreatureManager : MonoBehaviour
             HealthText.text = healthAfter.ToString();
         }
     }//Change Attack
+
+
+    public void Explode()
+    {
+        GameObject explosion = Instantiate(GlobalSettings.Instance.ExplosionPrefab, transform.position, Quaternion.identity);
+
+        Animator explosionAnim = explosion.GetComponent<Animator>();
+        float animTime = explosionAnim.GetCurrentAnimatorStateInfo(0).length;
+        
+        Destroy(explosion,animTime);      
+
+
+        // Sequence s = DOTween.Sequence();
+        // s.PrependInterval(2f);
+        // s.OnComplete(() => GlobalSettings.Instance.GameOverPanel.SetActive(true));            
+        
+    }
 }

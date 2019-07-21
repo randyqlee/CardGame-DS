@@ -156,6 +156,13 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    private int otherFactor = 1;
+    public int OtherFactor
+    {
+        get{return otherFactor;}
+        set{otherFactor = value;}
+    }
+
     private int damageReduction = 1;
     public int DamageReduction
     {
@@ -562,6 +569,16 @@ public class CreatureLogic: ICharacter
     public int DealDamage(int amount)
     {
         int damage = amount*criticalFactor;
+
+        if(e_IsComputeDamage!=null)
+        e_IsComputeDamage();
+
+        return damage;
+    }
+
+    public int DealOtherDamage(int amount)
+    {
+        int damage = amount*OtherFactor;
 
         if(e_IsComputeDamage!=null)
         e_IsComputeDamage();
