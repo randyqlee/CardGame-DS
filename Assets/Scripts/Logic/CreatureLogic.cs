@@ -46,6 +46,9 @@ public class CreatureLogic: ICharacter
     public delegate void IsComputeDamage();    
     public event IsComputeDamage e_IsComputeDamage;     
 
+    public delegate void BeforeAttacking(CreatureLogic target);    
+    public event BeforeAttacking e_BeforeAttacking; 
+    
     public delegate void AfterAttacking(CreatureLogic target);    
     public event AfterAttacking e_AfterAttacking; 
 
@@ -354,11 +357,13 @@ public class CreatureLogic: ICharacter
         
         AttacksLeftThisTurn--;         
 
-         
+        //call this creatures after attack event
+            if(this.e_BeforeAttacking != null)
+            this.e_BeforeAttacking.Invoke(target);   
 
         //call this creatures attack event
-        if(this.e_AfterAttacking != null)
-            this.e_AfterAttacking.Invoke(target);     
+        // if(this.e_AfterAttacking != null)
+        //     this.e_AfterAttacking.Invoke(target);     
         
         // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
         
@@ -439,6 +444,9 @@ public class CreatureLogic: ICharacter
             e_SecondAttack.Invoke(target);      
         }
         
+            //call this creatures after attack event
+            if(this.e_AfterAttacking != null)
+            this.e_AfterAttacking.Invoke(target);  
         
     }//Attack Creature   
 
@@ -447,6 +455,44 @@ public class CreatureLogic: ICharacter
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         AttackCreature(target);
     }
+
+
+    public void SplashAttackDamage(CreatureLogic target, int splashDamage)
+    {
+        List<CreatureLogic> enemies = owner.EnemyList();
+
+            foreach(CreatureLogic enemy in enemies)
+            {
+                
+                if(enemy != target)
+                {
+                     //new DelayCommand(0.5f).AddToQueue();    
+                
+                    
+
+                        int damageTakenByTarget = splashDamage;
+                        // GameObject targetEnemy = IDHolder.GetGameObjectWithID(enemy.UniqueCreatureID);    
+
+                    	// if(damageTakenByTarget>0) 
+	                    // DamageEffect.CreateDamageEffect(targetEnemy.transform.position, damageTakenByTarget);
+
+                        new SplashDamageCommand(enemy.UniqueCreatureID, damageTakenByTarget).AddToQueue();
+	                    
+
+                    //enemy.TakeDamage(creature.AttackDamage);      
+                    enemy.TakeDamage(splashDamage);      
+                   
+                   new UpdateHealthCommand(enemy.UniqueCreatureID, enemy.Health).AddToQueue();
+                }                
+                               
+            }         
+
+            enemies.Clear();
+    }
+
+
+
+
 
     public void AddBuff(BuffEffect buff)
     {
@@ -486,9 +532,29 @@ public class CreatureLogic: ICharacter
 
     
 
-    public void RemoveBuff(BuffEffect buff)
-    {
+   //Remove Buff is in BuffEffect Script
 
+   public void RemoveRandomBuff()
+    {
+        var randList = new List<BuffEffect>();
+
+        foreach(BuffEffect be in buffEffects)
+        {
+            if(be.isBuff)
+            randList.Add(be);
+        }
+
+        if(randList.Count>=1)
+        {
+            BuffEffect buff = randList[Random.Range(0,randList.Count)];
+            buff.UndoBuffEffect();
+            buff.UnregisterCooldown();
+            buffEffects.Remove(buff);
+
+            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
+
+        }
+       
     }
 
     public void RemoveAllBuffs()
@@ -566,6 +632,7 @@ public class CreatureLogic: ICharacter
     //     return damage;
     // }
 
+    //used by attack based damage
     public int DealDamage(int amount)
     {
         int damage = amount*criticalFactor;
@@ -576,6 +643,7 @@ public class CreatureLogic: ICharacter
         return damage;
     }
 
+    //used by non-attack based damage
     public int DealOtherDamage(int amount)
     {
         int damage = amount*OtherFactor;
