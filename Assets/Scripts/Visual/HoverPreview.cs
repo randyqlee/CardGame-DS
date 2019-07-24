@@ -97,26 +97,6 @@ public class HoverPreview: MonoBehaviour
 
 //DS
         previewGameObjectCreature.transform.DOScale(TargetScaleCreature, 0.1f).SetEase(Ease.OutQuint);
-
-        ShowAbilityPreview();
-    }
-
-
-//DS
-    void ShowAbilityPreview(){
-
-        int i = previewGameObjectCreature.GetComponent<OneCreatureManager>().abilityEffectSprite.Count;
-        
-        for (int j = 0; j<i; j++)
-        {
-            GetComponentInParent<PlayerArea>().abilityPreview.ability[j].sprite = previewGameObjectCreature.GetComponent<OneCreatureManager>().abilityEffectSprite[j];
-            var tempColor = GetComponentInParent<PlayerArea>().abilityPreview.ability[j].color;
-            tempColor.a = 1f;
-            GetComponentInParent<PlayerArea>().abilityPreview.ability[j].color = tempColor;
-
-        }
-        
-        //GetComponentInParent<PlayerArea>().abilityPreview.ability[0].sprite = previewGameObjectCreature.GetComponent<OneCreatureManager>().CreatureGraphicImage.sprite;
     }
 
     void StopThisPreview()

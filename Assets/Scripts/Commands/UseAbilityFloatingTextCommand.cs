@@ -19,29 +19,16 @@ public class UseAbilityFloatingTextCommand : Command {
 
 	public override void StartCommandExecution()
 	{
-
-		Debug.Log ("StartCommand UseAbilityFloatingTextCommand");
+		//Debug.Log ("StartCommand UseAbilityFloatingTextCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
-		//CommandExecutionComplete();
-		//		StartCoroutine(Delay());
+
+		
+
+		Command.CommandExecutionComplete();
 		
 
 	}
-/*	IEnumerator Delay()
-	{
-		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
-		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
-		yield return new WaitWhile(() => creature.GetComponentInChildren<OverheadText>().GetComponent<FloatingText>() != null);
-		Command.CommandExecutionComplete();
-	}
-*/
 
-	public override void Requeue()
-	{
-		new UseAbilityFloatingTextCommand(text, TargetUniqueID).AddToQueue();
-		CommandExecutionComplete();
-
-	}
 
 }

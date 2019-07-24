@@ -23,11 +23,6 @@ public class Command
         // 2) use coroutines (IEnumerator) and WaitFor... to introduce delays, call CommandExecutionComplete() in the end of coroutine
     }
 
-    public virtual void Requeue()
-    {
-
-    }
-
     public static void CommandExecutionComplete()
     {
         if (CommandQueue.Count > 0)
@@ -44,32 +39,7 @@ public class Command
     public static void PlayFirstCommandFromQueue()
     {
         playingQueue = true;
-
-
-
-//DS
-/*
-        if (CommandQueue.Peek().GetType().ToString() == "UseAbilityFloatingTextCommand")  
-        {
-
-            if (GameObject.FindObjectsOfType<FloatingText>().Length > 0)
-            {
-                Debug.Log("Find floating");
-                //CommandQueue.Dequeue().Requeue();
-                CommandQueue.Dequeue().StartCommandExecution();
-            }
-            else
-            {
-                Debug.Log("No Floating");
-
-                    CommandQueue.Dequeue().StartCommandExecution();
-            }
-        }
-        else
-*/
-//DS
-
-            CommandQueue.Dequeue().StartCommandExecution();
+        CommandQueue.Dequeue().StartCommandExecution();
     }
 
     public static bool CardDrawPending()
