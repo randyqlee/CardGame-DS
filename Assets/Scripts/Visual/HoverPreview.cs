@@ -110,6 +110,7 @@ public class HoverPreview: MonoBehaviour
         for (int j = 0; j<i; j++)
         {
             GetComponentInParent<PlayerArea>().abilityPreview.ability[j].sprite = previewGameObjectCreature.GetComponent<OneCreatureManager>().abilityEffectSprite[j];
+            GetComponentInParent<PlayerArea>().abilityPreview.ability[j].preserveAspect = false;
             var tempColor = GetComponentInParent<PlayerArea>().abilityPreview.ability[j].color;
             tempColor.a = 1f;
             GetComponentInParent<PlayerArea>().abilityPreview.ability[j].color = tempColor;
