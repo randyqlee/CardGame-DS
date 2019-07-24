@@ -10,12 +10,10 @@ public class FloatingText : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-		Destroy(gameObject, 0.9f * clipInfo[0].clip.length);
+		Destroy(gameObject, 0.1f * clipInfo[0].clip.length);
+	
 		//Destroy(gameObject, 3f * clipInfo[0].clip.length);
-		
 		//Debug.Log ("Instantiate Floating text");
-
-
 	}
 
 	public void SetText (string text)
@@ -27,5 +25,11 @@ public class FloatingText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void OnDestroy()
+	{
+		Command.CommandExecutionComplete();
+
 	}
 }

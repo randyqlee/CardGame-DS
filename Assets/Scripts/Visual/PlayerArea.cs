@@ -17,6 +17,9 @@ public class PlayerArea : MonoBehaviour
     public Transform PortraitPosition;
     public Transform InitialPortraitPosition;
 
+//DS
+    public AbilityPreviewVisual abilityPreview;
+
     public bool AllowedToControlThisPlayer
     {
         get;

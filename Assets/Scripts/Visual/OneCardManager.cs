@@ -23,6 +23,8 @@ public class OneCardManager : MonoBehaviour {
     public Image CardBackGlowImage;
 
 
+
+
     void Awake()
     {
         if (cardAsset != null)

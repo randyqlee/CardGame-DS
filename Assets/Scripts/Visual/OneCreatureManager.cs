@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class OneCreatureManager : MonoBehaviour 
@@ -16,6 +17,9 @@ public class OneCreatureManager : MonoBehaviour
     public BuffPanel buffPanel;
 
     public OverheadText overheadText;
+
+//DS
+    public List<Sprite> abilityEffectSprite;
 
     void Awake()
     {
@@ -46,6 +50,16 @@ public class OneCreatureManager : MonoBehaviour
 
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
+
+//DS
+    if (cardAsset.abilityEffect != null)
+    {
+        foreach (AbilityEffect ae in cardAsset.abilityEffect)
+
+        {
+            abilityEffectSprite.Add(ae.abilityImage);
+        }
+    }
 
         if (PreviewManager != null)
         {
