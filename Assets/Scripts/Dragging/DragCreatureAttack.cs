@@ -129,8 +129,7 @@ public class DragCreatureAttack : DraggingActions {
             {
                 // if targeted creature is still alive, attack creature
                 targetValid = true;
-                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);                
-
+                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);
                 //Debug.Log("Attacking "+Target);
             }
             else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null && !CreatureLogic.CreaturesCreatedThisGame[targetID].canBeAttacked)

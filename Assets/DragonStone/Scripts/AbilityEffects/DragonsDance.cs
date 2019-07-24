@@ -9,15 +9,11 @@ using UnityEngine;
 public class DragonsDance : CreatureEffect {
 
     public int buffCooldown = 1;
-    int chance = 100;
-    int fixedDamage = 5;
-   
+    int chance = 75;
     
 
     public DragonsDance(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    { 
-        fixedDamage = creature.Attack;
-    }
+    {}
 
 
    public override void RegisterEventEffect()
@@ -38,16 +34,42 @@ public class DragonsDance : CreatureEffect {
     public override void UseEffect(CreatureLogic target)
     {     
         if(remainingCooldown <=0)
-        {          
-                       
-            creature.SplashAttackDamage(target, creature.AttackDamage);
+        {           
+            
+            foreach(CreatureLogic cl in owner.enemies)
+            {            
+               
+              
+              int totalChance = TotalChance(chance);
+              
+              if(Random.Range(0,100) <= totalChance)
+              {
+                  AddBuff(target,"Stun",1);
+              }
+              
+              if(cl != target)
+              {
+                  DealDamage(cl);
+              }
+                         
+            }
 
             base.UseEffect();
             
 
         }           
 
-    }//UseEffect 
+    }//UseEffect
+
+    void DealDamage(CreatureLogic target)
+    {
+        new DelayCommand(0.5f).AddToQueue();        
+
+        new DealDamageCommand(target.ID, creature.AttackDamage, healthAfter: target.TakeDamageVisual(target.DealDamage(creature.AttackDamage))).AddToQueue();
+
+        target.TakeDamage(creature.DealDamage(creature.AttackDamage));    
+        
+    }
 
    
 

@@ -19,13 +19,10 @@ public class CreatureEffect
     [HideInInspector]
     public CreatureLogic creature;
 
-   
-
     //DS
     public int creatureEffectCooldown;
     public int remainingCooldown;
     public bool hasUsedEffect = false;
-    
     
 
    
