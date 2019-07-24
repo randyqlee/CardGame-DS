@@ -75,19 +75,7 @@ public class BuffEffect
             
                         
     }
-
-    public virtual void RemoveBuff()
-    {
-        //Debug.Log("Remove Buff " +this.GetType().Name);
-        UndoBuffEffect();
-        UnregisterCooldown();        
-        target.buffEffects.Remove(this);       
-         
-        new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
-
-        
-    }
-
+    
 
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
@@ -117,6 +105,18 @@ public class BuffEffect
         }
         
         
-    }      
+    }// Addbuff
+
+    public virtual void RemoveBuff()
+    {
+        //Debug.Log("Remove Buff " +this.GetType().Name);
+        UndoBuffEffect();
+        UnregisterCooldown();        
+        target.buffEffects.Remove(this);       
+         
+        new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
+
+        
+    }//RemoveBuff     
 
 }

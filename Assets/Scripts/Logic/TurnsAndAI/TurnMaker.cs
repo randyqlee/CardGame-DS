@@ -12,7 +12,8 @@ public abstract class TurnMaker : MonoBehaviour {
 
     public virtual void OnTurnStart()
     {
-        // add one mana crystal to the pool;
+       
+       // add one mana crystal to the pool;
         p.OnTurnStart();
     }
 

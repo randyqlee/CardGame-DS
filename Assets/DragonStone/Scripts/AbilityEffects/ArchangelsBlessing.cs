@@ -47,7 +47,7 @@ public class ArchangelsBlessing : CreatureEffect {
                
                 if(cl.Health < weakestAlly.Health)
                 weakestAlly = cl;
-                Debug.Log("Ally Creature: " +cl.GetType().Name);               
+                //Debug.Log("Ally Creature: " +cl.GetType().Name);               
                          
             }
 
