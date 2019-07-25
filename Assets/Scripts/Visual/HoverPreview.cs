@@ -72,6 +72,10 @@ public class HoverPreview: MonoBehaviour
 
         if (!PreviewingSomeCard())
             StopAllPreviews();
+
+
+//DS
+        //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
     }
 
     // OTHER METHODS
@@ -106,6 +110,7 @@ public class HoverPreview: MonoBehaviour
     void ShowAbilityPreview(){
 
         int i = previewGameObjectCreature.GetComponent<OneCreatureManager>().abilityEffectSprite.Count;
+        //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(true);
         
         for (int j = 0; j<i; j++)
         {
@@ -157,7 +162,10 @@ public class HoverPreview: MonoBehaviour
             if (currentlyViewing.TurnThisOffWhenPreviewing!=null)
                 currentlyViewing.TurnThisOffWhenPreviewing.SetActive(true); 
         }
-         
+
+
+
+
     }
 
     private static bool PreviewingSomeCard()
