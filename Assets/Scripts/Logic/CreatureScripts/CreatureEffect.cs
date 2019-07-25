@@ -16,6 +16,8 @@ public class CreatureEffect
     public Player owner;    
     public string Name;
 
+    public Sprite abilityPreviewSprite;
+
     [HideInInspector]
     public CreatureLogic creature;
 

@@ -253,6 +253,10 @@ public class CreatureLogic: ICharacter
                     effect = System.Activator.CreateInstance(System.Type.GetType(ae.CreatureScriptName), new System.Object[]{owner, this, ae.coolDown}) as CreatureEffect;
                     effect.RegisterCooldown();
                     effect.RegisterEventEffect();
+
+                    if (ae.abilityImage != null)
+                    effect.abilityPreviewSprite = ae.abilityImage;
+
                     creatureEffects.Add(effect);
                 }
             }
