@@ -27,6 +27,9 @@ public class GlobalSettings: MonoBehaviour
     public GameObject CreaturePrefab;
     public GameObject DamageEffectPrefab;
     public GameObject ExplosionPrefab;
+
+    public GameObject AbilityPreviewPrefab;
+
     [Header("Other")]
     public Button EndTurnButton;
     //public CardAsset CoinCard;

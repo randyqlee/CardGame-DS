@@ -7,5 +7,7 @@ public class AbilityPreviewVisual : MonoBehaviour {
 
 	public Image[] ability;
 
+	public GameObject abilities;
+
 	// Use this for initialization
 }

@@ -6,4 +6,5 @@ public class AllCardLogic : MonoBehaviour {
 
 	public List<CreatureLogic> creatureLogic;
 
+
 }

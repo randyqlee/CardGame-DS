@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 
 public class HoverPreview: MonoBehaviour
@@ -64,6 +65,8 @@ public class HoverPreview: MonoBehaviour
         OverCollider = true;
         if (PreviewsAllowed && ThisPreviewEnabled)
             PreviewThisObject();
+//DS
+        ShowAbilityPreview();
     }
         
     void OnMouseExit()
@@ -73,9 +76,12 @@ public class HoverPreview: MonoBehaviour
         if (!PreviewingSomeCard())
             StopAllPreviews();
 
-
 //DS
-        //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
+        
+        HideAbilityPreview();
+        GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
+        
+    
     }
 
     // OTHER METHODS
@@ -102,13 +108,13 @@ public class HoverPreview: MonoBehaviour
 //DS
         previewGameObjectCreature.transform.DOScale(TargetScaleCreature, 0.1f).SetEase(Ease.OutQuint);
 
-        ShowAbilityPreview();
+        
     }
 
 
 //DS
     void ShowAbilityPreview(){
-
+/*
         int i = previewGameObjectCreature.GetComponent<OneCreatureManager>().abilityEffectSprite.Count;
         //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(true);
         
@@ -121,6 +127,26 @@ public class HoverPreview: MonoBehaviour
             GetComponentInParent<PlayerArea>().abilityPreview.ability[j].color = tempColor;
 
         }
+
+*/
+// get the Logic from the Visual ID, then get the Effects, and put in abilityPreview using Instantiate (AbilityCard)
+        GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(true);
+        int ID = previewGameObjectCreature.GetComponent<IDHolder>().UniqueID;
+        CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[ID];
+        foreach (CreatureEffect ce in cl.creatureEffects)
+        {
+             GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityPreviewPrefab, GetComponentInParent<PlayerArea>().abilityPreview.abilities.transform) as GameObject;
+             if (ce.abilityPreviewSprite!=null)
+             ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;
+             
+             ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
+            
+        }
+        
+
+
+
+
         
         //GetComponentInParent<PlayerArea>().abilityPreview.ability[0].sprite = previewGameObjectCreature.GetComponent<OneCreatureManager>().CreatureGraphicImage.sprite;
     }
@@ -163,8 +189,22 @@ public class HoverPreview: MonoBehaviour
                 currentlyViewing.TurnThisOffWhenPreviewing.SetActive(true); 
         }
 
+        
+        
 
+    }
 
+    void HideAbilityPreview()
+    {
+        GameObject go = GetComponentInParent<PlayerArea>().abilityPreview.abilities;
+        AbilityCard[] abilities = go.GetComponentsInChildren<AbilityCard>();
+        if (abilities != null)
+        {
+            for (int i = abilities.Length - 1; i >= 0; i--)
+            {
+                GameObject.Destroy(abilities[i].gameObject);
+            }
+        }
 
     }
 
