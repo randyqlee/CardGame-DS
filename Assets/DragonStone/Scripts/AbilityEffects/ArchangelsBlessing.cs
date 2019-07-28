@@ -39,6 +39,8 @@ public class ArchangelsBlessing : CreatureEffect {
         if(remainingCooldown <=0)
         {           
             
+            ShowAbility();
+
             temp = owner.AllyList();
             weakestAlly = creature;   
             
@@ -54,7 +56,7 @@ public class ArchangelsBlessing : CreatureEffect {
             Debug.Log("Allies List Size " +temp.ToString());
             HealWeakestAlly(weakestAlly);
 
-              base.UseEffect();    
+            base.UseEffect();    
 
               
 

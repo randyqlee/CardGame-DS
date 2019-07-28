@@ -16,12 +16,14 @@ public class DragonsMight : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
+       creature.e_BeforeAttacking += ShowAbility;
        creature.e_AfterAttacking += UseEffect;
        creature.e_CreatureOnTurnStart += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
+        creature.e_BeforeAttacking -= ShowAbility;
          creature.e_AfterAttacking -= UseEffect;      
          creature.e_CreatureOnTurnStart -= UseEffect;
     }
@@ -43,8 +45,10 @@ public class DragonsMight : CreatureEffect {
                 
                 if(x<=totalChance)     
                 {
-                   AddBuff(target,"Poison",buffCooldown);                    
-                   base.UseEffect();         
+                  
+                   AddBuff(target,"Poison",buffCooldown);  
+                   base.UseEffect();                         
+                    
                 }       
                      
             }           

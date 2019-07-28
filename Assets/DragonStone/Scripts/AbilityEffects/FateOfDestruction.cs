@@ -14,11 +14,13 @@ public class FateOfDestruction : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
+       creature.e_BeforeAttacking += ShowAbility;      
        creature.e_AfterAttacking += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
+        creature.e_BeforeAttacking -= ShowAbility;      
          creature.e_AfterAttacking -= UseEffect;      
     }
 
@@ -32,10 +34,11 @@ public class FateOfDestruction : CreatureEffect {
     {
         
             if(remainingCooldown<=0)
-            {
+            {                
                 AddBuff(target,"Poison",buffCooldown);        
-                AddBuff(target,"Bomb",buffCooldown);                        
-                base.UseEffect();          
+                AddBuff(target,"Bomb",buffCooldown);
+                base.UseEffect();                                
+                 
             }
             
             

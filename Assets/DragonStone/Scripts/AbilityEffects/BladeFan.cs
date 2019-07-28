@@ -16,11 +16,14 @@ public class BladeFan : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
+       
+       creature.e_BeforeAttacking += ShowAbility;
        creature.e_AfterAttacking += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
+         creature.e_BeforeAttacking -= ShowAbility;
          creature.e_AfterAttacking -= UseEffect;      
     }
 
@@ -33,14 +36,16 @@ public class BladeFan : CreatureEffect {
     public override void UseEffect(CreatureLogic target)
     {     
         if(remainingCooldown <=0)
-        {     
+        { 
            RemoveAllBuffs(target);            
            //AddBuff(target,"Stun",buffCooldown);      
-           base.UseEffect();               
+           base.UseEffect();              
         }
 
              
     }
+
+    
 
     public void RemoveAllBuffs(CreatureLogic target)
     {

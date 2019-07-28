@@ -160,9 +160,12 @@ public class TurnManager : MonoBehaviour {
             whoseTurn.OnTurnEnd();
 
             //New SCRIPT - also end each creature's turn
-            foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)        
-             if(cl.isActive)
-             cl.OnTurnEnd();
+            foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)
+            {
+                if(cl.isActive)
+                cl.OnTurnEnd();
+            }        
+             
 
             if(TurnCounter<=0)
             {

@@ -27,6 +27,9 @@ public class OasisBlessing : CreatureEffect {
     {
         if(remainingCooldown <=0)
         {
+            
+            ShowAbility();
+            
             creature.Heal(1);        
             foreach(CreatureLogic ce in creature.owner.AllyList())
             {
@@ -37,7 +40,7 @@ public class OasisBlessing : CreatureEffect {
             CreatureLogic randomAlly = allies[Random.Range(0,allies.Count)];
 
             //Debug.Log("Random Ally: " +randomAlly.UniqueCreatureID);
-            base.UseEffect();
+          
             
             AddBuff(randomAlly, "IncreaseAttack",buffCooldown);
             AddBuff(randomAlly, "Recovery",buffCooldown);
@@ -46,6 +49,7 @@ public class OasisBlessing : CreatureEffect {
             //AddBuff(randomAlly, "Invincibility",buffCooldown);
             //AddBuff(randomAlly, "Resurrect",buffCooldown);
             //AddBuff(randomAlly, "Taunt",buffCooldown);
+            base.UseEffect();
         }
     }
 }

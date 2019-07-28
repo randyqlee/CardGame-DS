@@ -23,11 +23,15 @@ public class DragonsDance : CreatureEffect {
    public override void RegisterEventEffect()
     {
        creature.e_AfterAttacking += UseEffect;      
+       //creature.e_BeforeAttacking += ShowAbility;  
+       //creature.e_BeforeAttacking += UseEffect;          
     }
 
     public override void UnRegisterEventEffect()
     {
          creature.e_AfterAttacking -= UseEffect;      
+         //creature.e_BeforeAttacking -= ShowAbility;    
+         //creature.e_BeforeAttacking -= UseEffect;            
     }
 
     public override void CauseEventEffect()
@@ -38,15 +42,12 @@ public class DragonsDance : CreatureEffect {
     public override void UseEffect(CreatureLogic target)
     {     
         if(remainingCooldown <=0)
-        {          
-                       
-            creature.SplashAttackDamage(target, creature.AttackDamage);
-
-            base.UseEffect();
-            
+        {                               
+            ShowAbility();             
+            creature.SplashAttackDamage(target, creature.AttackDamage);           
+            base.UseEffect();           
 
         }           
-
     }//UseEffect 
 
    

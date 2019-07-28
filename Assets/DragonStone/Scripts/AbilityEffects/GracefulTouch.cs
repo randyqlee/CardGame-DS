@@ -16,11 +16,13 @@ public class GracefulTouch : CreatureEffect {
    public override void RegisterEventEffect()
     {
        creature.e_AfterAttacking += UseEffect;      
+       creature.e_BeforeAttacking += ShowAbility;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_AfterAttacking -= UseEffect;      
+         creature.e_AfterAttacking -= UseEffect;
+         creature.e_BeforeAttacking -= ShowAbility;            
     }
 
     public override void CauseEventEffect()
@@ -33,14 +35,17 @@ public class GracefulTouch : CreatureEffect {
         
             if(remainingCooldown <=0)
             {
+                
                 AddBuff(target,"CrippledStrike",buffCooldown);  
                 
                 int totalChance = TotalChance(chance);
                 
                 if(Random.Range(0,100)<totalChance)
                 AddBuff(creature,"CriticalStrike",buffCooldown);                     
+                
+                //AddBuff(target,"Bomb",buffCooldown);     
                 base.UseEffect();   
-                //AddBuff(target,"Bomb",buffCooldown);         
+
 
             }       
     }

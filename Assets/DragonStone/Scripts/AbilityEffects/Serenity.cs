@@ -15,11 +15,13 @@ public class Serenity : CreatureEffect {
    public override void RegisterEventEffect()
     {
        creature.e_AfterAttacking += UseEffect;      
+       creature.e_BeforeAttacking += ShowAbility;      
     }
 
     public override void UnRegisterEventEffect()
     {
          creature.e_AfterAttacking -= UseEffect;      
+         creature.e_BeforeAttacking -= ShowAbility;      
     }
 
     public override void CauseEventEffect()
@@ -32,8 +34,10 @@ public class Serenity : CreatureEffect {
     {                      
         if(remainingCooldown<=0)
         {
-            AddBuff(target,"AntiBuff",buffCooldown);                          
-            base.UseEffect();       
+           
+            AddBuff(target,"AntiBuff",buffCooldown);
+            base.UseEffect();                             
+             
         }
         
         

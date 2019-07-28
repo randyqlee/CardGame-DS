@@ -7,7 +7,9 @@ public class PlayerTurnMaker : TurnMaker
     {
         base.OnTurnStart();
         // dispay a message that it is player`s turn
-        new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        
+        //DS - transfer to End Turn
+        //new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
         
         //DS
         //p.DrawACard();

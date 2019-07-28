@@ -440,17 +440,25 @@ public class CreatureLogic: ICharacter
         //     }
         // }
         
+        //call this creatures after attack event
+            if(this.e_AfterAttacking != null)
+            this.e_AfterAttacking.Invoke(target);  
+       
         if(!CanAttack)
         {
-            TurnManager.Instance.EndTurn();
+            
+            //implement command here
+            //TurnManager.Instance.EndTurn();
+
+            //DS
+            new EndTurnCommand().AddToQueue();
+
         }else{            
             if(e_SecondAttack != null)
             e_SecondAttack.Invoke(target);      
         }
         
-            //call this creatures after attack event
-            if(this.e_AfterAttacking != null)
-            this.e_AfterAttacking.Invoke(target);  
+           
         
     }//Attack Creature   
 

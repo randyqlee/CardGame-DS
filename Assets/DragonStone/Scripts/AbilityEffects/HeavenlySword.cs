@@ -17,12 +17,15 @@ public class HeavenlySword : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_AfterAttacking += UseEffect;      
+       creature.e_AfterAttacking += UseEffect;
+       creature.e_BeforeAttacking += ShowAbility;
+             
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_AfterAttacking -= UseEffect;      
+        creature.e_AfterAttacking -= UseEffect;      
+        creature.e_BeforeAttacking -= ShowAbility;
     }
 
     public override void CauseEventEffect()
@@ -32,9 +35,10 @@ public class HeavenlySword : CreatureEffect {
     }
 
     public override void UseEffect(CreatureLogic target)
-    {           
+    {                   
         target.RemoveRandomBuff();            
-        base.UseEffect();         
+        base.UseEffect();    
+            
     }
 
     // public void RemoveRandomBuff(CreatureLogic target)

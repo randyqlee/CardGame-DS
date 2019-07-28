@@ -16,12 +16,14 @@ public class SequentialAttack : CreatureEffect {
    public override void RegisterEventEffect()
     {
        creature.e_BeforeAttacking += UseEffect;      
+       creature.e_AfterAttacking += UseEffect2;      
        
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_BeforeAttacking -= UseEffect;      
+        creature.e_BeforeAttacking -= UseEffect;     
+        creature.e_AfterAttacking -= UseEffect2;       
         
     }
 
@@ -34,15 +36,27 @@ public class SequentialAttack : CreatureEffect {
     public override void UseEffect(CreatureLogic target)
     {                      
         if(remainingCooldown<=0)
-        {           
-            AddBuff(target,"Brand",buffCooldown);
+        {               
+            ShowAbility();
 
             if(Random.Range(0,100) <= TotalChance(chance))
-            AddBuff(creature,"CriticalStrike",buffCooldown);                           
+            AddBuff(creature,"CriticalStrike",buffCooldown);  
 
-            base.UseEffect();       
+            base.UseEffect();                                
+
+            
         }        
         
+    }
+
+    void UseEffect2(CreatureLogic target)
+    {
+        if(remainingCooldown <= 0)
+        {
+            AddBuff(target,"Brand",buffCooldown);
+        }
+        
+       
     }
 
     

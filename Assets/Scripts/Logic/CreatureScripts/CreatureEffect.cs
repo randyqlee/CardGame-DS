@@ -104,10 +104,7 @@ public class CreatureEffect
 
     public virtual void UseEffect()
     {
-            GameObject Target = IDHolder.GetGameObjectWithID(creature.UniqueCreatureID);
-		    
-            //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
-            new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+           
             hasUsedEffect = true;
 
     }
@@ -156,6 +153,35 @@ public class CreatureEffect
     {
 
     }     
+
+    public virtual void ShowAbility()
+    {
+        
+        if(remainingCooldown <= 0)
+        {
+            GameObject Target = IDHolder.GetGameObjectWithID(creature.UniqueCreatureID);
+		    
+            //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
+            new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+        }
+        
+        
+    }
+
+    //can be used in the future for floatnig text for the target enemy as well
+    public virtual void ShowAbility(CreatureLogic target)
+    {
+        
+        if(remainingCooldown <= 0)
+        {
+            GameObject Target = IDHolder.GetGameObjectWithID(creature.UniqueCreatureID);
+		    
+            //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
+            new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+        }
+        
+        
+    }
 
     public int TotalChance(int effectChance)
     {
