@@ -35,7 +35,9 @@ public class TurnManager : MonoBehaviour {
 
             TurnMaker tm = whoseTurn.GetComponent<TurnMaker>();
             // player`s method OnTurnStart() will be called in tm.OnTurnStart();
+
             tm.OnTurnStart();
+
             if (tm is PlayerTurnMaker)
             {
             //DS    whoseTurn.HighlightPlayableCards();
@@ -181,6 +183,11 @@ public class TurnManager : MonoBehaviour {
 
         TurnCounter--;
 
+    }
+
+    public void EndTurnCommand()
+    {
+        new EndTurnCommand().AddToQueue();
     }
 
     public void StopTheTimer()
