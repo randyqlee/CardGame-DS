@@ -30,6 +30,9 @@ public class GlobalSettings: MonoBehaviour
 
     public GameObject AbilityPreviewPrefab;
 
+//DS
+    public GameObject SfxExplosion_1_Prefab;
+
     [Header("Other")]
     public Button EndTurnButton;
     //public CardAsset CoinCard;

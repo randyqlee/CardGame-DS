@@ -23,10 +23,17 @@ public class DamageEffect : MonoBehaviour {
     // The text component to show the amount of damage taken by target like: "-2"
     public Text AmountText;
 
+//DS
+    public GameObject SfxExplosion_1_Prefab;
+
+
     void Awake()
     {
         // pick a random image
-        DamageImage.sprite = Splashes[Random.Range(0, Splashes.Length)];  
+        DamageImage.sprite = Splashes[Random.Range(0, Splashes.Length)]; 
+        
+//DS        
+        SfxExplosion_1_Prefab = GlobalSettings.Instance.SfxExplosion_1_Prefab; 
     }
 
     // A Coroutine to control the fading of this damage effect
@@ -35,6 +42,11 @@ public class DamageEffect : MonoBehaviour {
         // make this effect non-transparent
         cg.alpha = 1f;
         // wait for 1 second before fading
+
+//DS
+
+        GameObject sfx_explosion = GameObject.Instantiate(SfxExplosion_1_Prefab, this.transform.position, Quaternion.identity) as GameObject;
+
         yield return new WaitForSeconds(1f);
         // gradually fade the effect by changing its alpha value
         while (cg.alpha > 0)
@@ -42,8 +54,16 @@ public class DamageEffect : MonoBehaviour {
             cg.alpha -= 0.05f;
             yield return new WaitForSeconds(0.05f);
         }
+
+//DS
+        Destroy (sfx_explosion);
+
+
         // after the effect is shown it gets destroyed.
         Destroy(this.gameObject);
+
+
+
     }
     /// <summary>
     /// Creates the damage effect.
@@ -54,6 +74,7 @@ public class DamageEffect : MonoBehaviour {
    
     public static void CreateDamageEffect(Vector3 position, int amount)
     {
+
         if (amount == 0)
             return;
         // Instantiate a DamageEffect from prefab
@@ -71,5 +92,6 @@ public class DamageEffect : MonoBehaviour {
             de.AmountText.text = "-"+amount.ToString();
         // start a coroutine to fade away and delete this effect after a certain time
         de.StartCoroutine(de.ShowDamageEffect());
+
     }
 }
