@@ -33,6 +33,8 @@ public class GlobalSettings: MonoBehaviour
 //DS
     public GameObject SfxExplosion_1_Prefab;
 
+    public GameObject FloatingTweenText_Prefab;
+
     [Header("Other")]
     public Button EndTurnButton;
     //public CardAsset CoinCard;

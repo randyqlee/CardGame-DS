@@ -39,15 +39,17 @@ public class OverheadText : MonoBehaviour {
 
 		//Debug.Log("calling Floatingtext " +message);
 
-		FloatingText popupText = Resources.Load<FloatingText>("Prefabs/PopupTextParent");
-		FloatingText instance = Instantiate(popupText);
-		//instance.transform.localScale = new Vector3 (1,1,1);
-		//instance.transform.
-		instance.transform.SetParent (transform,false);
-		//instance.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-		//instance.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-		
-		instance.SetText(message);
+//		FloatingText popupText = Resources.Load<FloatingText>("Prefabs/PopupTextParent");
+//		FloatingText instance = Instantiate(popupText);
+//		instance.transform.SetParent (transform,false);
+//		instance.SetText(message);
+
+
+		GameObject go = Instantiate(GlobalSettings.Instance.FloatingTweenText_Prefab,gameObject.transform.position,Quaternion.identity);
+		//go.transform.SetParent (transform,false);
+		go.GetComponent<FloatingTweenText>().SetText(message);
+		go.GetComponent<FloatingTweenText>().Move();
+
 	}
 
 	IEnumerator DelayMessage(string message)
