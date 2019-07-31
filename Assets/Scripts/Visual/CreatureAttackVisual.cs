@@ -36,19 +36,24 @@ public class CreatureAttackVisual : MonoBehaviour
         VisualStates tempState = w.VisualState;
         w.VisualState = VisualStates.Transition;
 
-        transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnComplete(() =>
+        bool punched = false;
+        //transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnComplete(() =>
+        transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnStepComplete(() =>
             {
                 if(damageTakenByTarget>0)
-                {                    
+                {       
+                    if(!punched)
+                    {             
                     DamageEffect.CreateDamageEffect(target.transform.position, damageTakenByTarget);
 //DS
 Debug.Log("DoPunch");
                     //target.transform.DOPunchRotation (new Vector3 (0,180,0), 2f, 10, 1);
                     //target.transform.DOPunchPosition (target.transform.position-transform.position, 1f, 1, 1, false);
 
-                    target.transform.DOPunchPosition (target.transform.position/4 - transform.position/4 , 1f, 10, 0.5f, false);
-
-                   
+                    target.transform.DOPunchPosition (target.transform.position/2 - transform.position/2 , 1f, 10, 0.5f, false);
+                        punched = true;
+                        
+                    }
                     
                 }
                 if(damageTakenByAttacker>0)                    
