@@ -121,6 +121,12 @@ public class DragCreatureAttack : DraggingActions {
                 Debug.Log("TargetID: " + targetID);
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
                 targetValid = true;
+
+                //DS - fix, set ThisPreviewEnabled back to True
+                if(tag.Contains("Low"))
+                whereIsThisCreature.VisualState = VisualStates.LowTable;
+                else
+                whereIsThisCreature.VisualState = VisualStates.TopTable;
             }
             //ORIGINAL
             //else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null)
@@ -131,6 +137,12 @@ public class DragCreatureAttack : DraggingActions {
                 targetValid = true;
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);                
 
+                //DS - fix, set ThisPreviewEnabled back to True
+                if(tag.Contains("Low"))
+                whereIsThisCreature.VisualState = VisualStates.LowTable;
+                else
+                whereIsThisCreature.VisualState = VisualStates.TopTable;
+
                 //Debug.Log("Attacking "+Target);
             }
             else if (CreatureLogic.CreaturesCreatedThisGame[targetID] != null && !CreatureLogic.CreaturesCreatedThisGame[targetID].canBeAttacked)
@@ -138,6 +150,12 @@ public class DragCreatureAttack : DraggingActions {
                 // if targeted creature is still alive, attack creature
                 Debug.Log("Invalid Target: Attack a Taunt Creature");
                 //Debug.Log("Attacking "+Target);
+
+                //DS - fix, set ThisPreviewEnabled back to True
+                if(tag.Contains("Low"))
+                whereIsThisCreature.VisualState = VisualStates.LowTable;
+                else
+                whereIsThisCreature.VisualState = VisualStates.TopTable;                
             }
                 
         }

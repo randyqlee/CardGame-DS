@@ -30,6 +30,8 @@ public class Poison : BuffEffect {
         new DelayCommand(0.5f).AddToQueue();
 
         //new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.DealDamage(poisonDamage)).AddToQueue();
+        
+        new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
 
         new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.TakeOtherDamageVisual(target.DealOtherDamage(poisonDamage))).AddToQueue();
 

@@ -39,6 +39,10 @@ public class BladeFan : CreatureEffect {
         { 
            RemoveAllBuffs(target);            
            //AddBuff(target,"Stun",buffCooldown);      
+
+           //Explosion Test
+           new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
+
            base.UseEffect();              
         }
 

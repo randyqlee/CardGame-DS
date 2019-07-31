@@ -36,7 +36,7 @@ public class CreatureAttackVisual : MonoBehaviour
         VisualStates tempState = w.VisualState;
         w.VisualState = VisualStates.Transition;
 
-        transform.DOMove(target.transform.position, 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InCubic).OnComplete(() =>
+        transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnComplete(() =>
             {
                 if(damageTakenByTarget>0)
                 {                    
@@ -44,7 +44,12 @@ public class CreatureAttackVisual : MonoBehaviour
 //DS
 Debug.Log("DoPunch");
                     //target.transform.DOPunchRotation (new Vector3 (0,180,0), 2f, 10, 1);
-                    target.transform.DOPunchPosition (Vector3.one, 1f, 10, 1, false);
+                    //target.transform.DOPunchPosition (target.transform.position-transform.position, 1f, 1, 1, false);
+
+                    target.transform.DOPunchPosition (target.transform.position-transform.position, 2f, 1, 1, false);
+
+                   
+                    
                 }
                 if(damageTakenByAttacker>0)                    
                     DamageEffect.CreateDamageEffect(transform.position, damageTakenByAttacker);                

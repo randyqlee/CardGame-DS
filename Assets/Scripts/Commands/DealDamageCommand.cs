@@ -30,7 +30,7 @@ public class DealDamageCommand : Command {
             target.GetComponent<OneCreatureManager>().TakeDamage(amount, healthAfter);
         }
 
-        target.GetComponent<OneCreatureManager>().Explode();
+        //target.GetComponent<OneCreatureManager>().Explode();
 
         CommandExecutionComplete();
     }

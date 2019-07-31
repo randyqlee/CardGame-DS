@@ -69,6 +69,9 @@ public class ArchangelsBlessing : CreatureEffect {
         //owner.allies
        int healAmount;
        healAmount = Mathf.Abs(target.MaxHealth - target.Health);
+
+       new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
+
        target.Heal(healAmount);
        
     }
