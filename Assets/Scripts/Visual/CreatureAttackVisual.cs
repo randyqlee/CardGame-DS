@@ -36,6 +36,9 @@ public class CreatureAttackVisual : MonoBehaviour
         VisualStates tempState = w.VisualState;
         w.VisualState = VisualStates.Transition;
 
+        //SFX before attacking
+        
+
         bool punched = false;
         //transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnComplete(() =>
         transform.DOMove(target.transform.position, 0.7f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InBack).OnStepComplete(() =>
