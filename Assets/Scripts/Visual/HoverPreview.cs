@@ -71,7 +71,7 @@ public class HoverPreview: MonoBehaviour
 
          
 //DS
-        ShowAbilityPreview();
+        //ShowAbilityPreview();
     }
         
     void OnMouseExit()
@@ -86,10 +86,31 @@ public class HoverPreview: MonoBehaviour
 
 //DS
         
-        HideAbilityPreview();
-        GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
+        //HideAbilityPreview();
+        //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
         
     
+    }
+
+
+//Ds
+
+    void OnMouseDown()
+    {
+        OverCollider = true;
+        if (PreviewsAllowed && ThisPreviewEnabled)
+        {
+            PreviewThisObject();
+            ShowAbilityPreview();
+        }
+        else
+        {
+            HideAbilityPreview();
+            GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
+        }
+
+        
+
     }
 
     // OTHER METHODS
@@ -172,12 +193,22 @@ public class HoverPreview: MonoBehaviour
         GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(true);
         int ID = previewGameObjectCreature.GetComponent<IDHolder>().UniqueID;
         CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[ID];
+
+        //clear existing cards in panel
+        if (GetComponentInParent<PlayerArea>().abilityPreview.abilities.GetComponentsInChildren<AbilityCard>()!=null)
+        {
+            for (int i = GetComponentInParent<PlayerArea>().abilityPreview.abilities.GetComponentsInChildren<AbilityCard>().Length - 1; i >= 0; i-- )
+            {               
+                Destroy(GetComponentInParent<PlayerArea>().abilityPreview.abilities.GetComponentsInChildren<AbilityCard>()[i].gameObject);
+            }
+        }
+
+        //create new cards in panel
         foreach (CreatureEffect ce in cl.creatureEffects)
         {
              GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityPreviewPrefab, GetComponentInParent<PlayerArea>().abilityPreview.abilities.transform) as GameObject;
              if (ce.abilityPreviewSprite!=null)
-             ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;
-             
+             ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
             
         }
@@ -208,7 +239,7 @@ public class HoverPreview: MonoBehaviour
     }
 
     // STATIC METHODS
-    private static void StopAllPreviews()
+    public static void StopAllPreviews()
     {
         //Debug.Log("Stop All Preview");
         if (currentlyViewing != null)
