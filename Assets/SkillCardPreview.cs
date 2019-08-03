@@ -14,6 +14,7 @@ public class SkillCardPreview : MonoBehaviour {
 	public float tweenDuration;
 
 	public float delayBeforeDestroy;
+	public float previewCardSize;
 
 
 	// Use this for initialization
@@ -49,7 +50,7 @@ public class SkillCardPreview : MonoBehaviour {
 
 
 		//transform.DOMove(new Vector3(transform.position.x + endValue.x, transform.position.y + endValue.y, transform.position.z + endValue.z), tweenDuration, false);
-		transform.DOScale(1.5f, tweenDuration);
+		transform.DOScale(previewCardSize, tweenDuration);
 		//Sequence s = DOTween.Sequence();
                 //s.AppendInterval(delay);
                 //s.OnComplete(Command.CommandExecutionComplete);

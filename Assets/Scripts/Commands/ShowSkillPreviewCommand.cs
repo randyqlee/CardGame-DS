@@ -6,11 +6,13 @@ public class ShowSkillPreviewCommand : Command {
 
 	private CreatureEffect ce;
 	private int TargetUniqueID;
+	private string text;
 
-	public ShowSkillPreviewCommand (CreatureEffect ce, int TargetUniqueID)
+	public ShowSkillPreviewCommand (CreatureEffect ce, int TargetUniqueID, string text)
 	{
 		this.ce = ce;
 		this.TargetUniqueID = TargetUniqueID;
+		this.text = text;
 
 	}
 	// Use this for initialization
@@ -20,6 +22,9 @@ public class ShowSkillPreviewCommand : Command {
 		Debug.Log ("ShowSkillPreviewCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 		creature.GetComponentInChildren<OverheadText>().ShowSkillPreview(ce);
+
+		
+		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
 		
 		//CommandExecutionComplete();
 		//		StartCoroutine(Delay());
