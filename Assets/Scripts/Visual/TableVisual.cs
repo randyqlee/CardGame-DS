@@ -147,17 +147,27 @@ public class TableVisual : MonoBehaviour
         GameObject creatureToRemove = IDHolder.GetGameObjectWithID(IDToRemove);
         
         //ORIGINAL SCRIPT
-        // CreaturesOnTable.Remove(creatureToRemove);
-        // Destroy(creatureToRemove);
+        //CreaturesOnTable.Remove(creatureToRemove);
+        //Destroy(creatureToRemove);
         // ShiftSlotsGameObjectAccordingToNumberOfCreatures();
         // PlaceCreaturesOnNewSlots();
 
         //New SCRIPT
-        creatureToRemove.SetActive(false);
+        
+        StartCoroutine(HideCreature(creatureToRemove));
+        Command.CommandExecutionComplete();    
 
 
-        Command.CommandExecutionComplete();
+        
     }
+
+    IEnumerator HideCreature(GameObject creatureToRemove)
+    {
+        yield return new WaitForSeconds(1f);
+        creatureToRemove.SetActive(false);
+    }
+
+   
 
     public void ResurrectCreatureWithID(int IDToResurrect)
     {

@@ -119,7 +119,9 @@ public class OneCreatureManager : MonoBehaviour
         Animator explosionAnim = explosion.GetComponent<Animator>();
         float animTime = explosionAnim.GetCurrentAnimatorStateInfo(0).length;
         
-        Destroy(explosion,animTime);      
+        Destroy(explosion,animTime);
+
+        Command.CommandExecutionComplete();      
 
 
         // Sequence s = DOTween.Sequence();

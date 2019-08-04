@@ -94,4 +94,11 @@ public class DamageEffect : MonoBehaviour {
         de.StartCoroutine(de.ShowDamageEffect());
 
     }
+
+    public static void TempEffectSfx(Vector3 position, int amount)
+    {
+        CreateDamageEffect(position, amount);
+        Command.CommandExecutionComplete();
+
+    }
 }

@@ -154,6 +154,19 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void EndTurn()
+    {           
+        StartCoroutine(TurnEndCoroutine());        
+    }
+
+    IEnumerator TurnEndCoroutine()
+    {
+        yield return StartCoroutine(EndTurnCoroutine());
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(StartTurnCoroutine());
+    }
+
+
+    IEnumerator EndTurnCoroutine()
     {        
         
             // stop timer
@@ -169,25 +182,46 @@ public class TurnManager : MonoBehaviour {
             }        
              
 
-            if(TurnCounter<=0)
+        //     if(TurnCounter<=0)
+        //     {
+        //       new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+        //     }
+        //     else            
+        //     {
+        //       new StartATurnCommand(whoseTurn).AddToQueue();
+        //     } 
+
+        // TurnCounter--;
+
+        yield return new WaitForSeconds(0.5f);
+        
+        Command.CommandExecutionComplete();
+
+    }
+
+    IEnumerator StartTurnCoroutine()
+    {
+         if(TurnCounter<=0)
             {
+              yield return new WaitForSeconds(0.5f);
               new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
             }
             else            
             {
+              yield return new WaitForSeconds(0.5f);
               new StartATurnCommand(whoseTurn).AddToQueue();
-            }
-            
-            
-        
+            } 
 
         TurnCounter--;
 
+        
     }
 
     public void EndTurnCommand()
     {
+        
         new EndTurnCommand().AddToQueue();
+        new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
     }
 
     public void StopTheTimer()

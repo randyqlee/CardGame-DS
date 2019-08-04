@@ -73,10 +73,14 @@ Debug.Log("DoPunch");
                 w.VisualState = tempState;
 
                 manager.HealthText.text = attackerHealthAfter.ToString();
+                
                 Sequence s = DOTween.Sequence();
                 s.AppendInterval(1f);
+                //s.PrependInterval(10f);                
                 s.OnComplete(Command.CommandExecutionComplete);
-                //Command.CommandExecutionComplete();
+
+                
+                
             });
     }
         
