@@ -256,6 +256,7 @@ public class CreatureLogic: ICharacter
 
                     if (ae.abilityImage != null)
                     effect.abilityPreviewSprite = ae.abilityImage;
+                    effect.abilityDescription = ae.abilityDescription;
 
                     creatureEffects.Add(effect);
                 }

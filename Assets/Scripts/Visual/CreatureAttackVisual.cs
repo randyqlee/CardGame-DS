@@ -70,7 +70,11 @@ Debug.Log("DoPunch");
                     target.GetComponent<OneCreatureManager>().HealthText.text = targetHealthAfter.ToString();
 
                 w.SetTableSortingOrder();
+
                 w.VisualState = tempState;
+                
+
+               
 
                 manager.HealthText.text = attackerHealthAfter.ToString();
                 

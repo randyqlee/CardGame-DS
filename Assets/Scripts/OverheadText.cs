@@ -104,9 +104,9 @@ yield return null;
 	public void ShowSkillPreview(CreatureEffect ce)
 	{
 
-		//GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,gameObject.transform.position,Quaternion.identity);
-		//GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,new Vector3(-3.5f, 0f, 0f),Quaternion.identity);
-		GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,location,Quaternion.identity);
+		GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,gameObject.transform.position,Quaternion.identity);
+		//GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,new Vector3(-6f, 0f, 0f),Quaternion.identity);
+		//GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,location,Quaternion.identity);
 
 		go.GetComponent<SkillCardPreview>().SetupPreview(ce);
 		go.GetComponent<SkillCardPreview>().Move();

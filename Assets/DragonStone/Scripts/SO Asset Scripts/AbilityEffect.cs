@@ -12,6 +12,12 @@ public class AbilityEffect {
 	public int coolDown;
 
 	public Sprite abilityImage;
+	public GameObject specialEffects;	
+	
+	[Header("Card Information")]
+	public int abilityCost;
+	[TextArea(5,20)]
+	public string abilityDescription;
 
 
 

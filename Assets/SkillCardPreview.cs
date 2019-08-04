@@ -10,8 +10,9 @@ public class SkillCardPreview : MonoBehaviour {
 
 	public OneCardManager cm;
 
-	public Vector3 endValue;
+	public Vector3 endValue = new Vector3(-12,0,0);
 	public float tweenDuration;
+	public float moveDuration = 0.5f;
 
 	public float delayBeforeDestroy;
 	public float previewCardSize;
@@ -40,6 +41,8 @@ public class SkillCardPreview : MonoBehaviour {
 		if (ce.Name != null)
 		cm.DescriptionText.text = ce.Name;
 
+		cm.DescriptionText.text = ce.abilityDescription.ToString();
+
 		if (ce.abilityPreviewSprite != null)
 		cm.CardGraphicImage.sprite = ce.abilityPreviewSprite;
 	}
@@ -50,6 +53,7 @@ public class SkillCardPreview : MonoBehaviour {
 
 
 		//transform.DOMove(new Vector3(transform.position.x + endValue.x, transform.position.y + endValue.y, transform.position.z + endValue.z), tweenDuration, false);
+		transform.DOLocalMove(new Vector3(-6f,0,0),moveDuration);
 		transform.DOScale(previewCardSize, tweenDuration);
 		//Sequence s = DOTween.Sequence();
                 //s.AppendInterval(delay);

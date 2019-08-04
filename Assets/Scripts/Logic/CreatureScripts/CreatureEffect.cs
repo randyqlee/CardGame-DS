@@ -17,6 +17,7 @@ public class CreatureEffect
     public string Name;
 
     public Sprite abilityPreviewSprite;
+    public string abilityDescription;
 
     [HideInInspector]
     public CreatureLogic creature;
@@ -165,6 +166,7 @@ public class CreatureEffect
             //new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
 
             new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();
+            
             new SkillSFXCommand(this, Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
         }
         

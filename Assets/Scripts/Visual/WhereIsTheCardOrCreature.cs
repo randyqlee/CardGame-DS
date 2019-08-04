@@ -10,7 +10,8 @@ public enum VisualStates
     TopHand,
     LowTable,
     TopTable,
-    Dragging
+    Dragging,
+    True
 }
 
 public class WhereIsTheCardOrCreature : MonoBehaviour {
@@ -68,6 +69,9 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
                     hover.ThisPreviewEnabled = false;
                     break;
                 case VisualStates.TopHand:
+                    hover.ThisPreviewEnabled = false;
+                    break;
+                case VisualStates.True:
                     hover.ThisPreviewEnabled = false;
                     break;
             }

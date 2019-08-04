@@ -25,8 +25,9 @@ public class ShowSkillPreviewCommand : Command {
 
 		
 		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
+
 		
-		//CommandExecutionComplete();
+		//Command.CommandExecutionComplete();
 		//		StartCoroutine(Delay());
 		
 

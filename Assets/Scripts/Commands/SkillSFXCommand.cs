@@ -22,8 +22,8 @@ public class SkillSFXCommand : Command {
         GameObject target = IDHolder.GetGameObjectWithID(targetID);
        
 		//change this to creature effect SFX
-        DamageEffect.CreateDamageEffect(target.transform.position, 1);
-        CommandExecutionComplete();
+        SpecialEffect.CreateDamageEffect(target.transform.position, 1);
+        //CommandExecutionComplete();
     }
 
 }
