@@ -246,6 +246,7 @@ public class TableVisual : MonoBehaviour
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
 
              manager.abilityCard.Add(ac);
+             ce.abilityCard = ac.GetComponent<AbilityCard>();
              }
             
         }

@@ -19,6 +19,8 @@ public class CreatureEffect
     public Sprite abilityPreviewSprite;
     public string abilityDescription;
 
+    public AbilityCard abilityCard;
+
     [HideInInspector]
     public CreatureLogic creature;
 
@@ -88,6 +90,8 @@ public class CreatureEffect
         {
             remainingCooldown = 0;
         }
+
+        new UpdateCooldownCommand (this.abilityCard, remainingCooldown).AddToQueue();
             
     }
 

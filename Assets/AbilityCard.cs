@@ -25,4 +25,10 @@ public class AbilityCard : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public void UpdateCooldown(int cooldown)
+	{
+		abilityCooldownText.text = cooldown.ToString();
+
+	}
 }
