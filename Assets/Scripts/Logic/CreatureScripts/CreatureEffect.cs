@@ -13,7 +13,8 @@ public class CreatureEffect
 
     //DS
     
-    public Player owner;    
+    public Player owner;   
+     
     public string Name;
 
     public Sprite abilityPreviewSprite;

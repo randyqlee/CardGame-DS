@@ -403,7 +403,9 @@ public class Player : MonoBehaviour, ICharacter
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
 
         //DS
-        GameObject.Find("CardLogic").GetComponent<AllCardLogic>().creatureLogic.Add(newCreature);
+        //DS this is just an optional script if we want to monitor all CL in game
+        //no logical or visual function
+        //GameObject.Find("CardLogic").GetComponent<AllCardLogic>().creatureLogic.Add(newCreature);
 
         //HeroLogic newCreature = new HeroLogic(this, playedCard.ca);
         table.CreaturesOnTable.Insert(tablePos, newCreature);

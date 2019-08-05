@@ -79,7 +79,6 @@ public class TurnManager : MonoBehaviour {
 
     public void OnGameStart()
     {
-        //Debug.Log("In TurnManager.OnGameStart()");
 
         CardLogic.CardsCreatedThisGame.Clear();
         CreatureLogic.CreaturesCreatedThisGame.Clear();
@@ -121,7 +120,7 @@ public class TurnManager : MonoBehaviour {
                     whoGoesFirst.DrawACard(true);
                 
                     //DS
-
+                    //put the creatures on table
                     whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
 
@@ -131,16 +130,11 @@ public class TurnManager : MonoBehaviour {
 
 
                 //DS
-
+                //populate the skills panel
                 new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
                 new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
 
-                // add one more card to second player`s hand
-                //DS
-                //whoGoesSecond.DrawACard(true);
-                //new GivePlayerACoinCommand(null, whoGoesSecond).AddToQueue();
-                //whoGoesSecond.GetACardNotFromDeck(CoinCard);
                 new StartATurnCommand(whoGoesFirst).AddToQueue();
             });
 
