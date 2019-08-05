@@ -19,7 +19,7 @@ public class OneCreatureManager : MonoBehaviour
     public OverheadText overheadText;
 
 //DS
-    public List<Sprite> abilityEffectSprite;
+    public List<GameObject> abilityCard;
 
     void Awake()
     {
@@ -57,7 +57,7 @@ public class OneCreatureManager : MonoBehaviour
         foreach (AbilityEffect ae in cardAsset.abilityEffect)
 
         {
-            abilityEffectSprite.Add(ae.abilityImage);
+            //abilityEffectSprite.Add(ae.abilityImage);
         }
     }
 

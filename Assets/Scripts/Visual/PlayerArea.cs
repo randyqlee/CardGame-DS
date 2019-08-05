@@ -20,6 +20,8 @@ public class PlayerArea : MonoBehaviour
 //DS
     public AbilityPreviewVisual abilityPreview;
 
+    public SkillPanelVisual skillPanel;
+
     public bool AllowedToControlThisPlayer
     {
         get;

@@ -37,6 +37,7 @@ public class GlobalSettings: MonoBehaviour
     public GameObject FloatingTweenText_Prefab;
 
     public GameObject SkillCardPreview_Prefab;
+    public GameObject AbilityCardPreviewPrefab;
 
     [Header("Other")]
     public Button EndTurnButton;

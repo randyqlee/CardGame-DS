@@ -101,12 +101,12 @@ public class HoverPreview: MonoBehaviour
         if (PreviewsAllowed && ThisPreviewEnabled)
         {
             PreviewThisObject();
-            ShowAbilityPreview();
+            //ShowAbilityPreview();
         }
         else
         {
             HideAbilityPreview();
-            GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
+            //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
         }
 
         

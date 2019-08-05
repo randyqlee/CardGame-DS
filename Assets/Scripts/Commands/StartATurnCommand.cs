@@ -15,6 +15,8 @@ public class StartATurnCommand : Command {
         TurnManager.Instance.whoseTurn = p;
         // this command is completed instantly
 
+
+
         
         CommandExecutionComplete();
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class TableVisual : MonoBehaviour 
 {
@@ -108,6 +109,10 @@ public class TableVisual : MonoBehaviour
         ShiftSlotsGameObjectAccordingToNumberOfCreatures();
         PlaceCreaturesOnNewSlots();
 
+
+        //DS
+        AddSkillsToPanel(manager,UniqueID);
+
         // end command execution
         Command.CommandExecutionComplete();
     }
@@ -164,6 +169,14 @@ public class TableVisual : MonoBehaviour
     IEnumerator HideCreature(GameObject creatureToRemove)
     {
         yield return new WaitForSeconds(1f);
+
+        foreach (GameObject go in creatureToRemove.GetComponent<OneCreatureManager>().abilityCard)
+        {
+            //go.SetActive(false);
+            go.GetComponent<AbilityCard>().abilityImage.DOColor(new Color(0.2f,0.2f,0.2f,1f),1f);
+            //go.GetComponent<AbilityCard>().abilityImage.color = new Color (0.2f,0.2f,0.2f,0.2f);
+        }
+        
         creatureToRemove.SetActive(false);
     }
 
@@ -216,6 +229,29 @@ public class TableVisual : MonoBehaviour
             // TODO: figure out if I need to do something here:
             // g.GetComponent<WhereIsTheCardOrCreature>().SetTableSortingOrder() = CreaturesOnTable.IndexOf(g);
         }
+    }
+
+
+//DS - change these into Command and Tweens
+// if possible, make the skill buttons delegates. if not, update everytime cooldown changes.
+// if hero dies, also deactivate (hide) the corresponding GO from the OneCreatureManager reference
+    void AddSkillsToPanel(OneCreatureManager manager, int UniqueID)
+    {
+        CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[UniqueID];
+        foreach (CreatureEffect ce in cl.creatureEffects)
+        {
+             GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
+             if (ce.abilityPreviewSprite!=null) {
+             ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
+             ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
+
+             manager.abilityCard.Add(ac);
+             }
+            
+        }
+
+        
+
     }
 
 }
