@@ -70,7 +70,12 @@ public class SpecialEffect : MonoBehaviour {
         //SpecialEffect se = newDamageEffect.GetComponent<SpecialEffect>();
         
         //se.StartCoroutine(se.ShowDamageEffect());
-        
+
+        Sequence s = DOTween.Sequence();
+        s.AppendInterval(0.5f);
+        s.OnComplete(() => Destroy(newDamageEffect));
+
+    
 
 
     }
@@ -87,6 +92,10 @@ public class SpecialEffect : MonoBehaviour {
         
         //se.StartCoroutine(se.ShowDamageEffect());
 
+        Sequence s = DOTween.Sequence();
+        s.AppendInterval(0.5f);
+        s.OnComplete(() => Destroy(newDamageEffect));
+
     }
 
     public static void CreateSkillEffect(Vector3 position, int amount)
@@ -100,6 +109,10 @@ public class SpecialEffect : MonoBehaviour {
         //SpecialEffect se = newDamageEffect.GetComponent<SpecialEffect>();
         
         //se.StartCoroutine(se.ShowDamageEffect());
+
+        Sequence s = DOTween.Sequence();
+        s.AppendInterval(0.5f);
+        s.OnComplete(() => Destroy(newDamageEffect));
 
     }
 
