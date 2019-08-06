@@ -33,7 +33,7 @@ public class DamageEffect : MonoBehaviour {
         DamageImage.sprite = Splashes[Random.Range(0, Splashes.Length)]; 
         
 //DS        
-        SfxExplosion_1_Prefab = GlobalSettings.Instance.SfxExplosion_1_Prefab; 
+//        SfxExplosion_1_Prefab = GlobalSettings.Instance.SfxExplosion_1_Prefab; 
     }
 
     // A Coroutine to control the fading of this damage effect
@@ -45,7 +45,7 @@ public class DamageEffect : MonoBehaviour {
 
 //DS
 
-        GameObject sfx_explosion = GameObject.Instantiate(SfxExplosion_1_Prefab, this.transform.position, Quaternion.identity) as GameObject;
+        //GameObject sfx_explosion = GameObject.Instantiate(SfxExplosion_1_Prefab, this.transform.position, Quaternion.identity) as GameObject;
 
         yield return new WaitForSeconds(1f);
         // gradually fade the effect by changing its alpha value
@@ -56,7 +56,7 @@ public class DamageEffect : MonoBehaviour {
         }
 
 //DS
-        Destroy (sfx_explosion);
+        //Destroy (sfx_explosion);
 
 
         // after the effect is shown it gets destroyed.

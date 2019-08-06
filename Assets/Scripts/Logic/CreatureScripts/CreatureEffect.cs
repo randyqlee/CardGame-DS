@@ -172,7 +172,7 @@ public class CreatureEffect
 
             new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();
             
-            new SkillSFXCommand(this, Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+            new SkillSFXCommand(Target.GetComponent<IDHolder>().UniqueID, SkillSFXCommand.SFXStates.UseSkill).AddToQueue();
         }
         
         
@@ -192,7 +192,7 @@ public class CreatureEffect
             //new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
 
             new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();
-            new SkillSFXCommand(this, Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
+            new SkillSFXCommand(Target.GetComponent<IDHolder>().UniqueID, SkillSFXCommand.SFXStates.UseSkill).AddToQueue();
 
             //delay for text dispalys
             new DelayCommand(1f).AddToQueue();

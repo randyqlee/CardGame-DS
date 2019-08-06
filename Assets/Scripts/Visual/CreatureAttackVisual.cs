@@ -47,6 +47,7 @@ public class CreatureAttackVisual : MonoBehaviour
                 {       
                     if(!punched)
                     {             
+                    new SkillSFXCommand(targetUniqueID, SkillSFXCommand.SFXStates.TakeDamage).AddToQueue();
                     DamageEffect.CreateDamageEffect(target.transform.position, damageTakenByTarget);
 //DS
 Debug.Log("DoPunch");
@@ -55,6 +56,8 @@ Debug.Log("DoPunch");
 
                     target.transform.DOPunchPosition (target.transform.position/2 - transform.position/2 , 1f, 10, 0.5f, false);
                         punched = true;
+                    
+                                    
                         
                     }
                     

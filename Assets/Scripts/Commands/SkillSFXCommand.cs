@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class SkillSFXCommand : Command {
 
-	private CreatureEffect ce;
+	//private CreatureEffect ce;
     private int targetID;
     //private int amount;
 
-    public SkillSFXCommand(CreatureEffect ce, int targetID)
+    public enum SFXStates
     {
-        this.ce = ce;
-		this.targetID = targetID;
-  
+        Attack,
+        TakeDamage,
+        UseSkill
+
+    };
+
+    private SFXStates state;
+
+    //public SkillSFXCommand(CreatureEffect ce, int targetID, SFXStates state)
+    public SkillSFXCommand(int targetID, SFXStates state)
+    {
         
+		this.targetID = targetID;
+        this.state = state;
+          
     }
 
     public override void StartCommandExecution()
@@ -21,9 +32,36 @@ public class SkillSFXCommand : Command {
         
         GameObject target = IDHolder.GetGameObjectWithID(targetID);
        
-		//change this to creature effect SFX
-        SpecialEffect.CreateDamageEffect(target.transform.position, 1);
-        //CommandExecutionComplete();
+       switch (state)
+       {
+           case SFXStates.Attack:
+
+           //change this to creature effect SFX
+            SpecialEffect.CreateAttackEffect(target.transform.position, 1);
+            //CommandExecutionComplete();
+
+           break;
+
+
+           case SFXStates.TakeDamage:
+
+           //change this to creature effect SFX
+            SpecialEffect.CreateDamageEffect(target.transform.position, 1);
+            //CommandExecutionComplete();
+
+           break;
+
+
+           case SFXStates.UseSkill:
+
+           //change this to creature effect SFX
+            SpecialEffect.CreateSkillEffect(target.transform.position, 1);
+            //CommandExecutionComplete();
+
+           break;
+       }
+
+		
     }
 
 }

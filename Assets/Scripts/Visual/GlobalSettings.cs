@@ -32,12 +32,20 @@ public class GlobalSettings: MonoBehaviour
     public GameObject AbilityPreviewPrefab;
 
 //DS
-    public GameObject SfxExplosion_1_Prefab;
+//    public GameObject SfxExplosion_1_Prefab;
+
+//    public GameObject SfxIMplosion_1_Prefab;
 
     public GameObject FloatingTweenText_Prefab;
 
     public GameObject SkillCardPreview_Prefab;
     public GameObject AbilityCardPreviewPrefab;
+
+
+    public List<GameObject> SFX_Attack_Prefab;
+    public List<GameObject> SFX_TakeDamage_Prefab;
+    public List<GameObject> SFX_UseSkill_Prefab;
+
 
     [Header("Other")]
     public Button EndTurnButton;

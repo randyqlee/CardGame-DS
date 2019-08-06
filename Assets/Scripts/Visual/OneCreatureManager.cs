@@ -39,7 +39,8 @@ public class OneCreatureManager : MonoBehaviour
         {
             canAttackNow = value;
 
-            CreatureGlowImage.enabled = value;
+            //CreatureGlowImage.enabled = value;
+            new CreatureGlowCommand(CreatureGlowImage, value).AddToQueue();
         }
     }
 
@@ -70,8 +71,9 @@ public class OneCreatureManager : MonoBehaviour
 
     public void TakeDamage(int amount, int healthAfter)
     {
+        
         if (amount > 0)
-        {            
+        {
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
         } 
@@ -82,6 +84,7 @@ public class OneCreatureManager : MonoBehaviour
     {
         if (amount > 0)
         {
+    
             //use negative in amount to channel healing effect
             DamageEffect.CreateDamageEffect(transform.position, -amount);
             HealthText.text = healthAfter.ToString();

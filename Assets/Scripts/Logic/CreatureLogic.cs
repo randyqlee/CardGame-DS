@@ -236,11 +236,6 @@ public class CreatureLogic: ICharacter
         UniqueCreatureID = IDFactory.GetUniqueID(); 
         Name = this.GetType().Name.ToString();
 
-        //DS
-
-        //creatureEffects = new List<CreatureEffect>(); 
-
-        //buffEffects = new List<BuffEffect>();        
        
         //DS
         //Add activator for abilities

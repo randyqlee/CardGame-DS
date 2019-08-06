@@ -105,7 +105,7 @@ public class HoverPreview: MonoBehaviour
         }
         else
         {
-            HideAbilityPreview();
+            //HideAbilityPreview();
             //GetComponentInParent<PlayerArea>().abilityPreview.gameObject.SetActive(false);
         }
 
