@@ -65,7 +65,7 @@ public class SpecialEffect : MonoBehaviour {
      
         //GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SfxExplosion_1_Prefab, position, Quaternion.identity) as GameObject;
         
-        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_TakeDamage_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count)], position, Quaternion.identity) as GameObject;
+        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_TakeDamage_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count-1)], position, Quaternion.identity) as GameObject;
         // Get DamageEffect component in this new game object
         //SpecialEffect se = newDamageEffect.GetComponent<SpecialEffect>();
         
@@ -86,7 +86,7 @@ public class SpecialEffect : MonoBehaviour {
      
        //GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SfxExplosion_1_Prefab, position, Quaternion.identity) as GameObject;
         
-        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_Attack_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count)], position, Quaternion.identity) as GameObject;
+        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_Attack_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count-1)], position, Quaternion.identity) as GameObject;
         // Get DamageEffect component in this new game object
         //SpecialEffect se = newDamageEffect.GetComponent<SpecialEffect>();
         
@@ -104,7 +104,7 @@ public class SpecialEffect : MonoBehaviour {
      
         //GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SfxExplosion_1_Prefab, position, Quaternion.identity) as GameObject;
         
-        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_UseSkill_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count)], position, Quaternion.identity) as GameObject;
+        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_UseSkill_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count-1)], position, Quaternion.identity) as GameObject;
         // Get DamageEffect component in this new game object
         //SpecialEffect se = newDamageEffect.GetComponent<SpecialEffect>();
         

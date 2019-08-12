@@ -1,20 +1,22 @@
 fileFormatVersion: 2
 guid: a53be58aea36e7c48af3f308c36e8c14
-timeCreated: 1470264018
-licenseType: Free
 TrueTypeFontImporter:
-  serializedVersion: 3
-  fontSize: 16
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 50
   forceTextureCase: -2
-  characterSpacing: 1
-  characterPadding: 0
+  characterSpacing: 0
+  characterPadding: 1
   includeFontData: 1
+  fontName: Devinne Swash
   fontNames:
   - Devinne Swash
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
