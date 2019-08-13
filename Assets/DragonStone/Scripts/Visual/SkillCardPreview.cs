@@ -10,7 +10,9 @@ public class SkillCardPreview : MonoBehaviour {
 
 	public OneCardManager cm;
 
-	public Vector3 endValue = new Vector3(-12,0,0);
+	public Vector3 endValue = new Vector3(-5,0,0);
+	public Vector3 endValue2 = new Vector3(5,0,0);
+	
 	public float tweenDuration;
 	public float moveDuration = 0.5f;
 
@@ -53,7 +55,7 @@ public class SkillCardPreview : MonoBehaviour {
 
 
 		//transform.DOMove(new Vector3(transform.position.x + endValue.x, transform.position.y + endValue.y, transform.position.z + endValue.z), tweenDuration, false);
-		transform.DOLocalMove(new Vector3(-6f,0,0),moveDuration);
+		transform.DOLocalMove(endValue,moveDuration);
 		transform.DOScale(previewCardSize, tweenDuration);
 		//Sequence s = DOTween.Sequence();
                 //s.AppendInterval(delay);

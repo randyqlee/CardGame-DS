@@ -111,7 +111,7 @@ public class TurnManager : MonoBehaviour {
                 // Debug.Log(whoGoesSecond);
          
                 // draw 4 cards for first player and 5 for second player
-                int initDraw = 4;
+                int initDraw = GlobalSettings.Instance.HeroesCount;
                 for (int i = 0; i < initDraw; i++)
                 {            
                     // second player draws a card
