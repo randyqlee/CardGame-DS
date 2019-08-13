@@ -239,18 +239,28 @@ public class TableVisual : MonoBehaviour
     void AddSkillsToPanel(OneCreatureManager manager, int UniqueID)
     {
         CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[UniqueID];
+        GameObject ps = GameObject.Instantiate (GlobalSettings.Instance.PortraitWSkillsPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
         foreach (CreatureEffect ce in cl.creatureEffects)
         {
-             GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
+             //GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
+             
+             GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, ps.GetComponent<PortraitWSkill>().skills.transform) as GameObject;
+
              if (ce.abilityPreviewSprite!=null) {
              ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
 
              manager.abilityCard.Add(ac);
              ce.abilityCard = ac.GetComponent<AbilityCard>();
+            
              }
             
         }
+
+         GameObject portrait = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, ps.GetComponent<PortraitWSkill>().portrait.transform) as GameObject;
+            portrait.GetComponent<AbilityCard>().abilityImage.sprite = cl.ca.HeroPortrait;
+            portrait.GetComponent<AbilityCard>().abilityCooldownText.text = "";
+            manager.portraitPreview = portrait;
 
         
 

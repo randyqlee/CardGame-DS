@@ -20,6 +20,7 @@ public class OneCreatureManager : MonoBehaviour
 
 //DS
     public List<GameObject> abilityCard;
+    public GameObject portraitPreview;
 
     void Awake()
     {

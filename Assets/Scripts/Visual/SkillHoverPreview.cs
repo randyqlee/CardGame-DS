@@ -224,9 +224,9 @@ public class SkillHoverPreview: MonoBehaviour
     void StopThisPreview()
     {
         
-        previewGameObject.SetActive(false);
-        previewGameObject.transform.localScale = Vector3.one;
-        previewGameObject.transform.localPosition = Vector3.zero;
+//        previewGameObject.SetActive(false);
+//        previewGameObject.transform.localScale = Vector3.one;
+//        previewGameObject.transform.localPosition = Vector3.zero;
 
 //DS
         if (previewGameObjectCreature != null){
@@ -244,9 +244,9 @@ public class SkillHoverPreview: MonoBehaviour
         //Debug.Log("Stop All Preview");
         if (currentlyViewing != null)
         {
-            currentlyViewing.previewGameObject.SetActive(false);
-            currentlyViewing.previewGameObject.transform.localScale = Vector3.one;
-            currentlyViewing.previewGameObject.transform.localPosition = Vector3.zero;
+//            currentlyViewing.previewGameObject.SetActive(false);
+//            currentlyViewing.previewGameObject.transform.localScale = Vector3.one;
+//            currentlyViewing.previewGameObject.transform.localPosition = Vector3.zero;
 
 //DS        
             if (currentlyViewing.previewGameObjectCreature != null){

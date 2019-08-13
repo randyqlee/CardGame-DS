@@ -7,6 +7,8 @@ public class SkillPanelVisual : MonoBehaviour {
 
 	public GameObject abilities;
 
+	public GameObject portraitWSkills;
+
 	// Use this for initialization
 	void Start () {
 		

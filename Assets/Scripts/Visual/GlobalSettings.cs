@@ -33,6 +33,8 @@ public class GlobalSettings: MonoBehaviour
 
     public GameObject AbilityPreviewPrefab;
 
+    public GameObject PortraitWSkillsPreviewPrefab;
+
 //DS
 //    public GameObject SfxExplosion_1_Prefab;
 
