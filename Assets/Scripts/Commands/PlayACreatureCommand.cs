@@ -24,7 +24,7 @@ public class PlayACreatureCommand : Command
         PlayerHand.RemoveCard(card);
         GameObject.Destroy(card);
         // enable Hover Previews Back
-        HoverPreview.PreviewsAllowed = true;
+        //DS HoverPreview.PreviewsAllowed = true;
         // move this card to the spot 
         p.PArea.tableVisual.AddCreatureAtIndex(cl.ca, creatureID, tablePos);
     }

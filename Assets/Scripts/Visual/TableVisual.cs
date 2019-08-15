@@ -83,6 +83,14 @@ public class TableVisual : MonoBehaviour
         manager.cardAsset = ca;
         manager.ReadCreatureFromAsset();
 
+        //DS
+        OneCardManager ocm = creature.GetComponent<OneCreatureManager>().abilityCardPreview.GetComponent<OneCardManager>();
+             ocm.NameText.text = ca.name;
+             
+             ocm.DescriptionText.text = ca.Description;
+             ocm.CardGraphicImage.sprite = ca.CardImage;
+
+
         // add tag according to owner
         foreach (Transform t in creature.GetComponentsInChildren<Transform>())
             t.tag = owner.ToString()+"Creature";

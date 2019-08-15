@@ -41,9 +41,10 @@ public class Draggable : MonoBehaviour {
     {
         if (da!=null && da.CanDrag)
         {
+   
             dragging = true;
             // when we are dragging something, all previews should be off
-            HoverPreview.PreviewsAllowed = false;
+            //DS HoverPreview.PreviewsAllowed = false;
             _draggingThis = this;
             da.OnStartDrag();
             zDisplacement = -Camera.main.transform.position.z + transform.position.z;
@@ -56,6 +57,7 @@ public class Draggable : MonoBehaviour {
     {
         if (dragging)
         { 
+
             Vector3 mousePos = MouseInWorldCoords();
             //Debug.Log(mousePos);
             transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
@@ -69,7 +71,7 @@ public class Draggable : MonoBehaviour {
         {
             dragging = false;
             // turn all previews back on
-            HoverPreview.PreviewsAllowed = true;
+            //DS HoverPreview.PreviewsAllowed = true;
             _draggingThis = null;
             da.OnEndDrag();
         }

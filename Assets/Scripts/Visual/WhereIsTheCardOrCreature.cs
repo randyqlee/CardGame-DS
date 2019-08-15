@@ -52,27 +52,27 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
             switch (state)
             {
                 case VisualStates.LowHand:
-                    hover.ThisPreviewEnabled = true;
+                    //hover.ThisPreviewEnabled = true;
                     break;
                 case VisualStates.LowTable:
                 //DS
-                    hover.ThisPreviewEnabled = true;
+                    //hover.ThisPreviewEnabled = true;
                     break;
                 //
                 case VisualStates.TopTable:
-                    hover.ThisPreviewEnabled = true; 
+                    //hover.ThisPreviewEnabled = true; 
                     break;
                 case VisualStates.Transition:
-                    hover.ThisPreviewEnabled = false;
+                    //hover.ThisPreviewEnabled = false;
                     break;
                 case VisualStates.Dragging:
-                    hover.ThisPreviewEnabled = false;
+                    //hover.ThisPreviewEnabled = false;
                     break;
                 case VisualStates.TopHand:
-                    hover.ThisPreviewEnabled = false;
+                    //hover.ThisPreviewEnabled = false;
                     break;
                 case VisualStates.True:
-                    hover.ThisPreviewEnabled = false;
+                    //hover.ThisPreviewEnabled = false;
                     break;
             }
         }
@@ -80,10 +80,10 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
 
     void Awake()
     {
-        hover = GetComponent<HoverPreview>();
+        //DS hover = GetComponent<HoverPreview>();
         // for characters hover is attached to a child game object
-        if (hover == null)
-            hover = GetComponentInChildren<HoverPreview>();
+        //DS if (hover == null)
+        //DS     hover = GetComponentInChildren<HoverPreview>();
         canvas = GetComponentInChildren<Canvas>();
     }
 

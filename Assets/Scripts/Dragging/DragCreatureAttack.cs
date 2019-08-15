@@ -52,10 +52,12 @@ public class DragCreatureAttack : DraggingActions {
         sr.enabled = true;
         // enable line renderer to start drawing the line.
         lr.enabled = true;
+
     }
 
     public override void OnDraggingInUpdate()
     {
+
         Vector3 notNormalized = transform.position - transform.parent.position;
         Vector3 direction = notNormalized.normalized;
         float distanceToTarget = (direction*2.3f).magnitude;

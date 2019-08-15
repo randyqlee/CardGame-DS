@@ -22,6 +22,8 @@ public class OneCreatureManager : MonoBehaviour
     public List<GameObject> abilityCard;
     public GameObject portraitPreview;
 
+    public GameObject abilityCardPreview;
+
     void Awake()
     {
         if (cardAsset != null)
