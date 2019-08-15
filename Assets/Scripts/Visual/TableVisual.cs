@@ -252,7 +252,10 @@ public class TableVisual : MonoBehaviour
 
              manager.abilityCard.Add(ac);
              ce.abilityCard = ac.GetComponent<AbilityCard>();
-            
+
+          
+             new UpdateCooldownCommand (ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
+
              }
             
         }
@@ -263,7 +266,7 @@ public class TableVisual : MonoBehaviour
             manager.portraitPreview = portrait;
 
         
-
+            
     }
 
 }

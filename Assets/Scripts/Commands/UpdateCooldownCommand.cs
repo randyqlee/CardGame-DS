@@ -6,17 +6,19 @@ public class UpdateCooldownCommand : Command {
 
 	AbilityCard abilityCard;
 	int cooldown;
+	int originalCooldown;
 
-	public UpdateCooldownCommand (AbilityCard abilityCard, int cooldown)
+	public UpdateCooldownCommand (AbilityCard abilityCard, int cooldown, int originalCooldown)
 	{
 		this.abilityCard = abilityCard;
 		this.cooldown = cooldown;
+		this.originalCooldown = originalCooldown;
 
 	}
 
 	public override void StartCommandExecution()
 	{
-		abilityCard.UpdateCooldown(cooldown);
+		abilityCard.UpdateCooldown(cooldown,originalCooldown);
 		Command.CommandExecutionComplete();	
 	}
 

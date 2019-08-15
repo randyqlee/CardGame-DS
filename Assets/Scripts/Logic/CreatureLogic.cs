@@ -254,6 +254,10 @@ public class CreatureLogic: ICharacter
                     effect.abilityDescription = ae.abilityDescription;
 
                     creatureEffects.Add(effect);
+
+                   
+                   
+                    
                 }
             }
         }

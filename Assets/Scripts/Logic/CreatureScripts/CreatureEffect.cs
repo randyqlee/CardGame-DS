@@ -92,9 +92,12 @@ public class CreatureEffect
             remainingCooldown = 0;
         }
 
-        new UpdateCooldownCommand (this.abilityCard, remainingCooldown).AddToQueue();
+        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
             
     }
+
+   
+   
 
     //DS
     //Use ability overrides

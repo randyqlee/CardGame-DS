@@ -11,6 +11,7 @@ public class AbilityCard : MonoBehaviour {
 	public Text abilityDescriptionText;
 
 	public Text abilityCooldownText;
+	public Image CooldownOverlay;
 
 
 
@@ -26,9 +27,25 @@ public class AbilityCard : MonoBehaviour {
 		
 	}
 
-	public void UpdateCooldown(int cooldown)
+	public void UpdateCooldown(int cooldown, int originalCooldown)
 	{
+		if(cooldown == 0)
+		abilityCooldownText.text = " ";
+		else
 		abilityCooldownText.text = cooldown.ToString();
+
+		if(originalCooldown<=0)
+		{
+			CooldownOverlay.fillAmount = 0f;
+		}		
+		else
+		{
+			float fillValue = ((float)cooldown/(float)originalCooldown);
+			CooldownOverlay.fillAmount = fillValue;
+			
+		}
+		
+		
 
 	}
 }
