@@ -109,7 +109,7 @@ yield return null;
 		//GameObject go = Instantiate(GlobalSettings.Instance.SkillCardPreview_Prefab,location,Quaternion.identity);
 
 		go.GetComponent<SkillCardPreview>().SetupPreview(ce);
-		go.GetComponent<SkillCardPreview>().Move();
+		go.GetComponent<SkillCardPreview>().Move(go.transform.position);
 
 	}	
 

@@ -49,10 +49,11 @@ public class SkillCardPreview : MonoBehaviour {
 		cm.CardGraphicImage.sprite = ce.abilityPreviewSprite;
 	}
 
-	public void Move ()
+	public void Move (Vector3 position)
 	{
 
-
+		if (position.x < 0)
+				endValue = endValue2;
 
 		//transform.DOMove(new Vector3(transform.position.x + endValue.x, transform.position.y + endValue.y, transform.position.z + endValue.z), tweenDuration, false);
 		transform.DOLocalMove(endValue,moveDuration);
