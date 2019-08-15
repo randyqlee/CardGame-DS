@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, ICharacter
             else
                 manaThisTurn = value;
             //PArea.ManaBar.TotalCrystals = manaThisTurn;
-            new UpdateManaCrystalsCommand(this, manaThisTurn, manaLeft).AddToQueue();
+            // DS new UpdateManaCrystalsCommand(this, manaThisTurn, manaLeft).AddToQueue();
         }
     }
 
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour, ICharacter
                 manaLeft = value;
             
             //PArea.ManaBar.AvailableCrystals = manaLeft;
-            new UpdateManaCrystalsCommand(this, ManaThisTurn, manaLeft).AddToQueue();
+            //DS new UpdateManaCrystalsCommand(this, ManaThisTurn, manaLeft).AddToQueue();
             //Debug.Log(ManaLeft);
 
             //DS
@@ -310,6 +310,10 @@ public class Player : MonoBehaviour, ICharacter
     }
 
     // get card NOT from deck (a token or a coin)
+
+//DS COMMENT OUT GETACARDNOTFROMDECK
+
+/*
     public void GetACardNotFromDeck(CardAsset cardAsset)
     {
         if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
@@ -342,6 +346,8 @@ public class Player : MonoBehaviour, ICharacter
         }
         // no removal from deck because the card was not in the deck
     }
+*/
+
 
     // 2 METHODS FOR PLAYING SPELLS
     // 1st overload - takes ids as arguments
@@ -422,7 +428,8 @@ public class Player : MonoBehaviour, ICharacter
         //HighlightPlayableCards();
 
         //DS
-        DrawAbilityCards(newCreature);
+        //DS COMMENT OUT GETACARDNOTFROMDECK
+        //DrawAbilityCards(newCreature);
     }
 
     public void Die()
@@ -522,6 +529,7 @@ public class Player : MonoBehaviour, ICharacter
     //DS
 
     //DS
+/*
     public void DrawAbilityCards(CreatureLogic crl)
     {
     
@@ -532,7 +540,7 @@ public class Player : MonoBehaviour, ICharacter
         }
     }
     //DS
-
+*/
     // START GAME METHODS
     public void LoadCharacterInfoFromAsset()
     {

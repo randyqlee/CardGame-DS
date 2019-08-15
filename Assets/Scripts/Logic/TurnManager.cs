@@ -215,14 +215,20 @@ public class TurnManager : MonoBehaviour {
 
         TurnCounter--;
 
+        //DS
+        //GlobalSettings.Instance.EndTurnButton.enabled = true;
+        GlobalSettings.Instance.EndTurnButton.interactable = true;
+
         
     }
 
     public void EndTurnCommand()
     {
-        
+        //DS
+        //GlobalSettings.Instance.EndTurnButton.enabled = false;
+        GlobalSettings.Instance.EndTurnButton.interactable = false;
         new EndTurnCommand().AddToQueue();
-        new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        //new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
     }
 
     public void StopTheTimer()

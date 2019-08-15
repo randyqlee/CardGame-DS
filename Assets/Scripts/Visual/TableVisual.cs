@@ -92,7 +92,7 @@ public class TableVisual : MonoBehaviour
 
         // add a new creature to the list
         CreaturesOnTable.Insert(index, creature);
-        Debug.Log("Creature Index: " +index +" Creature Name: " +creature.GetType().Name.ToString());
+        //Debug.Log("Creature Index: " +index +" Creature Name: " +creature.GetType().Name.ToString());
 
         // let this creature know about its position
         WhereIsTheCardOrCreature w = creature.GetComponent<WhereIsTheCardOrCreature>();

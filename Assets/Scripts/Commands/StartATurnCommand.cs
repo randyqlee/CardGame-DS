@@ -12,11 +12,10 @@ public class StartATurnCommand : Command {
 
     public override void StartCommandExecution()
     {
+        new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        
         TurnManager.Instance.whoseTurn = p;
         // this command is completed instantly
-
-
-
         
         CommandExecutionComplete();
     }
