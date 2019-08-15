@@ -13,6 +13,8 @@ public class AbilityCard : MonoBehaviour {
 	public Text abilityCooldownText;
 	public Image CooldownOverlay;
 
+	public GameObject abilityCardPreview;
+
 
 
 

@@ -250,6 +250,12 @@ public class TableVisual : MonoBehaviour
              ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
 
+             OneCardManager ocm = ac.GetComponent<AbilityCard>().abilityCardPreview.GetComponent<OneCardManager>();
+             ocm.NameText.text = ce.Name;
+             ocm.ManaCostText.text = ce.creatureEffectCooldown.ToString();
+             ocm.DescriptionText.text = ce.abilityDescription;
+             ocm.CardGraphicImage.sprite = ce.abilityPreviewSprite;
+
              manager.abilityCard.Add(ac);
              ce.abilityCard = ac.GetComponent<AbilityCard>();
 
