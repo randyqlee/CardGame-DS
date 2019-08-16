@@ -39,6 +39,7 @@ public class Resurrect : BuffEffect {
             REflag = true;           
 
             
+        /* Replace with Ability SO
 
             if (target.ca.abilityEffect != null)
             {
@@ -52,7 +53,22 @@ public class Resurrect : BuffEffect {
                         target.creatureEffects.Add(target.effect);
                     }
                 }
-            }                                         
+            }
+
+        */ 
+            if (target.ca.Abilities != null)
+            {
+                foreach (AbilityAsset ae in target.ca.Abilities)
+                {
+                    if (ae.abilityEffect != null && ae.abilityEffect != "")
+                    {
+                        target.effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{target.owner, target, ae.abilityCoolDown}) as CreatureEffect;
+                        target.effect.RegisterCooldown();
+                        target.effect.RegisterEventEffect();
+                        target.creatureEffects.Add(target.effect);
+                    }
+                }
+            }                                        
                              
             target.Health = target.MaxHealth;
             target.Attack = target.Attack;

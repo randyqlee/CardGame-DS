@@ -31,10 +31,10 @@ public class AbilityAsset : ScriptableObject {
 	[Header("Ability Script name - must be typed correctly")]
 	public string abilityEffect;
 
-	//public int abilityCoolDown;
+	public int abilityCoolDown;
 
-	public Type skillType;
-	public Target target;
+	public Type skillType = Type.Passive;
+	public Target target = Target.Any;
 
 //	[Header("Ability Buffs")]
 //	public List<AbilityBuffs> abilityBuffs;

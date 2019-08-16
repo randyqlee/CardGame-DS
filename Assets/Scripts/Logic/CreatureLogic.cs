@@ -18,7 +18,7 @@ public class CreatureLogic: ICharacter
 
     //DS
     //Adding Abilities
-    public List<CardAsset> abilities;    
+    public List<AbilityAsset> abilities;    
     
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
@@ -239,6 +239,8 @@ public class CreatureLogic: ICharacter
        
         //DS
         //Add activator for abilities
+
+        /* Replace with Abilities SO
         if (ca.abilityEffect != null)
         {
             foreach (AbilityEffect ae in ca.abilityEffect)
@@ -261,6 +263,29 @@ public class CreatureLogic: ICharacter
                 }
             }
         }
+        */
+
+        if (ca.Abilities != null)
+        {
+            foreach (AbilityAsset ae in ca.Abilities)
+            {
+                if (ae.abilityEffect != null && ae.abilityEffect != "")
+                {
+                    effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+                    effect.RegisterCooldown();
+                    effect.RegisterEventEffect();
+
+                    if (ae.icon != null)
+                    effect.abilityPreviewSprite = ae.icon;
+                    effect.abilityDescription = ae.description;
+
+                    creatureEffects.Add(effect);
+ 
+                }
+            }
+        }
+
+
 
         //DS
 
