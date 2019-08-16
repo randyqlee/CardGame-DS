@@ -162,7 +162,7 @@ public class TurnManager : MonoBehaviour {
     IEnumerator TurnEndCoroutine()
     {
         yield return StartCoroutine(EndTurnCoroutine());
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(StartTurnCoroutine());
     }
 
@@ -196,7 +196,7 @@ public class TurnManager : MonoBehaviour {
 
         yield return new WaitForSeconds(0.5f);
         
-        Command.CommandExecutionComplete();
+        //Command.CommandExecutionComplete();
 
     }
 
@@ -204,12 +204,12 @@ public class TurnManager : MonoBehaviour {
     {
          if(TurnCounter<=0)
             {
-              yield return new WaitForSeconds(0.5f);
+              //yield return new WaitForSeconds(0.5f);
               new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
             }
             else            
             {
-              yield return new WaitForSeconds(0.5f);
+              //yield return new WaitForSeconds(0.5f);
               new StartATurnCommand(whoseTurn).AddToQueue();
             } 
 
@@ -217,6 +217,7 @@ public class TurnManager : MonoBehaviour {
 
         //DS
         //GlobalSettings.Instance.EndTurnButton.enabled = true;
+        yield return new WaitForSeconds(3f);
         GlobalSettings.Instance.EndTurnButton.interactable = true;
 
         

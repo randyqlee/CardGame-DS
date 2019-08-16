@@ -86,11 +86,11 @@ public class GlobalSettings: MonoBehaviour
 
     public void EnableEndTurnButtonOnStart(Player P)
     {
-        if (P == LowPlayer && CanControlThisPlayer(AreaPosition.Low) ||
-            P == TopPlayer && CanControlThisPlayer(AreaPosition.Top))
-            EndTurnButton.interactable = true;
-        else
-            EndTurnButton.interactable = false;
+//DS        //if (P == LowPlayer && CanControlThisPlayer(AreaPosition.Low) ||
+        //    P == TopPlayer && CanControlThisPlayer(AreaPosition.Top))
+            //EndTurnButton.interactable = true;
+        //else
+            //EndTurnButton.interactable = false;
             
     }
 }

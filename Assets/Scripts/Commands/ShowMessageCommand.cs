@@ -15,6 +15,7 @@ public class ShowMessageCommand : Command {
 
     public override void StartCommandExecution()
     {
+        //Debug.Log("Start Showmessagecommand");
         MessageManager.Instance.ShowMessage(message, duration);
     }
 }

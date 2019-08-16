@@ -56,6 +56,8 @@ public class OneCreatureManager : MonoBehaviour
         HealthText.text = cardAsset.MaxHealth.ToString();
 
 //DS
+//removing abilityEffect
+/*
     if (cardAsset.abilityEffect != null)
     {
         foreach (AbilityEffect ae in cardAsset.abilityEffect)
@@ -64,6 +66,7 @@ public class OneCreatureManager : MonoBehaviour
             //abilityEffectSprite.Add(ae.abilityImage);
         }
     }
+*/
 
         if (PreviewManager != null)
         {

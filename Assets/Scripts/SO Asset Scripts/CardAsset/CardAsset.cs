@@ -40,7 +40,7 @@ public class CardAsset : ScriptableObject
     [Header("Abilities")]
     public List<AbilityAsset> Abilities;
 
-    public List<AbilityEffect> abilityEffect; 
+    //public List<AbilityEffect> abilityEffect; 
     //DS
 
     [Header("SpellInfo")]

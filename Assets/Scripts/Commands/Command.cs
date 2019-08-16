@@ -42,6 +42,7 @@ public class Command
         //    TurnManager.Instance.whoseTurn.HighlightPlayableCards();
     }
 
+
     public static void PlayFirstCommandFromQueue()
     {
         playingQueue = true;
