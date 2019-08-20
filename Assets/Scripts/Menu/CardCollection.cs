@@ -132,8 +132,21 @@ public class CardCollection : MonoBehaviour
             cards = cards.Where(card => card.ManaCost == manaCost);                
         
         var returnList = cards.ToList<CardAsset>();
-        returnList.Sort();
+        foreach (CardAsset ca in returnList)
+        Debug.Log("returnlist: " + ca.name);
+        
+        //DS
+        //returnList.Sort();
+        returnList.Sort(CompareListByName);
 
         return returnList;
     }
+
+//DS workaround to Sort problem
+
+    private static int CompareListByName(CardAsset i1, CardAsset i2)
+        {
+            return i1.name.CompareTo(i2.name); 
+        }
+
 }
