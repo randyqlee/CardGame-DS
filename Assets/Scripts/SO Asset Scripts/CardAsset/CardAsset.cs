@@ -13,6 +13,25 @@ public enum TargetingOptions
     YourCharacters
 }
 
+public enum RarityOptions
+{
+    Basic,
+    Rare,
+    Epic,
+    Legendary,
+    Common
+
+
+}
+
+public enum TypesOfCards
+{
+    Creature,
+    Spell
+
+
+}
+
 public class CardAsset : ScriptableObject 
 {
     // this object will hold the info about the most general card
@@ -47,5 +66,9 @@ public class CardAsset : ScriptableObject
     public string SpellScriptName;
     public int specialSpellAmount;
     public TargetingOptions Targets;
+
+    public RarityOptions Rarity;
+
+    public TypesOfCards TypeOfCard;
 
 }

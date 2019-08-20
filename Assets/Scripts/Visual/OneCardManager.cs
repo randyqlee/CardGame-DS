@@ -79,8 +79,10 @@ public class OneCardManager : MonoBehaviour {
         if (cardAsset.MaxHealth != 0)
         {
             // this is a creature
+            if(AttackText != null){
             AttackText.text = cardAsset.Attack.ToString();
             HealthText.text = cardAsset.MaxHealth.ToString();
+            }
         }
 
         if (PreviewManager != null)

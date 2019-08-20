@@ -200,4 +200,8 @@ public class DragSpellOnTarget : DraggingActions {
     {
         return true;
     }
+
+    //DS
+        public override void OnCancelDrag()
+    {}
 }

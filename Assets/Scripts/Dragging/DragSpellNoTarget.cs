@@ -70,5 +70,9 @@ public class DragSpellNoTarget: DraggingActions{
         return TableVisual.CursorOverSomeTable; //&& TableNotFull;
     }
 
+    //DS
+        public override void OnCancelDrag()
+    {}
+
 
 }

@@ -10,6 +10,23 @@ using DG.Tweening;
 
 public class Draggable : MonoBehaviour {
 
+
+//DS added these from Menu course
+   public enum StartDragBehavior
+    {
+        OnMouseDown, InAwake
+    }
+
+    public enum EndDragBehavior
+    {
+        OnMouseUp, OnMouseDown
+    }
+
+    public StartDragBehavior HowToStart = StartDragBehavior.OnMouseDown;
+    public EndDragBehavior HowToEnd = EndDragBehavior.OnMouseUp;
+
+//DS
+
     // PRIVATE FIELDS
 
     // a flag to know if we are currently dragging this GameObject
@@ -61,6 +78,7 @@ public class Draggable : MonoBehaviour {
             Vector3 mousePos = MouseInWorldCoords();
             //Debug.Log(mousePos);
             transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
+            
             da.OnDraggingInUpdate();
         }
     }
@@ -85,5 +103,31 @@ public class Draggable : MonoBehaviour {
         screenMousePos.z = zDisplacement;
         return Camera.main.ScreenToWorldPoint(screenMousePos);
     }
+
+//DS Added these from menu course
+    public void StartDragging()
+    {
+        dragging = true;
+        // when we are dragging something, all previews should be off
+        HoverPreview.PreviewsAllowed = false;
+        _draggingThis = this;
+        da.OnStartDrag();
+        zDisplacement = -Camera.main.transform.position.z + transform.position.z;
+        pointerDisplacement = -transform.position + MouseInWorldCoords();
+    }
+
+    public void CancelDrag()
+    {
+        if (dragging)
+        {
+            dragging = false;
+            // turn all previews back on
+            HoverPreview.PreviewsAllowed = true;
+            _draggingThis = null;
+            da.OnCancelDrag();
+        }
+    }
+
+//DS
         
 }

@@ -73,4 +73,8 @@ public class DragCreatureOnTable : DraggingActions {
 
         return TableVisual.CursorOverSomeTable && TableNotFull;
     }
+
+    //DS
+        public override void OnCancelDrag()
+    {}
 }
