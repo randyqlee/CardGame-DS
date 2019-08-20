@@ -13,6 +13,7 @@ public class CreatureHoverPreview: MonoBehaviour
 
 	//Creature Card self (for own creatures)
     public GameObject previewGameObjectCreature;
+	public List<GameObject> previewCreatureAbility = new List<GameObject>();
 	public float TargetScaleCreature;
 
 	Vector3 curPosition;
@@ -70,7 +71,11 @@ public class CreatureHoverPreview: MonoBehaviour
 		if (GetComponentInParent<PlayerArea>().owner == AreaPosition.Low)
 			PreviewThisObject();
 		else
-        	previewGameObject.SetActive(true);
+		{
+			previewGameObject.SetActive(true);
+			previewGameObject.transform.position = new Vector3(0,0,0);
+		}
+        	
 
     }
 
