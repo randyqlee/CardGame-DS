@@ -28,7 +28,7 @@ public class OasisBlessing : CreatureEffect {
         if(remainingCooldown <=0)
         {
             
-            ShowAbility();
+            base.ShowAbility();
             
             creature.Heal(1);        
             foreach(CreatureLogic ce in creature.owner.AllyList())

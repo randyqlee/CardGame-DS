@@ -34,7 +34,7 @@ public class Torrent : CreatureEffect {
         {
             if(creature.Health <= healthLimit)
             {
-                ShowAbility();
+                base.ShowAbility();
                 AddBuff(creature, "IncreaseAttack", 0);
                 base.UseEffect();      
                     

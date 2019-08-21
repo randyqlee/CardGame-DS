@@ -36,7 +36,7 @@ public class PassingTime : CreatureEffect {
         if(remainingCooldown<=0)
         {
             
-            ShowAbility();
+            base.ShowAbility();
 
             int totalChance = TotalChance(chance);                
             if(Random.Range(0,100)<totalChance)
