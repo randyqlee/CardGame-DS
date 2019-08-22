@@ -37,7 +37,7 @@ public class SequentialAttack : CreatureEffect {
     {                      
         if(remainingCooldown<=0)
         {               
-            ShowAbility();
+            base.ShowAbility();
 
             if(Random.Range(0,100) <= TotalChance(chance))
             AddBuff(creature,"CriticalStrike",buffCooldown);  

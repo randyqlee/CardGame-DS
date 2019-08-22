@@ -191,7 +191,10 @@ public class CreatureEffect
             //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
             //new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
 
-            new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();
+            
+          
+            new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();         
+            
             
             new SkillSFXCommand(Target.GetComponent<IDHolder>().UniqueID, SkillSFXCommand.SFXStates.UseSkill).AddToQueue();
         }
@@ -212,7 +215,9 @@ public class CreatureEffect
             //Target.GetComponent<OneCreatureManager>().overheadText.GetComponent<OverheadText>().FloatingText(this.ToString());
             //new UseAbilityFloatingTextCommand(this.ToString(), Target.GetComponent<IDHolder>().UniqueID).AddToQueue();
 
+            
             new ShowSkillPreviewCommand(this, Target.GetComponent<IDHolder>().UniqueID, this.ToString()).AddToQueue();
+
             new SkillSFXCommand(Target.GetComponent<IDHolder>().UniqueID, SkillSFXCommand.SFXStates.UseSkill).AddToQueue();
 
             //delay for text dispalys

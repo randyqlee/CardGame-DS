@@ -75,7 +75,7 @@ public class SpecialEffect : MonoBehaviour {
         s.AppendInterval(0.5f);
         s.OnComplete(() => Destroy(newDamageEffect));
 
-    
+        Command.CommandExecutionComplete();
 
 
     }
@@ -96,6 +96,7 @@ public class SpecialEffect : MonoBehaviour {
         s.AppendInterval(0.5f);
         s.OnComplete(() => Destroy(newDamageEffect));
 
+        Command.CommandExecutionComplete();
     }
 
     public static void CreateSkillEffect(Vector3 position, int amount)
@@ -114,6 +115,7 @@ public class SpecialEffect : MonoBehaviour {
         s.AppendInterval(0.5f);
         s.OnComplete(() => Destroy(newDamageEffect));
 
+        Command.CommandExecutionComplete();
     }
 
     public static void TempEffectSfx(Vector3 position, int amount)

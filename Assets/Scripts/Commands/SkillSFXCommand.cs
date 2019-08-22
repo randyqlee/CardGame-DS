@@ -61,7 +61,7 @@ public class SkillSFXCommand : Command {
            break;
        }
 
-		
+        
     }
 
 }

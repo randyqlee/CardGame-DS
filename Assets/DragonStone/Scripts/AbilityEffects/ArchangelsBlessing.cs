@@ -39,7 +39,7 @@ public class ArchangelsBlessing : CreatureEffect {
         if(remainingCooldown <=0)
         {           
             
-            ShowAbility();
+            base.ShowAbility();
 
             temp = owner.AllyList();
             weakestAlly = creature;   

@@ -146,8 +146,10 @@ public class TurnManager : MonoBehaviour {
 
 
                 //DS
-                //populate the skills panel
+                //Display skills panel of player only
+                if(whoGoesFirst.PArea.owner == AreaPosition.Low)
                 new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
+                else
                 new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
 

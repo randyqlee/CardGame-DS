@@ -21,6 +21,8 @@ public class ShowSkillPreviewCommand : Command {
 
 		Debug.Log ("ShowSkillPreviewCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
+
+		if(creature.tag == "TopCreature")
 		creature.GetComponentInChildren<OverheadText>().ShowSkillPreview(ce);
 
 		

@@ -43,7 +43,7 @@ public class DragonsDance : CreatureEffect {
     {     
         if(remainingCooldown <=0)
         {                               
-            ShowAbility();             
+            base.ShowAbility();             
             creature.SplashAttackDamage(target, creature.AttackDamage);           
             base.UseEffect();           
 
