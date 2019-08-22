@@ -10,6 +10,8 @@ public class GlobalSettings: MonoBehaviour
     public Player LowPlayer;
     public int HeroesCount;
 
+    public int HeroesEquipCount;
+
     [Header("Colors")]
     public Color32 CardBodyStandardColor;
     public Color32 CardRibbonsStandardColor;

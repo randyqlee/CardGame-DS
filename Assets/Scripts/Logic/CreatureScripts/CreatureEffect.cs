@@ -47,6 +47,22 @@ public class CreatureEffect
         
     }
 
+    public CreatureEffect(Player owner)
+    {
+
+        this.owner = owner;
+        Name = this.GetType().Name.ToString();
+        
+    }
+
+    public CreatureEffect(Player owner, CreatureLogic creature)
+    {
+        this.creature = creature;
+        this.owner = owner;
+        Name = this.GetType().Name.ToString();
+        
+    }
+
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
     public virtual void RegisterEventEffect()
     {
@@ -58,7 +74,9 @@ public class CreatureEffect
     public virtual void CauseEventEffect(){}
 
     // BATTLECRY
-    public virtual void WhenACreatureIsPlayed(){}
+    public virtual void WhenACreatureIsPlayed(){
+        
+    }
 
     // DEATHRATTLE
     public virtual void WhenACreatureDies(){}

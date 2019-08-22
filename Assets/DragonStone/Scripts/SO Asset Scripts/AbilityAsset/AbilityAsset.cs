@@ -36,6 +36,13 @@ public class AbilityAsset : ScriptableObject {
 	public Type skillType = Type.Passive;
 	public Target target = Target.Any;
 
+	[Header("Character Equip Script name - must be typed correctly")]
+	public string characterEffect;
+	public int AtkPctValue;
+	public int HealthPctValue;
+	public int ChancePctValue;
+
+
 //	[Header("Ability Buffs")]
 //	public List<AbilityBuffs> abilityBuffs;
 

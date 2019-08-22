@@ -59,6 +59,8 @@ public class CardAsset : ScriptableObject
     [Header("Abilities")]
     public List<AbilityAsset> Abilities;
 
+    public AbilityAsset equipAbility;
+
     //public List<AbilityEffect> abilityEffect; 
     //DS
 

@@ -127,6 +127,21 @@ public class TurnManager : MonoBehaviour {
 
                 }
 
+                int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
+                for (int i = 0; i < initDrawEquip; i++)
+                {            
+                    // second player draws a card
+                    whoGoesSecond.DrawACard(true);
+                    // first player draws a card
+                    whoGoesFirst.DrawACard(true);
+                
+                    //DS
+                    //play spell to use the equip ability of creature
+                    whoGoesSecond.PlayEquipCreatureFromHand(whoGoesSecond.hand.CardsInHand[0]);
+                    whoGoesFirst.PlayEquipCreatureFromHand(whoGoesFirst.hand.CardsInHand[0]);
+
+                }
+
        
 
 

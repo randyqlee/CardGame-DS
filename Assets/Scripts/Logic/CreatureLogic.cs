@@ -16,11 +16,17 @@ public class CreatureLogic: ICharacter
     public bool isActive;
     public int chance;
 
+    public bool isEquip = false;
+
     //DS
     //Adding Abilities
-    public List<AbilityAsset> abilities;    
+    public List<AbilityAsset> abilities; 
+
+    public AbilityAsset equipAbility;   
     
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
+
+    public CreatureEffect equipEffect;
 
     public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
 
@@ -219,6 +225,7 @@ public class CreatureLogic: ICharacter
 
         //DS
         abilities = ca.Abilities;
+        equipAbility = ca.equipAbility;
         chance = ca.Chance;
 
 
@@ -282,6 +289,25 @@ public class CreatureLogic: ICharacter
                     creatureEffects.Add(effect);
  
                 }
+            }
+        }
+
+
+//for Equip
+        if (ca.equipAbility != null)
+        {
+            if (ca.equipAbility.characterEffect != null && ca.equipAbility.characterEffect != "")
+            {
+                effect = System.Activator.CreateInstance(System.Type.GetType(ca.equipAbility.characterEffect), new System.Object[]{owner,this}) as CreatureEffect;
+                //effect.RegisterCooldown();
+                //effect.RegisterEventEffect();
+
+                if (ca.equipAbility.icon != null)
+                effect.abilityPreviewSprite = ca.equipAbility.icon;
+                effect.abilityDescription = ca.equipAbility.description;
+
+                equipEffect = effect;
+
             }
         }
 
