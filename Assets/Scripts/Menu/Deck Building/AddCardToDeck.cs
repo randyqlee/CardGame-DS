@@ -11,6 +11,9 @@ public class AddCardToDeck : MonoBehaviour {
     private float scaleFactor = 1.1f;
     private CardAsset cardAsset;
 
+    //DS
+    public bool isAdded = false;
+
     void Awake()
     {
         InitialScale = transform.localScale.x;
@@ -95,5 +98,26 @@ public class AddCardToDeck : MonoBehaviour {
         
         QuantityText.text = "X" + quantity.ToString();
 
+    }
+
+
+    public void AddToDeck()
+    {        
+        CardAsset asset = GetComponent<OneCardManager>().cardAsset;
+        if (asset == null)
+            return;
+
+        // check that these cards are available in collection (Quantity>0) or (TotalQuantity-AmountAlreadyInDeck)>0
+        //if (CardCollection.Instance.QuantityOfEachCard[cardAsset] - DeckBuildingScreen.Instance.BuilderScript.NumberOfThisCardInDeck(cardAsset) > 0)
+        //{
+        //    DeckBuildingScreen.Instance.BuilderScript.AddCard(asset);
+        //    UpdateQuantity();
+        //}
+
+        //DS check if this item is already added in Deck
+        if(!isAdded)
+            DeckBuilder.Instance.AddCard(asset);
+        else
+            DeckBuilder.Instance.RemoveCard(gameObject);
     }
 }
