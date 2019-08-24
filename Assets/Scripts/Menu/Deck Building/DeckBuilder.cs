@@ -199,7 +199,7 @@ public class DeckBuilder : MonoBehaviour
     //DS
     public void Play()
     {
-        if(deckList.Count >= 5)
+        if(deckList.Count >= 3)
             BattleStartInfo.SelectedDeck = new DeckInfo(deckList);
     }
 }
