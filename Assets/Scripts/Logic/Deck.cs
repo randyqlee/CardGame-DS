@@ -9,14 +9,6 @@ public class Deck : MonoBehaviour {
     void Awake()
     {
         //cards.Shuffle();
-        if (BattleStartInfo.SelectedDeck!=null && GetComponentInParent<Player>().PArea.owner == AreaPosition.Low)
-        {
-            foreach (CardAsset ca in BattleStartInfo.SelectedDeck.Cards)
-            {
-                cards.Add(ca);
-            }
-
-        }
     }
 	
 }

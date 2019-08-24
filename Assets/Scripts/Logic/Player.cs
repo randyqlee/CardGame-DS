@@ -624,7 +624,7 @@ public class Player : MonoBehaviour, ICharacter
         foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
        {
            CreatureLogic value = creature.Value;
-           if(value.owner != this && !value.isDead)
+           if(value.owner != this && !value.isDead && !value.isEquip)
            {
                enemies.Add(value);
            }                     
@@ -638,7 +638,7 @@ public class Player : MonoBehaviour, ICharacter
         foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
        {
            CreatureLogic value = creature.Value;
-           if(value.owner == this && !value.isDead)
+           if(value.owner == this && !value.isDead && !value.isEquip)
            {
                allies.Add(value);
            }                     

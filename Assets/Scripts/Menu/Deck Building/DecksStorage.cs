@@ -17,12 +17,6 @@ public class DeckInfo
         DeckName = deckName;
     }
 
-    public DeckInfo(List<CardAsset> cards)
-    {
-        // copy a list, not just use the cards list
-        Cards = new List<CardAsset>(cards);
-    }
-
     public bool IsComplete()
     {
         return (DeckBuildingScreen.Instance.BuilderScript.AmountOfCardsInDeck == Cards.Count);

@@ -312,14 +312,6 @@ public class CollectionBrowser : MonoBehaviour {
             go.GetComponent<Image>().sprite = ca.HeroPortrait;
             go.GetComponentInChildren<Text>().text = ca.name;
             CreatedCards.Add(go);
-
-
-            OneCardManager manager = go.GetComponent<OneCardManager>();
-            manager.cardAsset = ca;
-            //manager.ReadCardFromAsset();
-
-            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-            addCardComponent.SetCardAsset(ca);
         }
 
     }
