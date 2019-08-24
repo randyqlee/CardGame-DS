@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollectionBrowser : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class CollectionBrowser : MonoBehaviour {
 
     public GameObject OneCharacterTabs;
     public GameObject AllCharactersTabs;
+
+    //DS
+    public GameObject CollectionPanel;
+    public GameObject CollectionCreaturePrefab;
 
     public KeywordInputField KeywordInputFieldScript;
     public CardsThatYouDoNotHaveToggle CardsThatYouDoNotHaveToggleScript;
@@ -281,6 +286,28 @@ public class CollectionBrowser : MonoBehaviour {
         }
 
         return returnList;
+    }
+
+
+
+
+    //DS
+    public void Start()
+    {
+        ShowCards();
+
+    }
+
+    private void ShowCards()
+    {
+        foreach (CardAsset ca in CardCollection.Instance.GetAllCards())
+        {
+  
+            GameObject go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
+            go.GetComponent<Image>().sprite = ca.HeroPortrait;
+            go.GetComponentInChildren<Text>().text = ca.name;
+        }      
+
     }
 }
 

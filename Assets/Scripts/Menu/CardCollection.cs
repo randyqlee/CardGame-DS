@@ -149,4 +149,16 @@ public class CardCollection : MonoBehaviour
             return i1.name.CompareTo(i2.name); 
         }
 
+    public List<CardAsset> GetAllCards()
+    {
+
+        List<CardAsset> listca = new List<CardAsset>();
+        foreach (CardAsset ca in allCardsArray)
+        {
+            listca.Add(ca);
+        }
+        return listca;
+
+    }
+
 }
