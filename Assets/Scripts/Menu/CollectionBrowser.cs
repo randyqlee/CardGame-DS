@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollectionBrowser : MonoBehaviour {
 
@@ -10,6 +11,14 @@ public class CollectionBrowser : MonoBehaviour {
 
     public GameObject OneCharacterTabs;
     public GameObject AllCharactersTabs;
+
+    //DS
+    public GameObject CollectionPanel;
+    public GameObject CollectionCreaturePrefab;
+
+    public GameObject FilterButton;
+    public RarityOptions RarityFilter;
+
 
     public KeywordInputField KeywordInputFieldScript;
     public CardsThatYouDoNotHaveToggle CardsThatYouDoNotHaveToggleScript;
@@ -281,6 +290,77 @@ public class CollectionBrowser : MonoBehaviour {
         }
 
         return returnList;
+    }
+
+
+
+
+    //DS
+    public void Start()
+    {
+        CreateCards(CardCollection.Instance.GetAllCards());
+        RarityFilter = RarityOptions.Common;
+    }
+
+
+    private void CreateCards(List<CardAsset> listca)
+    {
+        ClearCreatedCards();
+        foreach (CardAsset ca in listca)
+        {
+            GameObject go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
+            go.GetComponent<Image>().sprite = ca.HeroPortrait;
+            go.GetComponentInChildren<Text>().text = ca.name;
+            CreatedCards.Add(go);
+
+
+            OneCardManager manager = go.GetComponent<OneCardManager>();
+            manager.cardAsset = ca;
+            //manager.ReadCardFromAsset();
+
+            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+            addCardComponent.SetCardAsset(ca);
+        }
+
+    }
+
+    public void PressOnFilter()
+    {
+        switch (RarityFilter)
+        {
+            case RarityOptions.Basic:
+                RarityFilter = RarityOptions.Epic;
+                FilterButton.GetComponentInChildren<Text>().text = "Epic";
+                CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));                
+                break;
+            
+            case RarityOptions.Epic:
+                RarityFilter = RarityOptions.Rare;
+                FilterButton.GetComponentInChildren<Text>().text = "Rare";
+                CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
+                break;
+            
+            case RarityOptions.Rare:
+                RarityFilter = RarityOptions.Legendary;
+                FilterButton.GetComponentInChildren<Text>().text = "Legendary";
+                CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
+                break;
+            
+            case RarityOptions.Legendary:
+                RarityFilter = RarityOptions.Common;
+                FilterButton.GetComponentInChildren<Text>().text = "ALL";
+                CreateCards(CardCollection.Instance.GetAllCards());
+                break;
+            case RarityOptions.Common:                
+                RarityFilter = RarityOptions.Basic;
+                FilterButton.GetComponentInChildren<Text>().text = "Basic";
+                CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
+                break;
+
+            
+
+        }
+
     }
 }
 
