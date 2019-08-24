@@ -99,6 +99,7 @@ public class CardCollection : MonoBehaviour
 
         return returnList;
         */
+        
         return GetCards(true, false, true, rarity);
 
     }
@@ -156,6 +157,19 @@ public class CardCollection : MonoBehaviour
         foreach (CardAsset ca in allCardsArray)
         {
             listca.Add(ca);
+        }
+        return listca;
+
+    }
+
+    public List<CardAsset> GetRarityCards(RarityOptions rarity)
+    {
+
+        List<CardAsset> listca = new List<CardAsset>();
+        foreach (CardAsset ca in allCardsArray)
+        {
+            if (ca.Rarity == rarity)
+                listca.Add(ca);
         }
         return listca;
 
