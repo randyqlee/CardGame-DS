@@ -13,7 +13,7 @@ public class EndTurnCommand : Command
 
     public override void StartCommandExecution()
     {
-         
+         //DS
         new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
 
          TurnManager.Instance.EndTurn();  
