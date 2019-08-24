@@ -544,6 +544,9 @@ public class CreatureLogic: ICharacter
 
                     //enemy.TakeDamage(creature.AttackDamage);      
                     enemy.TakeDamage(splashDamage);      
+                    
+                    Debug.Log("Enemy ID " +enemy.UniqueCreatureID);
+                    Debug.Log("Enemy Health " +enemy.Health);
                    
                    new UpdateHealthCommand(enemy.UniqueCreatureID, enemy.Health).AddToQueue();
                 }                
