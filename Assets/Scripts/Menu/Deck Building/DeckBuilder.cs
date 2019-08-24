@@ -7,6 +7,15 @@ public class DeckBuilder : MonoBehaviour
 {
     public GameObject CardNamePrefab;
     public Transform Content;
+
+    //DS
+
+    public static DeckBuilder Instance;
+    public GameObject DeckPanel;
+    public GameObject DeckCreaturePrefab;
+
+    public List<GameObject> goDeckList = new List<GameObject>();
+
     public InputField DeckName;
 
     public int SameCardLimit = 2;
@@ -22,9 +31,13 @@ public class DeckBuilder : MonoBehaviour
 
     void Awake()
     {
-        DeckCompleteFrame.GetComponent<Image>().raycastTarget = false;
+        Instance = this;
+        //DeckCompleteFrame.GetComponent<Image>().raycastTarget = false;
     }
 
+
+// DS
+/*
     public void AddCard(CardAsset asset)
     {
         // if we are browsing the collection
@@ -70,10 +83,35 @@ public class DeckBuilder : MonoBehaviour
             }
         }
     }
+*/
 
     void CheckDeckCompleteFrame()
     {
         DeckCompleteFrame.SetActive(deckList.Count == AmountOfCardsInDeck);
+    }
+
+    public void AddCard(CardAsset ca)
+    {
+
+        if (deckList.Count == AmountOfCardsInDeck)
+            return;
+
+
+            GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
+            go.GetComponent<Image>().sprite = ca.HeroPortrait;
+            go.GetComponentInChildren<Text>().text = ca.name;
+            deckList.Add(ca);
+
+            goDeckList.Add(go);
+
+
+            OneCardManager manager = go.GetComponent<OneCardManager>();
+            manager.cardAsset = ca;
+            //manager.ReadCardFromAsset();
+
+            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+            addCardComponent.SetCardAsset(ca);
+            addCardComponent.isAdded = true;
     }
 
     public int NumberOfThisCardInDeck (CardAsset asset)
@@ -106,6 +144,16 @@ public class DeckBuilder : MonoBehaviour
         // update quantities of all cards that we currently show in the collection
         // this should be after deckList.Remove(asset); line to show correct quantities
         DeckBuildingScreen.Instance.CollectionBrowserScript.UpdateQuantitiesOnPage();
+    }
+
+    public void RemoveCard(GameObject go)
+    {
+        CardAsset asset = go.GetComponent<OneCardManager>().cardAsset;
+
+        deckList.Remove(asset);
+        goDeckList.Remove(go);
+        Destroy(go);
+
     }
 
     public void BuildADeckFor(CharacterAsset asset)
@@ -150,7 +198,9 @@ public class DeckBuilder : MonoBehaviour
     //DS
     public void Play()
     {
-        if(deckList.Count >= 3)
+        if(deckList.Count >= 5)
             BattleStartInfo.SelectedDeck = new DeckInfo(deckList);
+
+        //DS TODO: Make PLAY Button non-interactable when Deck has less than sufficient cards
     }
 }
