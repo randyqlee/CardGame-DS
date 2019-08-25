@@ -18,7 +18,7 @@ public class AITurnMaker: TurnMaker {
     IEnumerator MakeAITurn()
     {
         bool strategyAttackFirst = false;
-        if (Random.Range(0, 2) == 0)
+        //if (Random.Range(0, 2) == 0)
             strategyAttackFirst = true;
 
         while (MakeOneAIMove(strategyAttackFirst))
