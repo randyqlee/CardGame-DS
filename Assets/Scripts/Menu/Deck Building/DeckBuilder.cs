@@ -16,6 +16,7 @@ public class DeckBuilder : MonoBehaviour
 
     public List<GameObject> goDeckList = new List<GameObject>();
 
+
     public InputField DeckName;
 
     public int SameCardLimit = 2;
@@ -33,6 +34,11 @@ public class DeckBuilder : MonoBehaviour
     {
         Instance = this;
         //DeckCompleteFrame.GetComponent<Image>().raycastTarget = false;
+    }
+
+    void Start()
+    {
+        LoadDecks();
     }
 
 
@@ -112,6 +118,8 @@ public class DeckBuilder : MonoBehaviour
             AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
             addCardComponent.SetCardAsset(ca);
             addCardComponent.isAdded = true;
+
+            UpdateDeck();
     }
 
     public int NumberOfThisCardInDeck (CardAsset asset)
@@ -153,6 +161,8 @@ public class DeckBuilder : MonoBehaviour
         deckList.Remove(asset);
         goDeckList.Remove(go);
         Destroy(go);
+
+        UpdateDeck();
 
     }
 
@@ -202,5 +212,31 @@ public class DeckBuilder : MonoBehaviour
             BattleStartInfo.SelectedDeck = new DeckInfo(deckList);
 
         //DS TODO: Make PLAY Button non-interactable when Deck has less than sufficient cards
+    }
+
+    public void UpdateDeck()
+    {
+        if (DecksStorage.Instance.AllDecks.Count == 0 )
+        {
+            DecksStorage.Instance.AllDecks.Add(new DeckInfo(deckList));
+
+        }
+        else
+            DecksStorage.Instance.AllDecks[0] = new DeckInfo(deckList);
+
+        DecksStorage.Instance.SaveDecksIntoPlayerPrefs();
+    }
+
+    public void LoadDecks()
+    {
+       DecksStorage.Instance.LoadDecksFromPlayerPrefs(); 
+
+       foreach (DeckInfo di in  DecksStorage.Instance.AllDecks)
+       {
+           foreach (CardAsset ca in di.Cards)
+           {
+               AddCard(ca);
+           }
+       }
     }
 }

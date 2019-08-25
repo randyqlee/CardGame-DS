@@ -16,7 +16,10 @@ public class DeckInfo
         Character = charAsset;
         DeckName = deckName;
     }
-        public DeckInfo(List<CardAsset> cards)
+
+//DS
+    public string DeckNumber;
+    public DeckInfo(List<CardAsset> cards)
     {
         // copy a list, not just use the cards list
         Cards = new List<CardAsset>(cards);
@@ -55,16 +58,24 @@ public class DecksStorage : MonoBehaviour {
 
     void Start()
     {
+        //DS
+
+        /* 
         if (!alreadyLoadedDecks)
         {
             LoadDecksFromPlayerPrefs();
             alreadyLoadedDecks = true;
         }
+        */
+
+
     }
 
-    void LoadDecksFromPlayerPrefs()
+    public void LoadDecksFromPlayerPrefs()
     {
         List<DeckInfo> DecksFound = new List<DeckInfo>();
+
+        /*
         // load the information about decks from PlayerPrefsX
         for(int i=0; i < 9; i++)
         {
@@ -92,12 +103,37 @@ public class DecksStorage : MonoBehaviour {
                 DecksFound.Add(new DeckInfo(deckList, deckName, CharacterAssetsByName.Instance.GetCharacterByName(characterName)));
             }
         }
+        */
+
+        for(int i=0; i < 1; i++)
+        {
+            string deckListKey = "Deck" + i.ToString();
+            string deckNumberKey = "DeckNumber" + i.ToString();
+            string[] DeckAsCardNames = PlayerPrefsX.GetStringArray(deckListKey);
+
+            
+            if (DeckAsCardNames.Length > 0 && PlayerPrefs.HasKey(deckNumberKey))
+            {
+                string deckNumber = PlayerPrefs.GetString(deckNumberKey);
+
+                // make a CardAsset list from an array of strings:
+                List <CardAsset> deckList = new List<CardAsset>();
+                foreach(string name in DeckAsCardNames)
+                {
+                    deckList.Add(CardCollection.Instance.GetCardAssetByName(name));
+                }
+
+                //DecksFound.Add(new DeckInfo(deckList, deckNumber);
+                DecksFound.Add(new DeckInfo(deckList));
+            }
+        }
 
         AllDecks = DecksFound;
     }
 
     public void SaveDecksIntoPlayerPrefs()
     {
+    /*    
         // clear all the keys of characters and deck names
         for(int i=0; i < 9; i++)
         {
@@ -130,6 +166,33 @@ public class DecksStorage : MonoBehaviour {
             PlayerPrefsX.SetStringArray(deckListKey, cardNamesArray);
             PlayerPrefs.SetString(deckNameKey, AllDecks[i].DeckName);
             PlayerPrefs.SetString(characterKey, AllDecks[i].Character.name);
+        }
+    */
+    
+        for(int i=0; i < 1; i++)
+        {
+            string deckNumberKey = "DeckNumber" + i.ToString();
+           
+            if (PlayerPrefs.HasKey(deckNumberKey))
+            {
+                PlayerPrefs.DeleteKey(deckNumberKey);
+            }
+        }
+
+        for(int i=0; i< AllDecks.Count; i++)
+        {
+            string deckNumberKey = "DeckNumber" + i.ToString();
+
+            List<string> cardNamesList = new List<string>();
+            foreach (CardAsset a in AllDecks[i].Cards)
+                cardNamesList.Add(a.name);
+
+            string[] cardNamesArray = cardNamesList.ToArray();
+
+            string deckListKey = "Deck" + i.ToString();
+            PlayerPrefsX.SetStringArray(deckListKey, cardNamesArray);
+
+            PlayerPrefs.SetString(deckNumberKey, AllDecks[i].DeckNumber);
         }
     }
 
