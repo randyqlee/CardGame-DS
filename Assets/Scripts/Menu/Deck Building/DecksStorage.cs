@@ -25,7 +25,15 @@ public class DeckInfo
         Cards = new List<CardAsset>(cards);
     }
 
+/*
+    public DeckInfo(List<CardAsset> cards, int deckNumber)
+    {
+        // copy a list, not just use the cards list
+        Cards = new List<CardAsset>(cards);
+        //DeckNumber = deckNumber;
+    }
 
+*/
     public bool IsComplete()
     {
         return (DeckBuildingScreen.Instance.BuilderScript.AmountOfCardsInDeck == Cards.Count);
@@ -108,13 +116,13 @@ public class DecksStorage : MonoBehaviour {
         for(int i=0; i < 1; i++)
         {
             string deckListKey = "Deck" + i.ToString();
-            string deckNumberKey = "DeckNumber" + i.ToString();
+            //string deckNumberKey = "DeckNumber" + i.ToString();
             string[] DeckAsCardNames = PlayerPrefsX.GetStringArray(deckListKey);
 
             
-            if (DeckAsCardNames.Length > 0 && PlayerPrefs.HasKey(deckNumberKey))
+            if (DeckAsCardNames.Length > 0)// && PlayerPrefs.HasKey(deckNumberKey))
             {
-                string deckNumber = PlayerPrefs.GetString(deckNumberKey);
+                //string deckNumber = PlayerPrefs.GetString(deckNumberKey);
 
                 // make a CardAsset list from an array of strings:
                 List <CardAsset> deckList = new List<CardAsset>();
@@ -168,7 +176,7 @@ public class DecksStorage : MonoBehaviour {
             PlayerPrefs.SetString(characterKey, AllDecks[i].Character.name);
         }
     */
-    
+    /*
         for(int i=0; i < 1; i++)
         {
             string deckNumberKey = "DeckNumber" + i.ToString();
@@ -178,10 +186,11 @@ public class DecksStorage : MonoBehaviour {
                 PlayerPrefs.DeleteKey(deckNumberKey);
             }
         }
+        */
 
         for(int i=0; i< AllDecks.Count; i++)
         {
-            string deckNumberKey = "DeckNumber" + i.ToString();
+            //string deckNumberKey = "DeckNumber" + i.ToString();
 
             List<string> cardNamesList = new List<string>();
             foreach (CardAsset a in AllDecks[i].Cards)
@@ -192,8 +201,43 @@ public class DecksStorage : MonoBehaviour {
             string deckListKey = "Deck" + i.ToString();
             PlayerPrefsX.SetStringArray(deckListKey, cardNamesArray);
 
-            PlayerPrefs.SetString(deckNumberKey, AllDecks[i].DeckNumber);
+            //PlayerPrefs.SetString(deckNumberKey, AllDecks[i].DeckNumber);
         }
+    }
+
+
+    public void LoadDecksFromPlayerPrefs(int deckNumber)
+    {
+        List<DeckInfo> DecksFound = new List<DeckInfo>();
+            string deckListKey = "Deck" + deckNumber.ToString();
+            string[] DeckAsCardNames = PlayerPrefsX.GetStringArray(deckListKey);
+        
+            if (DeckAsCardNames.Length > 0)
+            {
+                
+                // make a CardAsset list from an array of strings:
+                List <CardAsset> deckList = new List<CardAsset>();
+                foreach(string name in DeckAsCardNames)
+                {
+                    deckList.Add(CardCollection.Instance.GetCardAssetByName(name));
+                }
+
+                DecksFound.Add(new DeckInfo(deckList));
+            }
+
+        AllDecks = DecksFound;
+    }
+
+    public void SaveDecksIntoPlayerPrefs(int deckNumber)
+    {
+            List<string> cardNamesList = new List<string>();
+            foreach (CardAsset a in AllDecks[0].Cards)
+                cardNamesList.Add(a.name);
+
+            string[] cardNamesArray = cardNamesList.ToArray();
+
+            string deckListKey = "Deck" + deckNumber.ToString();
+            PlayerPrefsX.SetStringArray(deckListKey, cardNamesArray);
     }
 
     void OnApplicationQuit()

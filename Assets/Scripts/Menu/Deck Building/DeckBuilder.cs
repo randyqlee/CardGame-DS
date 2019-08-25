@@ -16,6 +16,10 @@ public class DeckBuilder : MonoBehaviour
 
     public List<GameObject> goDeckList = new List<GameObject>();
 
+    public List<GameObject> deckButtons = new List<GameObject>();
+
+    public GameObject playBtn;
+
 
     public InputField DeckName;
 
@@ -30,15 +34,22 @@ public class DeckBuilder : MonoBehaviour
     public bool InDeckBuildingMode{ get; set;}
     private CharacterAsset buildingForCharacter;
 
+    public static int deckNumber;
+
+
     void Awake()
     {
         Instance = this;
+        deckNumber = 1;
+        playBtn.GetComponent<Button>().interactable = false;
         //DeckCompleteFrame.GetComponent<Image>().raycastTarget = false;
     }
 
     void Start()
     {
-        LoadDecks();
+        //LoadDecks();
+        
+        ShowDeck1();
     }
 
 
@@ -119,7 +130,8 @@ public class DeckBuilder : MonoBehaviour
             addCardComponent.SetCardAsset(ca);
             addCardComponent.isAdded = true;
 
-            UpdateDeck();
+            //UpdateDeck();
+            UpdateDeck(deckNumber);
     }
 
     public int NumberOfThisCardInDeck (CardAsset asset)
@@ -162,7 +174,8 @@ public class DeckBuilder : MonoBehaviour
         goDeckList.Remove(go);
         Destroy(go);
 
-        UpdateDeck();
+        //UpdateDeck();
+        UpdateDeck(deckNumber);
 
     }
 
@@ -208,7 +221,7 @@ public class DeckBuilder : MonoBehaviour
     //DS
     public void Play()
     {
-        if(deckList.Count >= 5)
+        if(deckList.Count >= AmountOfCardsInDeck)
             BattleStartInfo.SelectedDeck = new DeckInfo(deckList);
 
         //DS TODO: Make PLAY Button non-interactable when Deck has less than sufficient cards
@@ -225,6 +238,27 @@ public class DeckBuilder : MonoBehaviour
             DecksStorage.Instance.AllDecks[0] = new DeckInfo(deckList);
 
         DecksStorage.Instance.SaveDecksIntoPlayerPrefs();
+
+    }
+
+    public void UpdateDeck(int deckNum)
+    {
+        playBtn.GetComponent<Button>().interactable = false;
+
+        if (DecksStorage.Instance.AllDecks.Count == 0 )
+        {
+            DecksStorage.Instance.AllDecks.Add(new DeckInfo(deckList));
+
+        }
+        else
+            DecksStorage.Instance.AllDecks[0] = new DeckInfo(deckList);
+
+        DecksStorage.Instance.SaveDecksIntoPlayerPrefs(deckNum);
+
+        if(DecksStorage.Instance.AllDecks[0].Cards.Count == AmountOfCardsInDeck)
+        {
+            playBtn.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void LoadDecks()
@@ -238,5 +272,93 @@ public class DeckBuilder : MonoBehaviour
                AddCard(ca);
            }
        }
+    }
+
+    public void ClearDeck()
+    {
+
+        while(goDeckList.Count>0)
+        {
+            GameObject go = goDeckList[0];
+            
+        CardAsset asset = go.GetComponent<OneCardManager>().cardAsset;
+
+        deckList.Remove(asset);
+        goDeckList.Remove(go);
+        Destroy(go);
+        }
+    }
+
+    public void LoadDeck(int deckNo)
+    {
+       DecksStorage.Instance.LoadDecksFromPlayerPrefs(deckNo); 
+
+       foreach (DeckInfo di in  DecksStorage.Instance.AllDecks)
+       {
+           foreach (CardAsset ca in di.Cards)
+           {
+               AddCard(ca);
+           }
+       }
+    }
+
+    public void ShowDeck1()
+    {
+
+        playBtn.GetComponent<Button>().interactable = false;
+
+        foreach (GameObject go in deckButtons)
+        {
+            go.GetComponent<Image>().color = Color.white;
+        }
+
+        deckButtons[0].GetComponent<Image>().color = Color.yellow;
+
+        ClearDeck();
+
+        deckNumber = 1;
+
+        LoadDeck(deckNumber);
+
+    }
+
+    public void ShowDeck2()
+    {
+
+        playBtn.GetComponent<Button>().interactable = false;
+
+        foreach (GameObject go in deckButtons)
+        {
+            go.GetComponent<Image>().color = Color.white;
+        }
+
+        deckButtons[1].GetComponent<Image>().color = Color.yellow;
+
+        ClearDeck();
+
+        deckNumber = 2;
+
+        LoadDeck(deckNumber);
+
+    }
+
+    public void ShowDeck3()
+    {
+
+        playBtn.GetComponent<Button>().interactable = false;
+        
+        foreach (GameObject go in deckButtons)
+        {
+            go.GetComponent<Image>().color = Color.white;
+        }
+
+        deckButtons[2].GetComponent<Image>().color = Color.yellow;
+
+        ClearDeck();
+
+        deckNumber = 3;
+
+        LoadDeck(deckNumber);
+
     }
 }
