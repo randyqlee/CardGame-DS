@@ -28,6 +28,7 @@ public class SkillHoverPreview: MonoBehaviour
     void ShowPreview(){
 
         previewGameObject.SetActive(true);
+        previewGameObject.transform.position = new Vector3(0,1,0);
 
     }
 

@@ -73,7 +73,7 @@ public class CreatureHoverPreview: MonoBehaviour
 		else
 		{
 			previewGameObject.SetActive(true);
-			previewGameObject.transform.position = new Vector3(0,0,0);
+			previewGameObject.transform.position = new Vector3(0,6,0);
 		}
         	
 

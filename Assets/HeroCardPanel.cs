@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class HeroCardPanel : MonoBehaviour {
 
 	public List<GameObject> abilityCards = new List<GameObject>();
+	public Image heroImage;
+	public Text heroname;
 	
 	// Use this for initialization
 	void Awake () {
@@ -24,11 +26,16 @@ public class HeroCardPanel : MonoBehaviour {
 	}
 
 	void Setup()
-	{
-		int x = 0;
+	{		
 		int creatureID = GetComponentInParent<IDHolder>().UniqueID;
 		GameObject creature = IDHolder.GetGameObjectWithID(creatureID);
 		CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[creatureID];
+		//Setup Hero Preview	
+		heroImage.sprite = cl.ca.CardImage;
+		heroname.text = cl.ca.name;
+
+		//Setup Ability Cards
+		int x = 0;
 		foreach (CreatureEffect ce in cl.creatureEffects)
 		{
 			
