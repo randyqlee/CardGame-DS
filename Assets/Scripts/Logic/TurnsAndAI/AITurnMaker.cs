@@ -9,8 +9,8 @@ public class AITurnMaker: TurnMaker {
     {
         base.OnTurnStart();
         // dispay a message that it is enemy`s turn
-        new ShowMessageCommand("Enemy`s Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
-        p.DrawACard();
+        //new ShowMessageCommand("AI`s Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        //p.DrawACard();
         StartCoroutine(MakeAITurn());
     }
 
@@ -23,24 +23,27 @@ public class AITurnMaker: TurnMaker {
 
         while (MakeOneAIMove(strategyAttackFirst))
         {
-            yield return null;
+            //yield return null;
         }
 
         InsertDelay(1f);
 
         //DS
         //TurnManager.Instance.EndTurn();
-        new EndTurnCommand().AddToQueue();
+        //new EndTurnCommand().AddToQueue();
+
+        yield return null;
     }
 
     bool MakeOneAIMove(bool attackFirst)
     {
-        if (Command.CardDrawPending())
-            return true;
-        else if (attackFirst)
-            return AttackWithACreature() || PlayACardFromHand() || UseHeroPower();
-        else 
-            return PlayACardFromHand() || AttackWithACreature() || UseHeroPower();
+    //    if (Command.CardDrawPending())
+    //      return true;
+    //    else if (attackFirst)
+    //        return AttackWithACreature() || PlayACardFromHand() || UseHeroPower();
+    //    else 
+    //        return PlayACardFromHand() || AttackWithACreature() || UseHeroPower();
+        return AttackWithACreature();
     }
 
     bool PlayACardFromHand()
@@ -103,8 +106,8 @@ public class AITurnMaker: TurnMaker {
                     //HeroLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
                     cl.AttackCreature(targetCreature);
                 }                    
-                else
-                    cl.GoFace();
+    //            else
+    //                cl.GoFace();
                 
                 InsertDelay(1f);
                 //Debug.Log("AI attacked with creature");
