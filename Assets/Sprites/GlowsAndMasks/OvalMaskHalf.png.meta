@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: d6788abef9ba1f04491fc53937687243
+guid: 51dc6ba9f02d6444cb62c9a817d72654
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Card BG1_0
+    21300000: OvalMaskHalf_0
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -140,13 +140,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Card BG1_0
+      name: OvalMaskHalf_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 72
-        width: 170
-        height: 198
+        x: 265
+        y: 313
+        width: 835
+        height: 1092
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,7 +154,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 635444ac313212247853cf311b4103d1
+      spriteID: d0056456fc19557498ea4bee483d7d1c
       vertices: []
       indices: 
       edges: []
@@ -162,7 +162,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ffc4282004eb1b9458ba869416707c94
+    spriteID: 28b218443b98a8444a489374035553e4
     vertices: []
     indices: 
     edges: []

@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: d6788abef9ba1f04491fc53937687243
+guid: 9a51f403a58543b408cfee0124c32e0a
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Card BG1_0
+    21300000: Giana_0
+    21300002: Giana_1
+    21300004: Giana 1_0
+    21300006: Giana 1_1
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -140,13 +143,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Card BG1_0
+      name: Giana 1_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 72
-        width: 170
-        height: 198
+        x: 247
+        y: 524
+        width: 318
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,7 +157,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 635444ac313212247853cf311b4103d1
+      spriteID: ed4eb8297e522764e9b76610cc2ded45
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giana 1_1
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 290
+        width: 318
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a98aa0b059e32a4c826c08fc8c52109
       vertices: []
       indices: 
       edges: []
@@ -162,7 +185,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ffc4282004eb1b9458ba869416707c94
+    spriteID: 31d236e286a4de64c9cbd15f35be526d
     vertices: []
     indices: 
     edges: []
