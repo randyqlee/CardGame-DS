@@ -19,7 +19,16 @@ public class SceneReloader: MonoBehaviour {
 
     public void LoadScene(string SceneName)
     {
-        SceneManager.LoadScene(SceneName);
+        //SceneManager.LoadScene(SceneName);
+        StartCoroutine(SceneSwitch(SceneName));
+    }
+
+    IEnumerator SceneSwitch(string SceneName)
+	{
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+        yield return null;
+		SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
     }
 
     public void Quit()
