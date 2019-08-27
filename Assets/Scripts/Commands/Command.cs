@@ -9,8 +9,8 @@ public class Command
 
     public virtual void AddToQueue()
     {
-        Debug.Log("Adding COmmand: " + this.ToString());
         CommandQueue.Enqueue(this);
+        QueueManager.Instance.commandQueue.Add(this.ToString());
         //Debug.Log ("Enqueue: " + this.ToString());
         if (!playingQueue)
             PlayFirstCommandFromQueue();
@@ -46,10 +46,8 @@ public class Command
     public static void PlayFirstCommandFromQueue()
     {
         playingQueue = true;
-
-        Debug.Log("playing COmmand: " + CommandQueue.Peek().ToString());
-
         CommandQueue.Dequeue().StartCommandExecution();
+        QueueManager.Instance.commandQueue.RemoveAt(0);
     }
 
     public static bool CardDrawPending()
