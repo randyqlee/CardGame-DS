@@ -154,6 +154,24 @@ public class Player : MonoBehaviour, ICharacter
         PlayerID = IDFactory.GetUniqueID();
     }
 
+    void Start()
+    {
+                //DS random pick if AI
+        if (GetComponent<TurnMaker>() is AITurnMaker)
+        {
+            CardAsset[] allCardsArray = Resources.LoadAll<CardAsset>("");
+            List<CardAsset> allCardsList = new List<CardAsset>(allCardsArray);
+            for (int i = 0; i < GlobalSettings.Instance.HeroesCount + GlobalSettings.Instance.HeroesEquipCount; i ++)
+            {
+                int index = Random.Range(0, allCardsList.Count);
+                deck.cards[i] = allCardsList[index];
+
+                Debug.Log ("AI Random Pick " + i + ": " + allCardsList[index].name);
+                allCardsList.RemoveAt(index);
+            }
+        }
+    }
+
     public virtual void OnTurnStart()
     {
         // add one mana crystal to the pool;
@@ -283,6 +301,12 @@ public class Player : MonoBehaviour, ICharacter
     // draw a single card from the deck
     public void DrawACard(bool fast = false)
     {
+
+
+
+
+
+
         if (deck.cards.Count > 0)
         {
             if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
