@@ -19,8 +19,6 @@ public class TableVisual : MonoBehaviour
     // list of all the creature cards on the table as GameObjects
     private List<GameObject> CreaturesOnTable = new List<GameObject>();
 
-
-
     // are we hovering over this table`s collider with a mouse
     private bool cursorOverThisTable = false;
 
@@ -167,7 +165,8 @@ public class TableVisual : MonoBehaviour
         // PlaceCreaturesOnNewSlots();
 
         //New SCRIPT
-        
+
+       
         StartCoroutine(HideCreature(creatureToRemove));
         Command.CommandExecutionComplete();    
 
@@ -206,7 +205,6 @@ public class TableVisual : MonoBehaviour
 
         //New SCRIPT
         creatureToResurrect.SetActive(true);
-
 
         Command.CommandExecutionComplete();
     }

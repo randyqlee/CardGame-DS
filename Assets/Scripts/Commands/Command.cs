@@ -10,6 +10,7 @@ public class Command
     public virtual void AddToQueue()
     {
         CommandQueue.Enqueue(this);
+        if (QueueManager.Instance!=null)
         QueueManager.Instance.commandQueue.Add(this.ToString());
         //Debug.Log ("Enqueue: " + this.ToString());
         if (!playingQueue)
@@ -47,6 +48,7 @@ public class Command
     {
         playingQueue = true;
         CommandQueue.Dequeue().StartCommandExecution();
+        if (QueueManager.Instance!=null)
         QueueManager.Instance.commandQueue.RemoveAt(0);
     }
 

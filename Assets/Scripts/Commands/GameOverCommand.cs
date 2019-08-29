@@ -13,5 +13,8 @@ public class GameOverCommand : Command{
     public override void StartCommandExecution()
     {
         looser.PArea.Portrait.Explode();
+
+        //DS
+        Command.CommandExecutionComplete();
     }
 }

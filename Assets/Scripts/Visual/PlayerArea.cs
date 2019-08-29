@@ -22,6 +22,7 @@ public class PlayerArea : MonoBehaviour
 
     public SkillPanelVisual skillPanel;
 
+
     public bool AllowedToControlThisPlayer
     {
         get;

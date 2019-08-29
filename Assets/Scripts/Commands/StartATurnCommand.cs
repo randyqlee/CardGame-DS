@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class StartATurnCommand : Command {
 
@@ -13,13 +14,22 @@ public class StartATurnCommand : Command {
     public override void StartCommandExecution()
     {
         
-        new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        //new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
         
-        TurnManager.Instance.whoseTurn = p;
+        //TurnManager.Instance.whoseTurn = p;
 
-        CommandExecutionComplete();
+        //CommandExecutionComplete();
 
-
+        Sequence s = DOTween.Sequence();
+        //s.AppendInterval(2f);
+        s.OnComplete(()=>
+        {
+            new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+            TurnManager.Instance.whoseTurn = p; 
+            Command.CommandExecutionComplete();
+        }
+        
+        );
         
     }
 }

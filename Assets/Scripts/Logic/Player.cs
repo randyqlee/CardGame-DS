@@ -189,8 +189,8 @@ public class Player : MonoBehaviour, ICharacter
 
 
         //DS
-        HideHand();
-        otherPlayer.HideHand();
+        //HideHand();
+        //otherPlayer.HideHand();
 
         //DS
         //Iterate through Creatures on table so that only 1 creature gets active each turn
@@ -200,22 +200,40 @@ public class Player : MonoBehaviour, ICharacter
       //DS
        if(!gameIsOver)
        {
-           //iterate if dead
-           while(table.CreaturesOnTable[creatureTurn].isDead)
-           {
-            if(creatureTurn < table.CreaturesOnTable.Count)
-                creatureTurn++;                         
-            if(creatureTurn >= table.CreaturesOnTable.Count)
-                creatureTurn = 0;
+           //if dead, pass on the turn to other player
+           if (table.CreaturesOnTable[creatureTurn].isDead)
+           { 
+                table.CreaturesOnTable[creatureTurn].OnTurnEnd();
+                TurnManager.Instance.EndTurn();
+
            }
+
+
+
+
+           //iterate if dead
+           //while(table.CreaturesOnTable[creatureTurn].isDead)
+           //{
+           // if(creatureTurn < table.CreaturesOnTable.Count)
+           //     creatureTurn++;                         
+           // if(creatureTurn >= table.CreaturesOnTable.Count)
+           //     creatureTurn = 0; 
+          // }
+
+          else
+          {
 
             creatureTurn -= ExtraCreatureTurn;
             if(creatureTurn<0)
             creatureTurn = table.CreaturesOnTable.Count-1;
 
-            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
-            ShowHand(table.CreaturesOnTable[creatureTurn]);
+         //DS
+         //Remove for Round reset testing
+         //table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
 
+            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
+            //ShowHand(table.CreaturesOnTable[creatureTurn]);
+          }
             //DS
             //DrawAbilityCards(table.CreaturesOnTable[creatureTurn]);
 
@@ -531,24 +549,27 @@ public class Player : MonoBehaviour, ICharacter
         }
 
         foreach (CreatureLogic crl in table.CreaturesOnTable)
-        //foreach (HeroLogic crl in table.CreaturesOnTable)
         {
-            GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
-            if(g!= null)
-            //DS
+            if (!crl.isDead)
             {
-                g.GetComponent<OneCreatureManager>().CanAttackNow = (crl.AttacksLeftThisTurn > 0) && !removeAllHighlights;
                 
+                GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
+                if(g!= null)
+                //DS
+                {
+                    g.GetComponent<OneCreatureManager>().CanAttackNow = (crl.AttacksLeftThisTurn > 0) && !removeAllHighlights;
+                    
+                    
+                }
+
+                //DS
+                //insert here script to clear the hand and call the "Hand" or Abilities for the HIghlighted Creature
                 
+                //ClearHand();
+                //DrawAbilityCards(crl);
+
+                //DS
             }
-
-            //DS
-            //insert here script to clear the hand and call the "Hand" or Abilities for the HIghlighted Creature
-            
-            //ClearHand();
-            //DrawAbilityCards(crl);
-
-            //DS
             
            
         }   

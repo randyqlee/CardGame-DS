@@ -370,6 +370,8 @@ public class CreatureLogic: ICharacter
       
         this.isDead = true;
 
+        this.isActive = false;
+
         
         //Remove all buffs/debuffs        
         RemoveAllBuffs(); 
@@ -503,6 +505,7 @@ public class CreatureLogic: ICharacter
 
             //DS
             new EndTurnCommand().AddToQueue();
+            OnTurnEnd();
 
         }else{            
             if(e_SecondAttack != null)

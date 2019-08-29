@@ -18,5 +18,7 @@ public class CreatureDieCommand : Command
         //p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);
 
         p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);
+
+        //p.table.CreaturesOnTable.Remove(CreatureLogic.CreaturesCreatedThisGame[DeadCreatureID]);
     }
 }

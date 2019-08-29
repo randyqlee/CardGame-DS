@@ -14,10 +14,23 @@ public class EndTurnCommand : Command
     public override void StartCommandExecution()
     {
          //DS
-        new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+        //new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
 
-         TurnManager.Instance.EndTurn();  
+        // TurnManager.Instance.EndTurn();  
+ 
+         //CommandExecutionComplete();
 
-         CommandExecutionComplete();
+        Sequence s = DOTween.Sequence();
+        s.PrependInterval(2f);
+        s.OnComplete(()=>
+        {
+            new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+            TurnManager.Instance.EndTurn();  
+            Command.CommandExecutionComplete();
+        }
+        
+        );
+            
+        
     }
 }

@@ -4,13 +4,19 @@ using System.Collections.Generic;
 
 public class Deck : MonoBehaviour {
 
-    public List<CardAsset> cards = new List<CardAsset>();
+    public List<CardAsset> cards;
 
     void Awake()
     {
         //cards.Shuffle();
         if (BattleStartInfo.SelectedDeck!=null && GetComponentInParent<Player>().PArea.owner == AreaPosition.Low)
         {
+            for (int i = cards.Count -1 ; i >= 0 ; i--)
+            {
+                cards.Remove(cards[i]);
+            }
+            
+
             foreach (CardAsset ca in BattleStartInfo.SelectedDeck.Cards)
             {
                 cards.Add(ca);

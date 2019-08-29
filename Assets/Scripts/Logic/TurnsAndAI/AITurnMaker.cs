@@ -91,35 +91,66 @@ public class AITurnMaker: TurnMaker {
         return false;
     }
 
+    bool CanACreatureAttack()
+    {
+        bool canAttack = false;
+        for (int i = 0; i < p.table.CreaturesOnTable.Count; i++)
+        {
+            if (!p.table.CreaturesOnTable[i].isDead && p.table.CreaturesOnTable[i].AttacksLeftThisTurn > 0)
+                canAttack = true;
+        }
+        return canAttack;
+    }
+    
     bool AttackWithACreature()
     {
-        foreach (CreatureLogic cl in p.table.CreaturesOnTable)
-        //foreach (HeroLogic cl in p.table.CreaturesOnTable)
-        {
-            if (cl.AttacksLeftThisTurn > 0)
+        //DS - use this for Round-based TurnManager
+        //if(CanACreatureAttack())
+        //{
+        //    int i = Random.Range(0,p.table.CreaturesOnTable.Count);
+        //    while (p.table.CreaturesOnTable[i].isDead || p.table.CreaturesOnTable[i].AttacksLeftThisTurn <= 0)
+        //    {
+        //        i = Random.Range(0,p.table.CreaturesOnTable.Count);
+        //    }
+        //    CreatureLogic cl = p.table.CreaturesOnTable[i];
+            
+
+
+
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
             {
-                // attack a random target with a creature
-                if (p.otherPlayer.table.CreaturesOnTable.Count > 0)
+                if (cl.AttacksLeftThisTurn > 0)
                 {
-                    int index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
-                    CreatureLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
-                    //HeroLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
-                    cl.AttackCreature(targetCreature);
-                }                    
-    //            else
-    //                cl.GoFace();
-                
-                InsertDelay(1f);
-                //Debug.Log("AI attacked with creature");
-                return true;
+                    // attack a random target with a creature
+                    if (p.otherPlayer.table.CreaturesOnTable.Count > 0)
+                    {
+                        int index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
+                        while (p.otherPlayer.table.CreaturesOnTable[index].isDead){
+                            index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
+                        }
+                        CreatureLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
+                        cl.AttackCreature(targetCreature);
+                    }                                    
+                    InsertDelay(1f);
+                    return true;
+                }
             }
-        }
+        //    return false;
+        //}
+        
+        //else
+        //{
+        //    TurnManager.Instance.EndTurn(); 
+        
+        //    return false;
+        //}
+
         return false;
     }
 
     void InsertDelay(float delay)
     {
-        new DelayCommand(delay).AddToQueue();
+        //new DelayCommand(delay).AddToQueue();
     }
 
 }

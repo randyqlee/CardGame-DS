@@ -35,8 +35,23 @@ public class TurnManager : MonoBehaviour {
             GlobalSettings.Instance.EnableEndTurnButtonOnStart(_whoseTurn);
 
             TurnMaker tm = whoseTurn.GetComponent<TurnMaker>();
-            // player`s method OnTurnStart() will be called in tm.OnTurnStart();
 
+
+
+            //DS - use this if we want Round-based turns
+            //Check if Round is not yet over, call Player OnTurnStart
+            //Else, reset first then let player start
+            //if (!RoundIsOver())
+            //    tm.OnTurnStart();
+            
+
+            //else
+            //{
+            //    RoundReset();
+            //    tm.OnTurnStart();
+            //}
+
+                        // player`s method OnTurnStart() will be called in tm.OnTurnStart();
             tm.OnTurnStart();
 
             if (tm is PlayerTurnMaker)
@@ -84,6 +99,8 @@ public class TurnManager : MonoBehaviour {
         CardLogic.CardsCreatedThisGame.Clear();
         CreatureLogic.CreaturesCreatedThisGame.Clear();
 
+        //DS - use this sequence later on for any Start of Battle loading/animation effects
+
         foreach (Player p in Player.Players)
         {
             p.ManaThisTurn = 0;
@@ -93,6 +110,7 @@ public class TurnManager : MonoBehaviour {
             p.PArea.PDeck.CardsInDeck = p.deck.cards.Count;
             // move both portraits to the center
             p.PArea.Portrait.transform.position = p.PArea.InitialPortraitPosition.position;
+
         }
 
         Sequence s = DOTween.Sequence();
@@ -152,12 +170,50 @@ public class TurnManager : MonoBehaviour {
                 else
                 new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
+                //DS
+                //Initially, all creatures isActive
+                //RoundReset();
 
                 new StartATurnCommand(whoGoesFirst).AddToQueue();
             });
 
 
     }
+
+
+//DS - Use this for Round-based turn
+/*
+    //DS
+    // Reset creature turns for each round
+    void RoundReset()
+    {
+        foreach (Player p in Player.Players)
+        {               
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                //cl.isActive = true;
+                if (!cl.isDead)
+                    cl.OnTurnStart();
+            }
+        }
+    }
+
+    //DS
+    //Check if Round should be over
+    bool RoundIsOver()
+    {
+        foreach (Player p in Player.Players)
+        {               
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                if (cl.isActive)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+*/
 
     void Update()
     {
@@ -196,8 +252,8 @@ public class TurnManager : MonoBehaviour {
             //New SCRIPT - also end each creature's turn
             foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)
             {
-                if(cl.isActive)
-                cl.OnTurnEnd();
+                //if(cl.isActive)
+                //cl.OnTurnEnd();
             }        
              
 
@@ -241,14 +297,6 @@ public class TurnManager : MonoBehaviour {
         
     }
 
-    public void EndTurnCommand()
-    {
-        //DS
-        //GlobalSettings.Instance.EndTurnButton.enabled = false;
-        GlobalSettings.Instance.EndTurnButton.interactable = false;
-        new EndTurnCommand().AddToQueue();
-        //new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
-    }
 
     public void StopTheTimer()
     {

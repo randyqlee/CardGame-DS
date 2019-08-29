@@ -74,6 +74,7 @@ public class DamageEffect : MonoBehaviour {
    
     public static void CreateDamageEffect(Vector3 position, int amount)
     {
+        
 
         if (amount == 0)
             return;
@@ -89,7 +90,16 @@ public class DamageEffect : MonoBehaviour {
             de.DamageImage.color = Color.green;
         }
         else
+        {
             de.AmountText.text = "-"+amount.ToString();
+
+            GameObject newSFXDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.SFX_TakeDamage_Prefab[Random.Range(0,GlobalSettings.Instance.SFX_TakeDamage_Prefab.Count-1)], position, Quaternion.identity) as GameObject;
+            Sequence s = DOTween.Sequence();
+            s.AppendInterval(0.5f);
+            s.OnComplete(() => Destroy(newSFXDamageEffect));
+
+
+        }
         // start a coroutine to fade away and delete this effect after a certain time
         de.StartCoroutine(de.ShowDamageEffect());
 

@@ -47,10 +47,10 @@ public class CreatureAttackVisual : MonoBehaviour
                 {       
                     if(!punched)
                     {             
-                    new SkillSFXCommand(targetUniqueID, SkillSFXCommand.SFXStates.TakeDamage).AddToQueue();
+                    //new SkillSFXCommand(targetUniqueID, SkillSFXCommand.SFXStates.TakeDamage).AddToQueue();
                     DamageEffect.CreateDamageEffect(target.transform.position, damageTakenByTarget);
 //DS
-Debug.Log("DoPunch");
+//Debug.Log("DoPunch");
                     //target.transform.DOPunchRotation (new Vector3 (0,180,0), 2f, 10, 1);
                     //target.transform.DOPunchPosition (target.transform.position-transform.position, 1f, 1, 1, false);
 
