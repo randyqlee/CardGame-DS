@@ -17,6 +17,8 @@ public class TurnManager : MonoBehaviour {
     // reference to a timer to measure 
     private RopeTimer timer;
 
+    public bool endTurnForced = false;
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -86,6 +88,7 @@ public class TurnManager : MonoBehaviour {
     {
         Instance = this;
         timer = GetComponent<RopeTimer>();
+        
     }
 
     void Start()
@@ -233,11 +236,19 @@ public class TurnManager : MonoBehaviour {
         StartCoroutine(TurnEndCoroutine());        
     }
 
+    public void EndTurnForced()
+    {
+        endTurnForced = true;
+         
+        StartCoroutine(TurnEndCoroutine());        
+    }
+
     IEnumerator TurnEndCoroutine()
     {
         yield return StartCoroutine(EndTurnCoroutine());
         //yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(StartTurnCoroutine());
+        if(!whoseTurn.otherPlayer.gameIsOver)
+            yield return StartCoroutine(StartTurnCoroutine());
     }
 
 
@@ -250,10 +261,15 @@ public class TurnManager : MonoBehaviour {
             whoseTurn.OnTurnEnd();
 
             //New SCRIPT - also end each creature's turn
-            foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)
+            if (endTurnForced)
             {
-                //if(cl.isActive)
-                //cl.OnTurnEnd();
+                foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)
+                {
+                    if(cl.isActive)
+                    {
+                        cl.OnTurnEnd();
+                    }
+                }
             }        
              
 
@@ -276,6 +292,9 @@ public class TurnManager : MonoBehaviour {
 
     IEnumerator StartTurnCoroutine()
     {
+        endTurnForced = false;
+
+
          if(TurnCounter<=0)
             {
               //yield return new WaitForSeconds(0.5f);

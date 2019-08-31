@@ -50,7 +50,7 @@ public class Player : MonoBehaviour, ICharacter
 
 
     private List<bool> isDeadStatus = new List<bool>();
-    private bool gameIsOver = false;
+    public bool gameIsOver = false;
 
 
     // PROPERTIES 
@@ -245,7 +245,9 @@ public class Player : MonoBehaviour, ICharacter
             ExtraCreatureTurn--;
        }     
       
-      //table.CreaturesOnTable[creatureTurn].OnTurnStart();    
+      //table.CreaturesOnTable[creatureTurn].OnTurnStart();
+
+  
                              
                
         PArea.HeroPower.WasUsedThisTurn = false;
@@ -523,8 +525,10 @@ public class Player : MonoBehaviour, ICharacter
         // game over
         // block both players from taking new moves 
         gameIsOver = true;
+
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;
+
         TurnManager.Instance.StopTheTimer();
         new GameOverCommand(this).AddToQueue();
     }

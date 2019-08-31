@@ -352,6 +352,9 @@ public class CreatureLogic: ICharacter
         isActive = false;
         AttacksLeftThisTurn = 0;
 
+        //if (owner.ExtraCreatureTurn != 0)
+        //    owner.ExtraCreatureTurn = 0;
+
         //TODO:  End of Turn Effects
         if(e_CreatureOnTurnEnd != null)
             e_CreatureOnTurnEnd.Invoke();               

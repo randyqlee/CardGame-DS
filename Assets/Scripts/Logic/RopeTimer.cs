@@ -46,6 +46,7 @@ public class RopeTimer : MonoBehaviour, IEventSystemHandler
 	// Update is called once per frame
 	void Update () 
 	{
+        
 		if (counting) 
 		{
 			timeTillZero -= Time.deltaTime;
@@ -75,6 +76,7 @@ public class RopeTimer : MonoBehaviour, IEventSystemHandler
                 TimerExpired.Invoke();
 			}
 		}
+        
 	
 	}
 
