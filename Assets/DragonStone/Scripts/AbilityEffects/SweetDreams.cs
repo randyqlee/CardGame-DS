@@ -17,13 +17,13 @@ public class SweetDreams : CreatureEffect {
    public override void RegisterEventEffect()
     {
        creature.e_AfterAttacking += UseEffect;      
-       creature.e_BeforeAttacking += ShowAbility;      
+       //creature.e_BeforeAttacking += ShowAbility;      
     }
 
     public override void UnRegisterEventEffect()
     {
          creature.e_AfterAttacking -= UseEffect;      
-         creature.e_BeforeAttacking -= ShowAbility;      
+         //creature.e_BeforeAttacking -= ShowAbility;      
     }
 
     public override void CauseEventEffect()
@@ -34,10 +34,12 @@ public class SweetDreams : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {     
+        if(Random.Range(0,100)<=creature.chance)
         if(remainingCooldown <=0)
         {     
           
-           RemoveAllBuffs(target);            
+           ShowAbility(target);          
+           RemoveAllBuffs(target);          
            AddBuff(target,"Stun",buffCooldown);   
            base.UseEffect();                  
                 

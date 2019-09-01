@@ -24,7 +24,10 @@ public class Stun : BuffEffect {
     public void stunEffect()
     {
         Debug.Log("This creature is stunned: " +target.UniqueCreatureID);
-        TurnManager.Instance.EndTurn();
+        //TurnManager.Instance.EndTurn();
+
+        new EndTurnCommand().AddToQueue();
+        target.OnTurnEnd();
     }
     
     

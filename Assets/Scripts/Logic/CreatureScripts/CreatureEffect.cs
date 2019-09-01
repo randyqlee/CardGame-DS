@@ -83,12 +83,14 @@ public class CreatureEffect
 
     public virtual void RegisterCooldown()
     {
-        creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+        //creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+        creature.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
-        creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+        //creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+        creature.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
     }
 
     public void ReduceCreatureEffectCooldown()
