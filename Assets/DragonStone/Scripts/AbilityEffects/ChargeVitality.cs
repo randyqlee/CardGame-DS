@@ -38,9 +38,10 @@ public class ChargeVitality : CreatureEffect {
         {
             
             base.ShowAbility();
-            SecondAttack(target);          
-            base.UseEffect();
-            Debug.Log("Remaining Cooldown UseEffect: " +remainingCooldown);
+            SecondAttack(target);
+            //base.UseEffect();          
+           
+            
         }        
         
     }
@@ -51,9 +52,9 @@ public class ChargeVitality : CreatureEffect {
         if(remainingCooldown<=0)
         {
             creature.AttacksLeftThisTurn++;
-            //SecondHealEffect();     
-            Debug.Log("Attack Count BEFORE attack: " +creature.AttacksLeftThisTurn);
-            Debug.Log("Remaining Cooldown OnTurnStart: " +remainingCooldown);
+            
+            SecondHealEffect();     
+            
         }                             
     }
 
@@ -61,12 +62,19 @@ public class ChargeVitality : CreatureEffect {
     {               
         if(remainingCooldown<=0)
         {
-            //creature.AttacksLeftThisTurn++;           
-            creature.AttackCreature(target);
-            Debug.Log("Attack Count AFTER attack: " +creature.AttacksLeftThisTurn);   
+            //creature.AttacksLeftThisTurn++; 
+          
+          //hasUsedEffect = true;   
+          base.UseEffect();           
+          if(!target.isDead)          
+          creature.AttackCreature(target);
+
+          //DS: Force for now  
+                                 
+         
            
         }
-         
+       
         
          
     }

@@ -90,7 +90,7 @@ public class CreatureEffect
     public virtual void UnregisterCooldown()
     {
         creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
-        creature.e_CreatureOnTurnEnd += ResetCreatureEffectCooldown;
+        creature.e_CreatureOnTurnEnd -= ResetCreatureEffectCooldown;
     }
 
     public void ReduceCreatureEffectCooldown()
@@ -98,19 +98,7 @@ public class CreatureEffect
         if(remainingCooldown > 0){
             remainingCooldown--;
         }
-        // else if(remainingCooldown<=0 && creature.canUseAbility)
-        // {
-        //     if(hasUsedEffect)
-        //     remainingCooldown = creatureEffectCooldown;            
-        //     //don't reset cooldown if creature has not used effect
-        //     else if(!hasUsedEffect)
-        //     remainingCooldown = 0;
-        // }
-        // //this is for silence scenario
-        // else if(remainingCooldown<=0 && !creature.canUseAbility)
-        // {
-        //     remainingCooldown = 0;
-        // }
+        
 
         new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
             
