@@ -38,6 +38,7 @@ public class GlobalSettings: MonoBehaviour
     public GameObject PortraitWSkillsPreviewPrefab;
 
     public GameObject MulliganCreaturePrefab;
+    public GameObject TOP_MulliganCreaturePrefab;
 
 //DS
 //    public GameObject SfxExplosion_1_Prefab;

@@ -7,11 +7,13 @@ public class MulliganScreen : MonoBehaviour {
 
 
 	public List<GameObject> slots;
+	public List<GameObject> slots_TOP;
 
 	public List<GameObject> coreGameObjects;
 	// Use this for initialization
 
 	public Deck deck;
+	public Deck deck_TOP;
 
 	public List<CardAsset> battleCreatures;
 	public List<CardAsset> equipCreatures;
@@ -33,6 +35,16 @@ public class MulliganScreen : MonoBehaviour {
 			go.GetComponent<OneCreatureManager>().ReadCreatureFromAsset();
 			CardAsset ca = go.GetComponent<OneCreatureManager>().cardAsset;
 			battleCreatures.Add(ca);
+		}
+
+		//Show the deck of enemy (TOP player)
+		for (int i = 0; i < slots_TOP.Count; i++)
+		{
+			GameObject go = Instantiate(GlobalSettings.Instance.TOP_MulliganCreaturePrefab, slots_TOP[i].transform) as GameObject;
+			go.GetComponent<OneCreatureManager>().cardAsset = deck_TOP.cards[i];
+			go.GetComponent<OneCreatureManager>().ReadCreatureFromAsset();
+			//CardAsset ca = go.GetComponent<OneCreatureManager>().cardAsset;
+			//battleCreatures.Add(ca);
 		}
 	}
 

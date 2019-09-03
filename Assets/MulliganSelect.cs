@@ -37,8 +37,5 @@ public class MulliganSelect : MonoBehaviour {
 		else
 			selectedIndicator.SetActive(false);
 
-
-		Debug.Log ("Mouse click detected");
-
 	}
 }
