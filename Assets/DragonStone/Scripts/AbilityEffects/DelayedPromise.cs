@@ -38,6 +38,7 @@ public class DelayedPromise : CreatureEffect {
         if(remainingCooldown <=0)
         {     
           
+          
            ShowAbility(target);
 
            ResetAllSkillCooldowns(target); 

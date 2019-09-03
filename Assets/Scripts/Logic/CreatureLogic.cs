@@ -503,6 +503,7 @@ public class CreatureLogic: ICharacter
         if(!CanAttack)
         {
             
+           
             //implement command here
             //TurnManager.Instance.EndTurn();
 
@@ -510,9 +511,14 @@ public class CreatureLogic: ICharacter
             new EndTurnCommand().AddToQueue();
             OnTurnEnd();
 
-        }else{            
+        }
+
+        else
+        
+        {            
             if(e_SecondAttack != null)
-            e_SecondAttack.Invoke(target);      
+            e_SecondAttack.Invoke(target);    
+           
         }
         
            

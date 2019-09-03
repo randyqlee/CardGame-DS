@@ -9,6 +9,7 @@ using UnityEngine;
 public class BladeFan : CreatureEffect {
 
     public int buffCooldown = 1;
+    public int buffCount = 2;
 
     public BladeFan(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
@@ -17,13 +18,13 @@ public class BladeFan : CreatureEffect {
    public override void RegisterEventEffect()
     {
        
-       creature.e_BeforeAttacking += ShowAbility;
+       //creature.e_BeforeAttacking += ShowAbility;
        creature.e_AfterAttacking += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_BeforeAttacking -= ShowAbility;
+         //creature.e_BeforeAttacking -= ShowAbility;
          creature.e_AfterAttacking -= UseEffect;      
     }
 
@@ -35,21 +36,19 @@ public class BladeFan : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {     
+        if(Random.Range(0,100)<=creature.chance)
         if(remainingCooldown <=0)
         { 
+           ShowAbility(target);
            RemoveAllBuffs(target);            
            //AddBuff(target,"Stun",buffCooldown);      
-
-           //Explosion Test
-           new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
+           
 
            base.UseEffect();              
         }
 
              
-    }
-
-    
+    }    
 
     public void RemoveAllBuffs(CreatureLogic target)
     {
@@ -64,12 +63,13 @@ public class BladeFan : CreatureEffect {
             }            
         }
 
-        // Debug.Log("Buffs Removed: " +buffCounter);
-        // if(buffCounter>=3)
-        // {
-        //     Extraturn();
-        // }
+        // official Line
+        if(buffCounter>=buffCount)        
         ExtraTurnEffect();
+        
+        
+        //Extra Turn Test
+        //ExtraTurnEffect();
     }
 
     public void ExtraTurnEffect()

@@ -38,6 +38,7 @@ public class SweetDreams : CreatureEffect {
         if(remainingCooldown <=0)
         {     
           
+           
            ShowAbility(target);          
            RemoveAllBuffs(target);          
            AddBuff(target,"Stun",buffCooldown);   

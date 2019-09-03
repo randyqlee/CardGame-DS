@@ -19,7 +19,7 @@ public class ShowSkillPreviewCommand : Command {
 	public override void StartCommandExecution()
 	{
 
-		Debug.Log ("ShowSkillPreviewCommand");
+		//Debug.Log ("ShowSkillPreviewCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 
 		if(creature.tag == "TopCreature")
