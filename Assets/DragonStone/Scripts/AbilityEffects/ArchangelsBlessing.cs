@@ -21,12 +21,14 @@ public class ArchangelsBlessing : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_CreatureOnTurnStart += UseEffect;      
+       //creature.e_CreatureOnTurnStart += UseEffect;      
+       creature.e_PreAttackEvent += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_CreatureOnTurnStart -= UseEffect;      
+         //creature.e_CreatureOnTurnStart -= UseEffect;  
+         creature.e_PreAttackEvent -= UseEffect;          
     }
 
     public override void CauseEventEffect()

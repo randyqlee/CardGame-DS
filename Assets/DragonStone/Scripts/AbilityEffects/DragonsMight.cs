@@ -18,14 +18,17 @@ public class DragonsMight : CreatureEffect {
     {
        creature.e_BeforeAttacking += ShowAbility;
        creature.e_AfterAttacking += UseEffect;
-       creature.e_CreatureOnTurnStart += UseEffect;      
+       //creature.e_CreatureOnTurnStart += UseEffect;
+       creature.e_PreAttackEvent += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
         creature.e_BeforeAttacking -= ShowAbility;
          creature.e_AfterAttacking -= UseEffect;      
-         creature.e_CreatureOnTurnStart -= UseEffect;
+         //reature.e_CreatureOnTurnStart -= UseEffect;
+         creature.e_PreAttackEvent -= UseEffect;
+         
     }
 
     public override void CauseEventEffect()

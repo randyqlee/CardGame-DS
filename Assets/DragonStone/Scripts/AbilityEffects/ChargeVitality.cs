@@ -15,13 +15,17 @@ public class ChargeVitality : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_CreatureOnTurnStart += IncreaseAttackCount;
+       creature.e_PreAttackEvent += IncreaseAttackCount;
+       //creature.e_CreatureOnTurnStart += IncreaseAttackCount;
        creature.e_SecondAttack += UseEffect;      
+
+       
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_CreatureOnTurnStart -= IncreaseAttackCount;
+         creature.e_PreAttackEvent -= IncreaseAttackCount;
+         //creature.e_CreatureOnTurnStart -= IncreaseAttackCount;     
          creature.e_SecondAttack -= UseEffect;      
     }
 

@@ -55,8 +55,8 @@ public class CreatureLogic: ICharacter
     public delegate void CreatureOnTurnStart();    
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
 
-    public delegate void CreatureOnTurnStart2();    
-    public event CreatureOnTurnStart2 e_CreatureOnTurnStart2;
+    public delegate void PreAttackEvent();    
+    public event PreAttackEvent e_PreAttackEvent;
 
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
@@ -64,7 +64,7 @@ public class CreatureLogic: ICharacter
     public delegate void ThisCreatureDies();    
     public event ThisCreatureDies e_ThisCreatureDies;
 
-    public delegate void IsAttacked();    
+    public delegate void IsAttacked(CreatureLogic creature);    
     public event IsAttacked e_IsAttacked; 
 
     public delegate void IsComputeDamage();    
@@ -227,6 +227,7 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
+    
 
    
 
@@ -502,7 +503,7 @@ public class CreatureLogic: ICharacter
 
         //call enemy targets Is Attacked event
         if(target.e_IsAttacked != null)
-            target.e_IsAttacked.Invoke();      
+            target.e_IsAttacked.Invoke(this);      
        
         
         //DS
@@ -536,7 +537,7 @@ public class CreatureLogic: ICharacter
         }
 
         else
-        
+
         {            
             if(e_SecondAttack != null)
             e_SecondAttack.Invoke(target);    
@@ -549,10 +550,17 @@ public class CreatureLogic: ICharacter
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
+        PreAttack();
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         AttackCreature(target);
     }
 
+    public void PreAttack()
+    {
+        //Subscribe all creature pre-attack abilities here
+        if(e_PreAttackEvent != null)
+           e_PreAttackEvent.Invoke();   
+    }
 
     public void SplashAttackDamage(CreatureLogic target, int splashDamage)
     {

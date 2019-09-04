@@ -15,12 +15,14 @@ public class Torrent : CreatureEffect {
 
    public override void RegisterEventEffect()
     {     
-        creature.e_CreatureOnTurnStart += UseEffect;      
+        //creature.e_CreatureOnTurnStart += UseEffect;  
+        creature.e_PreAttackEvent += UseEffect;    
     }
 
     public override void UnRegisterEventEffect()
     {        
-        creature.e_CreatureOnTurnStart -= UseEffect;
+        //creature.e_CreatureOnTurnStart -= UseEffect;
+        creature.e_PreAttackEvent -= UseEffect;
     }
 
     public override void CauseEventEffect()
@@ -35,7 +37,8 @@ public class Torrent : CreatureEffect {
             if(creature.Health <= healthLimit)
             {
                 base.ShowAbility();
-                AddBuff(creature, "IncreaseAttack", 0);
+                AddBuff(creature, "IncreaseAttack", 2);
+                  AddBuff(creature, "Immunity", 2);
                 base.UseEffect();      
                     
             }            
