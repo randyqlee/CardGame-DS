@@ -25,7 +25,7 @@ public class Brand : BuffEffect {
     }
 
     
-     public void DealBrandDamage()
+     public void DealBrandDamage(CreatureLogic minion)
     {        
         new DelayCommand(0.5f).AddToQueue();
 

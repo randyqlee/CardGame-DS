@@ -46,7 +46,7 @@ public class CreatureLogic: ICharacter
     public delegate void ThisCreatureDies();    
     public event ThisCreatureDies e_ThisCreatureDies;
 
-    public delegate void IsAttacked();    
+    public delegate void IsAttacked(CreatureLogic creature);    
     public event IsAttacked e_IsAttacked; 
 
     public delegate void IsComputeDamage();    
@@ -209,6 +209,7 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
+    
 
    
 
@@ -480,7 +481,7 @@ public class CreatureLogic: ICharacter
 
         //call enemy targets Is Attacked event
         if(target.e_IsAttacked != null)
-            target.e_IsAttacked.Invoke();      
+            target.e_IsAttacked.Invoke(this);      
        
         
         //DS
