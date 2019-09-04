@@ -14,6 +14,7 @@ public class Stun : BuffEffect {
     public override void CauseBuffEffect()
     {        
         target.e_CreatureOnTurnStart += stunEffect;
+        
     }
 
     public override void UndoBuffEffect()

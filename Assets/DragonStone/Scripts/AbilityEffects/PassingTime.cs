@@ -15,13 +15,15 @@ public class PassingTime : CreatureEffect {
 
    public override void RegisterEventEffect()
     {
-       creature.e_CreatureOnTurnStart += IncreaseAttackCount;
+       creature.e_PreAttackEvent += UseEffect; 
+       //creature.e_CreatureOnTurnStart += IncreaseAttackCount;
        creature.e_SecondAttack += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_CreatureOnTurnStart -= IncreaseAttackCount;
+         creature.e_PreAttackEvent -= UseEffect;
+         //creature.e_CreatureOnTurnStart -= IncreaseAttackCount;
          creature.e_SecondAttack -= UseEffect;      
     }
 

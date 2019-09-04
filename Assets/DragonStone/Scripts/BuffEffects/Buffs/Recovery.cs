@@ -15,14 +15,16 @@ public class Recovery : BuffEffect {
     public override void CauseBuffEffect()
     {
         
-        target.e_CreatureOnTurnStart += healEffect;
+        //target.e_CreatureOnTurnStart += healEffect;
+        target.e_PreAttackEvent += healEffect;
         
     }
 
     public override void UndoBuffEffect()
     {
         
-        target.e_CreatureOnTurnStart -= healEffect;
+         //target.e_CreatureOnTurnStart -= healEffect;
+         target.e_PreAttackEvent -= healEffect;
     }
 
     public void healEffect()

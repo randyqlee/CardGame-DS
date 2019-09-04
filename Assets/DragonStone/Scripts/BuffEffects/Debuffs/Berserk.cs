@@ -14,12 +14,14 @@ public class Berserk : BuffEffect {
 
     public override void CauseBuffEffect()
     {           
-        target.e_CreatureOnTurnStart += berserkEffect;
+        //target.e_CreatureOnTurnStart += berserkEffect;
+        target.e_PreAttackEvent += berserkEffect;
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_CreatureOnTurnStart -= berserkEffect;
+        //target.e_CreatureOnTurnStart -= berserkEffect;
+        target.e_PreAttackEvent -= berserkEffect;
     }
 
     public void berserkEffect()
