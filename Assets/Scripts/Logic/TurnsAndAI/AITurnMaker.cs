@@ -129,7 +129,7 @@ public class AITurnMaker: TurnMaker {
                             index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
                         }
                         CreatureLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
-                        cl.AttackCreature(targetCreature);
+                        cl.AttackCreatureWithID(targetCreature.UniqueCreatureID);
                     }                                    
                     InsertDelay(1f);
                     //return true;

@@ -84,12 +84,14 @@ public class CreatureEffect
     public virtual void RegisterCooldown()
     {
         creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
         creature.e_CreatureOnTurnEnd += ResetCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
         creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
         creature.e_CreatureOnTurnEnd -= ResetCreatureEffectCooldown;
     }
 
@@ -221,7 +223,6 @@ public class CreatureEffect
         
         if(remainingCooldown <= 0)
         {
-            Debug.Log("Show Ability Creature Effect Test");
             GameObject Target = IDHolder.GetGameObjectWithID(creature.UniqueCreatureID);
             
 		    

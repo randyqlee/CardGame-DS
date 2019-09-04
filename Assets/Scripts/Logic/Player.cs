@@ -312,8 +312,8 @@ public class Player : MonoBehaviour, ICharacter
     public void OnTurnEnd()
     {
 
-        if(EndTurnEvent != null)
-            EndTurnEvent.Invoke();
+//        if(EndTurnEvent != null)
+//            EndTurnEvent.Invoke();
         ManaThisTurn -= bonusManaThisTurn;
         bonusManaThisTurn = 0;
         GetComponent<TurnMaker>().StopAllCoroutines();

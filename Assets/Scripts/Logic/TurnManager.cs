@@ -21,6 +21,9 @@ public class TurnManager : MonoBehaviour {
 
     int roundCounter;
 
+    public delegate void ResetRound();    
+    public event ResetRound e_ResetRound; 
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -367,6 +370,9 @@ public class TurnManager : MonoBehaviour {
             string roundString = "Round " + roundCounter + "!";
 
             new ShowMessageCommand(roundString, GlobalSettings.Instance.MessageTime).AddToQueue();
+
+            if(e_ResetRound != null)
+                e_ResetRound.Invoke();
 
         }
 

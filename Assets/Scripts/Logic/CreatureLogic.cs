@@ -239,6 +239,8 @@ public class CreatureLogic: ICharacter
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
     {
+
+        
         
         this.ca = ca;
 
@@ -336,8 +338,6 @@ public class CreatureLogic: ICharacter
 
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
 
-        
-        
     }
 
     
@@ -379,8 +379,10 @@ public class CreatureLogic: ICharacter
         //    owner.ExtraCreatureTurn = 0;
 
         //TODO:  End of Turn Effects
-        if(e_CreatureOnTurnEnd != null)
-            e_CreatureOnTurnEnd.Invoke();               
+
+
+//        if(e_CreatureOnTurnEnd != null)
+//            e_CreatureOnTurnEnd.Invoke();               
         
         
 
@@ -421,8 +423,8 @@ public class CreatureLogic: ICharacter
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();         
         
 
-        if(e_ThisCreatureDies != null)
-        e_ThisCreatureDies.Invoke();
+//        if(e_ThisCreatureDies != null)
+//        e_ThisCreatureDies.Invoke();
         
         owner.CheckIfGameOver();           
     }
@@ -441,8 +443,10 @@ public class CreatureLogic: ICharacter
         AttacksLeftThisTurn--;         
 
         //call this creatures after attack event
-            if(this.e_BeforeAttacking != null)
-            this.e_BeforeAttacking.Invoke(target);   
+
+//DS: Replace with e_PreAttack
+//            if(this.e_BeforeAttacking != null)
+//            this.e_BeforeAttacking.Invoke(target);   
 
         //call this creatures attack event
         // if(this.e_AfterAttacking != null)
@@ -502,8 +506,10 @@ public class CreatureLogic: ICharacter
         //Health -= target.Attack;       
 
         //call enemy targets Is Attacked event
-        if(target.e_IsAttacked != null)
-            target.e_IsAttacked.Invoke(this);      
+
+//DS: Put inside TAKEDAMAGE
+//        if(target.e_IsAttacked != null)
+//            target.e_IsAttacked.Invoke(this);      
        
         
         //DS
@@ -522,6 +528,7 @@ public class CreatureLogic: ICharacter
         //call this creatures after attack event
             if(this.e_AfterAttacking != null)
             this.e_AfterAttacking.Invoke(target);  
+
        
         if(!CanAttack)
         {
@@ -550,16 +557,23 @@ public class CreatureLogic: ICharacter
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
-        PreAttack();
+        
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
+        
+        PreAttack(target);
         AttackCreature(target);
+        
     }
 
-    public void PreAttack()
+    void PreAttack(CreatureLogic target)
     {
         //Subscribe all creature pre-attack abilities here
         if(e_PreAttackEvent != null)
-           e_PreAttackEvent.Invoke();   
+           this.e_PreAttackEvent.Invoke();
+        
+        if(this.e_BeforeAttacking != null)
+            this.e_BeforeAttacking.Invoke(target);
+
     }
 
     public void SplashAttackDamage(CreatureLogic target, int splashDamage)
@@ -765,6 +779,9 @@ public class CreatureLogic: ICharacter
               
         int finalDamage = DamageReduction*damage;
         Health-=finalDamage;
+
+        if(e_IsAttacked != null)
+            e_IsAttacked.Invoke(this); 
     }
 
     
