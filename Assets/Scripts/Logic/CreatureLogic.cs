@@ -13,7 +13,25 @@ public class CreatureLogic: ICharacter
     public int UniqueCreatureID;
     public bool Frozen = false;
     public bool isDead;
+
     public bool isActive;
+/*    
+    {
+        get{ return isActiveValue; }
+
+        set
+        {
+            isActiveValue = value;
+            GameObject g = IDHolder.GetGameObjectWithID(UniqueCreatureID);
+            if (g!= null)
+            {
+                g.GetComponent<OneCreatureManager>().IsActive = isActiveValue;
+            }
+        }
+    }
+*/
+
+
     public int chance;
 
     public bool isEquip = false;
@@ -351,6 +369,10 @@ public class CreatureLogic: ICharacter
     public void OnTurnEnd(){
         isActive = false;
         AttacksLeftThisTurn = 0;
+
+
+        //DS "color" Creature that already attacked
+            new CreatureColorCommand(this,true).AddToQueue();
 
         //if (owner.ExtraCreatureTurn != 0)
         //    owner.ExtraCreatureTurn = 0;

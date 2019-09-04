@@ -47,6 +47,34 @@ public class OneCreatureManager : MonoBehaviour
         }
     }
 
+    private bool hasAttacked = true;
+    public bool HasAttacked
+    {
+        get
+        {
+            return hasAttacked;
+        }
+
+        set
+        {
+            hasAttacked = value;
+
+            Image image = CreatureGraphicImage.GetComponent<Image>();
+
+            if (hasAttacked)
+            {
+                
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.25f);
+
+            }
+            else
+            {
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+
+            }
+        }
+    }
+
     public void ReadCreatureFromAsset()
     {
         // Change the card graphic sprite

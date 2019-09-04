@@ -19,6 +19,8 @@ public class TurnManager : MonoBehaviour {
 
     public bool endTurnForced = false;
 
+    int roundCounter;
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -88,6 +90,8 @@ public class TurnManager : MonoBehaviour {
     {
         Instance = this;
         timer = GetComponent<RopeTimer>();
+
+        roundCounter = 1;
         
     }
 
@@ -294,6 +298,8 @@ public class TurnManager : MonoBehaviour {
     {
         endTurnForced = false;
 
+        RoundReset();     
+
 
          if(TurnCounter<=0)
             {
@@ -321,6 +327,51 @@ public class TurnManager : MonoBehaviour {
     {
         timer.StopTimer();
     }
+
+    void RoundReset()
+    {
+        bool isRoundOver = true;
+
+
+        foreach (Player p in Player.Players)
+        {
+            foreach(CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                if (cl.isActive)
+                {
+                    isRoundOver = false;
+
+                }
+            }
+        }
+
+        if (isRoundOver)
+        {
+            foreach (Player p in Player.Players)
+            {
+                p.isRoundOver = true;
+                foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+                {
+                    if (!cl.isDead)
+                    {
+                        cl.isActive = true;
+
+                        //DS reset "color" of creature
+                        new CreatureColorCommand(cl,false).AddToQueue();
+                    }
+                }
+            }
+
+            roundCounter++;
+
+            string roundString = "Round " + roundCounter + "!";
+
+            new ShowMessageCommand(roundString, GlobalSettings.Instance.MessageTime).AddToQueue();
+
+        }
+
+    }
+
 
 }
 

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour, ICharacter
 {
 
+    //DS
+    public bool isRoundOver;
+
 
     // PUBLIC FIELDS
     // int ID that we get from ID factory
@@ -152,6 +155,8 @@ public class Player : MonoBehaviour, ICharacter
         Players = GameObject.FindObjectsOfType<Player>();
         // obtain unique id from IDFactory
         PlayerID = IDFactory.GetUniqueID();
+
+        isRoundOver = true;
     }
 
     void Start()
@@ -172,8 +177,42 @@ public class Player : MonoBehaviour, ICharacter
         }
     }
 
+    public void OnReset()
+    {
+
+        foreach (CreatureLogic cl in table.CreaturesOnTable)  
+        if (!cl.isDead)   
+        {   
+
+             cl.OnTurnStart();
+
+            
+        }
+        isRoundOver = false;
+    }
+
+
     public virtual void OnTurnStart()
     {
+
+        if (isRoundOver)
+        {
+            OnReset();
+
+        }
+
+        bool hasActiveCL = false;
+
+        foreach (CreatureLogic cl in table.CreaturesOnTable)
+        {
+            if (cl.isActive)
+                hasActiveCL = true;
+        }
+
+        if(!hasActiveCL)
+            new EndTurnCommand().AddToQueue();
+
+
         // add one mana crystal to the pool;
         //Debug.Log("In ONTURNSTART for "+ gameObject.name);
         usedHeroPowerThisTurn = false;
@@ -181,8 +220,18 @@ public class Player : MonoBehaviour, ICharacter
         ManaLeft = ManaThisTurn;
         
         //ORIGINAL SCRIPT
-        // foreach (CreatureLogic cl in table.CreaturesOnTable)        
+        //foreach (CreatureLogic cl in table.CreaturesOnTable)
+        //  cl.OnTurnStart();
+        
+        
+        
+        //DS: Use this if you want each PLayer Turn all creatures are active
+        //foreach (CreatureLogic cl in table.CreaturesOnTable)  
+        //    if (!cl.isDead)   
+        //    {   
         //     cl.OnTurnStart();
+        //     cl.e_CreatureOnTurnEnd += OnTurnEnd;
+        //    }
         // PArea.HeroPower.WasUsedThisTurn = false;
 
         //logic to check if creature not dead
@@ -198,6 +247,8 @@ public class Player : MonoBehaviour, ICharacter
     
       
       //DS
+
+/*
        if(!gameIsOver)
        {
            //if dead, pass on the turn to other player
@@ -247,8 +298,8 @@ public class Player : MonoBehaviour, ICharacter
       
       //table.CreaturesOnTable[creatureTurn].OnTurnStart();
 
-  
-                             
+*/  
+
                
         PArea.HeroPower.WasUsedThisTurn = false;
 
@@ -260,11 +311,14 @@ public class Player : MonoBehaviour, ICharacter
 
     public void OnTurnEnd()
     {
+
         if(EndTurnEvent != null)
             EndTurnEvent.Invoke();
         ManaThisTurn -= bonusManaThisTurn;
         bonusManaThisTurn = 0;
         GetComponent<TurnMaker>().StopAllCoroutines();
+
+        //new EndTurnCommand().AddToQueue();
 
         //Check if Game Over - all creatures empty
         //CheckIfGameOver();
@@ -273,6 +327,36 @@ public class Player : MonoBehaviour, ICharacter
 
         //DS
         HighlightPlayableCards(true);
+
+
+ /*       
+        bool allCreaturesFinished = true;
+        foreach (CreatureLogic cl in table.CreaturesOnTable)  
+            if (cl.isActive)   
+            {
+                allCreaturesFinished = false;
+                break;
+            }
+
+        if (allCreaturesFinished)
+        {
+            if(EndTurnEvent != null)
+                EndTurnEvent.Invoke();
+            ManaThisTurn -= bonusManaThisTurn;
+            bonusManaThisTurn = 0;
+            GetComponent<TurnMaker>().StopAllCoroutines();
+
+            new EndTurnCommand().AddToQueue();
+
+            //Check if Game Over - all creatures empty
+            //CheckIfGameOver();
+
+            //cl active this turn needs to have attacksleft this turn set to 0
+
+            //DS
+            HighlightPlayableCards(true);
+        }
+*/
         
     }
 

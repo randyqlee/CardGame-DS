@@ -105,20 +105,20 @@ public class AITurnMaker: TurnMaker {
     bool AttackWithACreature()
     {
         //DS - use this for Round-based TurnManager
-        //if(CanACreatureAttack())
-        //{
-        //    int i = Random.Range(0,p.table.CreaturesOnTable.Count);
-        //    while (p.table.CreaturesOnTable[i].isDead || p.table.CreaturesOnTable[i].AttacksLeftThisTurn <= 0)
-        //    {
-        //        i = Random.Range(0,p.table.CreaturesOnTable.Count);
-        //    }
-        //    CreatureLogic cl = p.table.CreaturesOnTable[i];
+        if(CanACreatureAttack())
+        {
+            int i = Random.Range(0,p.table.CreaturesOnTable.Count);
+            while (p.table.CreaturesOnTable[i].isDead || p.table.CreaturesOnTable[i].AttacksLeftThisTurn <= 0)
+            {
+                i = Random.Range(0,p.table.CreaturesOnTable.Count);
+            }
+            CreatureLogic cl = p.table.CreaturesOnTable[i];
             
 
 
 
-            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
-            {
+            //foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            //{
                 if (cl.AttacksLeftThisTurn > 0)
                 {
                     // attack a random target with a creature
@@ -132,20 +132,20 @@ public class AITurnMaker: TurnMaker {
                         cl.AttackCreature(targetCreature);
                     }                                    
                     InsertDelay(1f);
-                    return true;
+                    //return true;
                 }
-            }
-        //    return false;
-        //}
+            //}
+            return false;
+        }
         
-        //else
-        //{
-        //    TurnManager.Instance.EndTurn(); 
+        else
+        {
+            TurnManager.Instance.EndTurn(); 
         
-        //    return false;
-        //}
+            return false;
+        }
 
-        return false;
+        //return false;
     }
 
     void InsertDelay(float delay)
