@@ -46,13 +46,13 @@ public class BuffEffect
     public virtual void RegisterCooldown()
     {
         //TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
-        target.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
+        //target.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
         //TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
-        target.e_CreatureOnTurnEnd -= ReduceCreatureEffectCooldown;
+        //target.e_CreatureOnTurnEnd -= ReduceCreatureEffectCooldown;
         
     }
 

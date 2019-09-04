@@ -360,8 +360,8 @@ public class CreatureLogic: ICharacter
             //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
         }
 
-         if(e_CreatureOnTurnStart != null)
-            e_CreatureOnTurnStart.Invoke();
+//         if(e_CreatureOnTurnStart != null)
+//            e_CreatureOnTurnStart.Invoke();
 
         
                 
@@ -381,8 +381,8 @@ public class CreatureLogic: ICharacter
         //TODO:  End of Turn Effects
 
 
-//        if(e_CreatureOnTurnEnd != null)
-//            e_CreatureOnTurnEnd.Invoke();               
+        if(e_CreatureOnTurnEnd != null)
+            e_CreatureOnTurnEnd.Invoke();               
         
         
 
@@ -423,8 +423,8 @@ public class CreatureLogic: ICharacter
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();         
         
 
-//        if(e_ThisCreatureDies != null)
-//        e_ThisCreatureDies.Invoke();
+        if(e_ThisCreatureDies != null)
+        e_ThisCreatureDies.Invoke();
         
         owner.CheckIfGameOver();           
     }
