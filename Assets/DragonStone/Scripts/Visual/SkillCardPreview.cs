@@ -43,6 +43,7 @@ public class SkillCardPreview : MonoBehaviour {
 		if (ce.Name != null)
 		cm.DescriptionText.text = ce.Name;
 
+		if (ce.abilityDescription != null)
 		cm.DescriptionText.text = ce.abilityDescription.ToString();
 
 		if (ce.abilityPreviewSprite != null)

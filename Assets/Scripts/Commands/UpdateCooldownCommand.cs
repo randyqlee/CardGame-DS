@@ -18,6 +18,7 @@ public class UpdateCooldownCommand : Command {
 
 	public override void StartCommandExecution()
 	{
+		if(abilityCard!=null)
 		abilityCard.UpdateCooldown(cooldown,originalCooldown);
 		Command.CommandExecutionComplete();	
 	}

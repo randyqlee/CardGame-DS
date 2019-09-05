@@ -32,17 +32,23 @@ public class AbilityCard : MonoBehaviour {
 	public void UpdateCooldown(int cooldown, int originalCooldown)
 	{
 		if(cooldown == 0)
+		
+		if(abilityCooldownText!=null)
 		abilityCooldownText.text = " ";
+
 		else
+		if(abilityCooldownText!=null)
 		abilityCooldownText.text = cooldown.ToString();
 
 		if(originalCooldown<=0)
 		{
+			if(CooldownOverlay!=null)
 			CooldownOverlay.fillAmount = 0f;
 		}		
 		else
 		{
 			float fillValue = ((float)cooldown/(float)originalCooldown);
+			if(CooldownOverlay!=null)
 			CooldownOverlay.fillAmount = fillValue;
 			
 		}

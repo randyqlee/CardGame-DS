@@ -566,43 +566,24 @@ public class Player : MonoBehaviour, ICharacter
 
     public void PlayEquipCreatureFromHand(CardLogic playedCard)
     {
-        // Debug.Log(ManaLeft);
-        // Debug.Log(playedCard.CurrentManaCost);
-        ManaLeft -= playedCard.CurrentManaCost;
-        // Debug.Log("Mana Left after played a creature: " + ManaLeft);
-        // create a new creature object and add it to Table
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
 
         newCreature.isEquip = true;
 
-  
-        //DS
-        //DS this is just an optional script if we want to monitor all CL in game
-        //no logical or visual function
-        //GameObject.Find("CardLogic").GetComponent<AllCardLogic>().creatureLogic.Add(newCreature);
-
-        //HeroLogic newCreature = new HeroLogic(this, playedCard.ca);
-        //table.CreaturesOnTable.Insert(tablePos, newCreature);
-        // 
-        //new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
-        // cause battlecry Effect
         if (newCreature.isEquip)
         {
         
             if (newCreature.equipEffect != null)
+            {
+      
             
                 newCreature.equipEffect.WhenACreatureIsPlayed();
+            }
         }
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
 
-        //DS
-        //comment out
-        //HighlightPlayableCards();
 
-        //DS
-        //DS COMMENT OUT GETACARDNOTFROMDECK
-        //DrawAbilityCards(newCreature);
     }
     public void Die()
     {

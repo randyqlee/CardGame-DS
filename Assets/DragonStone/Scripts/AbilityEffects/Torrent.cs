@@ -34,6 +34,7 @@ public class Torrent : CreatureEffect {
     {        
         if(remainingCooldown<=0)
         {
+            Debug.Log ("Using TOrrent!");
             if(creature.Health <= healthLimit)
             {
                 base.ShowAbility();
