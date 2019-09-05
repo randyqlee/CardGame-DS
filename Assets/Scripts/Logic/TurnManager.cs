@@ -377,6 +377,19 @@ public class TurnManager : MonoBehaviour {
                 }
             }
 
+            /*
+            foreach (ResetRound rr in e_ResetRound.GetInvocationList ())
+            {
+                try
+                {
+                    rr.Invoke();
+                    Debug.Log ("Invoke");
+                } catch(System.Exception e) {
+                    Debug.Log ("Reset error: " + e.Message);
+                }
+            }
+            */
+
             roundCounter++;
 
             string roundString = "Round " + roundCounter + "!";
