@@ -24,6 +24,9 @@ public class TurnManager : MonoBehaviour {
     public delegate void ResetRound();    
     public event ResetRound e_ResetRound; 
 
+     public delegate void EndOfRound();    
+    public event EndOfRound e_EndOfRound; 
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -350,6 +353,11 @@ public class TurnManager : MonoBehaviour {
 
         if (isRoundOver)
         {
+            
+            //End of Round
+            if(e_EndOfRound != null)
+                e_EndOfRound.Invoke();
+            
             foreach (Player p in Player.Players)
             {
                 p.isRoundOver = true;

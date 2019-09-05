@@ -13,12 +13,14 @@ public class Bomb : BuffEffect {
 
     public override void CauseBuffEffect()
     {        
-        target.e_CreatureOnTurnEnd += bombEffect;
+        //target.e_CreatureOnTurnEnd += bombEffect;
+        TurnManager.Instance.e_EndOfRound += bombEffect;
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_CreatureOnTurnEnd -= bombEffect;
+        //target.e_CreatureOnTurnEnd -= bombEffect;
+         TurnManager.Instance.e_EndOfRound -= bombEffect;
     }
 
     public void bombEffect()

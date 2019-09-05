@@ -15,14 +15,16 @@ public class Poison : BuffEffect {
     public override void CauseBuffEffect()
     {
         //target.e_CreatureOnTurnStart += DealPoisonDamage;
-        target.e_CreatureOnTurnEnd += DealPoisonDamage;
+        //target.e_CreatureOnTurnEnd += DealPoisonDamage;
+        TurnManager.Instance.e_EndOfRound += DealPoisonDamage;
         
     }
 
     public override void UndoBuffEffect()
     {
         //target.e_CreatureOnTurnStart -= DealPoisonDamage;
-        target.e_CreatureOnTurnEnd -= DealPoisonDamage;
+        //target.e_CreatureOnTurnEnd -= DealPoisonDamage;
+        TurnManager.Instance.e_EndOfRound -= DealPoisonDamage;
     }
 
     public void DealPoisonDamage()
