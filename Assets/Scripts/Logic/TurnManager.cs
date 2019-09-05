@@ -372,15 +372,15 @@ public class TurnManager : MonoBehaviour {
 
                         
                         //Reduce ability cooldown
-                        foreach (CreatureEffect ce in cl.creatureEffects)
-                        {
-                            ce.ReduceCreatureEffectCooldown();
-                        }
+                        //foreach (CreatureEffect ce in cl.creatureEffects)
+                        //{
+                        //    ce.ReduceCreatureEffectCooldown();
+                        //}
 
-                        for (int i = cl.buffEffects.Count-1; i >= 0; i--)
-                        {
-                            cl.buffEffects[i].ReduceCreatureEffectCooldown();
-                        }
+                        //for (int i = cl.buffEffects.Count-1; i >= 0; i--)
+                        //{
+                        //    cl.buffEffects[i].ReduceCreatureEffectCooldown();
+                        //}
                     }
                 }
             }
