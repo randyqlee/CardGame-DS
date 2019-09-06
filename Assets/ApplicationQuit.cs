@@ -7,6 +7,8 @@ public class ApplicationQuit : MonoBehaviour {
 
 	public string previousScene;
 
+	public GameObject exitScreen;
+
 	void Awake()
 	{
 		
@@ -21,16 +23,36 @@ public class ApplicationQuit : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			if (previousScene == null || previousScene == "")
-				Application.Quit();
+			if (exitScreen.activeSelf == true)
+				Quit();
+
 			else
 			{
-				StartCoroutine(SceneSwitch());
-				
+
+
+				if (previousScene == null || previousScene == "")
+					exitScreen.SetActive(true);
+				else
+				{
+					StartCoroutine(SceneSwitch());
+					
+				}
 			}
 
 
 		}
+	}
+
+	public void Quit()
+	{
+		     // save any game data here
+     #if UNITY_EDITOR
+         // Application.Quit() does not work in the editor so
+         // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+         UnityEditor.EditorApplication.isPlaying = false;
+     #else
+         Application.Quit();
+     #endif
 	}
 
 	public void Back()
