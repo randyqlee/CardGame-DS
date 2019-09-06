@@ -236,9 +236,9 @@ public class CollectionBrowser : MonoBehaviour {
 
             CreatedCards.Add(newMenuCard);
 
-            OneCardManager manager = newMenuCard.GetComponent<OneCardManager>();
-            manager.cardAsset = CardsOnThisPage[i];
-            manager.ReadCardFromAsset();
+            //OneCardManager manager = newMenuCard.GetComponent<OneCardManager>();
+            //manager.cardAsset = CardsOnThisPage[i];
+            //manager.ReadCardFromAsset();
 
             AddCardToDeck addCardComponent = newMenuCard.GetComponent<AddCardToDeck>();
             addCardComponent.SetCardAsset(CardsOnThisPage[i]);
@@ -303,6 +303,20 @@ public class CollectionBrowser : MonoBehaviour {
     }
 
 
+    public void ActivateCreatureInCollection(CardAsset ca)
+    {
+        foreach(GameObject go in CreatedCards)
+        {
+            CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
+            if (asset == ca)
+            {
+                go.GetComponent<Button>().interactable = true;
+            }
+
+            PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
+        }
+    }
+
     private void CreateCards(List<CardAsset> listca)
     {
         ClearCreatedCards();
@@ -313,8 +327,18 @@ public class CollectionBrowser : MonoBehaviour {
             go.GetComponentInChildren<Text>().text = ca.name;
             CreatedCards.Add(go);
 
-            OneCardManager manager = go.GetComponent<OneCardManager>();
-            manager.cardAsset = ca;
+//            OneCardManager manager = go.GetComponent<OneCardManager>();
+//            manager.cardAsset = ca;
+
+
+            //DS: if player does not own the creature, deactivate the GO
+
+            if (CardCollection.Instance.QuantityOfEachCard[ca] == 0)
+            {
+                go.GetComponent<Button>().interactable = false;
+            }
+
+
             //manager.ReadCardFromAsset();
 
             AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
@@ -323,6 +347,7 @@ public class CollectionBrowser : MonoBehaviour {
 
 
     }
+
 
     public void PressOnFilter()
     {

@@ -43,6 +43,8 @@ public class CardAsset : ScriptableObject
     public int ManaCost;
     public Sprite HeroPortrait;
 
+    public int cardCost = 10;
+
     [Header("Creature Info")]
     public int MaxHealth;   // =0 => spell card
     public int Attack;

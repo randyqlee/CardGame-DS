@@ -29,7 +29,10 @@ public class OneCardManager : MonoBehaviour {
     {
         if (cardAsset != null)
             ReadCardFromAsset();
+        else
+            Debug.Log("cardAsset = null");
     }
+
 
     private bool canBePlayedNow = false;
     public bool CanBePlayedNow
@@ -49,6 +52,7 @@ public class OneCardManager : MonoBehaviour {
 
     public void ReadCardFromAsset()
     {
+        
         // universal actions for any Card
         // 1) apply tint
         if (cardAsset.characterAsset != null)

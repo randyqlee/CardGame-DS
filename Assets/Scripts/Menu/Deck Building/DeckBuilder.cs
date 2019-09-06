@@ -122,8 +122,8 @@ public class DeckBuilder : MonoBehaviour
             goDeckList.Add(go);
 
 
-            OneCardManager manager = go.GetComponent<OneCardManager>();
-            manager.cardAsset = ca;
+            //OneCardManager manager = go.GetComponent<OneCardManager>();
+            //manager.cardAsset = ca;
             //manager.ReadCardFromAsset();
 
             AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
@@ -168,7 +168,7 @@ public class DeckBuilder : MonoBehaviour
 
     public void RemoveCard(GameObject go)
     {
-        CardAsset asset = go.GetComponent<OneCardManager>().cardAsset;
+        CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
 
         deckList.Remove(asset);
         goDeckList.Remove(go);
@@ -281,7 +281,7 @@ public class DeckBuilder : MonoBehaviour
         {
             GameObject go = goDeckList[0];
             
-        CardAsset asset = go.GetComponent<OneCardManager>().cardAsset;
+        CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
 
         deckList.Remove(asset);
         goDeckList.Remove(go);

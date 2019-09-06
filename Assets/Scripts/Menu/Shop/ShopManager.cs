@@ -27,22 +27,80 @@ public class ShopManager : MonoBehaviour {
     public int PacksCreated { get; set;}
     private float packPlacementOffset = -0.01f;
 
+    public GameObject ShopPanel;
+    public GameObject ShopCreaturePrefab;
+
+    public GameObject FilterButton;
+    public RarityOptions RarityFilter;
+
+    private List<GameObject> CreatedCards = new List<GameObject>();
+
+ 
     void Awake()
     {
         Instance = this;
-        HideScreen();
+        //HideScreen();
 
         //load unopened packs, if they exist
 
-        if (PlayerPrefs.HasKey("UnopenedPacks"))
-        {
-            Debug.Log("UnopenedPacks: " + PlayerPrefs.GetInt("UnopenedPacks"));
-            StartCoroutine(GivePacks(PlayerPrefs.GetInt("UnopenedPacks"), true));
-        }
+        //if (PlayerPrefs.HasKey("UnopenedPacks"))
+        //{
+        //    Debug.Log("UnopenedPacks: " + PlayerPrefs.GetInt("UnopenedPacks"));
+        //    StartCoroutine(GivePacks(PlayerPrefs.GetInt("UnopenedPacks"), true));
+        //}
             
         //actually, load dust and money FROM PlayerPrefs
         LoadDustAndMoneyToPlayerPrefs();
 
+        
+        RarityFilter = RarityOptions.Common;
+
+    }
+
+    void Start()
+    {
+        CreateCards(CardCollection.Instance.GetAllCards());
+    }
+
+    private void CreateCards(List<CardAsset> listca)
+    {
+        ClearCreatedCards();
+        foreach (CardAsset ca in listca)
+        {
+            GameObject go = Instantiate(ShopCreaturePrefab,ShopPanel.transform);
+            go.GetComponent<Image>().sprite = ca.HeroPortrait;
+            go.GetComponentInChildren<Text>().text = ca.name;
+            CreatedCards.Add(go);
+
+//            OneCardManager manager = go.GetComponent<OneCardManager>();
+//            manager.cardAsset = ca;
+
+
+            //DS: if player owns the creature, deactivate the GO
+
+            if (CardCollection.Instance.QuantityOfEachCard[ca] > 0)
+            {
+                go.GetComponent<Button>().interactable = false;
+            }
+
+
+            //manager.ReadCardFromAsset();
+
+            AddCardToCollection addCardComponent = go.GetComponent<AddCardToCollection>();
+            addCardComponent.SetCardAsset(ca);
+        }
+
+
+    }
+
+    public void ClearCreatedCards()
+    {
+        while(CreatedCards.Count>0)
+        {
+            GameObject g = CreatedCards[0];
+            CreatedCards.RemoveAt(0);
+            Destroy(g);
+        }
     }
 
     private int money; 
@@ -133,13 +191,32 @@ public class ShopManager : MonoBehaviour {
     public void ShowScreen()
     {
         ScreenContent.SetActive(true);
-        MoneyHUD.SetActive(true);
+        //MoneyHUD.SetActive(true);
     }
 
     public void HideScreen()
     {
         ScreenContent.SetActive(false);
-        MoneyHUD.SetActive(false);
+        //MoneyHUD.SetActive(false);
+    }
+
+    public void BuyCard(GameObject go)
+    {
+        CardAsset asset = go.GetComponent<AddCardToCollection>().cardAsset;
+
+        if (money >= asset.cardCost)
+        {
+            Money -= asset.cardCost;
+            Debug.Log ("Buying " + asset.name + " for " + asset.cardCost + " gold!");
+        }
+
+        GetComponent<CollectionBrowser>().ActivateCreatureInCollection(asset);
+
+        go.GetComponent<Button>().interactable = false;
+
+        PlayerPrefs.SetInt("Money", money);
+
+
     }
 
 }

@@ -9,7 +9,7 @@ public class AddCardToDeck : MonoBehaviour {
     public Text QuantityText;
     private float InitialScale;
     private float scaleFactor = 1.1f;
-    private CardAsset cardAsset;
+    public CardAsset cardAsset;
 
     //DS
     public bool isAdded = false;
@@ -23,7 +23,7 @@ public class AddCardToDeck : MonoBehaviour {
 
     void OnMouseDown()
     {
-        CardAsset asset = GetComponent<OneCardManager>().cardAsset;
+        CardAsset asset = GetComponent<AddCardToDeck>().cardAsset;
         if (asset == null)
             return;
 
@@ -84,7 +84,7 @@ public class AddCardToDeck : MonoBehaviour {
                 Debug.Log("Right Clicked on " + this.name);
 
                 // show craft/disenchant info
-                CraftingScreen.Instance.ShowCraftingScreen(GetComponent<OneCardManager>().cardAsset);
+                CraftingScreen.Instance.ShowCraftingScreen(GetComponent<AddCardToDeck>().cardAsset);
             }
         }
     }
@@ -102,7 +102,7 @@ public class AddCardToDeck : MonoBehaviour {
 
     public void AddToDeck()
     {        
-        CardAsset asset = GetComponent<OneCardManager>().cardAsset;
+        CardAsset asset = GetComponent<AddCardToDeck>().cardAsset;
         if (asset == null)
             return;
 

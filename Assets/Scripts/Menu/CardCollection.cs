@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CardCollection : MonoBehaviour 
 {
-    public int DefaultNumberOfBasicCards = 3; // how many cards of basic rarity should a character have by default;
+    public int DefaultNumberOfBasicCards = 1; // how many cards of basic rarity should a character have by default;
 
     public static CardCollection Instance;
     private Dictionary<string, CardAsset > AllCardsDictionary = new Dictionary<string, CardAsset>();
@@ -35,7 +35,7 @@ public class CardCollection : MonoBehaviour
     private void LoadQuantityOfCardsFromPlayerPrefs()
     {
         // TODO: load only cards from the non-basic set. Basic set should always have quantities set to some standard number, not disenchantable 
-
+/*
         foreach (CardAsset ca in allCardsArray)
         {
             // quantity of basic cards should not be affected:
@@ -46,17 +46,34 @@ public class CardCollection : MonoBehaviour
             else
                 QuantityOfEachCard.Add(ca, 0);
         }
+*/
+        foreach (CardAsset ca in allCardsArray)
+        {
+            // quantity of basic cards should not be affected:
+            if(ca.Rarity == RarityOptions.Common)
+                QuantityOfEachCard.Add(ca, DefaultNumberOfBasicCards);            
+            else if (PlayerPrefs.HasKey("NumberOf" + ca.name))
+                QuantityOfEachCard.Add(ca, PlayerPrefs.GetInt("NumberOf" + ca.name));
+            else
+                QuantityOfEachCard.Add(ca, 0);
+        }
+
+
     }
 
     private void SaveQuantityOfCardsIntoPlayerPrefs()
     {
+
+
         foreach (CardAsset ca in allCardsArray)
         {
-            if (ca.Rarity == RarityOptions.Basic)
+            if (ca.Rarity == RarityOptions.Common)
                 PlayerPrefs.SetInt("NumberOf" + ca.name, DefaultNumberOfBasicCards);
             else
                 PlayerPrefs.SetInt("NumberOf" + ca.name, QuantityOfEachCard[ca]);
         }
+
+
     }
 
     void OnApplicationQuit()
