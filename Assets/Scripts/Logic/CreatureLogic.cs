@@ -141,7 +141,7 @@ public class CreatureLogic: ICharacter
     }
      
     // number of attacks for one turn if (attacksForOneTurn==2) => Windfury
-    private int attacksForOneTurn = 1;
+    public int attacksForOneTurn = 1;
 
     private int attacksLeftThisTurn;
     public int AttacksLeftThisTurn

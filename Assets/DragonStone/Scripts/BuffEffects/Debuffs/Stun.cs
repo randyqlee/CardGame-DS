@@ -31,7 +31,8 @@ public class Stun : BuffEffect {
 
         //new EndTurnCommand().AddToQueue();        
         target.OnTurnEnd();
-        target.attackTurnModifier = -1;
+        
+        target.attackTurnModifier = -1*target.attacksForOneTurn;
         //target.AttacksLeftThisTurn = 0;
       
     }
