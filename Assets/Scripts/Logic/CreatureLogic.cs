@@ -227,7 +227,8 @@ public class CreatureLogic: ICharacter
     public int targetAttackDamage = 0;
     [HideInInspector]
     public bool canUseAbility = true;
-    
+    [HideInInspector]
+    public int attackTurnModifier;
 
    
 
@@ -348,7 +349,8 @@ public class CreatureLogic: ICharacter
        
         // will be granted by Player
         isActive = true;
-        AttacksLeftThisTurn = attacksForOneTurn; 
+
+        AttacksLeftThisTurn = attacksForOneTurn + attackTurnModifier; 
 
         //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects       
 

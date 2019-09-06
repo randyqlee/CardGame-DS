@@ -13,22 +13,32 @@ public class Stun : BuffEffect {
 
     public override void CauseBuffEffect()
     {        
-        target.e_CreatureOnTurnStart += stunEffect;
+        //target.e_CreatureOnTurnStart += stunEffect;
+        StunEffect();
         
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_CreatureOnTurnStart -= stunEffect;
+        //target.e_CreatureOnTurnStart -= stunEffect;
+        UndoStunEffect();
     }
 
-    public void stunEffect()
+    public void StunEffect()
     {
-        Debug.Log("This creature is stunned: " +target.UniqueCreatureID);
+        //Debug.Log("This creature is stunned: " +target.UniqueCreatureID);
         //TurnManager.Instance.EndTurn();
 
-        //new EndTurnCommand().AddToQueue();
+        //new EndTurnCommand().AddToQueue();        
         target.OnTurnEnd();
+        target.attackTurnModifier = -1;
+        //target.AttacksLeftThisTurn = 0;
+      
+    }
+
+    public void UndoStunEffect()
+    {
+        target.attackTurnModifier = 0;
     }
     
     

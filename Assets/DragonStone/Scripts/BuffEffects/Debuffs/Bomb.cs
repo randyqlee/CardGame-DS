@@ -5,27 +5,33 @@ using UnityEngine;
 public class Bomb : BuffEffect {
    
     int bombDamage = 10;
+    int bombCooldown;
 	
     public Bomb(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     { 
         buffIcon = Resources.Load<Sprite>("BuffIcons/Bomb");
-        isDebuff = true;}
+        isDebuff = true;
+        bombCooldown = buffCooldown;
+        }
 
     public override void CauseBuffEffect()
     {        
         //target.e_CreatureOnTurnEnd += bombEffect;
         TurnManager.Instance.e_EndOfRound += bombEffect;
+        TurnManager.Instance.e_ResetRound += stunEffect;
     }
 
     public override void UndoBuffEffect()
     {
         //target.e_CreatureOnTurnEnd -= bombEffect;
          TurnManager.Instance.e_EndOfRound -= bombEffect;
+         TurnManager.Instance.e_ResetRound -= stunEffect;
     }
 
     public void bombEffect()
     {        
-        if(buffCooldown <= 0)
+        bombCooldown--;
+        if(bombCooldown <= 0)
         {
             
            new DelayCommand(0.5f).AddToQueue();
@@ -38,13 +44,19 @@ public class Bomb : BuffEffect {
             target.TakeOtherDamage(bombDamage);
             
             Debug.Log("BOOM! " +target.UniqueCreatureID);
-            base.AddBuff(target, "Stun", 1);
+            //base.AddBuff(target, "Stun", 2);
            
             //TurnManager.Instance.EndTurn();
 
     
         }
         
+    }
+
+    public void stunEffect()
+    {
+          if(bombCooldown <= 0)
+          base.AddBuff(target, "Stun", 1);
     }
 
     
