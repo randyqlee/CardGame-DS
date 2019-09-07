@@ -315,9 +315,29 @@ public class CollectionBrowser : MonoBehaviour {
                 addCardComponent.SetCardAsset(ca);
                 addCardComponent.lockButton.gameObject.SetActive(false);
                 addCardComponent.addButton.gameObject.SetActive(true);
+                addCardComponent.isOwned = true;
             }
 
             PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
+        }
+    }
+
+    public void RemoveCreatureInCollection(CardAsset ca)
+    {
+        foreach(GameObject go in CreatedCards)
+        {
+            CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
+            if (asset == ca)
+            {
+                //go.GetComponent<Button>().interactable = true;
+                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                addCardComponent.SetCardAsset(ca);
+                addCardComponent.lockButton.gameObject.SetActive(true);
+                addCardComponent.addButton.gameObject.SetActive(false);
+                addCardComponent.isOwned = false;
+            }
+
+            PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
         }
     }
 
@@ -348,6 +368,12 @@ public class CollectionBrowser : MonoBehaviour {
                 addCardComponent.removeButton.gameObject.SetActive(false);
                 addCardComponent.lockButton.gameObject.SetActive(true);
 
+                addCardComponent.isOwned = false;
+
+            }
+            else
+            {
+                addCardComponent.isOwned = true;
             }
         }
 
