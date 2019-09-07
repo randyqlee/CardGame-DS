@@ -162,4 +162,10 @@ public class AddCardToDeck : MonoBehaviour {
         if(isAdded)
             DeckBuilder.Instance.RemoveCard(gameObject);
     }
+
+    public void BuyCard()
+    {
+
+        ShopManager.Instance.BuyCard(gameObject);
+    }
 }

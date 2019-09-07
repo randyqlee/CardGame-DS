@@ -33,6 +33,8 @@ public class ShopManager : MonoBehaviour {
     public GameObject FilterButton;
     public RarityOptions RarityFilter;
 
+    CardAsset asset;
+
     private List<GameObject> CreatedCards = new List<GameObject>();
 
  
@@ -59,7 +61,7 @@ public class ShopManager : MonoBehaviour {
 
     void Start()
     {
-        CreateCards(CardCollection.Instance.GetAllCards());
+        //CreateCards(CardCollection.Instance.GetAllCards());
     }
 
     private void CreateCards(List<CardAsset> listca)
@@ -80,7 +82,7 @@ public class ShopManager : MonoBehaviour {
 
             if (CardCollection.Instance.QuantityOfEachCard[ca] > 0)
             {
-                go.GetComponent<Button>().interactable = false;
+                //go.GetComponent<Button>().interactable = false;
             }
 
 
@@ -202,7 +204,11 @@ public class ShopManager : MonoBehaviour {
 
     public void BuyCard(GameObject go)
     {
-        CardAsset asset = go.GetComponent<AddCardToCollection>().cardAsset;
+
+        if (go.GetComponent<AddCardToCollection>() != null)
+            asset = go.GetComponent<AddCardToCollection>().cardAsset;
+        else
+            asset = go.GetComponent<AddCardToDeck>().cardAsset;
 
         if (money >= asset.cardCost)
         {
@@ -210,11 +216,21 @@ public class ShopManager : MonoBehaviour {
             Debug.Log ("Buying " + asset.name + " for " + asset.cardCost + " gold!");
         }
 
-        GetComponent<CollectionBrowser>().ActivateCreatureInCollection(asset);
+        if ( GetComponent<CollectionBrowser>() != null)
+        {
+            GetComponent<CollectionBrowser>().ActivateCreatureInCollection(asset);
 
-        go.GetComponent<Button>().interactable = false;
+            go.GetComponent<Button>().interactable = false;
 
-        PlayerPrefs.SetInt("Money", money);
+            PlayerPrefs.SetInt("Money", money);
+        }
+
+        else
+        {
+            go.GetComponentInParent<CollectionBrowser>().ActivateCreatureInCollection(asset);
+            go.GetComponent<Button>().interactable = true;
+            PlayerPrefs.SetInt("Money", money);
+        }
 
 
     }
