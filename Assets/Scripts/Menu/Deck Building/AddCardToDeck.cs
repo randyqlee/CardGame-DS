@@ -12,11 +12,44 @@ public class AddCardToDeck : MonoBehaviour {
     public CardAsset cardAsset;
 
     //DS
-    public bool isAdded = false;
+
+    public bool _isAdded = false;
+    public bool isAdded
+    {
+        get
+        { return _isAdded; }
+
+        set
+        {
+            _isAdded = value;
+            if (!_isAdded)
+            {
+                addButton.gameObject.SetActive(true);
+                removeButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                addButton.gameObject.SetActive(false);
+                removeButton.gameObject.SetActive(true);
+            }
+        }
+
+
+    }
+
+    public Button addButton;
+    public Button removeButton;
+
+    public Button lockButton;
 
     void Awake()
     {
         InitialScale = transform.localScale.x;
+    }
+
+    void Start()
+    {
+        
     }
 
     public void SetCardAsset(CardAsset asset) { cardAsset = asset; } 
@@ -117,6 +150,16 @@ public class AddCardToDeck : MonoBehaviour {
         if(!isAdded)
             DeckBuilder.Instance.AddCard(asset);
         else
+            DeckBuilder.Instance.RemoveCard(gameObject);
+    }
+
+    public void RemoveFromDeck()
+    {        
+        CardAsset asset = GetComponent<AddCardToDeck>().cardAsset;
+        if (asset == null)
+            return;
+
+        if(isAdded)
             DeckBuilder.Instance.RemoveCard(gameObject);
     }
 }

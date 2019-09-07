@@ -310,7 +310,11 @@ public class CollectionBrowser : MonoBehaviour {
             CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
             if (asset == ca)
             {
-                go.GetComponent<Button>().interactable = true;
+                //go.GetComponent<Button>().interactable = true;
+                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                addCardComponent.SetCardAsset(ca);
+                addCardComponent.lockButton.gameObject.SetActive(false);
+                addCardComponent.addButton.gameObject.SetActive(true);
             }
 
             PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
@@ -333,16 +337,18 @@ public class CollectionBrowser : MonoBehaviour {
 
             //DS: if player does not own the creature, deactivate the GO
 
-            if (CardCollection.Instance.QuantityOfEachCard[ca] == 0)
-            {
-                go.GetComponent<Button>().interactable = false;
-            }
-
-
             //manager.ReadCardFromAsset();
 
             AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
             addCardComponent.SetCardAsset(ca);
+
+            if (CardCollection.Instance.QuantityOfEachCard[ca] == 0)
+            {
+                addCardComponent.addButton.gameObject.SetActive(false);
+                addCardComponent.removeButton.gameObject.SetActive(false);
+                addCardComponent.lockButton.gameObject.SetActive(true);
+
+            }
         }
 
 
