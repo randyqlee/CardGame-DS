@@ -316,6 +316,8 @@ public class CollectionBrowser : MonoBehaviour {
                 addCardComponent.lockButton.gameObject.SetActive(false);
                 addCardComponent.addButton.gameObject.SetActive(true);
                 addCardComponent.isOwned = true;
+
+                go.GetComponent<Image>().material = null;
             }
 
             PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
@@ -335,6 +337,8 @@ public class CollectionBrowser : MonoBehaviour {
                 addCardComponent.lockButton.gameObject.SetActive(true);
                 addCardComponent.addButton.gameObject.SetActive(false);
                 addCardComponent.isOwned = false;
+
+                go.GetComponent<Image>().material = go.GetComponent<CollectionCreaturePrefab>().material;
             }
 
             PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
@@ -392,6 +396,8 @@ public class CollectionBrowser : MonoBehaviour {
                 addCardComponent.lockButton.gameObject.SetActive(true);
 
                 addCardComponent.isOwned = false;
+
+                go.GetComponent<Image>().material = go.GetComponent<CollectionCreaturePrefab>().material;
 
             }
             else

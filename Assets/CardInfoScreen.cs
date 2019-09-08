@@ -14,6 +14,7 @@ public class CardInfoScreen : MonoBehaviour {
 
 	public Image panelImage;
 	public Text panelText;
+	public Material greyScaleMaterial;
 
 	GameObject cardGO;
 	public void SetCardGO(GameObject go) { cardGO = go; } 
@@ -46,12 +47,16 @@ public class CardInfoScreen : MonoBehaviour {
 				buyButton.gameObject.SetActive(false);
 				sellButton.gameObject.SetActive(true);
 				sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+
+				panelImage.material = null;
 			}
 			else
 			{
 				sellButton.gameObject.SetActive(false);
 				buyButton.gameObject.SetActive(true);
 				buyText.text = "-" + cardAsset.cardCost.ToString();
+
+				panelImage.material = greyScaleMaterial;
 			}
 		}
 
@@ -59,6 +64,7 @@ public class CardInfoScreen : MonoBehaviour {
 		{
 			buyButton.gameObject.SetActive(false);
 			sellButton.gameObject.SetActive(false);
+			panelImage.material = null;
 		}
 
 	}

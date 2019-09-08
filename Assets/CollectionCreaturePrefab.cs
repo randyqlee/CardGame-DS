@@ -6,6 +6,8 @@ public class CollectionCreaturePrefab : MonoBehaviour {
 
 	public GameObject glowImage;
 
+	public Material material;
+
 	// Use this for initialization
 	void Start () {
 		
