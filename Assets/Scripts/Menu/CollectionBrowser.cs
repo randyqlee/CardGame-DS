@@ -349,6 +349,29 @@ public class CollectionBrowser : MonoBehaviour {
             GameObject go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
             go.GetComponent<Image>().sprite = ca.HeroPortrait;
             go.GetComponentInChildren<Text>().text = ca.name;
+            Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
+
+            if (ca.Rarity == RarityOptions.Common)
+            {
+                frame.color = Color.white;
+            }
+            if (ca.Rarity == RarityOptions.Rare)
+            {
+                frame.color = Color.black;
+            }
+                        if (ca.Rarity == RarityOptions.Epic)
+            {
+                frame.color = Color.magenta;
+            }
+                        if (ca.Rarity == RarityOptions.Legendary)
+            {
+                frame.color = Color.yellow;
+            }
+            
+
+
+
+
             CreatedCards.Add(go);
 
 //            OneCardManager manager = go.GetComponent<OneCardManager>();

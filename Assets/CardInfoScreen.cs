@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CardInfoScreen : MonoBehaviour {
-
 
 	public Button closeButton;
 	public Button buyButton;
@@ -38,17 +38,27 @@ public class CardInfoScreen : MonoBehaviour {
 		panelImage.sprite = cardAsset.CardImage;
 		panelText.text = cardAsset.name;
 
-		if (cardComponent.isOwned)
+		if (!cardComponent.isAdded)
 		{
-			buyButton.gameObject.SetActive(false);
-			sellButton.gameObject.SetActive(true);
-			sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+
+			if (cardComponent.isOwned)
+			{
+				buyButton.gameObject.SetActive(false);
+				sellButton.gameObject.SetActive(true);
+				sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+			}
+			else
+			{
+				sellButton.gameObject.SetActive(false);
+				buyButton.gameObject.SetActive(true);
+				buyText.text = "-" + cardAsset.cardCost.ToString();
+			}
 		}
+
 		else
 		{
+			buyButton.gameObject.SetActive(false);
 			sellButton.gameObject.SetActive(false);
-			buyButton.gameObject.SetActive(true);
-			buyText.text = "-" + cardAsset.cardCost.ToString();
 		}
 
 	}
@@ -64,4 +74,5 @@ public class CardInfoScreen : MonoBehaviour {
 	{
 		ShopManager.Instance.SellCard(cardGO);
 	}
+
 }
