@@ -354,7 +354,9 @@ public class CollectionBrowser : MonoBehaviour {
                 PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
 
                 LockedCards.Add(go);
-                OwnedCards.Remove(go);                
+                OwnedCards.Remove(go);    
+
+                //DeckBuilder.Instance.RemoveCardFromAllDecks(ca);            
             }            
         }
 

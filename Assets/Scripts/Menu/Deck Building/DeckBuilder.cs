@@ -185,6 +185,37 @@ public class DeckBuilder : MonoBehaviour
 
     }
 
+    public void RemoveCardFromAllDecks(CardAsset asset)
+    {
+        foreach (DeckInfo di in  DecksStorage.Instance.AllDecks)
+        {
+            for (int i = di.Cards.Count - 1 ; i >= 0; i--)
+            {
+                if ( asset == di.Cards[i] )
+                {
+                    di.Cards.Remove(di.Cards[i]);
+                }
+            }
+        }
+
+        for (int i=0; i<DecksStorage.Instance.AllDecks.Count; i++)
+        {
+            UpdateDeck(i+1);
+        }
+
+
+
+
+
+        if (deckNumber == 1)
+        ShowDeck1();
+        else if(deckNumber == 2)
+        ShowDeck2();
+        else if(deckNumber == 3)
+        ShowDeck3();
+
+    }
+
     public void BuildADeckFor(CharacterAsset asset)
     {
         InDeckBuildingMode = true;
