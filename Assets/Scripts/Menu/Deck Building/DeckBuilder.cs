@@ -114,24 +114,30 @@ public class DeckBuilder : MonoBehaviour
             return;
 
 
-            GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
-            go.GetComponent<Image>().sprite = ca.HeroPortrait;
-            go.GetComponentInChildren<Text>().text = ca.name;
-            deckList.Add(ca);
+        GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
+        go.GetComponent<Image>().sprite = ca.HeroPortrait;
+        go.GetComponentInChildren<Text>().text = ca.name;
+        deckList.Add(ca);
 
-            goDeckList.Add(go);
+        goDeckList.Add(go);
 
 
-            //OneCardManager manager = go.GetComponent<OneCardManager>();
-            //manager.cardAsset = ca;
-            //manager.ReadCardFromAsset();
+        //OneCardManager manager = go.GetComponent<OneCardManager>();
+        //manager.cardAsset = ca;
+        //manager.ReadCardFromAsset();
 
-            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-            addCardComponent.SetCardAsset(ca);
-            addCardComponent.isAdded = true;
+        AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+        addCardComponent.SetCardAsset(ca);
+        addCardComponent.isAdded = true;
 
-            //UpdateDeck();
-            UpdateDeck(deckNumber);
+        //UpdateDeck();
+        UpdateDeck(deckNumber);
+
+
+
+        //UpdateCollectionPanel();
+
+
     }
 
     public int NumberOfThisCardInDeck (CardAsset asset)
@@ -259,6 +265,14 @@ public class DeckBuilder : MonoBehaviour
         {
             playBtn.GetComponent<Button>().interactable = true;
         }
+
+        foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                ownedGO.SetActive(true);
+            }
+
+
+       UpdateCollectionPanel();
     }
 
     public void LoadDecks()
@@ -300,6 +314,14 @@ public class DeckBuilder : MonoBehaviour
                AddCard(ca);
            }
        }
+
+       foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                ownedGO.SetActive(true);
+            }
+
+
+       UpdateCollectionPanel();
     }
 
     public void ShowDeck1()
@@ -360,5 +382,21 @@ public class DeckBuilder : MonoBehaviour
 
         LoadDeck(deckNumber);
 
+    }
+
+    void UpdateCollectionPanel()
+    {
+        foreach(GameObject go in goDeckList)
+        {
+            foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                
+                if (go.GetComponent<AddCardToDeck>().cardAsset == ownedGO.GetComponent<AddCardToDeck>().cardAsset)
+                {
+                    ownedGO.SetActive(false);
+                }
+
+            }
+        }
     }
 }

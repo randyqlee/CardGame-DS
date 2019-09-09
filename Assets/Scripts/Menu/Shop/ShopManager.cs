@@ -205,10 +205,7 @@ public class ShopManager : MonoBehaviour {
     public void BuyCard(GameObject go)
     {
 
-        if (go.GetComponent<AddCardToCollection>() != null)
-            asset = go.GetComponent<AddCardToCollection>().cardAsset;
-        else
-            asset = go.GetComponent<AddCardToDeck>().cardAsset;
+        asset = go.GetComponent<AddCardToDeck>().cardAsset;
 
         if (dust >= asset.cardCost)
         {
@@ -225,42 +222,19 @@ public class ShopManager : MonoBehaviour {
             PlayerPrefs.SetInt("Dust", dust);
         }
 
-        else
-        {
-            go.GetComponentInParent<CollectionBrowser>().ActivateCreatureInCollection(asset);
-            go.GetComponent<Button>().interactable = true;
-            PlayerPrefs.SetInt("Dust", dust);
-        }
-
-
     }
 
     public void SellCard(GameObject go)
     {
 
-        if (go.GetComponent<AddCardToCollection>() != null)
-            asset = go.GetComponent<AddCardToCollection>().cardAsset;
-        else
-            asset = go.GetComponent<AddCardToDeck>().cardAsset;
-
-
-            Dust += asset.cardCost / 2;
+        asset = go.GetComponent<AddCardToDeck>().cardAsset;
+        Dust += asset.cardCost / 2;
 
         if ( GetComponent<CollectionBrowser>() != null)
         {
             GetComponent<CollectionBrowser>().RemoveCreatureInCollection(asset);
-
-            //go.GetComponent<Button>().interactable = false;
-
             PlayerPrefs.SetInt("Dust", dust);
         }
-
-        else
-        {
-            go.GetComponentInParent<CollectionBrowser>().RemoveCreatureInCollection(asset);
-            PlayerPrefs.SetInt("Dust", dust);
-        }
-
 
     }
 

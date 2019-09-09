@@ -44,11 +44,23 @@ public class CardInfoScreen : MonoBehaviour {
 
 			if (cardComponent.isOwned)
 			{
-				buyButton.gameObject.SetActive(false);
-				sellButton.gameObject.SetActive(true);
-				sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+				if (cardAsset.Rarity == RarityOptions.Common)
+				{
+					buyButton.gameObject.SetActive(false);
+					sellButton.gameObject.SetActive(false);
+					panelImage.material = null;
 
-				panelImage.material = null;
+				}
+				else
+				{
+					buyButton.gameObject.SetActive(false);
+					sellButton.gameObject.SetActive(true);
+					sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+
+					panelImage.material = null;
+
+				}
+				
 			}
 			else
 			{

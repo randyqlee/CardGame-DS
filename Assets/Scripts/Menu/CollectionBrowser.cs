@@ -16,6 +16,8 @@ public class CollectionBrowser : MonoBehaviour {
     public GameObject CollectionPanel;
     public GameObject CollectionCreaturePrefab;
 
+    public GameObject LockedCardsPanel;
+
     public GameObject FilterButton;
     public RarityOptions RarityFilter;
 
@@ -26,7 +28,10 @@ public class CollectionBrowser : MonoBehaviour {
 
     private CharacterAsset _character;
 
-    private List<GameObject> CreatedCards = new List<GameObject>();
+    public List<GameObject> CreatedCards = new List<GameObject>();
+    public List<GameObject> OwnedCards = new List<GameObject>();
+    public List<GameObject> LockedCards = new List<GameObject>();
+
     //private CardsDisplayInfo InfoAboutLastShownPage;
 
     // PROPERTIES for every variable that matters for filtering and selecting cards:
@@ -299,7 +304,7 @@ public class CollectionBrowser : MonoBehaviour {
     public void Start()
     {
         CreateCards(CardCollection.Instance.GetAllCards());
-        RarityFilter = RarityOptions.Common;
+        RarityFilter = RarityOptions.Basic; //Basic = ALL Cards
     }
 
 
@@ -311,17 +316,23 @@ public class CollectionBrowser : MonoBehaviour {
             if (asset == ca)
             {
                 //go.GetComponent<Button>().interactable = true;
-                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-                addCardComponent.SetCardAsset(ca);
-                addCardComponent.lockButton.gameObject.SetActive(false);
-                addCardComponent.addButton.gameObject.SetActive(true);
-                addCardComponent.isOwned = true;
+                //AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                //addCardComponent.SetCardAsset(ca);
+                //addCardComponent.lockButton.gameObject.SetActive(false);
+                //addCardComponent.addButton.gameObject.SetActive(true);
+                //addCardComponent.isOwned = true;
 
-                go.GetComponent<Image>().material = null;
+                //go.GetComponent<Image>().material = null;
+
+                PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
+
+                OwnedCards.Add(go);
+                LockedCards.Remove(go);
             }
-
-            PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]++);
+     
         }
+
+        CreateCards(CardCollection.Instance.GetAllCards());
     }
 
     public void RemoveCreatureInCollection(CardAsset ca)
@@ -332,114 +343,156 @@ public class CollectionBrowser : MonoBehaviour {
             if (asset == ca)
             {
                 //go.GetComponent<Button>().interactable = true;
-                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-                addCardComponent.SetCardAsset(ca);
-                addCardComponent.lockButton.gameObject.SetActive(true);
-                addCardComponent.addButton.gameObject.SetActive(false);
-                addCardComponent.isOwned = false;
+                //AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                //addCardComponent.SetCardAsset(ca);
+                //addCardComponent.lockButton.gameObject.SetActive(true);
+                //addCardComponent.addButton.gameObject.SetActive(false);
+                //addCardComponent.isOwned = false;
 
-                go.GetComponent<Image>().material = go.GetComponent<CollectionCreaturePrefab>().material;
-            }
+                //go.GetComponent<Image>().material = go.GetComponent<CollectionCreaturePrefab>().material;
 
-            PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
+                PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
+
+                LockedCards.Add(go);
+                OwnedCards.Remove(go);                
+            }            
         }
+
+        CreateCards(CardCollection.Instance.GetAllCards());
+
+        
     }
 
     private void CreateCards(List<CardAsset> listca)
     {
         ClearCreatedCards();
+        OwnedCards = new List<GameObject>();
+        LockedCards = new List<GameObject>();
+        
         foreach (CardAsset ca in listca)
         {
-            GameObject go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
-            go.GetComponent<Image>().sprite = ca.HeroPortrait;
-            go.GetComponentInChildren<Text>().text = ca.name;
-            Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
-
-            if (ca.Rarity == RarityOptions.Common)
-            {
-                frame.color = Color.white;
-            }
-            if (ca.Rarity == RarityOptions.Rare)
-            {
-                frame.color = Color.black;
-            }
-                        if (ca.Rarity == RarityOptions.Epic)
-            {
-                frame.color = Color.magenta;
-            }
-                        if (ca.Rarity == RarityOptions.Legendary)
-            {
-                frame.color = Color.yellow;
-            }
-            
-
-
-
-
-            CreatedCards.Add(go);
-
-//            OneCardManager manager = go.GetComponent<OneCardManager>();
-//            manager.cardAsset = ca;
-
-
-            //DS: if player does not own the creature, deactivate the GO
-
-            //manager.ReadCardFromAsset();
-
-            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-            addCardComponent.SetCardAsset(ca);
+            GameObject go;
+            //GameObject go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
 
             if (CardCollection.Instance.QuantityOfEachCard[ca] == 0)
             {
+                go = Instantiate(CollectionCreaturePrefab,LockedCardsPanel.transform);
+
+                
+                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                addCardComponent.SetCardAsset(ca);
+
                 addCardComponent.addButton.gameObject.SetActive(false);
                 addCardComponent.removeButton.gameObject.SetActive(false);
                 addCardComponent.lockButton.gameObject.SetActive(true);
 
                 addCardComponent.isOwned = false;
+                LockedCards.Add(go);
 
                 go.GetComponent<Image>().material = go.GetComponent<CollectionCreaturePrefab>().material;
 
+
+
+                go.GetComponent<Image>().sprite = ca.HeroPortrait;
+                go.GetComponentInChildren<Text>().text = ca.name;
+                Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
+
+                if (ca.Rarity == RarityOptions.Common)
+                {
+                    frame.color = Color.white;
+                }
+                if (ca.Rarity == RarityOptions.Rare)
+                {
+                    frame.color = Color.black;
+                }
+                            if (ca.Rarity == RarityOptions.Epic)
+                {
+                    frame.color = Color.magenta;
+                }
+                            if (ca.Rarity == RarityOptions.Legendary)
+                {
+                    frame.color = Color.yellow;
+                }
+
+                CreatedCards.Add(go);
+
             }
+            
+
+
             else
             {
+                go = Instantiate(CollectionCreaturePrefab,CollectionPanel.transform);
+                AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+                addCardComponent.SetCardAsset(ca);
+
+                addCardComponent.addButton.gameObject.SetActive(true);
+                addCardComponent.removeButton.gameObject.SetActive(false);
+                addCardComponent.lockButton.gameObject.SetActive(false);
+
                 addCardComponent.isOwned = true;
+                OwnedCards.Add(go);
+
+                go.GetComponent<Image>().material = null;
+
+                go.GetComponent<Image>().sprite = ca.HeroPortrait;
+                go.GetComponentInChildren<Text>().text = ca.name;
+                Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
+
+                if (ca.Rarity == RarityOptions.Common)
+                {
+                    frame.color = Color.white;
+                }
+                if (ca.Rarity == RarityOptions.Rare)
+                {
+                    frame.color = Color.black;
+                }
+                            if (ca.Rarity == RarityOptions.Epic)
+                {
+                    frame.color = Color.magenta;
+                }
+                            if (ca.Rarity == RarityOptions.Legendary)
+                {
+                    frame.color = Color.yellow;
+                }
+
+                CreatedCards.Add(go);
             }
         }
 
 
     }
-
-
+    
     public void PressOnFilter()
     {
         switch (RarityFilter)
         {
-            case RarityOptions.Basic:
-                RarityFilter = RarityOptions.Epic;
-                FilterButton.GetComponentInChildren<Text>().text = "Epic";
+            case RarityOptions.Common:
+                RarityFilter = RarityOptions.Rare;
+                FilterButton.GetComponentInChildren<Text>().text = "Rare";
                 CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));                
                 break;
             
-            case RarityOptions.Epic:
-                RarityFilter = RarityOptions.Rare;
-                FilterButton.GetComponentInChildren<Text>().text = "Rare";
+            case RarityOptions.Rare:
+                RarityFilter = RarityOptions.Epic;
+                FilterButton.GetComponentInChildren<Text>().text = "Epic";
                 CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
                 break;
             
-            case RarityOptions.Rare:
+            case RarityOptions.Epic:
                 RarityFilter = RarityOptions.Legendary;
                 FilterButton.GetComponentInChildren<Text>().text = "Legendary";
                 CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
                 break;
             
             case RarityOptions.Legendary:
-                RarityFilter = RarityOptions.Common;
+                RarityFilter = RarityOptions.Basic;
                 FilterButton.GetComponentInChildren<Text>().text = "ALL";
                 CreateCards(CardCollection.Instance.GetAllCards());
                 break;
-            case RarityOptions.Common:                
-                RarityFilter = RarityOptions.Basic;
-                FilterButton.GetComponentInChildren<Text>().text = "Basic";
+            case RarityOptions.Basic:                
+                RarityFilter = RarityOptions.Common;
+                FilterButton.GetComponentInChildren<Text>().text = "Common";
                 CreateCards(CardCollection.Instance.GetRarityCards(RarityFilter));
                 break;
 
