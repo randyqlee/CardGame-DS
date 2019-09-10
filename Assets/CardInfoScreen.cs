@@ -39,6 +39,8 @@ public class CardInfoScreen : MonoBehaviour {
 		panelImage.sprite = cardAsset.CardImage;
 		panelText.text = cardAsset.name;
 
+		buyText.color = Color.black;
+
 		if (!cardComponent.isAdded)
 		{
 
