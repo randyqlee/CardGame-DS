@@ -66,9 +66,17 @@ public class CardInfoScreen : MonoBehaviour {
 			{
 				sellButton.gameObject.SetActive(false);
 				buyButton.gameObject.SetActive(true);
+				buyButton.interactable = true;
 				buyText.text = "-" + cardAsset.cardCost.ToString();
 
 				panelImage.material = greyScaleMaterial;
+
+				if(ShopManager.Instance.Dust - cardAsset.cardCost < 0)
+				{
+					buyText.color = Color.red;
+					buyButton.interactable = false;
+
+				}
 			}
 		}
 
