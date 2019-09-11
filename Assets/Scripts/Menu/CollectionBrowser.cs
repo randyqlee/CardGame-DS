@@ -21,6 +21,12 @@ public class CollectionBrowser : MonoBehaviour {
     public GameObject FilterButton;
     public RarityOptions RarityFilter;
 
+    public Material glowCommon;
+    public Material glowRare;
+    public Material glowEpic;
+    public Material glowLegendary;
+
+
 
     public KeywordInputField KeywordInputFieldScript;
     public CardsThatYouDoNotHaveToggle CardsThatYouDoNotHaveToggleScript;
@@ -401,18 +407,22 @@ public class CollectionBrowser : MonoBehaviour {
 
                 if (ca.Rarity == RarityOptions.Common)
                 {
+                    //frame.material = glowCommon;
                     frame.color = Color.white;
                 }
                 if (ca.Rarity == RarityOptions.Rare)
                 {
-                    frame.color = Color.black;
+                    //frame.material = glowRare;
+                    frame.color = Color.green;
                 }
                             if (ca.Rarity == RarityOptions.Epic)
                 {
+                    //frame.material = glowEpic;
                     frame.color = Color.magenta;
                 }
                             if (ca.Rarity == RarityOptions.Legendary)
                 {
+                    //frame.material = glowLegendary;
                     frame.color = Color.yellow;
                 }
 
@@ -443,18 +453,22 @@ public class CollectionBrowser : MonoBehaviour {
 
                 if (ca.Rarity == RarityOptions.Common)
                 {
+                    //frame.material = glowCommon;
                     frame.color = Color.white;
                 }
                 if (ca.Rarity == RarityOptions.Rare)
                 {
-                    frame.color = Color.black;
+                    //frame.material = glowRare;
+                    frame.color = Color.green;
                 }
                             if (ca.Rarity == RarityOptions.Epic)
                 {
+                    //frame.material = glowEpic;
                     frame.color = Color.magenta;
                 }
                             if (ca.Rarity == RarityOptions.Legendary)
                 {
+                    //frame.material = glowLegendary;
                     frame.color = Color.yellow;
                 }
 
