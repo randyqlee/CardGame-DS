@@ -161,8 +161,8 @@ public class Player : MonoBehaviour, ICharacter
 
     void Start()
     {
-                //DS random pick if AI
-        if (GetComponent<TurnMaker>() is AITurnMaker)
+                //DS random pick if AI, and no
+        if (GetComponent<TurnMaker>() is AITurnMaker && BattleStartInfo.EnemyDeck == null)
         {
             CardAsset[] allCardsArray = Resources.LoadAll<CardAsset>("");
             List<CardAsset> allCardsList = new List<CardAsset>(allCardsArray);

@@ -13,4 +13,6 @@ public static class BattleStartInfo
     public static PlayerStartInfo[] PlayerInfos; 
 
     public static DeckInfo SelectedDeck;
+
+    public static DeckInfo EnemyDeck;
 }

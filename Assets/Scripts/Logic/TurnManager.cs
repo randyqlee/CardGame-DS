@@ -157,7 +157,7 @@ public class TurnManager : MonoBehaviour {
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
 
                 }
-
+/*
                 int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
                 for (int i = 0; i < initDrawEquip; i++)
                 {            
@@ -168,11 +168,14 @@ public class TurnManager : MonoBehaviour {
                 
                     //DS
                     //play spell to use the equip ability of creature
+                    
                     whoGoesSecond.PlayEquipCreatureFromHand(whoGoesSecond.hand.CardsInHand[0]);
+
+                    
                     whoGoesFirst.PlayEquipCreatureFromHand(whoGoesFirst.hand.CardsInHand[0]);
 
                 }
-
+*/
        
 
 
