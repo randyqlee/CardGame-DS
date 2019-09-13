@@ -115,8 +115,39 @@ public class DeckBuilder : MonoBehaviour
 
 
         GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
-        go.GetComponent<Image>().sprite = ca.HeroPortrait;
-        go.GetComponentInChildren<Text>().text = ca.name;
+        //go.GetComponent<Image>().sprite = ca.HeroPortrait;
+        //go.GetComponentInChildren<Text>().text = ca.name;
+        go.GetComponent<CollectionCreaturePrefab>().creatureImage.GetComponent<Image>().sprite = ca.HeroPortrait;
+        go.GetComponent<CollectionCreaturePrefab>().creatureText.GetComponent<Text>().text = ca.name;
+
+        Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
+                
+
+        if (ca.Rarity == RarityOptions.Common)
+        {
+            //frame.material = glowCommon;
+            frame.color = Color.white;
+
+        }
+        if (ca.Rarity == RarityOptions.Rare)
+        {
+            //frame.material = glowRare;
+            frame.color = Color.green;
+
+        }
+                    if (ca.Rarity == RarityOptions.Epic)
+        {
+            //frame.material = glowEpic;
+            frame.color = Color.magenta;
+
+        }
+                    if (ca.Rarity == RarityOptions.Legendary)
+        {
+            //frame.material = glowLegendary;
+            frame.color = Color.yellow;
+
+        }
+
         deckList.Add(ca);
 
         goDeckList.Add(go);
