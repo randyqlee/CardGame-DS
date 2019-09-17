@@ -19,11 +19,31 @@ public class ScriptToOpenOnePack : MonoBehaviour {
     public void AllowToOpenThisPack()
     {
         allowedToOpen = true;
-        ShopManager.Instance.OpeningArea.AllowedToDragAPack = false;
+        //DS ShopManager.Instance.OpeningArea.AllowedToDragAPack = false;
         // Disable back button so that player can not exit the pack opening screen while he has not opened a pack
-        ShopManager.Instance.OpeningArea.BackButton.interactable = false;
+        //DS ShopManager.Instance.OpeningArea.BackButton.interactable = false;
         if (CursorOverPack())
             GlowImage.DOColor(GlowColor, 0.5f);
+        
+        StartCoroutine(DancingPack());
+    }
+
+
+    IEnumerator DancingPack()
+    {
+        while (true)
+        {
+
+            gameObject.transform.DOScale(1.3f,1f);
+            gameObject.transform.DOLocalRotate(new Vector3(0f,0f,4f),3f);
+            yield return new WaitForSeconds(1f);
+            gameObject.transform.DOScale(1.5f,1f);
+            gameObject.transform.DOLocalRotate(new Vector3(0f,0f,-4f),3f);
+            yield return new WaitForSeconds(1f);
+
+        }
+
+        
     }
 
     private bool CursorOverPack()
@@ -63,19 +83,24 @@ public class ScriptToOpenOnePack : MonoBehaviour {
             // Start a dotween sequence
             Sequence s = DOTween.Sequence();
             // 1) raise the pack to opening position
-            s.Append(transform.DOLocalMoveZ(-2f, 0.5f));
-            s.Append(transform.DOShakeRotation(1f, 20f, 20));
+           // s.Append(transform.DOLocalMoveZ(-2f, 0.5f));
+            s.Append(transform.DOShakeRotation(1.5f, 20f, 20));
 
             s.OnComplete(() =>
                 {
                     // 2) add glow, particle system
 
                     // 3): 
-                    ShopManager.Instance.OpeningArea.ShowPackOpening(transform.position);
-                    if (ShopManager.Instance.PacksCreated>0)
-                        ShopManager.Instance.PacksCreated--;
+                    //DS ShopManager.Instance.OpeningArea.ShowPackOpening(transform.position);
+                    //DS if (ShopManager.Instance.PacksCreated>0)
+                    //DS     ShopManager.Instance.PacksCreated--;
                     // 4) destroy this pack in the end of the sequence
                     Destroy(gameObject);
+
+                    PackOpeningScreen.Instance.OpenPack();
+                    
+
+
                 }); 
         }
     }

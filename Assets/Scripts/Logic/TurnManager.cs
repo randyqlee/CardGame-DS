@@ -135,12 +135,28 @@ public class TurnManager : MonoBehaviour {
             {
 
          // determine who starts the game.
-                int rnd = Random.Range(0,2);  // 2 is exclusive boundary
-                // Debug.Log(Player.Players.Length);
-                Player whoGoesFirst = Player.Players[rnd];
-                // Debug.Log(whoGoesFirst);
-                Player whoGoesSecond = whoGoesFirst.otherPlayer;
-                // Debug.Log(whoGoesSecond);
+         
+
+                Player whoGoesFirst;
+                Player whoGoesSecond;
+
+                if (PackOpeningScreen.Instance != null && PackOpeningScreen.Instance.tutorialState != TutorialState.COMPLETED)
+                {
+                    whoGoesFirst = Player.Players[1];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+
+                }
+
+                else
+                {
+                    int rnd = Random.Range(0,2);  // 2 is exclusive boundary
+                    // Debug.Log(Player.Players.Length);
+                    whoGoesFirst = Player.Players[rnd];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+                    // Debug.Log(whoGoesSecond);
+                }
          
                 // draw 4 cards for first player and 5 for second player
                 int initDraw = GlobalSettings.Instance.HeroesCount;
@@ -181,16 +197,24 @@ public class TurnManager : MonoBehaviour {
 
                 //DS
                 //Display skills panel of player only
-                if(whoGoesFirst.PArea.owner == AreaPosition.Low)
-                new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
-                else
-                new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
+                if(PackOpeningScreen.Instance == null || PackOpeningScreen.Instance.tutorialState == TutorialState.COMPLETED)
+                {
+                    if(whoGoesFirst.PArea.owner == AreaPosition.Low)
+                    new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
+                    else
+                    new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
+
+
+                    new StartATurnCommand(whoGoesFirst).AddToQueue();
+                }
                 //DS
                 //Initially, all creatures isActive
                 //RoundReset();
 
-                new StartATurnCommand(whoGoesFirst).AddToQueue();
+
+
+                
             });
 
 

@@ -7,6 +7,7 @@ public class TutorialSplashScreen : MonoBehaviour
 
     public GameObject background;
     public GameObject text;
+    public GameObject panel;
     // Start is called before the first frame update
     void Start()
     {

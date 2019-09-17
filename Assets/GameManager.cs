@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+
+
 public class GameManager : MonoBehaviour
 {
 
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject tutorialMenu;
 
     public GameObject sceneReloader;
+
+    public TutorialState tutorialState = TutorialState.ZERO;
 
        
     
@@ -83,10 +87,14 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("IsTutorialFinished"))
         {
             //go straight to MenuScene
+
+            sceneReloader.GetComponent<SceneReloader>().LoadScene("MenuScene");
         }
 
         else
         {
+
+            //check status of Tutorial or progress, then start from there
 
             Debug.Log ("Start Tutorial Scene");
             //proceed with tutorial scene
