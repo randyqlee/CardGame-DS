@@ -13,6 +13,8 @@ public class PackOpeningScreen : MonoBehaviour
 
     public static PackOpeningScreen Instance;
 
+    public GameObject tapToExitScreen;
+
     public GameObject messagePanel;
     public Text messagePanelText;
 
@@ -69,12 +71,13 @@ public class PackOpeningScreen : MonoBehaviour
 
         yield return StartCoroutine(GivePack());
 
-        Visual.SetActive(true);
-        TurnManager.SetActive(true);
+            Visual.SetActive(true);
+            TurnManager.SetActive(true);
 
-        Destroy(finishedButton);
-        ScreenContent.SetActive(false);
-        messagePanel.SetActive(false);
+            Destroy(finishedButton);
+            ScreenContent.SetActive(false);
+            messagePanel.SetActive(false);
+        
 
         yield return new WaitForSeconds(3f);
 
@@ -87,18 +90,29 @@ public class PackOpeningScreen : MonoBehaviour
 
     public IEnumerator StartBattleTutorial()
     {
+        //SetPanelMessage ("Use your heroes to attack Enemies", BOTTOM_Panel);
+        //yield return StartCoroutine(TapToExit.Instance.ListenForTap());
+        //messagePanel.transform.DOScaleY(0f,1f);
+        //yield return new WaitForSeconds(1f);
+        //messagePanel.SetActive(false);
+        //SetPanelMessage ("Deal enough damage to defeat all enemies and you win!", TOP_Panel);
+        //yield return StartCoroutine(TapToExit.Instance.ListenForTap());
+        //messagePanel.transform.DOScaleY(0f,1f);
+        //yield return new WaitForSeconds(1f);
+        //messagePanel.SetActive(false);
 
-        
-        
+        TutorialPopupManager.Instance.popupMessages[2].SetActive(true);
+        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
+        TutorialPopupManager.Instance.popupMessages[2].SetActive(false);
+        TutorialPopupManager.Instance.popupMessages[0].SetActive(true);
+        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
+        TutorialPopupManager.Instance.popupMessages[0].SetActive(false);
+        TutorialPopupManager.Instance.popupMessages[1].SetActive(true);
+        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
+        TutorialPopupManager.Instance.popupMessages[1].SetActive(false);
 
-        SetPanelMessage ("Use your heroes to attack Enemies", BOTTOM_Panel);
-        yield return new WaitForSeconds(2f);
-        messagePanel.transform.DOScaleY(0f,1f);
-        yield return new WaitForSeconds(1f);
-        messagePanel.SetActive(false);
-        SetPanelMessage ("Deal enough damage to defeat all enemies and you win!", TOP_Panel);
 
-        yield return null;
+
     }
 
     public IEnumerator GivePack()
@@ -118,20 +132,13 @@ public class PackOpeningScreen : MonoBehaviour
         {
             yield return null;            
         }
-        while (!isFinished);
-
-
-        if(isFinished)
-            {
+        while (!TapToExit.Instance.isTapped);
 
                 for(int i=CardsFromPackCreated.Count-1; i>=0; i--)
                 {
                     Destroy(CardsFromPackCreated[i]);
                 }
 
-
-                
-            }
 
     }
 
@@ -172,14 +179,21 @@ public class PackOpeningScreen : MonoBehaviour
         SetPanelMessage("Congratulations! You now have your first 3 heroes to fight with you", TOP_Panel);
         finishedButton.gameObject.transform.localScale = Vector3.zero;   
         yield return new WaitForSeconds(2f);
-        finishedButton.gameObject.SetActive(true);
+
+        tapToExitScreen.SetActive(true);
+
+
+        //finishedButton.gameObject.SetActive(true);
         
-        finishedButton.gameObject.transform.DOScale(1f,1f);
+        //finishedButton.gameObject.transform.DOScale(1f,1f);
+
+        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
 
         Sequence s = DOTween.Sequence();
         s.AppendInterval(1f);
         s.OnComplete(() =>
         {
+            
             StopCoroutine("ShowCardsFromPack");
         }); 
 
