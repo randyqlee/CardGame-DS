@@ -18,10 +18,10 @@ public class DancingObject : MonoBehaviour
         while (danceOn)
         {
 
-            gameObject.transform.DOScale(1.3f,1f);
+            //gameObject.transform.DOScale(1.3f,1f);
             gameObject.transform.DOLocalRotate(new Vector3(0f,0f,4f),3f);
             yield return new WaitForSeconds(1f);
-            gameObject.transform.DOScale(1.5f,1f);
+            //gameObject.transform.DOScale(1.5f,1f);
             gameObject.transform.DOLocalRotate(new Vector3(0f,0f,-4f),3f);
             yield return new WaitForSeconds(1f);
 

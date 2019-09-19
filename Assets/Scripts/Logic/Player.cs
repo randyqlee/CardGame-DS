@@ -144,7 +144,7 @@ public class Player : MonoBehaviour, ICharacter
     //public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
 
-   
+       
 
 
     // ALL METHODS
@@ -590,6 +590,9 @@ public class Player : MonoBehaviour, ICharacter
         // game over
         // block both players from taking new moves 
         gameIsOver = true;
+
+        
+
 
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;

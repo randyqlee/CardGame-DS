@@ -27,6 +27,11 @@ public class TurnManager : MonoBehaviour {
      public delegate void EndOfRound();    
     public event EndOfRound e_EndOfRound; 
 
+    public delegate void GameOver();    
+    public event GameOver e_GameOver; 
+
+    private Player firstPlayer;
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -122,13 +127,13 @@ public class TurnManager : MonoBehaviour {
             p.TransmitInfoAboutPlayerToVisual();
             p.PArea.PDeck.CardsInDeck = p.deck.cards.Count;
             // move both portraits to the center
-            p.PArea.Portrait.transform.position = p.PArea.InitialPortraitPosition.position;
+            //p.PArea.Portrait.transform.position = p.PArea.InitialPortraitPosition.position;
 
         }
 
         Sequence s = DOTween.Sequence();
-        s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
-        s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        //s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        //s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
         s.PrependInterval(0.5f);  
 
         s.OnComplete(() =>
@@ -192,7 +197,8 @@ public class TurnManager : MonoBehaviour {
 
                 }
 */
-       
+                //SAVE Info on who's the original first player
+                firstPlayer = whoGoesFirst;
 
 
                 //DS
@@ -211,6 +217,8 @@ public class TurnManager : MonoBehaviour {
                 //DS
                 //Initially, all creatures isActive
                 //RoundReset();
+
+                
 
 
 
@@ -286,6 +294,11 @@ public class TurnManager : MonoBehaviour {
         //yield return new WaitForSeconds(0.5f);
         if(!whoseTurn.otherPlayer.gameIsOver)
             yield return StartCoroutine(StartTurnCoroutine());
+
+        else
+        {
+            e_GameOver.Invoke();
+        }
     }
 
 
@@ -433,6 +446,7 @@ public class TurnManager : MonoBehaviour {
 
             if(e_ResetRound != null)
                 e_ResetRound.Invoke();
+
 
         }
 

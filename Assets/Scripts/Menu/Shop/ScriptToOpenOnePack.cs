@@ -26,6 +26,8 @@ public class ScriptToOpenOnePack : MonoBehaviour {
             GlowImage.DOColor(GlowColor, 0.5f);
         
         StartCoroutine(DancingPack());
+
+        GlowImage.DOColor(GlowColor, 0.5f);
     }
 
 

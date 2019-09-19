@@ -5,6 +5,8 @@ using System.Collections;
 
 public class AITurnMaker: TurnMaker {
 
+    public bool isPaused = false;
+
     public override void OnTurnStart()
     {
         base.OnTurnStart();
@@ -17,6 +19,14 @@ public class AITurnMaker: TurnMaker {
     // THE LOGIC FOR AI
     IEnumerator MakeAITurn()
     {
+        do
+        {
+            yield return null;
+
+        }
+        while (isPaused);
+
+
         bool strategyAttackFirst = false;
         //if (Random.Range(0, 2) == 0)
             strategyAttackFirst = true;
