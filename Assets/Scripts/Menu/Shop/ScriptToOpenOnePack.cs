@@ -99,8 +99,8 @@ public class ScriptToOpenOnePack : MonoBehaviour {
                     // 4) destroy this pack in the end of the sequence
                     Destroy(gameObject);
 
-                    PackOpeningScreen.Instance.OpenPack();
-                    
+                    //PackOpeningScreen.Instance.OpenPack();
+                    PackOpen.Instance.OpenPack();           
 
 
                 }); 

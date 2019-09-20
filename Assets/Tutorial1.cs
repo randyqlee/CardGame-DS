@@ -4,42 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PackOpeningScreen : MonoBehaviour
+public class Tutorial1 : MonoBehaviour
 {
-
-    //DS TODO: move to GameManager
     public TutorialState tutorialState = TutorialState.ZERO;
-
-
-    public static PackOpeningScreen Instance;
-
+    public static Tutorial1 Instance;
+    public GameObject packOpenPrefab;
     public GameObject tapToExitScreen;
-
     public GameObject messagePanel;
     public Text messagePanelText;
 
     public Transform TOP_Panel;
     public Transform BOTTOM_Panel;
 
-    public Button finishedButton;
-
-
     public GameObject ScreenContent;
-    public GameObject PackPrefab;
-    public Transform PacksParent;
-
-    public Transform initialPackPosition;
-
-    public Transform InitialPackSpot;
-    // Start is called before the first frame update
-
-    public GameObject CreatureCardPrefab;
-
-    public List<CardAsset> creatures;
-
-    public List<Transform> slots;
-
-    public List<GameObject> CardsFromPackCreated;
 
     public bool isFinished = false;
 
@@ -60,26 +37,24 @@ public class PackOpeningScreen : MonoBehaviour
     {
         Instance = this;
     }
+    // Start is called before the first frame update
     void Start()
     {
-        
         messagePanel.SetActive(true);
         messagePanel.transform.localScale = new Vector3 (1f,0f,1f);
         StartCoroutine(StartSequence());
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     IEnumerator StartSequence()
     {
+        SetPanelMessage("This is your Welcome Pack, open it and get your Reward!", TOP_Panel);
 
-        yield return StartCoroutine(GivePack());
+        yield return StartCoroutine(PackOpening());
+
+        
+
+        yield return new WaitForSeconds(1f);
 
             Visual.SetActive(true);
             turnManager.SetActive(true);
@@ -87,9 +62,6 @@ public class PackOpeningScreen : MonoBehaviour
             TurnManager.Instance.e_ResetRound += NewRound;
             TurnManager.Instance.e_GameOver += GameOver;
 
-
-
-            Destroy(finishedButton);
             ScreenContent.SetActive(false);
             messagePanel.SetActive(false);
         
@@ -97,10 +69,65 @@ public class PackOpeningScreen : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         yield return StartCoroutine(StartBattleTutorial());
+       
+    }
 
+    IEnumerator PackOpening()
+    {
 
+        GameObject go = Instantiate(packOpenPrefab);
+
+        yield return new WaitForSeconds (2f);
 
         
+
+        do
+        {
+            yield return null;
+        }
+        while (!go.GetComponent<PackOpen>().packOpened);
+
+        SetPanelMessage("Congratulations! You now have your first 3 heroes to fight with you", TOP_Panel);
+
+        do
+        {
+            yield return null;
+        }
+        while (!go.GetComponent<PackOpen>().isFinished);
+
+           
+        StopCoroutine("PackOpening");
+    }
+
+
+    public void SetPanelMessage (string message, Transform position)
+    {
+        StartCoroutine (MessageRoutine(message, position));
+        StopCoroutine("MessageRoutine");
+    }
+
+    IEnumerator MessageRoutine(string message, Transform position)
+    {
+
+        messagePanel.transform.position = position.position;
+
+
+        if (messagePanel.activeSelf == false)
+        {
+            messagePanel.SetActive(true);
+            messagePanel.transform.localScale = new Vector3(1f,0f,1f);
+        }
+        
+        else
+        {
+            messagePanel.transform.DOScaleY(0f,1f);
+            yield return new WaitForSeconds(1f);
+        }
+
+        messagePanelText.text = message;
+        messagePanel.transform.DOScaleY(1f,1f);
+        yield return new WaitForSeconds(1f);
+
     }
 
     void GameOver()
@@ -127,11 +154,19 @@ public class PackOpeningScreen : MonoBehaviour
         yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
         TutorialPopupManager.Instance.popupMessages[7].SetActive(false);
 
-        yield return StartCoroutine(GivePack());
-
-    
-
         yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
+
+        GameObject go = Instantiate(packOpenPrefab);
+
+        yield return new WaitForSeconds (2f);
+
+        do
+        {
+            yield return null;
+        }
+        while (!go.GetComponent<PackOpen>().isFinished);
+
+        yield return null;
 
 
         //reward with pack
@@ -364,136 +399,10 @@ public class PackOpeningScreen : MonoBehaviour
         enemyAtkFinished = true;        
     }
 
-    public IEnumerator GivePack()
-    {
-        GameObject newPack = Instantiate(PackPrefab, PacksParent);
-
-        newPack.transform.localPosition = initialPackPosition.transform.localPosition;
-        //newPack.transform.localScale = Vector3.zero;
-
-        newPack.transform.DOMove(PacksParent.transform.localPosition, 1f).SetEase(Ease.InQuad);
-
-        newPack.transform.DOScale(1.5f,1f);
-        yield return new WaitForSeconds(1f);
-
-        newPack.transform.DOPunchScale(new Vector3(0.3f,0.3f,0f), 0.3f, 1, 0f);
-        SetPanelMessage("This is your Welcome Pack, open it and get your Reward!", TOP_Panel);
- 
-        newPack.GetComponent<ScriptToOpenOnePack>().AllowToOpenThisPack();
-
-        do
-        {
-            yield return null;            
-        }
-        while (!TapToExit.Instance.isTapped);
-
-                for(int i=CardsFromPackCreated.Count-1; i>=0; i--)
-                {
-                    Destroy(CardsFromPackCreated[i]);
-                }
-
-
-    }
-
     void SwitchToAI()
     {
         Destroy(Player.Players[0].gameObject.GetComponent<PlayerTurnMaker>());
         Player.Players[0].gameObject.AddComponent<AITurnMaker>();
 
     }
-
-    public void OpenPack()
-    {
-
-        StartCoroutine(ShowCardsFromPack());
-
-        
-
-        
-    }
-
-    IEnumerator ShowCardsFromPack()
-    {
-        messagePanel.transform.DOScaleY(0f,1f);
-
-        int i = 0;
-        foreach(CardAsset ca in creatures)
-        {
-            GameObject card;
-            card = Instantiate(CreatureCardPrefab) as GameObject;
-
-            card.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            OneCardManager manager = card.GetComponent<OneCardManager>();
-            manager.cardAsset = ca;
-            manager.ReadCardFromAsset();
-
-            CardsFromPackCreated.Add(card);
-
-            card.transform.position = InitialPackSpot.position;
-            card.transform.DOMove(slots[i].position, 0.5f);
-            card.transform.DOScale(1.5f, 0.5f);
-            i++;
-        }
-        yield return new WaitForSeconds(1f);
-
-        SetPanelMessage("Congratulations! You now have your first 3 heroes to fight with you", TOP_Panel);
-        //finishedButton.gameObject.transform.localScale = Vector3.zero;   
-        yield return new WaitForSeconds(2f);
-
-        tapToExitScreen.SetActive(true);
-
-
-        //finishedButton.gameObject.SetActive(true);
-        
-        //finishedButton.gameObject.transform.DOScale(1f,1f);
-
-        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
-
-        Sequence s = DOTween.Sequence();
-        s.AppendInterval(1f);
-        s.OnComplete(() =>
-        {
-            
-            StopCoroutine("ShowCardsFromPack");
-        }); 
-
-    }
-
-    public void SetPanelMessage (string message, Transform position)
-    {
-        StartCoroutine (MessageRoutine(message, position));
-        StopCoroutine("MessageRoutine");
-    }
-
-    IEnumerator MessageRoutine(string message, Transform position)
-    {
-
-        messagePanel.transform.position = position.position;
-
-
-        if (messagePanel.activeSelf == false)
-        {
-            messagePanel.SetActive(true);
-            messagePanel.transform.localScale = new Vector3(1f,0f,1f);
-        }
-        
-        else
-        {
-            messagePanel.transform.DOScaleY(0f,1f);
-            yield return new WaitForSeconds(1f);
-        }
-
-        messagePanelText.text = message;
-        messagePanel.transform.DOScaleY(1f,1f);
-        yield return new WaitForSeconds(1f);
-
-    }
-
-    public void IsFinished()
-    {
-        isFinished = true;
-
-    }
-
-
 }
