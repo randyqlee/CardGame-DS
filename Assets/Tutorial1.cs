@@ -52,10 +52,6 @@ public class Tutorial1 : MonoBehaviour
 
         yield return StartCoroutine(PackOpening());
 
-        
-
-        yield return new WaitForSeconds(1f);
-
             Visual.SetActive(true);
             turnManager.SetActive(true);
 
@@ -153,8 +149,6 @@ public class Tutorial1 : MonoBehaviour
         TutorialPopupManager.Instance.popupMessages[7].SetActive(true);
         yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
         TutorialPopupManager.Instance.popupMessages[7].SetActive(false);
-
-        yield return StartCoroutine(TapToExit.Instance.ListenForTap(true));
 
         GameObject go = Instantiate(packOpenPrefab);
 

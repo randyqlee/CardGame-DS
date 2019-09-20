@@ -147,7 +147,7 @@ public class TurnManager : MonoBehaviour {
                 Player whoGoesFirst;
                 Player whoGoesSecond;
 
-                if (PackOpeningScreen.Instance != null && PackOpeningScreen.Instance.tutorialState != TutorialState.COMPLETED)
+                if (Tutorial1.Instance != null && Tutorial1.Instance.tutorialState != TutorialState.COMPLETED)
                 {
                     whoGoesFirst = Player.Players[1];
                     // Debug.Log(whoGoesFirst);
@@ -206,7 +206,7 @@ public class TurnManager : MonoBehaviour {
                 //DS
                 //Display skills panel of player only
 
-                if(PackOpeningScreen.Instance == null || PackOpeningScreen.Instance.tutorialState == TutorialState.COMPLETED)
+                if(Tutorial1.Instance == null || Tutorial1.Instance.tutorialState == TutorialState.COMPLETED)
                 {
                     if(whoGoesFirst.PArea.owner == AreaPosition.Low)
                     new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
