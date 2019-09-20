@@ -13,7 +13,21 @@ public class AITurnMaker: TurnMaker {
         // dispay a message that it is enemy`s turn
         //new ShowMessageCommand("AI`s Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
         //p.DrawACard();
-        StartCoroutine(MakeAITurn());
+
+        bool hasActiveCL = false;
+
+        foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+        {
+            if (cl.isActive)
+                hasActiveCL = true;
+        }
+
+        if(!hasActiveCL)
+            new EndTurnCommand().AddToQueue();
+
+
+        else
+            StartCoroutine(MakeAITurn());
     }
 
     // THE LOGIC FOR AI

@@ -32,6 +32,8 @@ public class TurnManager : MonoBehaviour {
 
     private Player firstPlayer;
 
+    bool isRoundOver;
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -344,19 +346,25 @@ public class TurnManager : MonoBehaviour {
     {
         endTurnForced = false;
 
-        RoundReset();     
+        RoundReset();
+
+        //yield return null;     
 
 
          if(TurnCounter<=0)
             {
-              //yield return new WaitForSeconds(0.5f);
-              new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+
+              if(!isRoundOver)                
+                new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+
+              else
+                new StartATurnCommand(firstPlayer).AddToQueue();
+              
             }
-            else            
-            {
-              //yield return new WaitForSeconds(0.5f);
-              new StartATurnCommand(whoseTurn).AddToQueue();
-            } 
+        else            
+        {              
+            new StartATurnCommand(whoseTurn).AddToQueue();
+        } 
 
         TurnCounter--;
 
@@ -376,7 +384,7 @@ public class TurnManager : MonoBehaviour {
 
     void RoundReset()
     {
-        bool isRoundOver = true;
+        isRoundOver = true;
 
 
         foreach (Player p in Player.Players)
