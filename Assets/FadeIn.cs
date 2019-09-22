@@ -7,12 +7,20 @@ using DG.Tweening;
 
 public class FadeIn : MonoBehaviour
 {
+
+    public AudioSource audioSource;
     
     public Vector3 punchScale = new Vector3(0.1f,0.1f,0f);
     public float punchTime = 0.5f;
     public int punchVibrations = 1;
     public float punchElasticity = 0f;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        audioSource = FindObjectOfType<AudioSource>();
+        
+    }
     void Start()
     {
         
@@ -27,6 +35,7 @@ public class FadeIn : MonoBehaviour
     void OnEnable()
     {
         gameObject.transform.DOPunchScale(punchScale, punchTime, punchVibrations, punchElasticity);
+        audioSource.Play();
 
     }
 }
