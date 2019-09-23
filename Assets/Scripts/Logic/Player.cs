@@ -144,7 +144,7 @@ public class Player : MonoBehaviour, ICharacter
     //public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
 
-   
+       
 
 
     // ALL METHODS
@@ -161,8 +161,8 @@ public class Player : MonoBehaviour, ICharacter
 
     void Start()
     {
-                //DS random pick if AI
-        if (GetComponent<TurnMaker>() is AITurnMaker)
+                //DS random pick if AI, and no
+        if (GetComponent<TurnMaker>() is AITurnMaker && BattleStartInfo.EnemyDeck == null)
         {
             CardAsset[] allCardsArray = Resources.LoadAll<CardAsset>("");
             List<CardAsset> allCardsList = new List<CardAsset>(allCardsArray);
@@ -212,99 +212,103 @@ public class Player : MonoBehaviour, ICharacter
         if(!hasActiveCL)
             new EndTurnCommand().AddToQueue();
 
-
-        // add one mana crystal to the pool;
-        //Debug.Log("In ONTURNSTART for "+ gameObject.name);
-        usedHeroPowerThisTurn = false;
-        ManaThisTurn++;
-        ManaLeft = ManaThisTurn;
-        
-        //ORIGINAL SCRIPT
-        //foreach (CreatureLogic cl in table.CreaturesOnTable)
-        //  cl.OnTurnStart();
-        
-        
-        
-        //DS: Use this if you want each PLayer Turn all creatures are active
-        //foreach (CreatureLogic cl in table.CreaturesOnTable)  
-        //    if (!cl.isDead)   
-        //    {   
-        //     cl.OnTurnStart();
-        //     cl.e_CreatureOnTurnEnd += OnTurnEnd;
-        //    }
-        // PArea.HeroPower.WasUsedThisTurn = false;
-
-        //logic to check if creature not dead
+        else
+        {
 
 
-        //DS
-        //HideHand();
-        //otherPlayer.HideHand();
+            // add one mana crystal to the pool;
+            //Debug.Log("In ONTURNSTART for "+ gameObject.name);
+            usedHeroPowerThisTurn = false;
+            ManaThisTurn++;
+            ManaLeft = ManaThisTurn;
+            
+            //ORIGINAL SCRIPT
+            //foreach (CreatureLogic cl in table.CreaturesOnTable)
+            //  cl.OnTurnStart();
+            
+            
+            
+            //DS: Use this if you want each PLayer Turn all creatures are active
+            //foreach (CreatureLogic cl in table.CreaturesOnTable)  
+            //    if (!cl.isDead)   
+            //    {   
+            //     cl.OnTurnStart();
+            //     cl.e_CreatureOnTurnEnd += OnTurnEnd;
+            //    }
+            // PArea.HeroPower.WasUsedThisTurn = false;
 
-        //DS
-        //Iterate through Creatures on table so that only 1 creature gets active each turn
-       // Debug.Log("Creature Index: " +creatureTurn);       
-    
-      
-      //DS
-
-/*
-       if(!gameIsOver)
-       {
-           //if dead, pass on the turn to other player
-           if (table.CreaturesOnTable[creatureTurn].isDead)
-           { 
-                table.CreaturesOnTable[creatureTurn].OnTurnEnd();
-                TurnManager.Instance.EndTurn();
-
-           }
+            //logic to check if creature not dead
 
 
-
-
-           //iterate if dead
-           //while(table.CreaturesOnTable[creatureTurn].isDead)
-           //{
-           // if(creatureTurn < table.CreaturesOnTable.Count)
-           //     creatureTurn++;                         
-           // if(creatureTurn >= table.CreaturesOnTable.Count)
-           //     creatureTurn = 0; 
-          // }
-
-          else
-          {
-
-            creatureTurn -= ExtraCreatureTurn;
-            if(creatureTurn<0)
-            creatureTurn = table.CreaturesOnTable.Count-1;
-
-         //DS
-         //Remove for Round reset testing
-         //table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
-
-            table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
-            //ShowHand(table.CreaturesOnTable[creatureTurn]);
-          }
             //DS
-            //DrawAbilityCards(table.CreaturesOnTable[creatureTurn]);
+            //HideHand();
+            //otherPlayer.HideHand();
 
-            if(creatureTurn < table.CreaturesOnTable.Count)
-                creatureTurn++;                              
-            if(creatureTurn >= table.CreaturesOnTable.Count)
-                creatureTurn = 0;
+            //DS
+            //Iterate through Creatures on table so that only 1 creature gets active each turn
+        // Debug.Log("Creature Index: " +creatureTurn);       
+        
+        
+        //DS
 
-            ExtraCreatureTurn--;
-       }     
-      
-      //table.CreaturesOnTable[creatureTurn].OnTurnStart();
+    /*
+        if(!gameIsOver)
+        {
+            //if dead, pass on the turn to other player
+            if (table.CreaturesOnTable[creatureTurn].isDead)
+            { 
+                    table.CreaturesOnTable[creatureTurn].OnTurnEnd();
+                    TurnManager.Instance.EndTurn();
 
-*/  
+            }
+
+
+
+
+            //iterate if dead
+            //while(table.CreaturesOnTable[creatureTurn].isDead)
+            //{
+            // if(creatureTurn < table.CreaturesOnTable.Count)
+            //     creatureTurn++;                         
+            // if(creatureTurn >= table.CreaturesOnTable.Count)
+            //     creatureTurn = 0; 
+            // }
+
+            else
+            {
+
+                creatureTurn -= ExtraCreatureTurn;
+                if(creatureTurn<0)
+                creatureTurn = table.CreaturesOnTable.Count-1;
+
+            //DS
+            //Remove for Round reset testing
+            //table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
+
+                table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
+                //ShowHand(table.CreaturesOnTable[creatureTurn]);
+            }
+                //DS
+                //DrawAbilityCards(table.CreaturesOnTable[creatureTurn]);
+
+                if(creatureTurn < table.CreaturesOnTable.Count)
+                    creatureTurn++;                              
+                if(creatureTurn >= table.CreaturesOnTable.Count)
+                    creatureTurn = 0;
+
+                ExtraCreatureTurn--;
+        }     
+        
+        //table.CreaturesOnTable[creatureTurn].OnTurnStart();
+
+    */  
 
                
-        PArea.HeroPower.WasUsedThisTurn = false;
+            PArea.HeroPower.WasUsedThisTurn = false;
 
-        //DS
-        HighlightPlayableCards();
+            //DS
+            HighlightPlayableCards();
+        }
     }
 
     
@@ -590,6 +594,9 @@ public class Player : MonoBehaviour, ICharacter
         // game over
         // block both players from taking new moves 
         gameIsOver = true;
+
+        
+
 
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;

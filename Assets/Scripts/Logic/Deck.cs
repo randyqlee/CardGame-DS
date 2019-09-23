@@ -23,6 +23,21 @@ public class Deck : MonoBehaviour {
             }
 
         }
+
+        if (BattleStartInfo.EnemyDeck!=null && GetComponentInParent<Player>().PArea.owner == AreaPosition.Top)
+        {
+            for (int i = cards.Count -1 ; i >= 0 ; i--)
+            {
+                cards.Remove(cards[i]);
+            }
+            
+
+            foreach (CardAsset ca in BattleStartInfo.EnemyDeck.Cards)
+            {
+                cards.Add(ca);
+            }
+
+        }
     }
 	
 }

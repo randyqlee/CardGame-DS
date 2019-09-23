@@ -11,6 +11,8 @@ public class AddCardToDeck : MonoBehaviour {
     private float scaleFactor = 1.1f;
     public CardAsset cardAsset;
 
+    public bool isOwned = false;
+
     //DS
 
     public bool _isAdded = false;

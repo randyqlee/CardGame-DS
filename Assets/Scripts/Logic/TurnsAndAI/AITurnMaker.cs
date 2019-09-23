@@ -5,18 +5,42 @@ using System.Collections;
 
 public class AITurnMaker: TurnMaker {
 
+    public bool isPaused = false;
+
     public override void OnTurnStart()
     {
         base.OnTurnStart();
         // dispay a message that it is enemy`s turn
         //new ShowMessageCommand("AI`s Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
         //p.DrawACard();
-        StartCoroutine(MakeAITurn());
+
+        bool hasActiveCL = false;
+
+        foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+        {
+            if (cl.isActive)
+                hasActiveCL = true;
+        }
+
+        if(!hasActiveCL)
+            new EndTurnCommand().AddToQueue();
+
+
+        else
+            StartCoroutine(MakeAITurn());
     }
 
     // THE LOGIC FOR AI
     IEnumerator MakeAITurn()
     {
+        do
+        {
+            yield return null;
+
+        }
+        while (isPaused);
+
+
         bool strategyAttackFirst = false;
         //if (Random.Range(0, 2) == 0)
             strategyAttackFirst = true;

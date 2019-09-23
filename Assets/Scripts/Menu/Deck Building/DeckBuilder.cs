@@ -114,24 +114,61 @@ public class DeckBuilder : MonoBehaviour
             return;
 
 
-            GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
-            go.GetComponent<Image>().sprite = ca.HeroPortrait;
-            go.GetComponentInChildren<Text>().text = ca.name;
-            deckList.Add(ca);
+        GameObject go = Instantiate(DeckCreaturePrefab,DeckPanel.transform);
+        //go.GetComponent<Image>().sprite = ca.HeroPortrait;
+        //go.GetComponentInChildren<Text>().text = ca.name;
+        go.GetComponent<CollectionCreaturePrefab>().creatureImage.GetComponent<Image>().sprite = ca.HeroPortrait;
+        go.GetComponent<CollectionCreaturePrefab>().creatureText.GetComponent<Text>().text = ca.name;
 
-            goDeckList.Add(go);
+        Image frame = go.GetComponent<CollectionCreaturePrefab>().glowImage.GetComponent<Image>();
+                
+
+        if (ca.Rarity == RarityOptions.Common)
+        {
+            //frame.material = glowCommon;
+            frame.color = Color.white;
+
+        }
+        if (ca.Rarity == RarityOptions.Rare)
+        {
+            //frame.material = glowRare;
+            frame.color = Color.green;
+
+        }
+                    if (ca.Rarity == RarityOptions.Epic)
+        {
+            //frame.material = glowEpic;
+            frame.color = Color.magenta;
+
+        }
+                    if (ca.Rarity == RarityOptions.Legendary)
+        {
+            //frame.material = glowLegendary;
+            frame.color = Color.yellow;
+
+        }
+
+        deckList.Add(ca);
+
+        goDeckList.Add(go);
 
 
-            //OneCardManager manager = go.GetComponent<OneCardManager>();
-            //manager.cardAsset = ca;
-            //manager.ReadCardFromAsset();
+        //OneCardManager manager = go.GetComponent<OneCardManager>();
+        //manager.cardAsset = ca;
+        //manager.ReadCardFromAsset();
 
-            AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
-            addCardComponent.SetCardAsset(ca);
-            addCardComponent.isAdded = true;
+        AddCardToDeck addCardComponent = go.GetComponent<AddCardToDeck>();
+        addCardComponent.SetCardAsset(ca);
+        addCardComponent.isAdded = true;
 
-            //UpdateDeck();
-            UpdateDeck(deckNumber);
+        //UpdateDeck();
+        UpdateDeck(deckNumber);
+
+
+
+        //UpdateCollectionPanel();
+
+
     }
 
     public int NumberOfThisCardInDeck (CardAsset asset)
@@ -176,6 +213,37 @@ public class DeckBuilder : MonoBehaviour
 
         //UpdateDeck();
         UpdateDeck(deckNumber);
+
+    }
+
+    public void RemoveCardFromAllDecks(CardAsset asset)
+    {
+        foreach (DeckInfo di in  DecksStorage.Instance.AllDecks)
+        {
+            for (int i = di.Cards.Count - 1 ; i >= 0; i--)
+            {
+                if ( asset == di.Cards[i] )
+                {
+                    di.Cards.Remove(di.Cards[i]);
+                }
+            }
+        }
+
+        for (int i=0; i<DecksStorage.Instance.AllDecks.Count; i++)
+        {
+            UpdateDeck(i+1);
+        }
+
+
+
+
+
+        if (deckNumber == 1)
+        ShowDeck1();
+        else if(deckNumber == 2)
+        ShowDeck2();
+        else if(deckNumber == 3)
+        ShowDeck3();
 
     }
 
@@ -259,6 +327,14 @@ public class DeckBuilder : MonoBehaviour
         {
             playBtn.GetComponent<Button>().interactable = true;
         }
+
+        foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                ownedGO.SetActive(true);
+            }
+
+
+       UpdateCollectionPanel();
     }
 
     public void LoadDecks()
@@ -300,6 +376,14 @@ public class DeckBuilder : MonoBehaviour
                AddCard(ca);
            }
        }
+
+       foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                ownedGO.SetActive(true);
+            }
+
+
+       UpdateCollectionPanel();
     }
 
     public void ShowDeck1()
@@ -360,5 +444,21 @@ public class DeckBuilder : MonoBehaviour
 
         LoadDeck(deckNumber);
 
+    }
+
+    void UpdateCollectionPanel()
+    {
+        foreach(GameObject go in goDeckList)
+        {
+            foreach(GameObject ownedGO in GetComponent<CollectionBrowser>().OwnedCards)
+            {
+                
+                if (go.GetComponent<AddCardToDeck>().cardAsset == ownedGO.GetComponent<AddCardToDeck>().cardAsset)
+                {
+                    ownedGO.SetActive(false);
+                }
+
+            }
+        }
     }
 }

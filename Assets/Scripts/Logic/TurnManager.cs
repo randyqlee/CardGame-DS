@@ -27,6 +27,13 @@ public class TurnManager : MonoBehaviour {
      public delegate void EndOfRound();    
     public event EndOfRound e_EndOfRound; 
 
+    public delegate void GameOver();    
+    public event GameOver e_GameOver; 
+
+    private Player firstPlayer;
+
+    bool isRoundOver;
+
 
     // PROPERTIES
     private Player _whoseTurn;
@@ -122,25 +129,41 @@ public class TurnManager : MonoBehaviour {
             p.TransmitInfoAboutPlayerToVisual();
             p.PArea.PDeck.CardsInDeck = p.deck.cards.Count;
             // move both portraits to the center
-            p.PArea.Portrait.transform.position = p.PArea.InitialPortraitPosition.position;
+            //p.PArea.Portrait.transform.position = p.PArea.InitialPortraitPosition.position;
 
         }
 
         Sequence s = DOTween.Sequence();
-        s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
-        s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        //s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
+        //s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
         s.PrependInterval(0.5f);  
 
         s.OnComplete(() =>
             {
 
          // determine who starts the game.
-                int rnd = Random.Range(0,2);  // 2 is exclusive boundary
-                // Debug.Log(Player.Players.Length);
-                Player whoGoesFirst = Player.Players[rnd];
-                // Debug.Log(whoGoesFirst);
-                Player whoGoesSecond = whoGoesFirst.otherPlayer;
-                // Debug.Log(whoGoesSecond);
+         
+
+                Player whoGoesFirst;
+                Player whoGoesSecond;
+
+                if (Tutorial1.Instance != null && Tutorial1.Instance.tutorialState != TutorialState.COMPLETED)
+                {
+                    whoGoesFirst = Player.Players[1];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+
+                }
+
+                else
+                {
+                    int rnd = Random.Range(0,2);  // 2 is exclusive boundary
+                    // Debug.Log(Player.Players.Length);
+                    whoGoesFirst = Player.Players[rnd];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+                    // Debug.Log(whoGoesSecond);
+                }
          
                 // draw 4 cards for first player and 5 for second player
                 int initDraw = GlobalSettings.Instance.HeroesCount;
@@ -157,7 +180,7 @@ public class TurnManager : MonoBehaviour {
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
 
                 }
-
+/*
                 int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
                 for (int i = 0; i < initDrawEquip; i++)
                 {            
@@ -168,26 +191,40 @@ public class TurnManager : MonoBehaviour {
                 
                     //DS
                     //play spell to use the equip ability of creature
+                    
                     whoGoesSecond.PlayEquipCreatureFromHand(whoGoesSecond.hand.CardsInHand[0]);
+
+                    
                     whoGoesFirst.PlayEquipCreatureFromHand(whoGoesFirst.hand.CardsInHand[0]);
 
                 }
-
-       
+*/
+                //SAVE Info on who's the original first player
+                firstPlayer = whoGoesFirst;
 
 
                 //DS
                 //Display skills panel of player only
-                if(whoGoesFirst.PArea.owner == AreaPosition.Low)
-                new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
-                else
-                new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
+                if(Tutorial1.Instance == null || Tutorial1.Instance.tutorialState == TutorialState.COMPLETED)
+                {
+                    if(whoGoesFirst.PArea.owner == AreaPosition.Low)
+                    new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
+                    else
+                    new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
+
+
+                    new StartATurnCommand(whoGoesFirst).AddToQueue();
+                }
                 //DS
                 //Initially, all creatures isActive
                 //RoundReset();
 
-                new StartATurnCommand(whoGoesFirst).AddToQueue();
+                
+
+
+
+                
             });
 
 
@@ -259,6 +296,11 @@ public class TurnManager : MonoBehaviour {
         //yield return new WaitForSeconds(0.5f);
         if(!whoseTurn.otherPlayer.gameIsOver)
             yield return StartCoroutine(StartTurnCoroutine());
+
+        else
+        {
+            e_GameOver.Invoke();
+        }
     }
 
 
@@ -304,19 +346,25 @@ public class TurnManager : MonoBehaviour {
     {
         endTurnForced = false;
 
-        RoundReset();     
+        RoundReset();
+
+        //yield return null;     
 
 
          if(TurnCounter<=0)
             {
-              //yield return new WaitForSeconds(0.5f);
-              new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+
+              if(!isRoundOver)                
+                new StartATurnCommand(whoseTurn.otherPlayer).AddToQueue();
+
+              else
+                new StartATurnCommand(firstPlayer).AddToQueue();
+              
             }
-            else            
-            {
-              //yield return new WaitForSeconds(0.5f);
-              new StartATurnCommand(whoseTurn).AddToQueue();
-            } 
+        else            
+        {              
+            new StartATurnCommand(whoseTurn).AddToQueue();
+        } 
 
         TurnCounter--;
 
@@ -336,7 +384,7 @@ public class TurnManager : MonoBehaviour {
 
     void RoundReset()
     {
-        bool isRoundOver = true;
+        isRoundOver = true;
 
 
         foreach (Player p in Player.Players)
@@ -406,6 +454,7 @@ public class TurnManager : MonoBehaviour {
 
             if(e_ResetRound != null)
                 e_ResetRound.Invoke();
+
 
         }
 

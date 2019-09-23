@@ -28,7 +28,7 @@ public class MulliganScreen : MonoBehaviour {
 
 	void Start () {
 
-		for (int i = 0; i < slots.Count; i++)
+		for (int i = 0; i < deck.cards.Count; i++)
 		{
 			GameObject go = Instantiate(GlobalSettings.Instance.MulliganCreaturePrefab, slots[i].transform) as GameObject;
 			go.GetComponent<OneCreatureManager>().cardAsset = deck.cards[i];
@@ -38,7 +38,7 @@ public class MulliganScreen : MonoBehaviour {
 		}
 
 		//Show the deck of enemy (TOP player)
-		for (int i = 0; i < slots_TOP.Count; i++)
+		for (int i = 0; i < deck_TOP.cards.Count; i++)
 		{
 			GameObject go = Instantiate(GlobalSettings.Instance.TOP_MulliganCreaturePrefab, slots_TOP[i].transform) as GameObject;
 			go.GetComponent<OneCreatureManager>().cardAsset = deck_TOP.cards[i];
