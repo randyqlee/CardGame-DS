@@ -15,7 +15,7 @@ public class TurnManager : MonoBehaviour {
 
     // PRIVATE FIELDS
     // reference to a timer to measure 
-    private RopeTimer timer;
+    public RopeTimer timer;
 
     public bool endTurnForced = false;
 
@@ -287,8 +287,54 @@ public class TurnManager : MonoBehaviour {
     {
         endTurnForced = true;
          
-        StartCoroutine(TurnEndCoroutine());        
+        StartCoroutine(TimerExpired());        
     }
+
+    IEnumerator TimerExpired()
+    {
+
+        yield return StartCoroutine(PenalizePlayer());
+        yield return StartCoroutine(TurnEndCoroutine());
+    }
+
+    IEnumerator PenalizePlayer()
+    {
+
+        if(CanACreatureAttack())
+        {
+            int i = Random.Range(0,whoseTurn.table.CreaturesOnTable.Count);
+            while (whoseTurn.table.CreaturesOnTable[i].isDead || whoseTurn.table.CreaturesOnTable[i].AttacksLeftThisTurn <= 0)
+            {
+                i = Random.Range(0,whoseTurn.table.CreaturesOnTable.Count);
+            }
+            CreatureLogic cl = whoseTurn.table.CreaturesOnTable[i];
+            if (cl.AttacksLeftThisTurn > 0)
+            {
+                cl.OnTurnEnd();
+
+            }
+        }
+        
+        else
+        {
+            EndTurn(); 
+        }
+
+        yield return null;
+    }
+
+
+    bool CanACreatureAttack()
+    {
+        bool canAttack = false;
+        for (int i = 0; i < whoseTurn.table.CreaturesOnTable.Count; i++)
+        {
+            if (!whoseTurn.table.CreaturesOnTable[i].isDead && whoseTurn.table.CreaturesOnTable[i].AttacksLeftThisTurn > 0)
+                canAttack = true;
+        }
+        return canAttack;
+    }
+    
 
     IEnumerator TurnEndCoroutine()
     {
@@ -313,6 +359,7 @@ public class TurnManager : MonoBehaviour {
             whoseTurn.OnTurnEnd();
 
             //New SCRIPT - also end each creature's turn
+            /*
             if (endTurnForced)
             {
                 foreach (CreatureLogic cl in whoseTurn.table.CreaturesOnTable)
@@ -322,7 +369,8 @@ public class TurnManager : MonoBehaviour {
                         cl.OnTurnEnd();
                     }
                 }
-            }        
+            }     
+            */   
              
 
         //     if(TurnCounter<=0)

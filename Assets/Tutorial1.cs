@@ -55,6 +55,9 @@ public class Tutorial1 : MonoBehaviour
             Visual.SetActive(true);
             turnManager.SetActive(true);
 
+            TurnManager.Instance.GetComponent<RopeTimer>().enabled = false;
+            
+
             TurnManager.Instance.e_ResetRound += NewRound;
             TurnManager.Instance.e_GameOver += GameOver;
 
@@ -241,6 +244,7 @@ public class Tutorial1 : MonoBehaviour
 
     public IEnumerator StartBattleTutorial()
     {
+        
         //SetPanelMessage ("Use your heroes to attack Enemies", BOTTOM_Panel);
         //yield return StartCoroutine(TapToExit.Instance.ListenForTap());
         //messagePanel.transform.DOScaleY(0f,1f);
