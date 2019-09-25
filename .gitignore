@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/SO Assets/Skill.meta
+Assets/Sprites/HeroPortraits/DBZ.meta

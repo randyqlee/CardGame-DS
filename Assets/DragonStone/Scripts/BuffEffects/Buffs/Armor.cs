@@ -24,10 +24,11 @@ public class Armor : BuffEffect
 
     public override void UndoBuffEffect()
     {
-        int healthAfter = target.Health - specialValue;
-        new UpdateHealthCommand(target.ID, healthAfter).AddToQueue();    
+        //comment these if effect will be permanent HP increase
+        //int healthAfter = target.Health - specialValue;
+        //new UpdateHealthCommand(target.ID, healthAfter).AddToQueue();    
         
-        target.Health -= specialValue;        
+        //target.Health -= specialValue;        
     }
 
 

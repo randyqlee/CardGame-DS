@@ -65,7 +65,8 @@ public class CreatureLogic: ICharacter
     public event ThisCreatureDies e_ThisCreatureDies;
 
     public delegate void IsAttacked(CreatureLogic creature);    
-    public event IsAttacked e_IsAttacked; 
+    public event IsAttacked e_IsAttacked;
+
 
     public delegate void IsComputeDamage();    
     public event IsComputeDamage e_IsComputeDamage;     
@@ -235,6 +236,8 @@ public class CreatureLogic: ICharacter
     [HideInInspector]
     public bool canBeAttacked = true;
     public bool hasTaunt = false;
+
+    public bool hasBless = false;
 
 
     // CONSTRUCTOR
@@ -498,7 +501,8 @@ public class CreatureLogic: ICharacter
         //Target's Health minus my attack damage
         //DS:  target.TakeDamage;
         //target.Health -= AttackDamage;
-        target.TakeDamage(AttackDamage);
+        if(!target.hasBless)
+            target.TakeDamage(AttackDamage);
 
         //My Health minus my target's attack damage
         //TakeDamage;
@@ -780,10 +784,13 @@ public class CreatureLogic: ICharacter
     {
               
         int finalDamage = DamageReduction*damage;
+
         Health-=finalDamage;
 
         if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
+
+
     }
 
     
