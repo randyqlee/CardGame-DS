@@ -110,8 +110,10 @@ public class CreatureLogic: ICharacter
         {
             if (value > MaxHealth)
                 health = MaxHealth;
-            else if (value <= 0)
+            else if (value <= 0 && !hasEndure)
                 Die();
+            else if (value <= 0 && hasEndure)
+                health = 1;
             else
                 health = value;
         }
@@ -238,6 +240,8 @@ public class CreatureLogic: ICharacter
     public bool hasTaunt = false;
 
     public bool hasBless = false;
+
+    public bool hasEndure = false;
 
 
     // CONSTRUCTOR
@@ -496,13 +500,15 @@ public class CreatureLogic: ICharacter
         //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
 
         //set target attack to 0 to reflect non-damage for the attacker
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
+        //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
 
         //Target's Health minus my attack damage
         //DS:  target.TakeDamage;
         //target.Health -= AttackDamage;
-        if(!target.hasBless)
-            target.TakeDamage(AttackDamage);
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
+        target.TakeDamage(AttackDamage);
+
+            
 
         //My Health minus my target's attack damage
         //TakeDamage;
@@ -783,9 +789,19 @@ public class CreatureLogic: ICharacter
     public void TakeDamage(int damage)
     {
               
-        int finalDamage = DamageReduction*damage;
+        if(!hasBless)
+        {
+            int finalDamage = DamageReduction*damage;
+            int healthAfter = Health;
+            healthAfter-=finalDamage;
 
-        Health-=finalDamage;
+            if (healthAfter <= 0 && hasEndure)
+            {
+                Health = 1;
+            }
+            else
+                Health-=finalDamage;
+        }
 
         if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
@@ -797,19 +813,36 @@ public class CreatureLogic: ICharacter
 
     public int TakeDamageVisual(int damage)
     {
-        int finalDamage = DamageReduction*damage;
-        int healthAfter = Health;
-        healthAfter-=finalDamage;
-        return healthAfter;
+        if(!hasBless)
+        {
+            int finalDamage = DamageReduction*damage;
+            int healthAfter = Health;
+            healthAfter-=finalDamage;
+
+            if (healthAfter <= 0 && hasEndure)
+            {
+                return 1;
+            }
+            else
+                return healthAfter;
+        }
+        else return 0;
     }
 
 
     // for non-attack damage
     public void TakeOtherDamage(int damage)
     {
-              
+
         int finalOtherDamage = OtherDamageReduction*damage;
-        Health-=finalOtherDamage;
+        int healthAfter = Health;
+        healthAfter-=finalOtherDamage;
+        if (healthAfter <= 0 && hasEndure)
+            {
+                Health = 1;
+            }
+        else
+            Health-=finalOtherDamage;
     }
 
     public int TakeOtherDamageVisual(int damage)
@@ -817,7 +850,12 @@ public class CreatureLogic: ICharacter
         int finalOtherDamage = OtherDamageReduction*damage;
         int healthAfter = Health;
         healthAfter-=finalOtherDamage;
-        return healthAfter;
+        if (healthAfter <= 0 && hasEndure)
+            {
+                return 1;
+            }
+        else
+            return healthAfter;
     }
 
 

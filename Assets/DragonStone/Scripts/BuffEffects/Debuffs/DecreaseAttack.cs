@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DecreaseAttack : BuffEffect {
 
-    int attackModifier = 1;
+    //int attackModifier = 1;
     
 	
-    public DecreaseAttack(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
+    public DecreaseAttack(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 5) : base (source, target, buffCooldown, specialValue)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/DecreaseAttack");
 
@@ -17,18 +17,18 @@ public class DecreaseAttack : BuffEffect {
     public override void CauseBuffEffect()
     {
         
-        int attackAfter = target.Attack - attackModifier;
+        int attackAfter = target.Attack - specialValue;
         new UpdateAttackCommand(target.ID, attackAfter).AddToQueue();
 
-        target.Attack -= attackModifier;    
+        target.Attack -= specialValue;    
     }
 
     public override void UndoBuffEffect()
     {
-        int attackAfter = target.Attack + attackModifier;
+        int attackAfter = target.Attack + specialValue;
         new UpdateAttackCommand(target.ID, attackAfter).AddToQueue();    
         
-        target.Attack += attackModifier;        
+        target.Attack += specialValue;        
     }
 
 
