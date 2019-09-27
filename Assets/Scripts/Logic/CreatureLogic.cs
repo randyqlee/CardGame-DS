@@ -55,7 +55,7 @@ public class CreatureLogic: ICharacter
     public delegate void CreatureOnTurnStart();    
     public event CreatureOnTurnStart e_CreatureOnTurnStart;
 
-    public delegate void PreAttackEvent();    
+    public delegate void PreAttackEvent(CreatureLogic target);    
     public event PreAttackEvent e_PreAttackEvent;
 
     public delegate void CreatureOnTurnEnd();    
@@ -475,33 +475,33 @@ public class CreatureLogic: ICharacter
         if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
         {          
             target.TakeDamage(this, AttackDamage);
-            int targetHealthAfter = target.Health;
-            int attackerHealthAfter = Health;
-            new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
-            
-            if(this.e_AfterAttacking != null)
-            this.e_AfterAttacking.Invoke(target);
+        }
 
-            if (target.lastDamageValue > 0)
-            {
-                if(e_IsDamagedByAttack != null)
-                    e_IsDamagedByAttack.Invoke(this, target, lastDamageValue); 
-            }
-        }  
+        int targetHealthAfter = target.Health;
+        int attackerHealthAfter = Health;
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
+        
+        if(this.e_AfterAttacking != null)
+        this.e_AfterAttacking.Invoke(target);
+
+        if (target.lastDamageValue > 0)
+        {
+            if(e_IsDamagedByAttack != null)
+                e_IsDamagedByAttack.Invoke(this, target, lastDamageValue); 
+        }
        
         if(!CanAttack)
         {
             new EndTurnCommand().AddToQueue();
             OnTurnEnd();
         }
-
         else
-
         {            
             if(e_SecondAttack != null)
             e_SecondAttack.Invoke(target);    
-           
-        }        
+        }   
+
+
     } 
 
     public int DealDamage(int amount)
@@ -548,11 +548,11 @@ public class CreatureLogic: ICharacter
             else
                 Health-=finalDamage;
 
-
+            if(e_IsAttacked != null)
+            e_IsAttacked.Invoke(this); 
         }
 
-        if(e_IsAttacked != null)
-            e_IsAttacked.Invoke(this); 
+        
 
     }
 
@@ -605,10 +605,7 @@ public class CreatureLogic: ICharacter
     {
         //Subscribe all creature pre-attack abilities here
         if(e_PreAttackEvent != null)
-           this.e_PreAttackEvent.Invoke();
-        
-        if(this.e_BeforeAttacking != null)
-            this.e_BeforeAttacking.Invoke(target);
+           this.e_PreAttackEvent.Invoke(target);
 
     }
 
@@ -619,7 +616,7 @@ public class CreatureLogic: ICharacter
             foreach(CreatureLogic enemy in enemies)
             {
                 
-                if(enemy != target)
+                if(enemy != target && !enemy.isDead)
                 {
                      //new DelayCommand(0.5f).AddToQueue();    
                 

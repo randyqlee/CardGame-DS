@@ -24,7 +24,7 @@ public class Berserk : BuffEffect {
         target.e_PreAttackEvent -= berserkEffect;
     }
 
-    public void berserkEffect()
+    public void berserkEffect(CreatureLogic target)
     {
        
         new DelayCommand(1.5f).AddToQueue();

@@ -50,7 +50,7 @@ public class ChargeVitality : CreatureEffect {
         
     }
 
-    void IncreaseAttackCount()
+    void IncreaseAttackCount(CreatureLogic target)
     {
        
         if(remainingCooldown<=0)

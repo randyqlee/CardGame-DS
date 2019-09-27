@@ -27,7 +27,7 @@ public class Recovery : BuffEffect {
          target.e_PreAttackEvent -= healEffect;
     }
 
-    public void healEffect()
+    public void healEffect(CreatureLogic target)
     {
         new DelayCommand(0.5f).AddToQueue();
         target.Heal(healValue);

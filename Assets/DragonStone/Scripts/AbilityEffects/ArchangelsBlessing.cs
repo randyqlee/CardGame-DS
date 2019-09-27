@@ -36,7 +36,7 @@ public class ArchangelsBlessing : CreatureEffect {
        
     }
 
-    public override void UseEffect()
+    public override void UseEffect(CreatureLogic target)
     {     
         if(remainingCooldown <=0)
         {           

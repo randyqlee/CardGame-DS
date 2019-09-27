@@ -12,13 +12,13 @@ public class CurseOfTheBeautiful : CreatureEffect {
    public override void RegisterEventEffect()
     {
          //creature.e_CreatureOnTurnStart += CauseEventEffect;
-         creature.e_PreAttackEvent += CauseEventEffect;
+         creature.e_PreAttackEvent += UseEffect;
     }
 
     public override void UnRegisterEventEffect()
     {
         //creature.e_CreatureOnTurnStart -= CauseEventEffect;
-        creature.e_PreAttackEvent -= CauseEventEffect;
+        creature.e_PreAttackEvent -= UseEffect;
     }
 
     public override void CauseEventEffect()

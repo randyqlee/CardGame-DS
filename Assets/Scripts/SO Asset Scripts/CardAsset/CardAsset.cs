@@ -24,6 +24,26 @@ public enum RarityOptions
 
 }
 
+public enum CreatureType
+{
+    Attack,
+    HP,
+    Support
+
+
+}
+
+public enum CreatureElement
+{
+    White,
+    Green,
+    Blue,
+    Red,
+    Black
+
+
+}
+
 public enum TypesOfCards
 {
     Creature,
@@ -72,6 +92,8 @@ public class CardAsset : ScriptableObject
     public TargetingOptions Targets;
 
     public RarityOptions Rarity;
+    public CreatureType creatureType;
+    public CreatureElement creatureElement;
 
     public TypesOfCards TypeOfCard;
 
