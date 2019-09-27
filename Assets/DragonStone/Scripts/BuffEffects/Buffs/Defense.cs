@@ -12,18 +12,14 @@ public class Defense : BuffEffect {
 
     public override void CauseBuffEffect()
     {        
-        target.e_BeforeAttacking += DefenseEffect;        
+        target.DamageReductionAdditive += specialValue;      
     }
 
     public override void UndoBuffEffect()
     {
-        target.e_BeforeAttacking -= DefenseEffect;
+        target.DamageReductionAdditive -= specialValue;
     }
 
-    void DefenseEffect(CreatureLogic creature)
-    {
-
-    }
 
     
 }

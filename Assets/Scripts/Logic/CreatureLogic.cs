@@ -67,6 +67,9 @@ public class CreatureLogic: ICharacter
     public delegate void IsAttacked(CreatureLogic creature);    
     public event IsAttacked e_IsAttacked;
 
+    public delegate void IsDamagedByAttack(CreatureLogic source, CreatureLogic target, int damage);    
+    public event IsDamagedByAttack e_IsDamagedByAttack;
+
 
     public delegate void IsComputeDamage();    
     public event IsComputeDamage e_IsComputeDamage;     
@@ -80,7 +83,8 @@ public class CreatureLogic: ICharacter
     public delegate void SecondAttack(CreatureLogic target);    
     public event SecondAttack e_SecondAttack; 
     
-    
+    public delegate void BuffApplied(BuffEffect buff);    
+    public event BuffApplied e_buffApplied;     
     //Debuff flags
     public bool isAttacked;   
     
@@ -110,10 +114,8 @@ public class CreatureLogic: ICharacter
         {
             if (value > MaxHealth)
                 health = MaxHealth;
-            else if (value <= 0 && !hasEndure)
+            else if (value <= 0)
                 Die();
-            else if (value <= 0 && hasEndure)
-                health = 1;
             else
                 health = value;
         }
@@ -203,6 +205,16 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    private int damageReductionAdditive = 0;
+    public int DamageReductionAdditive
+    {
+        get{return damageReductionAdditive;}
+        set
+        {
+            damageReductionAdditive = value;
+        }
+    }
+
     private int otherDamageReduction = 1;
     public int OtherDamageReduction
     {
@@ -242,6 +254,12 @@ public class CreatureLogic: ICharacter
     public bool hasBless = false;
 
     public bool hasEndure = false;
+
+    public float chanceTakeDamageFromAttack = 100;
+
+    public int lastDamageValue;
+
+    public bool hasHorror = false;
 
 
     // CONSTRUCTOR
@@ -448,111 +466,33 @@ public class CreatureLogic: ICharacter
 
     public void AttackCreature (CreatureLogic target)
     {
+        lastDamageValue = 0;
         
         AttacksLeftThisTurn--;         
 
-        //call this creatures after attack event
-
-//DS: Replace with e_PreAttack
-//            if(this.e_BeforeAttacking != null)
-//            this.e_BeforeAttacking.Invoke(target);   
-
-        //call this creatures attack event
-        // if(this.e_AfterAttacking != null)
-        //     this.e_AfterAttacking.Invoke(target);     
-        
-        // calculate the values so that the creature does not fire the DIE command before the Attack command is sent        
-        
-        //original
-        //AttackDamage = Attack*criticalFactor;
-        
-        //TEST
-        //DS:  DealDamage
         AttackDamage = DealDamage(Attack);
-        
-        //target.targetAttackDamage = target.targetAttackDamage*criticalFactor;
 
-        //TEST
-        //DS:target.DealDamage
-        target.targetAttackDamage = target.DealDamage(targetAttackDamage);
-        
-
-        //DS:  replace with target.TakeDamage
-        //int targetHealthAfter = target.Health - AttackDamage;
-        int targetHealthAfter = target.TakeDamageVisual(AttackDamage);
-
-
-        if(targetHealthAfter > target.MaxHealth)
-        targetHealthAfter = target.MaxHealth;
-
-
-        //original
-        //int attackerHealthAfter = Health - target.Attack;
-
-        //replace with, TakeDamage
-        //int attackerHealthAfter = Health - target.targetAttackDamage;
-        int attackerHealthAfter = TakeDamageVisual(target.targetAttackDamage);
-
-        if(Health > MaxHealth)
-        attackerHealthAfter = MaxHealth;
-
-        //original
-        //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.Attack, Attack, attackerHealthAfter, targetHealthAfter).AddToQueue();
-
-        //set target attack to 0 to reflect non-damage for the attacker
-        //new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
-
-        //Target's Health minus my attack damage
-        //DS:  target.TakeDamage;
-        //target.Health -= AttackDamage;
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
-        target.TakeDamage(AttackDamage);
-
+        if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
+        {          
+            target.TakeDamage(this, AttackDamage);
+            int targetHealthAfter = target.Health;
+            int attackerHealthAfter = Health;
+            new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
             
-
-        //My Health minus my target's attack damage
-        //TakeDamage;
-        TakeDamage(target.targetAttackDamage);
-        
-        //originally enabled 
-        //Health -= target.Attack;       
-
-        //call enemy targets Is Attacked event
-
-//DS: Put inside TAKEDAMAGE
-//        if(target.e_IsAttacked != null)
-//            target.e_IsAttacked.Invoke(this);      
-       
-        
-        //DS
-        //implement silence here
-        // foreach(CreatureEffect ce in creatureEffects)
-        // {
-        //     //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ca.specialSpellAmount);
-        //     if(ce.creatureEffectCooldown == 0)
-        //     {
-        //         Debug.Log ("Using CreatureEffect: " + ce.ToString());
-        //         ce.UseEffect(target);
-
-        //     }
-        // }
-        
-        //call this creatures after attack event
             if(this.e_AfterAttacking != null)
-            this.e_AfterAttacking.Invoke(target);  
+            this.e_AfterAttacking.Invoke(target);
 
+            if (target.lastDamageValue > 0)
+            {
+                if(e_IsDamagedByAttack != null)
+                    e_IsDamagedByAttack.Invoke(this, target, lastDamageValue); 
+            }
+        }  
        
         if(!CanAttack)
         {
-            
-           
-            //implement command here
-            //TurnManager.Instance.EndTurn();
-
-            //DS
             new EndTurnCommand().AddToQueue();
             OnTurnEnd();
-
         }
 
         else
@@ -561,11 +501,95 @@ public class CreatureLogic: ICharacter
             if(e_SecondAttack != null)
             e_SecondAttack.Invoke(target);    
            
+        }        
+    } 
+
+    public int DealDamage(int amount)
+    {
+        int damage = amount*criticalFactor;
+
+        if(e_IsComputeDamage!=null)
+        e_IsComputeDamage();
+
+        return damage;
+    }
+
+    //used by non-attack based damage
+    public int DealOtherDamage(int amount)
+    {
+        int damage = amount*OtherFactor;
+
+        if(e_IsComputeDamage!=null)
+        e_IsComputeDamage();
+
+        return damage;
+    }
+
+    //input: DealDamage
+    //for attack damage
+    public void TakeDamage(CreatureLogic source, int damage)
+    {
+  
+        if(!hasBless)
+        {
+            if(hasHorror && source.CriticalChance == 1)
+                damage = damage * 2;
+            
+            int finalDamage = DamageReduction*damage + DamageReductionAdditive;
+            int healthAfter = Health;
+            healthAfter-=finalDamage;
+
+            lastDamageValue = finalDamage;
+
+            if (healthAfter <= 0 && hasEndure)
+            {
+                Health = 1;
+            }
+            else
+                Health-=finalDamage;
+
+
         }
-        
-           
-        
-    }//Attack Creature   
+
+        if(e_IsAttacked != null)
+            e_IsAttacked.Invoke(this); 
+
+    }
+
+    // for non-attack damage
+    public void TakeOtherDamage(int damage)
+    {
+
+        int finalOtherDamage = OtherDamageReduction*damage + DamageReductionAdditive;
+        int healthAfter = Health;
+        healthAfter-=finalOtherDamage;
+
+        lastDamageValue = finalOtherDamage;
+
+        if (healthAfter <= 0 && hasEndure)
+            {
+                Health = 1;
+            }
+        else
+            Health-=finalOtherDamage;
+
+        lastDamageValue = finalOtherDamage;
+    }
+
+
+    //DS: TO BE REVIEWED
+    public int TakeOtherDamageVisual(int damage)
+    {
+        int finalOtherDamage = OtherDamageReduction*damage;
+        int healthAfter = Health;
+        healthAfter-=finalOtherDamage;
+        if (healthAfter <= 0 && hasEndure)
+            {
+                return 1;
+            }
+        else
+            return healthAfter;
+    }
 
     public void AttackCreatureWithID(int uniqueCreatureID)
     {
@@ -611,7 +635,7 @@ public class CreatureLogic: ICharacter
 	                    
 
                     //enemy.TakeDamage(creature.AttackDamage);      
-                    enemy.TakeDamage(splashDamage);      
+                    enemy.TakeDamage(this, splashDamage);      
                    
                    new UpdateHealthCommand(enemy.UniqueCreatureID, enemy.Health).AddToQueue();
                 }                
@@ -643,6 +667,10 @@ public class CreatureLogic: ICharacter
                 buffExists = true;
 
                 new UpdateBuffCommand(be).AddToQueue();
+
+                if(e_buffApplied!=null)
+                    e_buffApplied(buff);
+                
             }
         }
 
@@ -656,6 +684,9 @@ public class CreatureLogic: ICharacter
             buffEffects.Add(buff);
 
            new AddBuffCommand(buff, UniqueCreatureID).AddToQueue();
+
+                if(e_buffApplied!=null)
+                    e_buffApplied(buff);
         }
         
 
@@ -764,100 +795,6 @@ public class CreatureLogic: ICharacter
     // }
 
     //used by attack based damage
-    public int DealDamage(int amount)
-    {
-        int damage = amount*criticalFactor;
-
-        if(e_IsComputeDamage!=null)
-        e_IsComputeDamage();
-
-        return damage;
-    }
-
-    //used by non-attack based damage
-    public int DealOtherDamage(int amount)
-    {
-        int damage = amount*OtherFactor;
-
-        if(e_IsComputeDamage!=null)
-        e_IsComputeDamage();
-
-        return damage;
-    }
-
-    //input: DealDamage
-    public void TakeDamage(int damage)
-    {
-              
-        if(!hasBless)
-        {
-            int finalDamage = DamageReduction*damage;
-            int healthAfter = Health;
-            healthAfter-=finalDamage;
-
-            if (healthAfter <= 0 && hasEndure)
-            {
-                Health = 1;
-            }
-            else
-                Health-=finalDamage;
-        }
-
-        if(e_IsAttacked != null)
-            e_IsAttacked.Invoke(this); 
-
-
-    }
-
-    
-
-    public int TakeDamageVisual(int damage)
-    {
-        if(!hasBless)
-        {
-            int finalDamage = DamageReduction*damage;
-            int healthAfter = Health;
-            healthAfter-=finalDamage;
-
-            if (healthAfter <= 0 && hasEndure)
-            {
-                return 1;
-            }
-            else
-                return healthAfter;
-        }
-        else return 0;
-    }
-
-
-    // for non-attack damage
-    public void TakeOtherDamage(int damage)
-    {
-
-        int finalOtherDamage = OtherDamageReduction*damage;
-        int healthAfter = Health;
-        healthAfter-=finalOtherDamage;
-        if (healthAfter <= 0 && hasEndure)
-            {
-                Health = 1;
-            }
-        else
-            Health-=finalOtherDamage;
-    }
-
-    public int TakeOtherDamageVisual(int damage)
-    {
-        int finalOtherDamage = OtherDamageReduction*damage;
-        int healthAfter = Health;
-        healthAfter-=finalOtherDamage;
-        if (healthAfter <= 0 && hasEndure)
-            {
-                return 1;
-            }
-        else
-            return healthAfter;
-    }
-
 
   
     
