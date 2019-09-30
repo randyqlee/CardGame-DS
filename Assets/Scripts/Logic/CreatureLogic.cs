@@ -261,6 +261,8 @@ public class CreatureLogic: ICharacter
 
     public bool hasHorror = false;
 
+    public bool isPrimaryForm = true;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
@@ -444,7 +446,9 @@ public class CreatureLogic: ICharacter
         }        
             
         //if(!hasResurrect)
-        creatureEffects.Clear();
+        
+        //REMOVE INSTANTIATED EFFECTS
+        //creatureEffects.Clear();
         
 
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();         
@@ -454,6 +458,25 @@ public class CreatureLogic: ICharacter
         e_ThisCreatureDies.Invoke();
         
         owner.CheckIfGameOver();           
+    }
+
+    public void Revive()
+    {
+        isDead = false;
+        OnTurnStart();        
+
+        foreach(CreatureEffect ce in creatureEffects)
+        {
+            if(effect !=null)
+            {
+                ce.remainingCooldown = ce.creatureEffectCooldown;
+                ce.RegisterCooldown();
+                ce.RegisterEventEffect();                                
+            }
+        }     
+
+        new CreatureResurrectCommand(UniqueCreatureID, owner).AddToQueue(); 
+
     }
 
     public void GoFace()

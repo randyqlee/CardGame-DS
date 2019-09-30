@@ -15,20 +15,27 @@ public class ChakramCrush : CreatureEffect
     public override void RegisterEventEffect()
     {
        //creature.e_CreatureOnTurnStart += UseEffect;      
-       creature.e_AfterAttacking += UseEffect;      
+       creature.e_PreAttackEvent += UseEffect; 
+      
     }
 
     public override void UnRegisterEventEffect()
     {
          //creature.e_CreatureOnTurnStart -= UseEffect;  
-         creature.e_AfterAttacking -= UseEffect;          
+         creature.e_PreAttackEvent -= UseEffect;
+         
     }
 
     public override void UseEffect(CreatureLogic target)
     {
+        if(creatureEffectCooldown <= 0)
+        {
+            ShowAbility();
+            AddBuff(target, "Stun", buffCooldown);
+            creature.SplashAttackDamage(target, creature.AttackDamage);
 
-        AddBuff(target, "Stun", buffCooldown);
-        creature.SplashAttackDamage(target, creature.AttackDamage);
+            base.UseEffect();
+        }
     }
 
 
