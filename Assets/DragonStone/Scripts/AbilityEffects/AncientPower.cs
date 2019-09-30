@@ -30,13 +30,14 @@ public class AncientPower : CreatureEffect
         //Chance to Silence and deal 7 damage to all enemies with debuffs
             if(Random.Range(0,100)<=creature.chance)
             {
-                ShowAbility();
-                foreach (CreatureLogic enemy in owner.otherPlayer.table.CreaturesOnTable)
+                
+                foreach (CreatureLogic enemy in owner.EnemyList())
                 {
                     foreach (BuffEffect be in enemy.buffEffects)
                     {
                         if (be.isDebuff)
                         {
+                            ShowAbility();
                             AddBuff(enemy, "Silence", buffCooldown);
                             new DealDamageCommand(enemy.ID, damage, healthAfter: enemy.TakeOtherDamageVisual(enemy.DealOtherDamage(damage))).AddToQueue();
                             enemy.TakeOtherDamage(damage);

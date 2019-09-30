@@ -739,6 +739,29 @@ public class CreatureLogic: ICharacter
        
     }
 
+   public void RemoveRandomDebuff()
+    {
+        var randList = new List<BuffEffect>();
+
+        foreach(BuffEffect be in buffEffects)
+        {
+            if(be.isDebuff)
+            randList.Add(be);
+        }
+
+        if(randList.Count>=1)
+        {
+            BuffEffect buff = randList[Random.Range(0,randList.Count)];
+            buff.UndoBuffEffect();
+            buff.UnregisterCooldown();
+            buffEffects.Remove(buff);
+
+            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
+
+        }
+       
+    }
+
     public void RemoveAllBuffs()
     {
         if(buffEffects != null)

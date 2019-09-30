@@ -28,16 +28,14 @@ public class Serenity : CreatureEffect {
     {                      
         if(remainingCooldown<=0)
         {
-            ShowAbility();
-            foreach(CreatureLogic cl in owner.table.CreaturesOnTable)
+            
+            foreach(CreatureLogic cl in owner.AllyList())
             {
-                if (!cl.isDead)
-                {
+                    ShowAbility();
                     cl.Health += heal;
                     new UpdateHealthCommand(cl.ID, cl.Health).AddToQueue();
                     AddBuff(cl, "Lucky", buffCooldown);
                     AddBuff(cl, "Immunity", buffCooldown);
-                }
             }
             base.UseEffect();                             
              

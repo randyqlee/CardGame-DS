@@ -31,24 +31,18 @@ public class GrantLife : CreatureEffect
             if(Random.Range(0,100)<=creature.chance)
             {
                 bool isAnAllyDead = false;
-                foreach (CreatureLogic cl in owner.table.CreaturesOnTable)
+                foreach (CreatureLogic cl in owner.DeadAllyList())
                 {
-                    if (cl.isDead)
-                    {
-                        isAnAllyDead = true;
+                    isAnAllyDead = true;
                         break;
-                    }
                 }
 
                 if (isAnAllyDead)
                 {
 
-                    int i = Random.Range(0,owner.table.CreaturesOnTable.Count);
-                    while (!owner.table.CreaturesOnTable[i].isDead)
-                    {
-                        i = Random.Range(0,owner.table.CreaturesOnTable.Count);
-                    }
-                    CreatureLogic ally = owner.table.CreaturesOnTable[i];
+                    int i = Random.Range(0,owner.DeadAllyList().Count);
+                    
+                    CreatureLogic ally = owner.deadAllies[i];
 
                     ShowAbility();
                     ally.Revive();

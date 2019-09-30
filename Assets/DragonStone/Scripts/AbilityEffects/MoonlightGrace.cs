@@ -33,7 +33,7 @@ public class MoonlightGrace : CreatureEffect
             
             if(creature.isPrimaryForm)
             {
-                foreach(CreatureLogic cl in owner.table.CreaturesOnTable)
+                foreach(CreatureLogic cl in owner.AllyList())
                 {
                     if (!cl.isDead)
                     {
@@ -50,7 +50,7 @@ public class MoonlightGrace : CreatureEffect
 
             else
             {
-                foreach(CreatureLogic cl in owner.otherPlayer.table.CreaturesOnTable)
+                foreach(CreatureLogic cl in owner.EnemyList())
                 {
                     if (!cl.isDead)
                     {

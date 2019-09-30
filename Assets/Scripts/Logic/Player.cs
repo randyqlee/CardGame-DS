@@ -27,6 +27,8 @@ public class Player : MonoBehaviour, ICharacter
     public List<CreatureLogic> enemies = new List<CreatureLogic>();
     public List<CreatureLogic> allies = new List<CreatureLogic>();
 
+    public List<CreatureLogic> deadAllies = new List<CreatureLogic>();
+
     // REFERENCES TO LOGICAL STUFF THAT BELONGS TO THIS PLAYER
     public Deck deck;
     public Hand hand;
@@ -742,6 +744,8 @@ public class Player : MonoBehaviour, ICharacter
 
     public List<CreatureLogic> EnemyList()
     {
+        enemies.Clear();
+
         foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
        {
            CreatureLogic value = creature.Value;
@@ -756,6 +760,8 @@ public class Player : MonoBehaviour, ICharacter
 
     public List<CreatureLogic> AllyList()
     {
+        allies.Clear();
+
         foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
        {
            CreatureLogic value = creature.Value;
@@ -767,6 +773,23 @@ public class Player : MonoBehaviour, ICharacter
 
        return allies;
     }
+
+    public List<CreatureLogic> DeadAllyList()
+    {
+        deadAllies.Clear();
+
+        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
+       {
+           CreatureLogic value = creature.Value;
+           if(value.owner == this && value.isDead && !value.isEquip)
+           {
+               deadAllies.Add(value);
+           }                     
+       }
+
+       return deadAllies;
+    }
+       
        
         
 }
