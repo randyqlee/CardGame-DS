@@ -61,7 +61,7 @@ public class CreatureLogic: ICharacter
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
-    public delegate void ThisCreatureDies();    
+    public delegate void ThisCreatureDies(CreatureLogic creature);    
     public event ThisCreatureDies e_ThisCreatureDies;
 
     public delegate void IsAttacked(CreatureLogic creature);    
@@ -263,6 +263,8 @@ public class CreatureLogic: ICharacter
 
     public bool isPrimaryForm = true;
 
+    public bool hasCurse = false;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
@@ -455,27 +457,30 @@ public class CreatureLogic: ICharacter
         
 
         if(e_ThisCreatureDies != null)
-        e_ThisCreatureDies.Invoke();
+        e_ThisCreatureDies.Invoke(this);
         
         owner.CheckIfGameOver();           
     }
 
     public void Revive()
     {
-        isDead = false;
-        OnTurnStart();        
-
-        foreach(CreatureEffect ce in creatureEffects)
+        if (!hasCurse)
         {
-            if(effect !=null)
-            {
-                ce.remainingCooldown = ce.creatureEffectCooldown;
-                ce.RegisterCooldown();
-                ce.RegisterEventEffect();                                
-            }
-        }     
+            isDead = false;
+            OnTurnStart();        
 
-        new CreatureResurrectCommand(UniqueCreatureID, owner).AddToQueue(); 
+            foreach(CreatureEffect ce in creatureEffects)
+            {
+                if(effect !=null)
+                {
+                    ce.remainingCooldown = ce.creatureEffectCooldown;
+                    ce.RegisterCooldown();
+                    ce.RegisterEventEffect();                                
+                }
+            }
+
+            new CreatureResurrectCommand(UniqueCreatureID, owner).AddToQueue(); 
+        }
 
     }
 

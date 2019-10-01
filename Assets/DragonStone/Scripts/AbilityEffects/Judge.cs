@@ -69,7 +69,7 @@ public class Judge : CreatureEffect {
             //new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
 
             ShowAbility(creature);          
-            new DealDamageCommand(target.ID, brandDamage, healthAfter: target.TakeOtherDamageVisual(target.DealOtherDamage(brandDamage))).AddToQueue();               
+            new DealDamageCommand(target.ID, brandDamage, healthAfter: target.TakeOtherDamageVisual(creature.DealOtherDamage(brandDamage))).AddToQueue();               
 
             //target.TakeOtherDamage(target.DealOtherDamage(brandDamage));    
             target.TakeOtherDamage(brandDamage);    

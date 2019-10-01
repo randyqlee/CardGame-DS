@@ -33,7 +33,7 @@ public class Brand : BuffEffect {
 
         new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
 
-        new DealDamageCommand(target.ID, brandDamage, healthAfter: target.TakeOtherDamageVisual(target.DealOtherDamage(brandDamage))).AddToQueue();               
+        new DealDamageCommand(target.ID, brandDamage, healthAfter: target.TakeOtherDamageVisual(brandDamage)).AddToQueue();               
 
         //target.TakeOtherDamage(target.DealOtherDamage(brandDamage));    
         target.TakeOtherDamage(brandDamage);    

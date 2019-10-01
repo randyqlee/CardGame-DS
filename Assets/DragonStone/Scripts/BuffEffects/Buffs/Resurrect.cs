@@ -27,16 +27,18 @@ public class Resurrect : BuffEffect {
          //target.hasResurrect = false;
     }
 
-    public void ResurrectEffect()
-    {   
+
+    public void ResurrectEffect(CreatureLogic target)
+    {
+        target.Revive();   
         
-        if(target.isDead)
-        {
-            new DelayCommand(1f).AddToQueue();
+    //    if(target.isDead)
+    //    {
+    //        new DelayCommand(1f).AddToQueue();
             //New SCRIPT
           
-            target.isDead = false;
-            REflag = true;           
+    //        target.isDead = false;
+    //        REflag = true;           
 
             
         /* Replace with Ability SO
@@ -56,19 +58,19 @@ public class Resurrect : BuffEffect {
             }
 
         */ 
-            if (target.ca.Abilities != null)
-            {
-                foreach (AbilityAsset ae in target.ca.Abilities)
-                {
-                    if (ae.abilityEffect != null && ae.abilityEffect != "")
-                    {
-                        target.effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{target.owner, target, ae.abilityCoolDown}) as CreatureEffect;
-                        target.effect.RegisterCooldown();
-                        target.effect.RegisterEventEffect();
-                        target.creatureEffects.Add(target.effect);
-                    }
-                }
-            }                                        
+        //    if (target.ca.Abilities != null)
+        //    {
+        //        foreach (AbilityAsset ae in target.ca.Abilities)
+        //        {
+        //            if (ae.abilityEffect != null && ae.abilityEffect != "")
+        //            {
+        //                target.effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{target.owner, target, ae.abilityCoolDown}) as CreatureEffect;
+        //                target.effect.RegisterCooldown();
+        //                target.effect.RegisterEventEffect();
+        //               target.creatureEffects.Add(target.effect);
+        //            }
+        //        }
+        //    }                                        
                              
             target.Health = target.MaxHealth;
             target.Attack = target.Attack;
@@ -77,15 +79,16 @@ public class Resurrect : BuffEffect {
             new UpdateHealthCommand(target.UniqueCreatureID, target.Health).AddToQueue();
 
             
-            new CreatureResurrectCommand(target.UniqueCreatureID, target.owner).AddToQueue();  
+            //new CreatureResurrectCommand(target.UniqueCreatureID, target.owner).AddToQueue();  
 
             //Remove all buffs/debuffs        
-            target.RemoveAllBuffs(); 
+            //target.RemoveAllBuffs(); 
             
              this.buffCooldown = 0;
              target.e_ThisCreatureDies -= ResurrectEffect;
-        }           
+        //}           
                
-    }//ResurrectEffect     
+    }//ResurrectEffect  
+
     
 }
