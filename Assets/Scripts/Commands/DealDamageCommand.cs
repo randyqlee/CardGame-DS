@@ -6,12 +6,14 @@ public class DealDamageCommand : Command {
     private int targetID;
     private int amount;
     private int healthAfter;
+    private int armorAfter;
 
-    public DealDamageCommand( int targetID, int amount, int healthAfter)
+    public DealDamageCommand( int targetID, int amount, int healthAfter, int armorAfter)
     {
         this.targetID = targetID;
         this.amount = amount;
         this.healthAfter = healthAfter;
+        this.armorAfter = armorAfter;
     }
 
     public override void StartCommandExecution()
@@ -27,7 +29,8 @@ public class DealDamageCommand : Command {
         else
         {
             // target is a creature
-            target.GetComponent<OneCreatureManager>().TakeDamage(amount, healthAfter);
+            target.GetComponent<OneCreatureManager>().TakeDamage(amount, healthAfter, armorAfter);
+            
         }
 
         //target.GetComponent<OneCreatureManager>().Explode();

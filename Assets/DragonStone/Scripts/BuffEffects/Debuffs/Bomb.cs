@@ -38,7 +38,7 @@ public class Bomb : BuffEffect {
 
             //new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.Health - target.DealDamage(poisonDamage)).AddToQueue();
 
-            new DealDamageCommand(target.ID, bombDamage, healthAfter: target.TakeOtherDamageVisual(bombDamage)).AddToQueue();
+            new DealDamageCommand(target.ID, bombDamage, healthAfter: target.TakeOtherDamageVisual(bombDamage), armorAfter: target.TakeArmorDamageVisual(bombDamage)).AddToQueue();
             
             
             target.TakeOtherDamage(bombDamage);

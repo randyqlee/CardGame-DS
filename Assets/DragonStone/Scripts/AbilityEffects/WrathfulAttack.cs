@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForbiddenPower : CreatureEffect
+public class WrathfulAttack : CreatureEffect
 {
-    public int buffCooldown = 1;
+    public int buffCooldown = 2;
 
     bool effectChance = false;
-    public ForbiddenPower(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
+    public WrathfulAttack(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
     }
 
-    public override void RegisterEventEffect()
+   public override void RegisterEventEffect()
     {
        creature.e_PreAttackEvent += CheckChance;      
        creature.e_AfterAttacking += UseEffect;      
@@ -48,11 +48,12 @@ public class ForbiddenPower : CreatureEffect
 
             if(effectChance)
             {            
-                AddBuff(target, "Poison", buffCooldown);
+                AddBuff(target, "Brand", buffCooldown);
                 creature.CriticalChance -= 1;
             }
 
             base.UseEffect();
         }
     }
+
 }

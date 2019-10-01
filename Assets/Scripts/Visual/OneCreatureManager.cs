@@ -9,6 +9,7 @@ public class OneCreatureManager : MonoBehaviour
     public OneCardManager PreviewManager;
     [Header("Text Component References")]
     public Text HealthText;
+    public Text ArmorText;
     public Text AttackText;
     [Header("Image References")]
     public Image CreatureGraphicImage;
@@ -103,13 +104,14 @@ public class OneCreatureManager : MonoBehaviour
         }
     }	
 
-    public void TakeDamage(int amount, int healthAfter)
+    public void TakeDamage(int amount, int healthAfter, int armorAfter)
     {
         
         if (amount > 0)
         {
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
+            ArmorText.text = armorAfter.ToString();
         } 
     }//TakeDamage
 
@@ -148,6 +150,16 @@ public class OneCreatureManager : MonoBehaviour
         }
     }//Change Attack
 
+    public void ChangeArmor(int armorAfter)
+    {
+        
+        if(armorAfter <0)
+        {
+            ArmorText.text = 0.ToString();
+        }else{
+            ArmorText.text = armorAfter.ToString();
+        }
+    }//Change Attack
 
     public void Explode()
     {

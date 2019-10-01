@@ -9,7 +9,7 @@ public class DamageOpponentBattlecry : CreatureEffect
     // BATTLECRY
     public override void WhenACreatureIsPlayed()
     {
-        new DealDamageCommand(owner.otherPlayer.PlayerID, creatureEffectCooldown, owner.otherPlayer.Health - creatureEffectCooldown).AddToQueue();
+        //new DealDamageCommand(owner.otherPlayer.PlayerID, creatureEffectCooldown, owner.otherPlayer.Health - creatureEffectCooldown).AddToQueue();
         owner.otherPlayer.Health -= creatureEffectCooldown;
     }
 }

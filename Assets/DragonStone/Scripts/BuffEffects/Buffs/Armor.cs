@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Armor : BuffEffect
 {
-  
-	
-    public Armor(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue) : base (source, target, buffCooldown, specialValue)
+    public Armor(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 2) : base (source, target, buffCooldown, specialValue)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Armor");
         isBuff = true;
@@ -16,10 +14,10 @@ public class Armor : BuffEffect
     public override void CauseBuffEffect()
     {
         
-        int healthAfter = target.Health + specialValue;
-        new UpdateHealthCommand(target.ID, healthAfter).AddToQueue();
+        int armorAfter = target.Armor + specialValue;
+        new UpdateArmorCommand(target.ID, armorAfter).AddToQueue();
 
-        target.Health += specialValue;    
+        target.Armor += specialValue;    
     }
 
     public override void UndoBuffEffect()
@@ -28,7 +26,7 @@ public class Armor : BuffEffect
         //int healthAfter = target.Health - specialValue;
         //new UpdateHealthCommand(target.ID, healthAfter).AddToQueue();    
         
-        //target.Health -= specialValue;        
+        target.Armor -= specialValue;        
     }
 
 

@@ -35,7 +35,7 @@ public class Poison : BuffEffect {
         
         new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
 
-        new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.TakeOtherDamageVisual(poisonDamage)).AddToQueue();
+        new DealDamageCommand(target.ID, poisonDamage, healthAfter: target.TakeOtherDamageVisual(poisonDamage), armorAfter: target.TakeArmorDamageVisual(poisonDamage)).AddToQueue();
 
         target.TakeOtherDamage(poisonDamage);    
         Debug.Log("Poison Activated" +target.UniqueCreatureID);

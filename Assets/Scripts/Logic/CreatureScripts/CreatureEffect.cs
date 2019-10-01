@@ -31,6 +31,8 @@ public class CreatureEffect
     public int creatureEffectCooldown;
     public int remainingCooldown;
     public bool hasUsedEffect = false;
+
+    public bool isCooldownPaused = false;
     
     
 
@@ -97,7 +99,7 @@ public class CreatureEffect
 
     public void ReduceCreatureEffectCooldown()
     {       
-        if(remainingCooldown > 0){
+        if(remainingCooldown > 0 && !isCooldownPaused){
             remainingCooldown--;
         }
         
@@ -189,6 +191,35 @@ public class CreatureEffect
         //the logic of adding buff to the CReatureLogic will be in a method at CreatureLogic
         //target.AddBuff(buffEffect);
        
+    }
+
+    public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown, int specialValue)
+    {
+        //the BuffEffect will be instantiated here
+        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{creature, target, buffCooldown, specialValue}) as BuffEffect;
+        
+
+        //if buff, can only affect allies
+        if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed)
+        //if(buffEffect.isBuff)
+        {
+            //check if same team
+            if(target.owner == creature.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }
+
+        //if debuff, can only affect enemies
+        if(buffEffect.isDebuff && creature.canDebuff && target.canBeDebuffed)
+        {
+            //check if same team
+            if(target.owner != creature.owner)
+            {
+                target.AddBuff(buffEffect);        
+            }
+        }        
+      
     }
 
     public virtual void RemoveBuff(CreatureLogic target, BuffEffect buff)

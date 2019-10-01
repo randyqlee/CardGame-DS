@@ -15,7 +15,7 @@ public class CreatureAttackVisual : MonoBehaviour
         
     }
 
-    public void AttackTarget(int targetUniqueID, int damageTakenByTarget, int damageTakenByAttacker, int attackerHealthAfter, int targetHealthAfter,int attackerUniqueID, bool CanAttack)
+    public void AttackTarget(int targetUniqueID, int damageTakenByTarget, int damageTakenByAttacker, int attackerHealthAfter, int targetHealthAfter, int targetArmorAfter, int attackerUniqueID, bool CanAttack)
     {
         //Debug.Log(targetUniqueID);
        
@@ -71,6 +71,7 @@ public class CreatureAttackVisual : MonoBehaviour
                 }
                 else
                     target.GetComponent<OneCreatureManager>().HealthText.text = targetHealthAfter.ToString();
+                    //insert Armortext... if Armor = 0, destroy Armor
 
                 w.SetTableSortingOrder();
 
@@ -80,6 +81,7 @@ public class CreatureAttackVisual : MonoBehaviour
                
 
                 manager.HealthText.text = attackerHealthAfter.ToString();
+                
                 
                 Sequence s = DOTween.Sequence();
                 s.AppendInterval(1f);

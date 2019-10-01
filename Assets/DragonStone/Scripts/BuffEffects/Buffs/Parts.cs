@@ -23,7 +23,7 @@ public class Parts : BuffEffect
         target.e_buffApplied -= IncreaseDebuffCD;       
     }
 
-    public void IncreaseDebuffCD (BuffEffect buff)
+    public void IncreaseDebuffCD (CreatureLogic Target, BuffEffect buff)
     {
         if (buff.isDebuff)
         {

@@ -28,10 +28,7 @@ public class CuttingMagic : CreatureEffect
         {
             ShowAbility();
 
-            foreach(CreatureLogic cl in owner.EnemyList())
-                {
-                    cl.RemoveBuffsAll();
-                }
+            target.RemoveBuffsAll();
 
             foreach(CreatureLogic cl in owner.AllyList())
                 {

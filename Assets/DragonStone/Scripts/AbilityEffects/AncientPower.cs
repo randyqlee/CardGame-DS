@@ -39,7 +39,7 @@ public class AncientPower : CreatureEffect
                         {
                             ShowAbility();
                             AddBuff(enemy, "Silence", buffCooldown);
-                            new DealDamageCommand(enemy.ID, damage, healthAfter: enemy.TakeOtherDamageVisual(damage)).AddToQueue();
+                            new DealDamageCommand(enemy.ID, damage, healthAfter: enemy.TakeOtherDamageVisual(damage), armorAfter: enemy.TakeArmorDamageVisual(damage)).AddToQueue();
                             enemy.TakeOtherDamage(damage);
                             break;
                         }

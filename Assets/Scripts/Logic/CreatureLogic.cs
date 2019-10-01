@@ -83,7 +83,7 @@ public class CreatureLogic: ICharacter
     public delegate void SecondAttack(CreatureLogic target);    
     public event SecondAttack e_SecondAttack; 
     
-    public delegate void BuffApplied(BuffEffect buff);    
+    public delegate void BuffApplied(CreatureLogic Target, BuffEffect buff);    
     public event BuffApplied e_buffApplied;     
     //Debuff flags
     public bool isAttacked;   
@@ -111,13 +111,27 @@ public class CreatureLogic: ICharacter
         get{ return health; }
 
         set
-        {
+        {                 
             if (value > MaxHealth)
                 health = MaxHealth;
             else if (value <= 0)
                 Die();
             else
                 health = value;
+        }
+    }
+
+    private int armor;
+    public int Armor
+    {
+        get{ return armor; }
+
+        set
+        {
+            if (value <= 0)
+                DestroyArmor();
+            else
+                armor = value;
         }
     }
 
@@ -420,6 +434,11 @@ public class CreatureLogic: ICharacter
         //TODO:  Buff Duration Reduction                       
     }
 
+    public void DestroyArmor()
+    {
+
+    }
+
     public void Die()
     {   
         //ORIGINAL SCRIPT
@@ -488,7 +507,7 @@ public class CreatureLogic: ICharacter
     {
         AttacksLeftThisTurn--;
         int targetHealthAfter = owner.otherPlayer.Health - Attack;
-        new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, CanAttack).AddToQueue();
+        //new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, CanAttack).AddToQueue();
         owner.otherPlayer.Health -= Attack;
     }
 
@@ -507,7 +526,8 @@ public class CreatureLogic: ICharacter
 
         int targetHealthAfter = target.Health;
         int attackerHealthAfter = Health;
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, CanAttack).AddToQueue();
+        int targetArmorAfter = target.Armor;
+        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, targetArmorAfter, CanAttack).AddToQueue();
         
         if(this.e_AfterAttacking != null)
         this.e_AfterAttacking.Invoke(target);
@@ -565,7 +585,30 @@ public class CreatureLogic: ICharacter
             
             int finalDamage = DamageReduction*damage + DamageReductionAdditive;
             int healthAfter = Health;
-            healthAfter-=finalDamage;
+            int spillDamage = 0;
+            
+            if (Armor > 0)
+            {
+                if (Armor > finalDamage)
+                {
+                    Armor -= finalDamage;
+                }
+                else if (Armor == damage)
+                {
+                    Armor = 0;
+                }
+                else
+                {
+                    spillDamage = Armor - finalDamage;
+                    Armor = 0;
+                    healthAfter -= spillDamage; 
+                }
+            }
+
+            else
+            {
+                healthAfter-=finalDamage;
+            }
 
             lastDamageValue = finalDamage;
 
@@ -579,9 +622,6 @@ public class CreatureLogic: ICharacter
             if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
         }
-
-        
-
     }
 
     // for non-attack damage
@@ -590,7 +630,30 @@ public class CreatureLogic: ICharacter
 
         int finalOtherDamage = OtherDamageReduction*damage + DamageReductionAdditive;
         int healthAfter = Health;
-        healthAfter-=finalOtherDamage;
+        int spillDamage = 0;
+        
+        if (Armor > 0)
+        {
+            if (Armor > finalOtherDamage)
+            {
+                Armor -= finalOtherDamage;
+            }
+            else if (Armor == damage)
+            {
+                Armor = 0;
+            }
+            else
+            {
+                spillDamage = Armor - finalOtherDamage;
+                Armor = 0;
+                healthAfter -= spillDamage; 
+            }
+        }
+
+        else
+        {
+            healthAfter-=finalOtherDamage;
+        }
 
         lastDamageValue = finalOtherDamage;
 
@@ -601,22 +664,83 @@ public class CreatureLogic: ICharacter
         else
             Health-=finalOtherDamage;
 
-        lastDamageValue = finalOtherDamage;
     }
 
 
     //DS: TO BE REVIEWED
     public int TakeOtherDamageVisual(int damage)
     {
-        int finalOtherDamage = OtherDamageReduction*damage;
+        int finalOtherDamage = OtherDamageReduction*damage +DamageReductionAdditive;
         int healthAfter = Health;
-        healthAfter-=finalOtherDamage;
+        int spillDamage = 0;
+        int armorValue = Armor;
+        
+        if (armorValue > 0)
+        {
+            if (armorValue > finalOtherDamage)
+            {
+                armorValue -= finalOtherDamage;
+                //update armorvalue
+            }
+            else if (armorValue == damage)
+            {
+                armorValue = 0;
+                //destroy armor
+            }
+            else
+            {
+                spillDamage = armorValue - finalOtherDamage;
+                armorValue = 0;
+                healthAfter -= spillDamage; 
+                //destroy armor
+            }
+        }
+
+        else
+        {
+            healthAfter-=finalOtherDamage;
+        }
+
         if (healthAfter <= 0 && hasEndure)
             {
                 return 1;
             }
         else
             return healthAfter;
+    }
+
+    public int TakeArmorDamageVisual(int damage)
+    {
+        int finalOtherDamage = OtherDamageReduction*damage +DamageReductionAdditive;
+        int healthAfter = Health;
+        int spillDamage = 0;
+        int armorValue = Armor;
+        
+        if (armorValue > 0)
+        {
+            if (armorValue > finalOtherDamage)
+            {
+                armorValue -= finalOtherDamage;
+                //update armorvalue
+            }
+            else if (armorValue == damage)
+            {
+                armorValue = 0;
+                //destroy armor
+            }
+            else
+            {
+                spillDamage = armorValue - finalOtherDamage;
+                armorValue = 0;
+                healthAfter -= spillDamage; 
+                //destroy armor
+            }
+
+            return armorValue;
+        }
+
+        else
+            return 0;
     }
 
     public void AttackCreatureWithID(int uniqueCreatureID)
@@ -694,7 +818,7 @@ public class CreatureLogic: ICharacter
                 new UpdateBuffCommand(be).AddToQueue();
 
                 if(e_buffApplied!=null)
-                    e_buffApplied(buff);
+                    e_buffApplied(this, buff);
                 
             }
         }
@@ -711,7 +835,7 @@ public class CreatureLogic: ICharacter
            new AddBuffCommand(buff, UniqueCreatureID).AddToQueue();
 
                 if(e_buffApplied!=null)
-                    e_buffApplied(buff);
+                    e_buffApplied(this, buff);
         }
         
 
@@ -741,6 +865,17 @@ public class CreatureLogic: ICharacter
             new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
 
         }
+       
+    }
+
+    public void RemoveBuff(BuffEffect buff)
+    {
+
+            buff.UndoBuffEffect();
+            buff.UnregisterCooldown();
+            buffEffects.Remove(buff);
+
+            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
        
     }
 
@@ -865,7 +1000,7 @@ public class CreatureLogic: ICharacter
         }
         else if(amount < 0)
         {           
-            new DealDamageCommand(this.ID, -amount, healthAfter).AddToQueue();            
+            new DealDamageCommand(this.ID, -amount, healthAfter, Armor).AddToQueue();            
         }
         
         Health += amount;
