@@ -24,17 +24,26 @@ public class DarkRecovery : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if(creatureEffectCooldown <= 0 && !hasUsedEffect)
         {
             ShowAbility();
+
+            target.e_ThisCreatureDies += GainExtraTurn;
             int damage = target.Health / 2;
             new DealDamageCommand(target.ID, damage, healthAfter: target.TakeOtherDamageVisual(damage)).AddToQueue();
             target.TakeOtherDamage (damage);
 
             creature.Heal(damage);
-            
+            target.e_ThisCreatureDies -= GainExtraTurn;
 
             base.UseEffect();
+
+
         }
+    }
+
+    public void GainExtraTurn(CreatureLogic target)
+    {
+        
     }
 }

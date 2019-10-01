@@ -108,13 +108,16 @@ public class CreatureEffect
 
     public void ResetCreatureEffectCooldown()
     {       
-       if(remainingCooldown<=0 && creature.canUseAbility)
+        if(remainingCooldown<=0 && creature.canUseAbility)
         {
             if(hasUsedEffect)
-            remainingCooldown = creatureEffectCooldown;            
+            {
+                remainingCooldown = creatureEffectCooldown;
+                hasUsedEffect = false; 
+            }           
             //don't reset cooldown if creature has not used effect
             else if(!hasUsedEffect)
-            remainingCooldown = 0;
+                remainingCooldown = 0;
         }
         //this is for silence scenario
         else if(remainingCooldown<=0 && !creature.canUseAbility)
