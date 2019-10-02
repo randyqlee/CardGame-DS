@@ -680,19 +680,16 @@ public class CreatureLogic: ICharacter
             if (armorValue > finalOtherDamage)
             {
                 armorValue -= finalOtherDamage;
-                //update armorvalue
             }
             else if (armorValue == damage)
             {
                 armorValue = 0;
-                //destroy armor
             }
             else
             {
                 spillDamage = armorValue - finalOtherDamage;
                 armorValue = 0;
                 healthAfter -= spillDamage; 
-                //destroy armor
             }
         }
 
@@ -721,19 +718,16 @@ public class CreatureLogic: ICharacter
             if (armorValue > finalOtherDamage)
             {
                 armorValue -= finalOtherDamage;
-                //update armorvalue
             }
             else if (armorValue == damage)
             {
                 armorValue = 0;
-                //destroy armor
             }
             else
             {
                 spillDamage = armorValue - finalOtherDamage;
                 armorValue = 0;
                 healthAfter -= spillDamage; 
-                //destroy armor
             }
 
             return armorValue;

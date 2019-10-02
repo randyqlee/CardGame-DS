@@ -2,17 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForbiddenGaldr : MonoBehaviour
+public class ForbiddenGaldr : CreatureEffect
 {
-    // Start is called before the first frame update
-    void Start()
+ 
+    public ForbiddenGaldr(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+   public override void RegisterEventEffect()
     {
-        
+    
+       creature.e_PreAttackEvent += UseEffect;      
     }
+
+    public override void UnRegisterEventEffect()
+    {
+        creature.e_PreAttackEvent -= UseEffect;          
+    }
+
+    public override void UseEffect(CreatureLogic target)
+    {
+        if(CanUseAbility())
+        {
+            int armor = creature.Armor;
+            if (armor > 0)
+            {
+                ShowAbility();
+                foreach(CreatureLogic cl in owner.AllyList())
+                {
+                    cl.Heal(armor);
+                }
+                
+                DealDamageEffect(target, armor);
+
+                base.UseEffect();
+            }
+            
+            else
+                hasUsedEffect = false;
+        }
+    }
+
 }

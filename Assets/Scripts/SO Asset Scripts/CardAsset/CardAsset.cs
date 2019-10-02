@@ -68,6 +68,7 @@ public class CardAsset : ScriptableObject
     [Header("Creature Info")]
     public int MaxHealth;   // =0 => spell card
     public int Attack;
+    public int Armor = 0;
     public int AttacksForOneTurn = 1;
     public bool Charge;
     //DS

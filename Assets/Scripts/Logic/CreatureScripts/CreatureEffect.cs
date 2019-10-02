@@ -131,6 +131,26 @@ public class CreatureEffect
             
     }
 
+    public virtual bool ChanceOK (int chance)
+    {
+        if(Random.Range(0,100)<=chance)
+            return true;
+
+        else
+            return false;
+
+    }
+
+    public virtual bool CanUseAbility ()
+    {
+        if(remainingCooldown <=0)
+            return true;
+
+        else
+            return false;
+
+    }
+
    
    
 
@@ -193,6 +213,7 @@ public class CreatureEffect
        
     }
 
+    //overload for AddBuff with specialvalue
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown, int specialValue)
     {
         //the BuffEffect will be instantiated here
@@ -283,6 +304,13 @@ public class CreatureEffect
         totalChance = effectChance + creature.chance;
 
         return totalChance;
+    }
+
+    public virtual void DealDamageEffect(CreatureLogic target, int damage)
+    {
+        new DealDamageCommand(target.ID, damage, healthAfter: target.TakeOtherDamageVisual(damage), armorAfter:target.TakeArmorDamageVisual(damage)).AddToQueue();
+        target.TakeOtherDamage(damage);
+
     }
 
 }

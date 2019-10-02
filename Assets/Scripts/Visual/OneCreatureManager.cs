@@ -83,6 +83,7 @@ public class OneCreatureManager : MonoBehaviour
 
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
+        ArmorText.text = cardAsset.Armor.ToString();
 
 //DS
 //removing abilityEffect
