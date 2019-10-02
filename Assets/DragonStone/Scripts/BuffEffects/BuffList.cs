@@ -1,20 +1,29 @@
 ﻿public enum BuffList {
 	
-	Defend,
+	Defense,
 	Immunity,
-	IncreaseAttack,
-	IncreaseDefense,
+	IncreasedAttack,
+	//IncreaseDefense,
 	Shield,
 	Lucky,
 	CriticalStrike,
 	Recovery,
-	Reflect,
+	//Reflect,
 	Endure,
-	Revenge,
-	Threat,
+	//Revenge,
+	//Threat,
 	ExtraTurn,
-	ReduceCooldown,
-	ProtectSoul
+	//ReduceCooldown,
+	//ProtectSoul,
+	Retaliate,
+	Invincible,
+	Armor,
+	Bless,
+	Evasion,
+	Stealth,
+	Resurrect,
+	Taunt,
+	LifeSteal
 	
 }
 

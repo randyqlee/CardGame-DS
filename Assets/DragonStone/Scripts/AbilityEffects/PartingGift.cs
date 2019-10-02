@@ -33,7 +33,8 @@ public class PartingGift : CreatureEffect
 
             foreach (CreatureEffect ce in target.creatureEffects)
             {
-                ce.creatureEffectCooldown += increaseCD;
+                ce.remainingCooldown += increaseCD;
+                ce.UpdateCooldown();
             }
          
             base.UseEffect();

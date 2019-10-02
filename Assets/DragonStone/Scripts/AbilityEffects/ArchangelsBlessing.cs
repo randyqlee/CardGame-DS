@@ -6,76 +6,46 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class ArchangelsBlessing : CreatureEffect {
+public class ArchangelsBlessing : CreatureEffect 
+{
 
-    public int buffCooldown = 1;
-    CreatureLogic weakestAlly;
-    List<CreatureLogic> temp;
-    
+    public int maxNumberOfAllies = 1;
 
     public ArchangelsBlessing(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
     }
 
-
    public override void RegisterEventEffect()
     {
-       //creature.e_CreatureOnTurnStart += UseEffect;      
        creature.e_PreAttackEvent += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         //creature.e_CreatureOnTurnStart -= UseEffect;  
-         creature.e_PreAttackEvent -= UseEffect;          
-    }
-
-    public override void CauseEventEffect()
-    {
-       
+        creature.e_PreAttackEvent -= UseEffect;          
     }
 
     public override void UseEffect(CreatureLogic target)
-    {     
-        if(remainingCooldown <=0)
-        {           
-            
-            base.ShowAbility();
-
-            temp = owner.AllyList();
-            weakestAlly = creature;   
-            
-            foreach(CreatureLogic cl in temp)
-            {            
-               
-                if(cl.Health < weakestAlly.Health)
-                weakestAlly = cl;
-                //Debug.Log("Ally Creature: " +cl.GetType().Name);               
-                         
-            }
-
-            Debug.Log("Allies List Size " +temp.ToString());
-            HealWeakestAlly(weakestAlly);
-
-            base.UseEffect();    
-
-              
-
-        }           
-
-    }//UseEffect
-
-    public void HealWeakestAlly(CreatureLogic target)
     {
-        //owner.allies
-       int healAmount;
-       healAmount = Mathf.Abs(target.MaxHealth - target.Health);
-
-       new SfxExplosionCommand(target.UniqueCreatureID).AddToQueue();
-
-       target.Heal(healAmount);
-       
+        if(CanUseAbility())
+        {
+            List<CreatureLogic> sortedList = owner.SortAllyListByHealth();
+            if (sortedList.Count > 1)
+            {
+                ShowAbility();
+                int count = 0;
+                for (int i = 0; i<sortedList.Count && count < maxNumberOfAllies; i++)
+                {
+                    if (sortedList[i] != creature)
+                    {
+                        sortedList[i].Heal(sortedList[i].MaxHealth- sortedList[i].Health);
+                        count++;
+                    }
+                }
+            }              
+                     
+            base.UseEffect();
+        }
     }
-
 }

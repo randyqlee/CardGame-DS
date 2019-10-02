@@ -85,6 +85,7 @@ public class Resurrect : BuffEffect {
             //target.RemoveAllBuffs(); 
             
              this.buffCooldown = 0;
+             
              target.e_ThisCreatureDies -= ResurrectEffect;
         //}           
                

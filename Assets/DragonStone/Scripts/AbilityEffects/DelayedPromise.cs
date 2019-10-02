@@ -6,74 +6,40 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class DelayedPromise : CreatureEffect {
+public class DelayedPromise : CreatureEffect
+{
 
     public int buffCooldown = 1;
 
     public DelayedPromise(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
-
+    {
+        
+    }
 
    public override void RegisterEventEffect()
     {
-           
-       creature.e_BeforeAttacking += UseEffect;      
+       creature.e_PreAttackEvent += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         
-         creature.e_BeforeAttacking -= UseEffect;      
-         
-    }
-
-    public override void CauseEventEffect()
-    {
-       //if(remainingCooldown <=0)
-        //Debug.Log("Activate Effect: " +this.ToString());
+        creature.e_PreAttackEvent -= UseEffect;          
     }
 
     public override void UseEffect(CreatureLogic target)
-    {     
-        if(remainingCooldown <=0)
-        {     
-          
-          
-           ShowAbility(target);
-
-           ResetAllSkillCooldowns(target); 
-           SilenceAllEnemies();
-           //AddBuff(target,"Stun",buffCooldown);   
-
-           base.UseEffect();                  
+    {
+        if(CanUseAbility())
+        {
+            ShowAbility();
+            foreach(CreatureLogic cl in owner.EnemyList())
+            {
+                                
+                AddBuff(cl, "Silence", buffCooldown);
                 
-        }
-
-        
-    }
-
-    
-
-    public void ResetAllSkillCooldowns(CreatureLogic target)
-    {
-        foreach(CreatureEffect ce in target.creatureEffects)
-        {
-            ce.remainingCooldown = ce.creatureEffectCooldown;
+            }
+            AddBuff(target, "Stun", buffCooldown);
+                     
+            base.UseEffect();
         }
     }
-
-    public void SilenceAllEnemies()
-    {
-        //Call Current Enemy list
-        creature.owner.EnemyList();
-
-        foreach(CreatureLogic cl in creature.owner.enemies)
-        {
-            AddBuff(cl, "Silence",buffCooldown);
-        }
-
-        //Clear enemy list
-        creature.owner.enemies.Clear();
-    }
-
 }

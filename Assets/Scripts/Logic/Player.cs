@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class Player : MonoBehaviour, ICharacter
 {
 
@@ -774,6 +775,24 @@ public class Player : MonoBehaviour, ICharacter
        return allies;
     }
 
+    public CreatureLogic GetRandomAlly (CreatureLogic exclude = null)
+    {
+        if (exclude == null)
+        {
+            int i = Random.Range(0,AllyList().Count);
+            return AllyList()[i];
+        }
+        else
+        {
+            int i = Random.Range(0,AllyList().Count);
+            while (AllyList()[i] == exclude)
+            {
+                i = Random.Range(0,AllyList().Count);
+            }
+            return AllyList()[i];
+        }
+    }
+
     public List<CreatureLogic> DeadAllyList()
     {
         deadAllies.Clear();
@@ -788,6 +807,21 @@ public class Player : MonoBehaviour, ICharacter
        }
 
        return deadAllies;
+    }
+
+    public List<CreatureLogic> SortAllyListByHealth()
+    {
+        var returnList = AllyList();
+
+        returnList.Sort(CompareListByHealth);
+
+        return returnList;
+
+    }
+
+    private static int CompareListByHealth(CreatureLogic i1, CreatureLogic i2)
+    {
+        return i1.Health.CompareTo(i2.Health); 
     }
        
        

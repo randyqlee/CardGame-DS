@@ -1,24 +1,28 @@
 ﻿public enum DebuffList {
 	DecreaseAttack,
-	DecreaseDefense,
+	//DecreaseDefense,
 	Unlucky,
 	Unhealable,
 	Silence,
 	CrippledStrike,
 	Stun,
-	Taunt,
-	Echo,
-	Malaise,
+	//Taunt,
+	//Echo,
+	//Malaise,
 	Poison,
 	AntiBuff,
 	Brand,
 	Bomb,
-	IncreaseCooldown,
-	Oblivion,
+	//IncreaseCooldown,
+	//Oblivion,
 
 	//AbilityRelatedDebuffs
-	ChargeVitalityStun,
-	GodsShieldUnlucky
+	//ChargeVitalityStun,
+	//GodsShieldUnlucky
+
+	Parts,
+	Horror,
+	Berserk
 
 	
 }

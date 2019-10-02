@@ -95,6 +95,11 @@ public class BuffEffect
             
                         
     }
+
+    public virtual void UpdateCooldown()
+    {
+        new UpdateBuffCommand(this).AddToQueue();
+    }
     
 
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)

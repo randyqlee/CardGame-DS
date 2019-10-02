@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class Torrent : CreatureEffect {
 
-    public int healthLimit = 20;
+    public int buffCooldown = 1;
     
-
     public Torrent(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {}
 
@@ -16,13 +15,13 @@ public class Torrent : CreatureEffect {
    public override void RegisterEventEffect()
     {     
         //creature.e_CreatureOnTurnStart += UseEffect;  
-        creature.e_PreAttackEvent += UseEffect;    
+        creature.e_AfterAttacking += UseEffect;    
     }
 
     public override void UnRegisterEventEffect()
     {        
         //creature.e_CreatureOnTurnStart -= UseEffect;
-        creature.e_PreAttackEvent -= UseEffect;
+        creature.e_AfterAttacking -= UseEffect;
     }
 
     public override void CauseEventEffect()
@@ -30,20 +29,16 @@ public class Torrent : CreatureEffect {
        
     }
     
-    public override void UseEffect()
+    public override void UseEffect(CreatureLogic target)
     {        
         if(remainingCooldown<=0)
         {
-            Debug.Log ("Using TOrrent!");
-            if(creature.Health <= healthLimit)
-            {
-                base.ShowAbility();
-                AddBuff(creature, "IncreaseAttack", 2);
-                  AddBuff(creature, "Immunity", 2);
-                base.UseEffect();      
-                    
-            }            
-           
+            ShowAbility();
+            int damage = creature.MaxHealth - creature.Health;
+            DealDamageEffect(target,damage);
+            AddBuff(target, "Brand", buffCooldown);
+
+            base.UseEffect();             
            
         }    
 

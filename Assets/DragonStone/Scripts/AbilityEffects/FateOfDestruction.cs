@@ -4,43 +4,60 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class FateOfDestruction : CreatureEffect {
-
+public class FateOfDestruction : CreatureEffect
+{
     public int buffCooldown = 2;
-
+    bool chanceEffect = false;
     public FateOfDestruction(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
-
-
-   public override void RegisterEventEffect()
     {
-       creature.e_BeforeAttacking += ShowAbility;      
-       creature.e_AfterAttacking += UseEffect;      
+        
+    }
+
+    public override void RegisterEventEffect()
+    {
+       creature.e_PreAttackEvent += IncreaseAttackCount;
+       creature.e_SecondAttack += UseEffect;       
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_BeforeAttacking -= ShowAbility;      
-         creature.e_AfterAttacking -= UseEffect;      
+         creature.e_PreAttackEvent -= IncreaseAttackCount;
+        creature.e_SecondAttack -= UseEffect;          
     }
 
-    public override void CauseEventEffect()
+    void IncreaseAttackCount(CreatureLogic target)
     {
-       if(remainingCooldown <=0)
-        Debug.Log("Activate Effect: " +this.ToString());
+       
+        if(CanUseAbility())
+        {
+            if(ChanceOK(creature.chance))
+            {
+                ShowAbility();
+                creature.AttacksLeftThisTurn++;
+                chanceEffect = true;
+            }
+            else
+            {
+                base.UseEffect();
+            }
+            
+        }                             
     }
 
     public override void UseEffect(CreatureLogic target)
     {
-        
-            if(remainingCooldown<=0)
-            {                
-                AddBuff(target,"Poison",buffCooldown);        
-                AddBuff(target,"Bomb",buffCooldown);
-                base.UseEffect();                                
-                 
+        if (CanUseAbility() && chanceEffect)
+        {
+            ShowAbility();
+            if(!target.isDead)     
+            {     
+                creature.AttackCreature(target);
+                AddBuff (target, "Bomb", buffCooldown);
             }
-            
-            
+
+            base.UseEffect();  
+
+        }
+
     }
 }

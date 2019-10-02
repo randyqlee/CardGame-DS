@@ -4,118 +4,68 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class ChargeVitality : CreatureEffect {
+public class ChargeVitality : CreatureEffect
 
-    public int healAmount = 15;
-    
+{
+    public int healValue = 15;
+
+    public int maxNumberOfAllies = 1;
 
     public ChargeVitality(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
-
-
-   public override void RegisterEventEffect()
+    {
+        
+    }
+    public override void RegisterEventEffect()
     {
        creature.e_PreAttackEvent += IncreaseAttackCount;
-       //creature.e_CreatureOnTurnStart += IncreaseAttackCount;
-       creature.e_SecondAttack += UseEffect;      
-
-       
+       creature.e_SecondAttack += UseEffect;       
+ 
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_PreAttackEvent -= IncreaseAttackCount;
-         //creature.e_CreatureOnTurnStart -= IncreaseAttackCount;     
-         creature.e_SecondAttack -= UseEffect;      
-    }
-
-    public override void CauseEventEffect()
-    {
-       
-    }
-
-    //Attack Twice
-    public override void UseEffect(CreatureLogic target)
-    {        
-        
-        if(remainingCooldown<=0)
-        {
-            
-            base.ShowAbility();
-            SecondAttack(target);
-            //base.UseEffect();          
-           
-            
-        }        
-        
+        creature.e_PreAttackEvent -= IncreaseAttackCount;
+        creature.e_SecondAttack -= UseEffect;   
+         
     }
 
     void IncreaseAttackCount(CreatureLogic target)
     {
        
-        if(remainingCooldown<=0)
+        if(CanUseAbility())
         {
+            ShowAbility();
             creature.AttacksLeftThisTurn++;
-            
-            SecondHealEffect();     
-            
+
+            creature.Heal(healValue);
+
+            List<CreatureLogic> sortedList = owner.SortAllyListByHealth();
+            if (sortedList.Count > 1)
+            {
+                ShowAbility();
+                int count = 0;
+                for (int i = 0; i<sortedList.Count && count < maxNumberOfAllies; i++)
+                {
+                    if (sortedList[i] != creature)
+                    {
+                        sortedList[i].Heal(healValue);
+                        count++;
+                    }
+                }
+            }          
         }                             
     }
 
-    void SecondAttack(CreatureLogic target)
-    {               
-        if(remainingCooldown<=0)
-        {
-            //creature.AttacksLeftThisTurn++; 
-          
-          //hasUsedEffect = true;   
-          base.UseEffect();           
-          if(!target.isDead)          
-          creature.AttackCreature(target);
-
-          //DS: Force for now  
-                                 
-         
-           
-        }
-       
-        
-         
-    }
-
-    //Heal Effect Start of Turn
-    public void SecondHealEffect()
+    public override void UseEffect(CreatureLogic target)
     {
-        
-        
-
-        //initialize
-        creature.owner.AllyList();
-        List<CreatureLogic> uniqueAllies = new List<CreatureLogic>();        
-        
-        //Get list of unique allies
-        foreach(CreatureLogic cl in creature.owner.allies)
+        if (CanUseAbility())
         {
-            if(cl != creature)
-            uniqueAllies.Add(cl);
+            ShowAbility();
+            if(!target.isDead)          
+                creature.AttackCreature(target);
+            base.UseEffect();  
+
         }
-        
-        //heal a random ally
-        if(uniqueAllies.Count > 0)
-        {
-            CreatureLogic randAlly = uniqueAllies[Random.Range(0, uniqueAllies.Count)];
 
-            ShowAbility(creature);
-            creature.Heal(healAmount);              
-            randAlly.Heal(healAmount);
-            
-        }else{
-            ShowAbility(creature);
-            creature.Heal(healAmount);    
-        }     
-
-
-        creature.owner.allies.Clear();
     }
-    
 }

@@ -108,6 +108,11 @@ public class CreatureEffect
             
     }
 
+    public virtual void UpdateCooldown ()
+    {
+        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+    }
+
     public void ResetCreatureEffectCooldown()
     {       
         if(remainingCooldown<=0 && creature.canUseAbility)
@@ -149,6 +154,13 @@ public class CreatureEffect
         else
             return false;
 
+    }
+
+    public static T GetRandomEnum<T>()
+    {
+        System.Array A = System.Enum.GetValues(typeof(T));
+        T V = (T)A.GetValue(UnityEngine.Random.Range(0,A.Length));
+        return V;
     }
 
    

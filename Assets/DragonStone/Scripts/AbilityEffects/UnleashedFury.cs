@@ -14,38 +14,40 @@ public class UnleashedFury : CreatureEffect
     public override void RegisterEventEffect()
     {
        //creature.e_CreatureOnTurnStart += UseEffect;      
-       creature.e_PreAttackEvent += UseEffect;  
-       creature.e_AfterAttacking += SecondAttack;      
+       creature.e_PreAttackEvent += IncreaseAttackCount;  
+       creature.e_SecondAttack += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_PreAttackEvent -= UseEffect;  
-         creature.e_AfterAttacking -= SecondAttack;          
+         creature.e_PreAttackEvent -= IncreaseAttackCount;  
+         creature.e_SecondAttack -= UseEffect;          
     }
 
-    public override void UseEffect(CreatureLogic target)
+    void IncreaseAttackCount(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+       
+        if(CanUseAbility())
         {
             ShowAbility();
+            creature.AttacksLeftThisTurn++;
             AddBuff(creature, "IncreasedAttack", buffCooldown);
             AddBuff(creature, "Immunity", buffCooldown);
-            creature.SplashAttackDamage(target, creature.AttackDamage);
-        }
 
-        
+        }                             
     }
-
-    public void SecondAttack(CreatureLogic target)
+    public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if(CanUseAbility())
         {
+            ShowAbility();
             if (!target.isDead)
             {
                 creature.AttackCreature(target);
             }
             base.UseEffect();
         }
+
     }
+
 }

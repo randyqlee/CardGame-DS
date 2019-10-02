@@ -6,63 +6,55 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class SealMagic : CreatureEffect {
+public class SealMagic : CreatureEffect 
 
-  
-
+{
+    public int buffCooldown = 1;
+    public int changeCD = 1;
     public SealMagic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
-
+    {
+        
+    }
 
    public override void RegisterEventEffect()
     {
-       creature.e_BeforeAttacking += ShowAbility;      
-       creature.e_AfterAttacking += UseEffect;      
+    
+       creature.e_AfterAttacking += UseEffect;        
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_BeforeAttacking -= ShowAbility;      
-        creature.e_AfterAttacking -= UseEffect;      
-    }
-
-    public override void CauseEventEffect()
-    {
-    //    if(remainingCooldown <=0)
-    //     Debug.Log("Activate Effect: " +this.ToString());
+        creature.e_AfterAttacking += UseEffect;            
     }
 
     public override void UseEffect(CreatureLogic target)
-    {     
-        if(remainingCooldown <=0)
-        {     
-           
-           ResetCooldown(target);                      
-           base.UseEffect();
-           Extraturn();               
-        }
-
-              
-    }
-
-    public void ResetCooldown(CreatureLogic target)
-    {        
-
-        foreach(CreatureEffect ce in target.creatureEffects)
-        {
-            ce.remainingCooldown = ce.creatureEffectCooldown;
-        }
-        
-    }
-
-    public void Extraturn()
     {
-        TurnManager.Instance.TurnCounter++;
-        owner.ExtraCreatureTurn = 1;
+        if(CanUseAbility())
+        {   
+            ShowAbility();
+            foreach (CreatureLogic cl in owner.EnemyList())
+            {
+                if(cl == target)
+                {
+                    foreach (CreatureEffect ce in cl.creatureEffects)
+                    {
+                        ce.remainingCooldown = ce.creatureEffectCooldown;
+                        ce.UpdateCooldown();
+                    }
+                }
+                else
+                {
+                    foreach (CreatureEffect ce in cl.creatureEffects)
+                    {
+                        ce.remainingCooldown += changeCD;
+                        ce.UpdateCooldown();
+                    }
 
-        Debug.Log("Seal Magic Extra Turn! ");
+                }
+            }              
+    
+            
+            base.UseEffect();
+        }
     }
-
-
-
 }

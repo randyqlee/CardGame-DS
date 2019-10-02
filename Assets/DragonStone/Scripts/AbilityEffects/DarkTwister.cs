@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DarkTwister : CreatureEffect
 {
-    public int value = 7;
+    public int value = 10;
 
 
     public DarkTwister(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)

@@ -976,7 +976,7 @@ public class CreatureLogic: ICharacter
   
     
     
-    public void ChangeHealth(int changeAmount, int factor)
+    public void ChangeHealth(int changeAmount, int factor=1)
     {    
        int amount = changeAmount*factor; 
 

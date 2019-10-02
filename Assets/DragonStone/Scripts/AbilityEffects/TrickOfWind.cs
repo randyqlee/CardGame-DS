@@ -23,13 +23,16 @@ public class TrickOfWind : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if (CanUseAbility() && ChanceOK(creature.chance))
+        if (CanUseAbility())
         {
-            ShowAbility();
+            if(ChanceOK(creature.chance))
+            {
+                ShowAbility();
 
-            AddBuff(target, "Brand",buffCooldown);
-            int damage = damageMult * (creature.Health / 10);
-            DealDamageEffect(target, damage);
+                AddBuff(target, "Brand",buffCooldown);
+                int damage = damageMult * (creature.Health / 10);
+                DealDamageEffect(target, damage);
+            }
 
             base.UseEffect();
 

@@ -6,80 +6,70 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class BladeFan : CreatureEffect {
-
-    public int buffCooldown = 1;
-    public int buffCount = 2;
+public class BladeFan : CreatureEffect 
+{
+    public int buffCount = 3;
 
     public BladeFan(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
-    {}
-
+    {
+        
+    }
 
    public override void RegisterEventEffect()
     {
-       
-       //creature.e_BeforeAttacking += ShowAbility;
-       creature.e_AfterAttacking += UseEffect;      
+    
+       creature.e_AfterAttacking += UseEffect;        
     }
 
     public override void UnRegisterEventEffect()
     {
-         //creature.e_BeforeAttacking -= ShowAbility;
-         creature.e_AfterAttacking -= UseEffect;      
-    }
-
-    public override void CauseEventEffect()
-    {
-    //    if(remainingCooldown <=0)
-    //     Debug.Log("Activate Effect: " +this.ToString());
+        creature.e_AfterAttacking += UseEffect;            
     }
 
     public override void UseEffect(CreatureLogic target)
-    {     
-        if(Random.Range(0,100)<=creature.chance)
-        if(remainingCooldown <=0)
-        { 
-           ShowAbility(target);
-           RemoveAllBuffs(target);            
-           //AddBuff(target,"Stun",buffCooldown);      
-           
-
-           base.UseEffect();              
-        }
-
-             
-    }    
-
-    public void RemoveAllBuffs(CreatureLogic target)
     {
-        int i = target.buffEffects.Count;
-        int buffCounter = 0;
-        for(int x = i-1; x>=0; x--)
-        {
-            if(target.buffEffects[x].isBuff)
+        if(CanUseAbility())
+        {   
+            if(ChanceOK(creature.chance))
             {
-                target.buffEffects[x].RemoveBuff();
-                buffCounter++;
-            }            
+                ShowAbility();
+
+
+                var buffList = new List<BuffEffect>();
+
+                foreach (BuffEffect be in target.buffEffects)
+                {
+                    if(be.isBuff)
+                    {
+                        buffList.Add(be);
+                    }
+                }
+
+                int buffRemoved = 0;
+
+                if (buffList != null)
+                {
+                    foreach(BuffEffect be in buffList)
+                    {
+                        target.RemoveBuff(be);
+                        buffRemoved++;
+                    }
+                }
+
+
+                if(buffRemoved > buffCount)
+                {
+                    GainExtraTurn();
+                }
+
+            }
+            
+            base.UseEffect();
         }
-
-        // official Line
-        if(buffCounter>=buffCount)        
-        ExtraTurnEffect();
-        
-        
-        //Extra Turn Test
-        //ExtraTurnEffect();
     }
 
-    public void ExtraTurnEffect()
+    public void GainExtraTurn()
     {
-        TurnManager.Instance.TurnCounter++;
-        owner.ExtraCreatureTurn = 1;
-
-        Debug.Log("Blade Fan Extra Turn! ");
+        creature.AttacksLeftThisTurn++;        
     }
-
-
-
 }
