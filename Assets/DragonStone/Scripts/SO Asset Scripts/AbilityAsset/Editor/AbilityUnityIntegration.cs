@@ -5,7 +5,7 @@ static class AbilityUnityIntegration {
 
 	[MenuItem("Assets/Create/AbilityAsset")]
 	public static void CreateYourScriptableObject() {
-		ScriptableObjectUtility2.CreateAsset<AbilityAsset>();
+		//ScriptableObjectUtility2.CreateAsset<AbilityAsset>();
 	}
 
 }

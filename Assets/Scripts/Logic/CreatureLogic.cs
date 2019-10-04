@@ -359,11 +359,12 @@ public class CreatureLogic: ICharacter
 
 
 //for Equip
+/*
         if (ca.equipAbility != null)
         {
-            if (ca.equipAbility.characterEffect != null && ca.equipAbility.characterEffect != "")
+            if (ca.equipAbility.abilityEffect != null && ca.equipAbility.abilityEffect != "")
             {
-                effect = System.Activator.CreateInstance(System.Type.GetType(ca.equipAbility.characterEffect), new System.Object[]{owner,this}) as CreatureEffect;
+                effect = System.Activator.CreateInstance(System.Type.GetType(ca.equipAbility.abilityEffect), new System.Object[]{owner,this}) as CreatureEffect;
                 //effect.RegisterCooldown();
                 //effect.RegisterEventEffect();
 
@@ -375,6 +376,7 @@ public class CreatureLogic: ICharacter
 
             }
         }
+        */
 
 
 

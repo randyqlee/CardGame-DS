@@ -20,7 +20,7 @@ public enum Type
 	Stunned,
 	ExtraTurn
 }
-public class AbilityAsset : ScriptableObject {
+public class AbilityAsset_old : ScriptableObject {
 
 	public string abilityName;
 	public Sprite icon;

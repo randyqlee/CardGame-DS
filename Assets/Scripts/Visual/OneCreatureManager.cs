@@ -83,6 +83,7 @@ public class OneCreatureManager : MonoBehaviour
 
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
+        if(ArmorText!=null)
         ArmorText.text = cardAsset.Armor.ToString();
 
 //DS

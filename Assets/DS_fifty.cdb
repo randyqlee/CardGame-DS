@@ -1,0 +1,2270 @@
+{
+	"sheets": [
+		{
+			"name": "Creatures",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "cardName",
+					"display": null
+				},
+				{
+					"typeStr": "5:Attack,HP,Support",
+					"name": "creatureType",
+					"display": null
+				},
+				{
+					"typeStr": "5:White,Green,Blue,Red,Black",
+					"name": "creatureElement",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "Chance"
+				},
+				{
+					"typeStr": "8",
+					"name": "Abilities"
+				},
+				{
+					"typeStr": "3",
+					"name": "MaxHealth"
+				},
+				{
+					"typeStr": "3",
+					"name": "Attack"
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "CardImage",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "HeroPortrait",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "cardCost"
+				},
+				{
+					"typeStr": "5:Common,Rare,Epic,Legendary",
+					"name": "Rarity",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "Armor"
+				},
+				{
+					"typeStr": "3",
+					"name": "AttacksForOneTurn"
+				},
+				{
+					"typeStr": "6:AbilityEffects",
+					"name": "equipAbility",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"id": "Giana",
+					"cardName": "Giana",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 4,
+					"MaxHealth": 47,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 45,
+					"Abilities": [
+						{
+							"Ability": "FateOfDestruction"
+						},
+						{
+							"Ability": "CriticalError"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Ragdoll",
+					"cardName": "Ragdoll",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 4,
+					"MaxHealth": 42,
+					"Attack": 8,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "ToothForATooth"
+						},
+						{
+							"Ability": "Torrent"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "MoLong",
+					"cardName": "MoLong",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 2,
+					"MaxHealth": 44,
+					"Attack": 6,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 35,
+					"Abilities": [
+						{
+							"Ability": "DragonsDance"
+						},
+						{
+							"Ability": "RecklessAssault"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Hathor",
+					"cardName": "Hathor",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 1,
+					"MaxHealth": 44,
+					"Attack": 6,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 55,
+					"Abilities": [
+						{
+							"Ability": "SweetDreams"
+						},
+						{
+							"Ability": "DelayedPromise"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Ganymede",
+					"cardName": "Ganymede",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 1,
+					"MaxHealth": 43,
+					"Attack": 7,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 35,
+					"Abilities": [
+						{
+							"Ability": "Ventilate"
+						},
+						{
+							"Ability": "SealMagic"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "YeonHong",
+					"cardName": "YeonHong",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 0,
+					"MaxHealth": 44,
+					"Attack": 6,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "BladeFan"
+						},
+						{
+							"Ability": "ChargeVitality"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Artamiel",
+					"cardName": "Artamiel",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 0,
+					"MaxHealth": 43,
+					"Attack": 7,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "Judge"
+						},
+						{
+							"Ability": "ArchangelsBlessing"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Shaina",
+					"cardName": "Shaina",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 3,
+					"MaxHealth": 44,
+					"Attack": 6,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "Precision"
+						},
+						{
+							"Ability": "ChakramCrush"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Tesarion",
+					"cardName": "Tesarion",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 3,
+					"MaxHealth": 48,
+					"Attack": 4,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "AncientPower"
+						},
+						{
+							"Ability": "TripleCrush"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Zeratu",
+					"cardName": "Zeratu",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 4,
+					"MaxHealth": 44,
+					"Attack": 6,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "ForbiddenPower"
+						},
+						{
+							"Ability": "UnleashedFury"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Pater_Druid",
+					"cardName": "Pater (Druid Form)",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 4,
+					"MaxHealth": 45,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "WildBlow_Druid"
+						},
+						{
+							"Ability": "MoonlightGrace"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Pater_Beast",
+					"cardName": "Pater (Beast Form)",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "WildBlow_Beast"
+						},
+						{
+							"Ability": "MoonlightGrace2"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Vivachel",
+					"cardName": "Vivachel",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "HealingMusic"
+						},
+						{
+							"Ability": "SongOfDestiny"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Betta",
+					"cardName": "Betta",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 35,
+					"Abilities": [
+						{
+							"Ability": "GrantLife"
+						},
+						{
+							"Ability": "Serenity"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Sylvia",
+					"cardName": "Sylvia",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "BestPartner"
+						},
+						{
+							"Ability": "CuttingMagic"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Nicki",
+					"cardName": "Nicki",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 55,
+					"Abilities": [
+						{
+							"Ability": "GirlsPrayer"
+						},
+						{
+							"Ability": "DarkGuardianAngel"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Frigate",
+					"cardName": "Frigate",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 35,
+					"Abilities": [
+						{
+							"Ability": "Bombardment"
+						},
+						{
+							"Ability": "FullSpeedAhead"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Icares",
+					"cardName": "Icares",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 4,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "DarkTwister"
+						},
+						{
+							"Ability": "DarkRecovery"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Avaris",
+					"cardName": "Avaris",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "SoulDestroyer"
+						},
+						{
+							"Ability": "BrandOfHell"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Aegir",
+					"cardName": "Aegir",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 65,
+					"Abilities": [
+						{
+							"Ability": "WrathfulAttack"
+						},
+						{
+							"Ability": "Confiscate"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Sabrina",
+					"cardName": "Sabrina",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "FemaleWarrior"
+						},
+						{
+							"Ability": "TripleStrike"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Chilling",
+					"cardName": "Chilling",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 70,
+					"Abilities": [
+						{
+							"Ability": "TheCunning"
+						},
+						{
+							"Ability": "SongOfTheNightWind"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Bolverk",
+					"cardName": "Bolverk",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "LearnKnowledge"
+						},
+						{
+							"Ability": "ForbiddenGaldr"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "ShiHou",
+					"cardName": "Shi Hou",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 45,
+					"Abilities": [
+						{
+							"Ability": "AllOrNothing"
+						},
+						{
+							"Ability": "AlterEgoAttack"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Megan",
+					"cardName": "Megan",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 60,
+					"Abilities": [
+						{
+							"Ability": "ToadPoison"
+						},
+						{
+							"Ability": "SpellOfStrengthening"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Woosa",
+					"cardName": "Woosa",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 55,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "MountainsPower"
+						},
+						{
+							"Ability": "WishOfImmortality"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Izaria",
+					"cardName": "Izaria",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 2,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "StrikeOfRejection"
+						},
+						{
+							"Ability": "PartingGift"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Ritesh",
+					"cardName": "Ritesh",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "TrickOfWind"
+						},
+						{
+							"Ability": "Meditate"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Christina",
+					"cardName": "Christina",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 70,
+					"Abilities": [
+						{
+							"Ability": "CoyRevenge"
+						},
+						{
+							"Ability": "FocusedShots"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Jamire",
+					"cardName": "Jamire",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "Thunderbreak"
+						},
+						{
+							"Ability": "IllusionOfTime"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Ethna",
+					"cardName": "Ethna",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "Shatter"
+						},
+						{
+							"Ability": "Capture"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Lushen",
+					"cardName": "Lushen",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "AmputationMagic"
+						},
+						{
+							"Ability": "SurpriseBox"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Copper",
+					"cardName": "Copper",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "SpinningSmash"
+						},
+						{
+							"Ability": "ThunderStrike"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Tiana",
+					"cardName": "Tiana",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "StormOfMidnight"
+						},
+						{
+							"Ability": "WindOfChanges"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Diana_Unicorn",
+					"cardName": "Diana_Unicorn",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 40,
+					"Abilities": [
+						{
+							"Ability": "NaturesProtection"
+						},
+						{
+							"Ability": "MessengerOfTheWind"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Diana_Human",
+					"cardName": "Diana_Human",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 1,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "InevitableWound"
+						},
+						{
+							"Ability": "SoaringWings"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Bulldozer",
+					"cardName": "Bulldozer",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 40,
+					"Abilities": [
+						{
+							"Ability": "BodyPress"
+						},
+						{
+							"Ability": "FullPowerPunch"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Racuni",
+					"cardName": "Racuni",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "LittleHummingBird"
+						},
+						{
+							"Ability": "RabbitsAgility"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Antares",
+					"cardName": "Antares",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 25,
+					"Abilities": [
+						{
+							"Ability": "Transcendance"
+						},
+						{
+							"Ability": "Sinkhole"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Garo",
+					"cardName": "Garo",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "NarrowEscape"
+						},
+						{
+							"Ability": "DragonAttack"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Perna",
+					"cardName": "Perna",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 65,
+					"Abilities": [
+						{
+							"Ability": "Eternity"
+						},
+						{
+							"Ability": "FlameNova"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Okeanos",
+					"cardName": "Okeanos",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 65,
+					"Abilities": [
+						{
+							"Ability": "SpearOfDevastation"
+						},
+						{
+							"Ability": "RainOfStones"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Vanessa",
+					"cardName": "Vanessa",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "WarriorsReturn"
+						},
+						{
+							"Ability": "SealOfFire"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Verdehile",
+					"cardName": "Verdehile",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 3,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 65,
+					"Abilities": [
+						{
+							"Ability": "BoilingBlood"
+						},
+						{
+							"Ability": "NobleAgreement"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Gemini",
+					"cardName": "Gemini",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 65,
+					"Abilities": [
+						{
+							"Ability": "SmallGrudge"
+						},
+						{
+							"Ability": "FlyFly"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Tablo",
+					"cardName": "Tablo",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 77,
+					"Abilities": [
+						{
+							"Ability": "UnluckySeven"
+						},
+						{
+							"Ability": "ReturnedDice"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Fran",
+					"cardName": "Fran",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 2,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "Purify"
+						},
+						{
+							"Ability": "FairysBlessing"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Kabilla",
+					"cardName": "Kabilla",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 70,
+					"Abilities": [
+						{
+							"Ability": "CrowHunt"
+						},
+						{
+							"Ability": "Alert"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Wedjat",
+					"cardName": "Wedjat",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 1,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 50,
+					"Abilities": [
+						{
+							"Ability": "DutyOfTheMonarch"
+						},
+						{
+							"Ability": "DefensiveStance"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Dover",
+					"cardName": "Dover",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 35,
+					"Abilities": [
+						{
+							"Ability": "TimeBomb"
+						},
+						{
+							"Ability": "FlashBomb"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Iris",
+					"cardName": "Iris",
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"creatureType": 0,
+					"creatureElement": 0,
+					"MaxHealth": 55,
+					"Attack": 5,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"Chance": 70,
+					"Abilities": [
+						{
+							"Ability": "SweetRevenge"
+						},
+						{
+							"Ability": "MagicSurge"
+						}
+					],
+					"equipAbility": "FateOfDestruction"
+				},
+				{
+					"id": "Jeanne",
+					"cardName": "Jeanne",
+					"creatureType": 1,
+					"creatureElement": 0,
+					"Chance": 75,
+					"Abilities": [
+						{
+							"Ability": "CryOfProvocation"
+						},
+						{
+							"Ability": "PrayerOfProtection"
+						}
+					],
+					"MaxHealth": 55,
+					"Attack": 5,
+					"description": "",
+					"CardImage": "",
+					"HeroPortrait": "",
+					"cardCost": 0,
+					"Rarity": 3,
+					"Armor": 0,
+					"AttacksForOneTurn": 1,
+					"equipAbility": "FateOfDestruction"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Creatures@Abilities",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:AbilityEffects",
+					"name": "Ability"
+				}
+			]
+		},
+		{
+			"name": "AbilityEffects",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "abilityName",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "icon",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "abilityEffect",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "abilityCoolDown"
+				}
+			],
+			"lines": [
+				{
+					"id": "FateOfDestruction",
+					"abilityName": "Fate of Destruction",
+					"icon": "FateOfDestruction_icon",
+					"description": "BattleCry: Chance to Attack twice this turn.  Second attack inflicts a Bomb for 2 turns.",
+					"abilityEffect": "FateOfDestruction",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "ToothForATooth",
+					"abilityName": "Tooth for a Tooth",
+					"icon": "ToothForATooth_icon",
+					"description": "Chance to give ally heroes Lucky when they are attacked.",
+					"abilityEffect": "ToothForATooth",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "DragonsDance",
+					"abilityName": "Dragon's Dance",
+					"icon": "DragonsDance_icon",
+					"description": "Attack has a chance to damage, Silence, and remove a buff from all enemies.",
+					"abilityEffect": "DragonsDance",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SweetDreams",
+					"abilityName": "Sweet Dreams",
+					"icon": "SweetDreams_icon",
+					"description": "Attack has a chance to remove all buffs and inflict Anti-Buff.",
+					"abilityEffect": "SweetDreams",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Ventilate",
+					"abilityName": "Ventilate",
+					"icon": "Ventilate_icon",
+					"description": "BattleCry: Refresh all skill cooldowns and grant Lucky to another ally.  ",
+					"abilityEffect": "Ventilate",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "BladeFan",
+					"abilityName": "BladeFan ",
+					"icon": "BladeFan_icon",
+					"description": "Attack has a chance to remove all buffs .  Gain an extra turn if more than 3 buffs were removed.",
+					"abilityEffect": "BladeFan",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Judge",
+					"abilityName": "Judge",
+					"icon": "Judge_icon",
+					"description": "BattleStrike: Chance to debuff an enemy and gain Retaliate.",
+					"abilityEffect": "Judge",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Precision",
+					"abilityName": "Precision",
+					"icon": "Precision_icon",
+					"description": "Attack has the chance to critical strike and inflict brand.",
+					"abilityEffect": "Precision",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "AncientPower",
+					"abilityName": "Ancient Power",
+					"icon": "AncientPower_icon",
+					"description": "BattleCry: Chance to Silence and deal 7 damage to all enemies with debuffs.",
+					"abilityEffect": "AncientPower",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "ForbiddenPower",
+					"abilityName": "Forbidden Power",
+					"icon": "ForbiddenPower_icon",
+					"description": "Attack has a chance to deal critical strike and infilcit poison.",
+					"abilityEffect": "ForbiddenPower",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "WildBlow_Druid",
+					"abilityName": "Wild Blow (Druid)",
+					"icon": "WildBlow(Druid)_icon",
+					"description": "BattleCry: Chance to gain Lifesteal and deal Critical Strike.",
+					"abilityEffect": "WildBlow",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "WildBlow_Beast",
+					"abilityName": "Wild Blow (Beast)",
+					"icon": "WildBlow(Beast)_icon",
+					"description": "BattleCry: Chance to gain Lifesteal and Taunt",
+					"abilityEffect": "WildBlow",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "HealingMusic",
+					"abilityName": "Healing Music",
+					"icon": "HealingMusic_icon",
+					"description": "BattleCry:  Chance to remove all debuffs and gain Immunity for 2 turns.",
+					"abilityEffect": "HealingMusic",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "GrantLife",
+					"abilityName": "Grant Life",
+					"icon": "GrantLife_icon",
+					"description": "BattleCry: Chance to revive a dead ally to 12 life, then gain Unlucky for 4 turns.",
+					"abilityEffect": "GrantLife",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "BestPartner",
+					"abilityName": "Best Partner",
+					"icon": "BestPartner_icon",
+					"description": "BattleCry: Chance another ally attacks with you.",
+					"abilityEffect": "BestPartner",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "GirlsPrayer",
+					"abilityName": "Girl's Prayer",
+					"icon": "GirlsPrayer_icon",
+					"description": "BattleCry:  Chance to remove a debuff on all allies and grant Recovery for 2 turns.",
+					"abilityEffect": "GirlsPrayer",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Bombardment",
+					"abilityEffect": "Bombardment",
+					"abilityName": "Bombardment",
+					"icon": "Bombardment_icon",
+					"description": "BattleCry:  Chance to stun 2 enemies.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "DarkTwister",
+					"abilityEffect": "DarkTwister",
+					"abilityName": "Dark Twister",
+					"icon": "DarkTwister_icon",
+					"description": "BattleStrike: Chance to damage all enemies and  heal all allies by 10.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SoulDestroyer",
+					"abilityEffect": "SoulDestroyer",
+					"abilityName": "Soul Destroyer",
+					"icon": "SoulDestroyer_icon",
+					"description": "When an enemy dies, curse it and you gain Resurrect for 4 turns.  Cursed enemies can't be revived.  ",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "WrathfulAttack",
+					"abilityEffect": "WrathfulAttack",
+					"abilityName": "Wrathful Attack",
+					"icon": "WrathfulAttack_icon",
+					"description": "BattleCry:  Chance to deal Critical Strike and inflict Brand for 2 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "FemaleWarrior",
+					"abilityEffect": "FemaleWarrior",
+					"abilityName": "Female Warrior",
+					"icon": "FemaleWarrior_icon",
+					"description": "BattleStrike:  Chance for allies to gain Defense for 2 turns and deal additional 5 damage to enemies with buffs.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "TheCunning",
+					"abilityEffect": "TheCunning",
+					"abilityName": "The Cunning",
+					"icon": "TheCunning_icon",
+					"description": "BattleStrike:  Chance to steal a buff from target enemy.  Deal 5 damage for each buff you have.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "LearnKnowledge",
+					"abilityEffect": "LearnKnowledge",
+					"abilityName": "Learn Knowledge",
+					"icon": "LearnKnowledge_icon",
+					"description": "Chance to gain Armor for 2 turns whenever an enemy gains a buff.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "AllOrNothing",
+					"abilityEffect": "AllOrNothing",
+					"abilityName": "All or Nothing",
+					"icon": "AllOrNothing_icon",
+					"description": "BattleStrike: Chance to gain Increased Attack and for attack to damage and inflict Unlucky to all enemies.  ",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "ToadPoison",
+					"abilityEffect": "ToadPoison",
+					"abilityName": "Toad Poison",
+					"icon": "ToadPoison_icon",
+					"description": "BattleStrike: Chance to remove a buff, inflict Poison, and Anti-Buff for 2 turns.  ",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "MountainsPower",
+					"abilityEffect": "MountainsPower",
+					"abilityName": "Mountain's Power",
+					"icon": "MountainsPower_icon",
+					"description": "BattleStrike:  Chance to heal all allies for 6 life and deal 3 damage to the enemy.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "StrikeOfRejection",
+					"abilityEffect": "StrikeOfRejection",
+					"abilityName": "Strike of Rejection",
+					"icon": "StrikeOfRejection_icon",
+					"description": "BattleStrike: Chance to inflict Unhealable for 2 turns and deal additional 5 damage.  Casts if enemy is stunned.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "TrickOfWind",
+					"abilityEffect": "TrickOfWind",
+					"abilityName": "Trick of Wind",
+					"icon": "TrickOfWind_icon",
+					"description": "Battlestrike: Inflict Brand for 2 turns then Deal 3 damage for every 10 life you have.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "CoyRevenge",
+					"abilityEffect": "CoyRevenge",
+					"abilityName": "Coy Revenge",
+					"icon": "CoyRevenge_icon",
+					"description": "Chance to give an ally Increased Attack whenever it is attacked.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Thunderbreak",
+					"abilityEffect": "Thunderbreak",
+					"abilityName": "Thunderbreak",
+					"icon": "Thunderbreak_icon",
+					"description": "BattleCry:  Chance to inflcit Decrease Attack for 2 turns then deal 3 damage to other enemies.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Shatter",
+					"abilityEffect": "Shatter",
+					"abilityName": "Shatter",
+					"icon": "Shatter_icon",
+					"description": "Attack has a chance to deal critical strike inflict Brand for 2 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "AmputationMagic",
+					"abilityEffect": "AmputationMagic",
+					"abilityName": "Amputation Magic",
+					"icon": "AmputationMagic_icon",
+					"description": "Attack has a chance to deal critical strike to all enemies.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SpinningSmash",
+					"abilityEffect": "SpinningSmash",
+					"abilityName": "Spinning Smash",
+					"icon": "SpinningSmash_icon",
+					"description": "Attack has a chance to damage all and inflict Crippled Strike to all enemies. Deal critical strike if you have Armor.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "StormOfMidnight",
+					"abilityEffect": "StormOfMidnight",
+					"abilityName": "Storm of Midnight",
+					"icon": "StormOfMidnight_icon",
+					"description": "Attack has a chance to damage and inflict Anti-Buff to all enemies.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "NaturesProtection",
+					"abilityEffect": "NaturesProtection",
+					"abilityName": "Nature's Protection",
+					"icon": "NaturesProtection_icon",
+					"description": "Chance to give Armor to an ally whenever you are attacked.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "InevitableWound",
+					"abilityEffect": "InevitableWound",
+					"abilityName": "Inevitable Wound",
+					"icon": "InevitableWound_icon",
+					"description": "BattleCry: chance to remove a buff and inflict Poison.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "BodyPress",
+					"abilityEffect": "BodyPress",
+					"abilityName": "Body Press",
+					"icon": "BodyPress_icon",
+					"description": "BattleCry: Chance to gain Armor and Taunt for 2 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "LittleHummingBird",
+					"abilityEffect": "LittleHummingBird",
+					"abilityName": "Little Humming Bird",
+					"icon": "LittleHummingBird_icon",
+					"description": "BattleCry:  Chance to remove a debuff and Heal 5 life of the weakest ally.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Transcendance",
+					"abilityEffect": "Transcendance",
+					"abilityName": "Transcendance",
+					"icon": "Transcendance_icon",
+					"description": "Chance to Refresh this hero with Increased Attack after each enemy hero's turn.  ",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "NarrowEscape",
+					"abilityEffect": "NarrowEscape",
+					"abilityName": "Narrow Escape",
+					"icon": "NarrowEscape_icon",
+					"description": "Chance to evade attack that will deal fatal damage.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Eternity",
+					"abilityEffect": "Eternity",
+					"abilityName": "Eternity",
+					"icon": "Eternity_icon",
+					"description": "At the end of every round, heal other allies for 8 life.  Chance to Revive if there's another ally alive.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SpearOfDevastation",
+					"abilityEffect": "SpearOfDevastation",
+					"abilityName": "Spear of Devastation",
+					"icon": "SpearOfDevastation_icon",
+					"description": "BattleCry: Chance to transfer a debuff from you, and steal a buff from the enemy.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "WarriorsReturn",
+					"abilityEffect": "WarriorsReturn",
+					"abilityName": "Warrior's Return",
+					"icon": "WarriorsReturn_icon",
+					"description": "At the end of the round, chance to revive a dead ally hero with 8 life remaining.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "BoilingBlood",
+					"abilityEffect": "BoilingBlood",
+					"abilityName": "Boiling Blood",
+					"icon": "BoilingBlood_icon",
+					"description": "Heal your attack damage.  Your attack has the chance to inflict Berserk.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SmallGrudge",
+					"abilityEffect": "SmallGrudge",
+					"abilityName": "Small Grudge",
+					"icon": "SmallGrudge_icon",
+					"description": "BattleCry:  Chance to gain Increased Attack and remove an enemy buff.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "UnluckySeven",
+					"abilityEffect": "UnluckySeven",
+					"abilityName": "Unlucky 7",
+					"icon": "UnluckySeven_icon",
+					"description": "Attack has chance to either inflict Decreased Attack or Silence to all enemies.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "Purify",
+					"abilityEffect": "Purify",
+					"abilityName": "Purify",
+					"icon": "Purify_icon",
+					"description": "Attack has chance to remove all your debuffs and gain Recovery for 2 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "CrowHunt",
+					"abilityEffect": "CrowHunt",
+					"abilityName": "Crow Hunt",
+					"icon": "CrowHunt_icon",
+					"description": "BattleStrike: Chance for attack to damage all enemies and give all allies Lucky.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "DutyOfTheMonarch",
+					"abilityEffect": "DutyOfTheMonarch",
+					"abilityName": "Duty of the Monarch",
+					"icon": "DutyOfTheMonarch_icon",
+					"description": "BattleStrike:  Chance to reduce all skill cooldowns and increase buff cooldowns of all allies by 1.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "TimeBomb",
+					"abilityEffect": "TimeBomb",
+					"abilityName": "Time Bomb",
+					"icon": "TimeBomb_icon",
+					"description": "Attack has a chance to deal additional 4 damage and inflict a Bomb for 3 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "SweetRevenge",
+					"abilityEffect": "SweetRevenge",
+					"abilityName": "Sweet Revenge",
+					"icon": "SweetRevenge_icon",
+					"description": "BattleCry: Chance to remove a debuff from all allies and give the weakest ally a Shield.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "CryOfProvocation",
+					"abilityEffect": "CryOfProvocation",
+					"abilityName": "Cry of Provocation",
+					"icon": "CryOfProvocation_icon",
+					"description": "BattleCry:  Chance to gain Taunt and Armor for 2 turns.",
+					"abilityCoolDown": 0
+				},
+				{
+					"id": "CriticalError",
+					"abilityEffect": "CriticalError",
+					"abilityName": "Critical Error",
+					"icon": "CriticalError_icon",
+					"description": "Attack damages and debuffs all enemies this turn.  Silence enemies with buffs removed.",
+					"abilityCoolDown": 2
+				},
+				{
+					"id": "Torrent",
+					"abilityEffect": "Torrent",
+					"abilityName": "Torrent",
+					"icon": "Torrent_icon",
+					"description": "Attack deals your missing life as additional damage and inflicts Brand.",
+					"abilityCoolDown": 2
+				},
+				{
+					"id": "RecklessAssault",
+					"abilityEffect": "RecklessAssault",
+					"abilityName": "Reckless Assault",
+					"icon": "RecklessAssault_icon",
+					"description": "BattleCry: Deal additional damage equal to your life, then lose half your life.",
+					"abilityCoolDown": 5
+				},
+				{
+					"id": "DelayedPromise",
+					"abilityEffect": "DelayedPromise",
+					"abilityName": "Delayed Promise",
+					"icon": "DelayedPromise_icon",
+					"description": "BattleCry: Silence all enemies then Stun the target enemy.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SealMagic",
+					"abilityEffect": "SealMagic",
+					"abilityName": "Seal Magic",
+					"icon": "SealMagic_icon",
+					"description": "Attack resets all skills of target enemy to max cooldown.  Increase cooldowns of all other enemies by 1.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ChargeVitality",
+					"abilityEffect": "ChargeVitality",
+					"abilityName": "Charge Vitality",
+					"icon": "ChargeVitality_icon",
+					"description": "BattleCry: Heal 15 life to you and your weakest ally.  Attacks twice this turn.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ArchangelsBlessing",
+					"abilityEffect": "ArchangelsBlessing",
+					"abilityName": "Archangel's Blessing",
+					"icon": "ArchangelsBlessing_icon",
+					"description": "BattleCry: Restore weakest ally to full health.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ChakramCrush",
+					"abilityEffect": "ChakramCrush",
+					"abilityName": "Chakram Crush",
+					"icon": "ChakramCrush_icon",
+					"description": "BattleCry:  Stun the target enemy and deal your attack damage to other enemies.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "TripleCrush",
+					"abilityEffect": "TripleCrush",
+					"abilityName": "Triple Crush",
+					"icon": "TripleCrush_icon",
+					"description": "Attack inflicts Brand on target enemy and deals 3 times your damage this turn.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "UnleashedFury",
+					"abilityEffect": "UnleashedFury",
+					"abilityName": "Unleashed Fury",
+					"icon": "UnleashedFury_icon",
+					"description": "BattleCry: Gain Increased Attack and Immunity for 3 turns.  Attacks twice this turn.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "MoonlightGrace",
+					"abilityEffect": "MoonlightGrace",
+					"abilityName": "Moonlight Grace",
+					"icon": "MoonlightGrace_icon",
+					"description": "BattleStrike: Remove all debuffs and grant Immunity to all allies. Transform into a Beast with Armor for 3 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "MoonlightGrace2",
+					"abilityEffect": "MoonlightGrace2",
+					"abilityName": "Moonlight Grace2",
+					"icon": "MoonlightGrace2_icon",
+					"description": "Attack removes all buffs and grants Antif-Buff to all enemies.  Transform into a Druid with Increased Attack for 3 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SongOfDestiny",
+					"abilityEffect": "SongOfDestiny",
+					"abilityName": "Song of Destiny",
+					"icon": "SongOfDestiny_icon",
+					"description": "BattleStrike: Remove all buffs.  If the enemy's life is greater than 10, set it to 10.",
+					"abilityCoolDown": 5
+				},
+				{
+					"id": "Serenity",
+					"abilityEffect": "Serenity",
+					"abilityName": "Serenity",
+					"icon": "Serenity_icon",
+					"description": "BattleStrike: Heal 7 life and grant Lucky and Immunity to all allies for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "CuttingMagic",
+					"abilityEffect": "CuttingMagic",
+					"abilityName": "Cutting Magic",
+					"icon": "CuttingMagic_icon",
+					"description": "BattleStrike: Remove all enemy buffs and grant Evasion to all allies for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "DarkGuardianAngel",
+					"abilityEffect": "DarkGuardianAngel",
+					"abilityName": "Dark Guardian Angel",
+					"icon": "DarkGuardianAngel_icon",
+					"description": "Attack damages and inflicts Unhealable to all enemies for 2 turms.  Give all alllies Increased Attack for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "FullSpeedAhead",
+					"abilityEffect": "FullSpeedAhead",
+					"abilityName": "Full Speed Ahead",
+					"icon": "FullSpeedAhead_icon",
+					"description": "BattleStrike:  Reduces all skillcooldowns of other allies by 1 and grant them Lucky for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "DarkRecovery",
+					"abilityEffect": "DarkRecovery",
+					"abilityName": "Dark Recovery",
+					"icon": "DarkRecovery_icon",
+					"description": "BattleCry:  Steal half of the enemy's life.  Gain an extra turn if the enemy dies.",
+					"abilityCoolDown": 5
+				},
+				{
+					"id": "BrandOfHell",
+					"abilityEffect": "BrandOfHell",
+					"abilityName": "Brand of Hell",
+					"icon": "BrandOfHell_icon",
+					"description": "BattleCry:  Inflict Brand and Crippled Strike for 2 turns.  Attack Deals Critical Damage.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "Confiscate",
+					"abilityEffect": "Confiscate",
+					"abilityName": "Confiscate",
+					"icon": "Confiscate_icon",
+					"description": "BattleCry: Steal all enemy buffs, gain Recovery, then set buff cooldowns to 2.  Inflict Anti-buff for 2 turns. .",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "TripleStrike",
+					"abilityEffect": "TripleStrike",
+					"abilityName": "Triple Strike",
+					"icon": "TripleStrike_icon",
+					"description": "BattleCry:  Inflict Brand, Decrease Attack, and Unhealable for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SongOfTheNightWind",
+					"abilityEffect": "SongOfTheNightWind",
+					"abilityName": "Song of the Night Wind",
+					"icon": "SongOfTheNightWind_icon",
+					"description": "BattleCry: All alies gain Critical Strike and Retaliate for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ForbiddenGaldr",
+					"abilityEffect": "ForbiddenGaldr",
+					"abilityName": "Forbidden Galdr",
+					"icon": "ForbiddenGaldr_icon",
+					"description": "BattleCry:  Heal all allies and deal damage to the enemy equal to your armor. ",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "AlterEgoAttack",
+					"abilityEffect": "AlterEgoAttack",
+					"abilityName": "Alter Ego Attack",
+					"icon": "AlterEgoAttack_icon",
+					"description": "BattleCry:  Gain Invincibility for 1 turn and Immunity for 2 turns.  Remove a buff from the enemy.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SpellOfStrengthening",
+					"abilityEffect": "SpellOfStrengthening",
+					"abilityName": "Spell of Strengthening",
+					"icon": "SpellOfStrengthening_icon",
+					"description": "BattleCry:  Grant Immunity, Increased Attack, and Defense to all allies for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "WishOfImmortality",
+					"abilityEffect": "WishOfImmortality",
+					"abilityName": "Wish of Immortality",
+					"icon": "WishOfImmortality_icon",
+					"description": "BattleCry:  Give all allies Immunity and Armor for 3 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "PartingGift",
+					"abilityEffect": "PartingGift",
+					"abilityName": "Parting Gift",
+					"icon": "PartingGift_icon",
+					"description": "BattleCry:  Gain lifesteal, then Stun and increase the cooldown of all skills of the enemy by 2. ",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "Meditate",
+					"abilityEffect": "Meditate",
+					"abilityName": "Meditate",
+					"icon": "Meditate_icon",
+					"description": "BattleCry:  Heal 2 other weakest allies equivalent to your current Life.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "FocusedShots",
+					"abilityEffect": "FocusedShots",
+					"abilityName": "Focused Shots",
+					"icon": "FocusedShots_icon",
+					"description": "Attack deals critical strike, removes all enemy buffs, and inflicts Bomb for 3 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "IllusionOfTime",
+					"abilityEffect": "IllusionOfTime",
+					"abilityName": "Illusion of Time",
+					"icon": "IllusionOfTime_icon",
+					"description": "BattleStrike: Remove all debuffs, refreshes all skills, and grants Lucky to all allies. This skill's cooldown can't be refreshed or reduced.",
+					"abilityCoolDown": 5
+				},
+				{
+					"id": "Capture",
+					"abilityEffect": "Capture",
+					"abilityName": "Capture",
+					"icon": "Capture_icon",
+					"description": "BattleCry:  Stun the enemy and remove all its buffs.  Deal 7 damage for each buff removed.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SurpriseBox",
+					"abilityEffect": "SurpriseBox",
+					"abilityName": "Surprise Box",
+					"icon": "SurpriseBox_icon",
+					"description": "BattleCry:  Deals 6 damage and inflcits a unique random debuff for 2 turns to each enemy.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ThunderStrike",
+					"abilityEffect": "ThunderStrike",
+					"abilityName": "ThunderStrike",
+					"icon": "ThunderStrike_icon",
+					"description": "BattleCry:  Gain Armor and Shield for 3 turns then inflict a Bomb for 3 turns to the enemy.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "WindOfChanges",
+					"abilityEffect": "WindOfChanges",
+					"abilityName": "Wind Of Changes",
+					"icon": "WindOfChanges_icon",
+					"description": "BattleCry:  Remove all buffs and debuffs from all heroes, then silence all enemies.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "MessengerOfTheWind",
+					"abilityEffect": "MessengerOfTheWind",
+					"abilityName": "Messenger of the Wind",
+					"icon": "MessengerOfTheWind_icon",
+					"description": "MessengerOfTheWind",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "SoaringWings",
+					"abilityEffect": "SoaringWings",
+					"abilityName": "Soaring Wings",
+					"icon": "SoaringWings_icon",
+					"description": "BattleStrike: Deal Critical Strike and transform into Unicorn Form.  Gain Armor for 2 turns and take an extra turn.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "FullPowerPunch",
+					"abilityEffect": "FullPowerPunch",
+					"abilityName": "Full Power Punch",
+					"icon": "FullPowerPunch_icon",
+					"description": "Attack deals your current life as additional damage, but stuns you for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "RabbitsAgility",
+					"abilityEffect": "RabbitsAgility",
+					"abilityName": "Rabbit's Agility",
+					"icon": "RabbitsAgility_icon",
+					"description": "BattleStrike: Refresh all skills and grant Evasion to another ally.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "Sinkhole",
+					"abilityEffect": "Sinkhole",
+					"abilityName": "Sinkhole",
+					"icon": "Sinkhole_icon",
+					"description": "Attack damages all enemies, increases all their skill cooldowns by 1, then heals you for the total damage dealt.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "DragonAttack",
+					"abilityEffect": "DragonAttack",
+					"abilityName": "Dragon Attack",
+					"icon": "DragonAttack_icon",
+					"description": "Attack deals Critical Strike and Stuns the enemy.",
+					"abilityCoolDown": 2
+				},
+				{
+					"id": "FlameNova",
+					"abilityEffect": "FlameNova",
+					"abilityName": "Flame Nova",
+					"icon": "FlameNova_icon",
+					"description": "BattleStrike: If the enemy has more than 15 life, deal critical strike.  Otherwise, kill it.",
+					"abilityCoolDown": 2
+				},
+				{
+					"id": "RainOfStones",
+					"abilityEffect": "RainOfStones",
+					"abilityName": "Rain of Stones",
+					"icon": "RainOfStones_icon",
+					"description": "Attack damages, silences, and resets skill cooldowns of all enemies.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "SealOfFire",
+					"abilityEffect": "SealOfFire",
+					"abilityName": "Seal of Fire",
+					"icon": "SealOfFire_icon",
+					"description": "BattleCry: If the enemy has greater than 15 life, set it to 15. Otherwise, inflict Bomb and Unhealable for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "NobleAgreement",
+					"abilityEffect": "NobleAgreement",
+					"abilityName": "Noble Agreement",
+					"icon": "NobleAgreement_icon",
+					"description": "BattleCry:  Gain Critical Strike and attack twice.",
+					"abilityCoolDown": 2
+				},
+				{
+					"id": "FlyFly",
+					"abilityEffect": "FlyFly",
+					"abilityName": "Fly Fly",
+					"icon": "FlyFly_icon",
+					"description": "Attack damages and inflcts crippled strike to all enemies.  This damage can't be prevented, reduced, or evaded.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "ReturnedDice",
+					"abilityEffect": "ReturnedDice",
+					"abilityName": "Returned Dice",
+					"icon": "ReturnedDice_icon",
+					"description": "BattleCry: Reset all skill cooldowns, then cast Unlucky and Silence to All Heroes for 3 turns.  GIve all allies Evade.",
+					"abilityCoolDown": 5
+				},
+				{
+					"id": "FairysBlessing",
+					"abilityEffect": "FairysBlessing",
+					"abilityName": "Fairy's Blessing",
+					"icon": "FairysBlessing_icon",
+					"description": "BattleCry:  Heal 12 life, grant Immunity, and Increased attack to all allies for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "Alert",
+					"abilityEffect": "Alert",
+					"abilityName": "Alert",
+					"icon": "Alert_icon",
+					"description": "BattleCry:  Reduce all allies skill cooldowns by 1 and grant them evade for 2 turns.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "DefensiveStance",
+					"abilityEffect": "DefensiveStance",
+					"abilityName": "Defensive Stance",
+					"icon": "DefensiveStance_icon",
+					"description": "Grant all allies Defense, Armor, and Shield for 2 turns.",
+					"abilityCoolDown": 4
+				},
+				{
+					"id": "FlashBomb",
+					"abilityEffect": "FlashBomb",
+					"abilityName": "Flash Bomb",
+					"icon": "FlashBomb_icon",
+					"description": "BattleCry:  Inflict Crippled Strike and Berserk to all enemies.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "MagicSurge",
+					"abilityEffect": "MagicSurge",
+					"abilityName": "Magic Surge",
+					"icon": "MagicSurge_icon",
+					"description": "Attack deals critical strike damage to all enemes and removes all buffs.  Slience all enemies with no buffs removed.",
+					"abilityCoolDown": 3
+				},
+				{
+					"id": "PrayerOfProtection",
+					"abilityEffect": "PrayerOfProtection",
+					"abilityName": "Prayer of Protection",
+					"icon": "PrayerOfProtection_icon",
+					"description": "BattleStrike: Remove all your debuffs and gain Invincible for 1 turn.",
+					"abilityCoolDown": 3
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}
