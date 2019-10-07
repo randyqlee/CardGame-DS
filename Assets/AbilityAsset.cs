@@ -14,4 +14,5 @@ public class AbilityAsset {
 
 	public int abilityCoolDown;
 
+
 }

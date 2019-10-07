@@ -22,6 +22,9 @@ public class CreatureEffect
 
     public AbilityCard abilityCard;
 
+
+
+
     [HideInInspector]
     public CreatureLogic creature;
 
@@ -48,6 +51,7 @@ public class CreatureEffect
         Name = this.GetType().Name.ToString();
         
     }
+
 
     public CreatureEffect(Player owner)
     {

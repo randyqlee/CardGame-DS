@@ -343,7 +343,9 @@ public class CreatureLogic: ICharacter
             {
                 if (ae.abilityEffect != null && ae.abilityEffect != "")
                 {
+                    
                     effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+                    
                     effect.RegisterCooldown();
                     effect.RegisterEventEffect();
 

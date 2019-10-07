@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Recovery : BuffEffect {
 
-    public int healValue = 5;
+    public int healValue = 15;
     
 	
     public Recovery(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
@@ -16,7 +16,8 @@ public class Recovery : BuffEffect {
     {
         
         //target.e_CreatureOnTurnStart += healEffect;
-        target.e_PreAttackEvent += healEffect;
+        //target.e_PreAttackEvent += healEffect;
+        TurnManager.Instance.e_ResetRound += healEffect;
         
     }
 
@@ -24,10 +25,11 @@ public class Recovery : BuffEffect {
     {
         
          //target.e_CreatureOnTurnStart -= healEffect;
-         target.e_PreAttackEvent -= healEffect;
+         //target.e_PreAttackEvent -= healEffect;
+         TurnManager.Instance.e_ResetRound += healEffect;
     }
 
-    public void healEffect(CreatureLogic target)
+    public void healEffect()
     {
         new DelayCommand(0.5f).AddToQueue();
         target.Heal(healValue);
