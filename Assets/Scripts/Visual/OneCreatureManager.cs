@@ -113,6 +113,7 @@ public class OneCreatureManager : MonoBehaviour
         {
             DamageEffect.CreateDamageEffect(transform.position, amount);
             HealthText.text = healthAfter.ToString();
+            if(ArmorText!=null)
             ArmorText.text = armorAfter.ToString();
         } 
     }//TakeDamage

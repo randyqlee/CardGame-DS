@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Armor : BuffEffect
 {
-    public Armor(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 2) : base (source, target, buffCooldown, specialValue)
+    int specialValue = 2;
+
+    public Armor(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Armor");
         isBuff = true;

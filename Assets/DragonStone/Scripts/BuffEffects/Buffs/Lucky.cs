@@ -5,8 +5,9 @@ using UnityEngine;
 public class Lucky : BuffEffect
 {
   
-	
-    public Lucky(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 100) : base (source, target, buffCooldown, specialValue)
+	int specialValue = 100;
+
+    public Lucky(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Lucky");
         isBuff = true;

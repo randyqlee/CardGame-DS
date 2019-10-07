@@ -17,8 +17,6 @@ public class BuffEffect
     public bool isBuff;
     public bool isDebuff;
 
-    public int specialValue;
-
     public Sprite buffIcon;
 
     //DS
@@ -40,21 +38,6 @@ public class BuffEffect
 
     }
 
-    public BuffEffect(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue)
-    {
-        this.source = source;
-        this.target = target;
-        this.buffCooldown = buffCooldown;
-        this.specialValue = specialValue;
-
-    //DS
-    //Added buffID for Logic and Visual link
-        this.buffID = IDFactory.GetUniqueID();
-
-        Name = this.GetType().Name.ToString();
-        
-
-    }
 
     ~BuffEffect()
     {
@@ -105,6 +88,7 @@ public class BuffEffect
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
         //the BuffEffect will be instantiated here
+
         BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{source, target, buffCooldown}) as BuffEffect;
         
 

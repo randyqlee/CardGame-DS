@@ -5,8 +5,8 @@ using UnityEngine;
 public class Parts : BuffEffect
 {
   
-	
-    public Parts(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 1) : base (source, target, buffCooldown, specialValue)
+	int specialValue = 1;
+    public Parts(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Parts");
         isDebuff = true;

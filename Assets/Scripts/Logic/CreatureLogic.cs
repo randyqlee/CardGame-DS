@@ -67,6 +67,9 @@ public class CreatureLogic: ICharacter
     public delegate void IsAttacked(CreatureLogic creature);    
     public event IsAttacked e_IsAttacked;
 
+    public delegate void IsAttackedBy(CreatureLogic source);    
+    public event IsAttackedBy e_IsAttackedBy;
+
     public delegate void IsDamagedByAttack(CreatureLogic source, CreatureLogic target, int damage);    
     public event IsDamagedByAttack e_IsDamagedByAttack;
 
@@ -526,6 +529,7 @@ public class CreatureLogic: ICharacter
         if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
         {          
             target.TakeDamage(this, AttackDamage);
+            
         }
 
         int targetHealthAfter = target.Health;
@@ -540,6 +544,9 @@ public class CreatureLogic: ICharacter
         {
             if(e_IsDamagedByAttack != null)
                 e_IsDamagedByAttack.Invoke(this, target, lastDamageValue); 
+            
+            target.TriggerThisWhenAttacked(this);
+
         }
        
         if(!CanAttack)
@@ -555,6 +562,14 @@ public class CreatureLogic: ICharacter
 
 
     } 
+
+    public void TriggerThisWhenAttacked (CreatureLogic attacker)
+    {
+
+        if(e_IsAttackedBy != null)
+            e_IsAttackedBy.Invoke(attacker);
+
+    }
 
     public int DealDamage(int amount)
     {
@@ -625,6 +640,9 @@ public class CreatureLogic: ICharacter
 
             if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
+
+
+
         }
     }
 

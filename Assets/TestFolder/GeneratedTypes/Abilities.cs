@@ -6,7 +6,6 @@ using SimpleJSON;
 using CastleDBImporter;
 namespace CompiledTypes
 { 
-    [System.Serializable]
     public class Abilities
     {
         public AbilityEffects Ability;

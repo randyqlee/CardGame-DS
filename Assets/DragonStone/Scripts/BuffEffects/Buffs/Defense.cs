@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Defense : BuffEffect {
 
-    public Defense(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 2) : base (source, target, buffCooldown, specialValue)
+    int specialValue = 2;
+
+    public Defense(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Defense");
         isBuff = true;

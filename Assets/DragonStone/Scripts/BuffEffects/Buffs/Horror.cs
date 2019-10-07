@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Horror : BuffEffect
 {
-  
+  int specialValue = 100;
 	
-    public Horror(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 100) : base (source, target, buffCooldown, specialValue)
+    public Horror(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Horror");
         isDebuff= true;

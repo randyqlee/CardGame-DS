@@ -5,8 +5,9 @@ using UnityEngine;
 public class Unlucky : BuffEffect
 {
   
+  int specialValue = 100;
 	
-    public Unlucky(CreatureLogic source, CreatureLogic target, int buffCooldown, int specialValue = 100) : base (source, target, buffCooldown, specialValue)
+    public Unlucky(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Unlucky");
         isDebuff= true;

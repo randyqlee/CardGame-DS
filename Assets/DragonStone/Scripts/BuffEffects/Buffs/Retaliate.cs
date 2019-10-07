@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Retaliate : BuffEffect {
 
-    int originalAttack;
-    
 	
     public Retaliate(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
@@ -13,14 +11,23 @@ public class Retaliate : BuffEffect {
         isBuff = true;}
 
     public override void CauseBuffEffect()
-    {        
-        target.targetAttackDamage = target.Attack;
-        Debug.Log("Target's Attack Damage: " +target.targetAttackDamage);
+    { 
+        target.e_IsAttackedBy += RetaliateEffect;         
+        //target.targetAttackDamage = target.Attack;
+        //Debug.Log("Target's Attack Damage: " +target.targetAttackDamage);
     }
 
     public override void UndoBuffEffect()
     {
-        target.targetAttackDamage = 0;   
+        target.e_IsAttackedBy -= RetaliateEffect;  
+    }
+
+    public void RetaliateEffect(CreatureLogic attacker)
+    {
+        new DealDamageCommand(attacker.ID, target.AttackDamage, healthAfter: attacker.TakeOtherDamageVisual(target.AttackDamage), armorAfter:attacker.TakeArmorDamageVisual(target.AttackDamage)).AddToQueue();
+        attacker.TakeOtherDamage(target.AttackDamage);     
+        
+
     }
 
     
