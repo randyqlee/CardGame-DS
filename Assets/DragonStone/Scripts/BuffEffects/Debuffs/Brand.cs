@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Brand : BuffEffect {
 
-    int brandDamage = 2;
+    int brandDamage = 5;
 	
     public Brand(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
