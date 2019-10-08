@@ -24,6 +24,7 @@ public class Retaliate : BuffEffect {
 
     public void RetaliateEffect(CreatureLogic attacker)
     {
+        new ShowBuffPreviewCommand(this, target.ID, this.GetType().Name).AddToQueue();
         new DealDamageCommand(attacker.ID, target.AttackDamage, healthAfter: attacker.TakeOtherDamageVisual(target.AttackDamage), armorAfter:attacker.TakeArmorDamageVisual(target.AttackDamage)).AddToQueue();
         attacker.TakeOtherDamage(target.AttackDamage);     
         

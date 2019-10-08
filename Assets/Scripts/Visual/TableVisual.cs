@@ -168,7 +168,7 @@ public class TableVisual : MonoBehaviour
 
        
         StartCoroutine(HideCreature(creatureToRemove));
-        Command.CommandExecutionComplete();    
+            
 
 
         
@@ -176,7 +176,7 @@ public class TableVisual : MonoBehaviour
 
     IEnumerator HideCreature(GameObject creatureToRemove)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         foreach (GameObject go in creatureToRemove.GetComponent<OneCreatureManager>().abilityCard)
         {
@@ -186,6 +186,8 @@ public class TableVisual : MonoBehaviour
         }
         
         creatureToRemove.SetActive(false);
+
+        Command.CommandExecutionComplete();
     }
 
    
@@ -205,6 +207,8 @@ public class TableVisual : MonoBehaviour
 
         //New SCRIPT
         creatureToResurrect.SetActive(true);
+
+
 
         Command.CommandExecutionComplete();
     }

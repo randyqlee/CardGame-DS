@@ -30,7 +30,8 @@ public class Resurrect : BuffEffect {
 
     public void ResurrectEffect(CreatureLogic target)
     {
-        target.Revive();   
+        //target.Revive();
+        new ReviveCommand(target).AddToQueue();   
         
     //    if(target.isDead)
     //    {
@@ -72,11 +73,7 @@ public class Resurrect : BuffEffect {
         //        }
         //    }                                        
                              
-            target.Health = target.MaxHealth;
-            target.Attack = target.Attack;
 
-            new UpdateAttackCommand(target.UniqueCreatureID, target.Attack).AddToQueue();
-            new UpdateHealthCommand(target.UniqueCreatureID, target.Health).AddToQueue();
 
             
             //new CreatureResurrectCommand(target.UniqueCreatureID, target.owner).AddToQueue();  
@@ -84,7 +81,7 @@ public class Resurrect : BuffEffect {
             //Remove all buffs/debuffs        
             //target.RemoveAllBuffs(); 
             
-             this.buffCooldown = 0;
+             RemoveBuff();
              
              target.e_ThisCreatureDies -= ResurrectEffect;
         //}           

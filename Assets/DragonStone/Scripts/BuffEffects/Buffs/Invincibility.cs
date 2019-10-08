@@ -16,7 +16,7 @@ public class Invincibility : BuffEffect {
     {
         
         target.DamageReduction = 0;
-        target.RemoveDeBuffsAll();
+       // target.RemoveDeBuffsAll();
     }
 
     public override void UndoBuffEffect()

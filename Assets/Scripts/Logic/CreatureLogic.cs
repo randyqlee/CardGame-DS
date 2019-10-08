@@ -135,6 +135,8 @@ public class CreatureLogic: ICharacter
                 DestroyArmor();
             else
                 armor = value;
+
+            new UpdateArmorCommand(ID, value).AddToQueue();
         }
     }
 
@@ -505,7 +507,11 @@ public class CreatureLogic: ICharacter
                 }
             }
 
+            
             new CreatureResurrectCommand(UniqueCreatureID, owner).AddToQueue(); 
+            new UpdateAttackCommand(ID, Attack).AddToQueue();
+            new UpdateHealthCommand(ID, MaxHealth).AddToQueue();
+            new UpdateArmorCommand(ID, Armor).AddToQueue();
         }
 
     }
@@ -575,8 +581,8 @@ public class CreatureLogic: ICharacter
     {
         int damage = amount*criticalFactor;
 
-        if(e_IsComputeDamage!=null)
-        e_IsComputeDamage();
+        //if(e_IsComputeDamage!=null)
+        //e_IsComputeDamage();
 
         return damage;
     }
@@ -586,8 +592,8 @@ public class CreatureLogic: ICharacter
     {
         int damage = amount*OtherFactor;
 
-        if(e_IsComputeDamage!=null)
-        e_IsComputeDamage();
+        //if(e_IsComputeDamage!=null)
+        //e_IsComputeDamage();
 
         return damage;
     }
@@ -602,25 +608,27 @@ public class CreatureLogic: ICharacter
             if(hasHorror && source.CriticalChance == 1)
                 damage = damage * 2;
             
-            int finalDamage = DamageReduction*damage + DamageReductionAdditive;
+            int finalDamage = DamageReduction*damage - DamageReductionAdditive;
             int healthAfter = Health;
             int spillDamage = 0;
             
             if (Armor > 0)
             {
+                Debug.Log("Armor: " + Armor);
+                Debug.Log("Final Damage: " + finalDamage);
                 if (Armor > finalDamage)
                 {
                     Armor -= finalDamage;
                 }
-                else if (Armor == damage)
+                else if (Armor == finalDamage)
                 {
                     Armor = 0;
                 }
-                else
+                else if (Armor < finalDamage)
                 {
-                    spillDamage = Armor - finalDamage;
+                    spillDamage = Armor - finalDamage;                    
                     Armor = 0;
-                    healthAfter -= spillDamage; 
+                    healthAfter += spillDamage;
                 }
             }
 
@@ -636,10 +644,13 @@ public class CreatureLogic: ICharacter
                 Health = 1;
             }
             else
-                Health-=finalDamage;
+                Health = healthAfter;
 
             if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
+
+            if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
+            e_IsComputeDamage();
 
 
 
@@ -650,7 +661,7 @@ public class CreatureLogic: ICharacter
     public void TakeOtherDamage(int damage)
     {
 
-        int finalOtherDamage = OtherDamageReduction*damage + DamageReductionAdditive;
+        int finalOtherDamage = OtherDamageReduction*damage - DamageReductionAdditive;
         int healthAfter = Health;
         int spillDamage = 0;
         
@@ -660,15 +671,15 @@ public class CreatureLogic: ICharacter
             {
                 Armor -= finalOtherDamage;
             }
-            else if (Armor == damage)
+            else if (Armor == finalOtherDamage)
             {
                 Armor = 0;
             }
-            else
+            else if (Armor < finalOtherDamage)
             {
                 spillDamage = Armor - finalOtherDamage;
                 Armor = 0;
-                healthAfter -= spillDamage; 
+                healthAfter += spillDamage; 
             }
         }
 
@@ -684,7 +695,10 @@ public class CreatureLogic: ICharacter
                 Health = 1;
             }
         else
-            Health-=finalOtherDamage;
+            Health = healthAfter;
+
+        if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
+            e_IsComputeDamage();
 
     }
 
@@ -692,7 +706,7 @@ public class CreatureLogic: ICharacter
     //DS: TO BE REVIEWED
     public int TakeOtherDamageVisual(int damage)
     {
-        int finalOtherDamage = OtherDamageReduction*damage +DamageReductionAdditive;
+        int finalOtherDamage = OtherDamageReduction*damage - DamageReductionAdditive;
         int healthAfter = Health;
         int spillDamage = 0;
         int armorValue = Armor;
@@ -730,7 +744,7 @@ public class CreatureLogic: ICharacter
 
     public int TakeArmorDamageVisual(int damage)
     {
-        int finalOtherDamage = OtherDamageReduction*damage +DamageReductionAdditive;
+        int finalOtherDamage = OtherDamageReduction*damage - DamageReductionAdditive;
         int healthAfter = Health;
         int spillDamage = 0;
         int armorValue = Armor;
@@ -763,13 +777,15 @@ public class CreatureLogic: ICharacter
     {
         
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
-        
-        PreAttack(target);
-        AttackCreature(target);
+        new StartPreAttackSequenceCommand(this, target).AddToQueue();
+        new StartAttackSequenceCommand(this, target).AddToQueue();
+        //PreAttack(target);
+        //AttackCreature(target);        
         
     }
 
-    void PreAttack(CreatureLogic target)
+
+    public void PreAttack(CreatureLogic target)
     {
         //Subscribe all creature pre-attack abilities here
         if(e_PreAttackEvent != null)
@@ -833,6 +849,8 @@ public class CreatureLogic: ICharacter
 
                 new UpdateBuffCommand(be).AddToQueue();
 
+                new ShowBuffPreviewCommand(buff, this.ID, buff.GetType().Name).AddToQueue();
+
                 if(e_buffApplied!=null)
                     e_buffApplied(this, buff);
                 
@@ -849,6 +867,8 @@ public class CreatureLogic: ICharacter
             buffEffects.Add(buff);
 
            new AddBuffCommand(buff, UniqueCreatureID).AddToQueue();
+
+           new ShowBuffPreviewCommand(buff, this.ID, buff.GetType().Name).AddToQueue();
 
                 if(e_buffApplied!=null)
                     e_buffApplied(this, buff);

@@ -28,9 +28,10 @@ public class Shield : BuffEffect {
     {
         
         target.DamageReduction = 1;
-        target.buffEffects.Remove(this);
-        buffCooldown = 0;
+        //target.buffEffects.Remove(this);
+        //buffCooldown = 0;
         target.e_IsComputeDamage -= ShieldEffect;
+        RemoveBuff();
 
     }
 

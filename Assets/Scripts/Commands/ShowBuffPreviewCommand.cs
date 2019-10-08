@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowSkillPreviewCommand : Command {
+public class ShowBuffPreviewCommand : Command {
 
-	private CreatureEffect ce;
+	private BuffEffect be;
 	private int TargetUniqueID;
 	private string text;
 
-	public ShowSkillPreviewCommand (CreatureEffect ce, int TargetUniqueID, string text)
+	public ShowBuffPreviewCommand (BuffEffect be, int TargetUniqueID, string text)
 	{
-		this.ce = ce;
+		this.be = be;
 		this.TargetUniqueID = TargetUniqueID;
 		this.text = text;
 
@@ -23,10 +23,6 @@ public class ShowSkillPreviewCommand : Command {
 		//Debug.Log ("ShowSkillPreviewCommand");
 		GameObject creature = IDHolder.GetGameObjectWithID(TargetUniqueID);
 
-		if(creature.tag == "TopCreature")
-		creature.GetComponentInChildren<OverheadText>().ShowSkillPreview(ce);
-
-		
 		creature.GetComponentInChildren<OverheadText>().FloatingText(text);
 
 		

@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddBuff_Generic : CreatureEffect
 {
     public int buffCooldown = 2;
-    public string buffName = "Retaliate";
+    public string buffName = "Resurrect";
 
     public AddBuff_Generic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
