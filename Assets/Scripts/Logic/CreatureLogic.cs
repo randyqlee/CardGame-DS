@@ -284,6 +284,9 @@ public class CreatureLogic: ICharacter
 
     public bool hasCurse = false;
 
+    //public bool pauseAttack = false;
+    public bool hasStun = false;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
@@ -400,10 +403,10 @@ public class CreatureLogic: ICharacter
         
        
         // will be granted by Player
+
         isActive = true;
 
         AttacksLeftThisTurn = attacksForOneTurn + attackTurnModifier; 
-
         //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects       
 
         //TODO: Buff/Debuff effects (like Poison, Heal)   
@@ -779,6 +782,7 @@ public class CreatureLogic: ICharacter
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         new StartPreAttackSequenceCommand(this, target).AddToQueue();
         new StartAttackSequenceCommand(this, target).AddToQueue();
+
         //PreAttack(target);
         //AttackCreature(target);        
         

@@ -208,7 +208,7 @@ public class Player : MonoBehaviour, ICharacter
 
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
-            if (cl.isActive)
+            if (cl.isActive && cl.AttacksLeftThisTurn > 0)
                 hasActiveCL = true;
         }
 

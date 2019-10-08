@@ -31,16 +31,19 @@ public class Stun : BuffEffect {
 
         //new EndTurnCommand().AddToQueue();        
         target.OnTurnEnd();
-        
+
+        target.hasStun = true;        
         target.attackTurnModifier = -1*target.attacksForOneTurn;
-        target.isActive = false;
+        //target.isActive = false;
         //target.AttacksLeftThisTurn = 0;
       
     }
 
     public void UndoStunEffect()
     {
+        target.hasStun = false;  
         target.attackTurnModifier = 0;
+        new CreatureColorCommand(target,false).AddToQueue();
     }
     
     

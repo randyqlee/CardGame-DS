@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddBuff_Generic : CreatureEffect
 {
     public int buffCooldown = 2;
-    public string buffName = "LifeSteal";
+    public string buffName = "Lucky";
 
     public AddBuff_Generic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {

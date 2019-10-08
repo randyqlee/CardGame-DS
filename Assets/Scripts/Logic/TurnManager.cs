@@ -439,7 +439,7 @@ public class TurnManager : MonoBehaviour {
         {
             foreach(CreatureLogic cl in p.table.CreaturesOnTable)
             {
-                if (cl.isActive)
+                if (cl.isActive && cl.AttacksLeftThisTurn > 0)
                 {
                     isRoundOver = false;
 
@@ -459,7 +459,7 @@ public class TurnManager : MonoBehaviour {
                 p.isRoundOver = true;
                 foreach (CreatureLogic cl in p.table.CreaturesOnTable)
                 {
-                    if (!cl.isDead)
+                    if (!cl.isDead && !cl.hasStun)
                     {
                         cl.isActive = true;
 

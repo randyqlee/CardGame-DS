@@ -27,9 +27,13 @@ public class Berserk : BuffEffect {
     public void berserkEffect(CreatureLogic target)
     {
        
-        new DelayCommand(1.5f).AddToQueue();
-       target.AttackCreatureWithID(attackRandomEnemy());
-       new DelayCommand(1.5f).AddToQueue();
+        //new DelayCommand(1.5f).AddToQueue();
+        //target.pauseAttack = true;
+        //target.e_PreAttackEvent -= berserkEffect;
+       //target.AttackCreatureWithID(attackRandomEnemy());
+       //target.pauseAttack = false;
+
+       //new DelayCommand(1.5f).AddToQueue();
 
         //TurnManager.Instance.EndTurn();
     }
@@ -44,7 +48,7 @@ public class Berserk : BuffEffect {
       }      
 
       CreatureLogic randomEnemy = enemies[Random.Range(0,enemies.Count)];
-      return randomEnemy.UniqueCreatureID;
+      return randomEnemy.ID;
 
     }//attack
     

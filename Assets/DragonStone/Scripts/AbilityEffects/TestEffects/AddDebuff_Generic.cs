@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddDebuff_Generic : CreatureEffect
 {
     public int buffCooldown = 2;
-    public string debuffName = "DecreaseAttack";
+    public string debuffName = "Stun";
    
 
     public AddDebuff_Generic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
