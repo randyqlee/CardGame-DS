@@ -80,7 +80,7 @@ public class CreatureAttackVisual : MonoBehaviour
 
                
 
-                manager.HealthText.text = attackerHealthAfter.ToString();
+                //manager.HealthText.text = attackerHealthAfter.ToString();
                 
                 
                 Sequence s = DOTween.Sequence();

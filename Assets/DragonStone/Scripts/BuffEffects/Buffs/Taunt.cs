@@ -11,14 +11,17 @@ public class Taunt : BuffEffect {
 
     
     List<bool> tauntStatus = new List<bool>();
+
+    bool tauntFound = false;
     
     public override void CauseBuffEffect()
     {       
         target.hasTaunt = true;
+        target.canBeAttacked = true;
 
-        foreach(CreatureLogic cl in target.owner.allies)
+        foreach(CreatureLogic cl in target.owner.AllyList())
         {
-            if(!cl.hasTaunt)
+            if(!cl.hasTaunt && cl != target)
             {
                 cl.canBeAttacked = false;
             }
@@ -31,7 +34,8 @@ public class Taunt : BuffEffect {
     public override void UndoBuffEffect()
     {
         target.hasTaunt = false;
-
+        tauntFound = false;
+/*
         foreach(CreatureLogic cl in target.owner.allies)
         {
            tauntStatus.Add(cl.hasTaunt);
@@ -41,6 +45,25 @@ public class Taunt : BuffEffect {
         if(!tauntStatus.Contains(true))
         {
              foreach(CreatureLogic cl in target.owner.allies)
+            {                
+                cl.canBeAttacked = true;                
+            }
+        }
+*/
+
+        foreach(CreatureLogic cl in target.owner.AllyList())
+        {
+            if(cl.hasTaunt && cl != target)
+            {
+                target.canBeAttacked = false;
+                tauntFound = true;
+                break;
+            }
+        }
+
+        if (!tauntFound)
+        {
+            foreach(CreatureLogic cl in target.owner.AllyList())
             {                
                 cl.canBeAttacked = true;                
             }

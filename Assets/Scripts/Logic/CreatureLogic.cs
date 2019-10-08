@@ -549,7 +549,7 @@ public class CreatureLogic: ICharacter
         if (target.lastDamageValue > 0)
         {
             if(e_IsDamagedByAttack != null)
-                e_IsDamagedByAttack.Invoke(this, target, lastDamageValue); 
+                e_IsDamagedByAttack.Invoke(this, target, target.lastDamageValue); 
             
             target.TriggerThisWhenAttacked(this);
 
@@ -1030,8 +1030,10 @@ public class CreatureLogic: ICharacter
       
        new DelayCommand(0.5f).AddToQueue();
        if(amount>=0)
-        {          
-            new DealHealingCommand(this.ID, amount, healthAfter).AddToQueue();           
+        {
+            Debug.Log("healthAfter: " + healthAfter);          
+            new DealHealingCommand(this.ID, amount, healthAfter).AddToQueue();
+            new UpdateHealthCommand(ID, healthAfter).AddToQueue();
 
         }
         else if(amount < 0)
