@@ -15,7 +15,9 @@ public class Eternity : CreatureEffect
    public override void RegisterEventEffect()
     {
     
-       TurnManager.Instance.e_EndOfRound += UseEffect;      
+       TurnManager.Instance.e_EndOfRound += UseEffect;
+
+       creature.e_ThisCreatureDies += Revive;      
     }
 
     public override void UnRegisterEventEffect()
@@ -43,5 +45,18 @@ public class Eternity : CreatureEffect
 
             base.UseEffect();
         }
+    }
+
+    public void Revive (CreatureLogic target)
+    {
+        if (ChanceOK(creature.chance))
+        {
+            if(owner.AllyList() != null)
+            {
+                new ReviveCommand(creature).AddToQueue();
+            }
+
+        }      
+
     }
 }
