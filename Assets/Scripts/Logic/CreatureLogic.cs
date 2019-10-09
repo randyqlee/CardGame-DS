@@ -284,7 +284,7 @@ public class CreatureLogic: ICharacter
 
     public bool hasCurse = false;
 
-    //public bool pauseAttack = false;
+    public bool pauseAttack = false;
     public bool hasStun = false;
 
 
@@ -781,7 +781,7 @@ public class CreatureLogic: ICharacter
         
         CreatureLogic target = CreatureLogic.CreaturesCreatedThisGame[uniqueCreatureID];
         new StartPreAttackSequenceCommand(this, target).AddToQueue();
-        new StartAttackSequenceCommand(this, target).AddToQueue();
+        
 
         //PreAttack(target);
         //AttackCreature(target);        
@@ -794,6 +794,15 @@ public class CreatureLogic: ICharacter
         //Subscribe all creature pre-attack abilities here
         if(e_PreAttackEvent != null)
            this.e_PreAttackEvent.Invoke(target);
+           new DelayCommand(1.5f).AddToQueue();
+
+        if(!pauseAttack)
+            new StartAttackSequenceCommand(this, target).AddToQueue();
+        else
+        {
+            pauseAttack = false;
+        }
+
 
     }
 
@@ -1037,14 +1046,16 @@ public class CreatureLogic: ICharacter
         {
             Debug.Log("healthAfter: " + healthAfter);          
             new DealHealingCommand(this.ID, amount, healthAfter).AddToQueue();
-            new UpdateHealthCommand(ID, healthAfter).AddToQueue();
+            
 
         }
         else if(amount < 0)
         {           
-            new DealDamageCommand(this.ID, -amount, healthAfter, Armor).AddToQueue();            
+            new DealDamageCommand(this.ID, -amount, healthAfter, Armor).AddToQueue();   
+            
         }
-        
+
+        new UpdateHealthCommand(ID, healthAfter).AddToQueue();        
         Health += amount;
     }
 

@@ -16,25 +16,32 @@ public class Berserk : BuffEffect {
     {           
         //target.e_CreatureOnTurnStart += berserkEffect;
         target.e_PreAttackEvent += berserkEffect;
+        target.e_AfterAttacking += resetEffect;
     }
 
     public override void UndoBuffEffect()
     {
         //target.e_CreatureOnTurnStart -= berserkEffect;
         target.e_PreAttackEvent -= berserkEffect;
+        target.e_AfterAttacking -= resetEffect;
     }
 
-    public void berserkEffect(CreatureLogic target)
+    public void resetEffect(CreatureLogic cl)
+    {
+        target.e_PreAttackEvent += berserkEffect;
+    }
+
+    public void berserkEffect(CreatureLogic cl)
     {
        
         //new DelayCommand(1.5f).AddToQueue();
-        //target.pauseAttack = true;
-        //target.e_PreAttackEvent -= berserkEffect;
-       //target.AttackCreatureWithID(attackRandomEnemy());
-       //target.pauseAttack = false;
+        target.pauseAttack = true;
+       target.e_PreAttackEvent -= berserkEffect;
 
-       //new DelayCommand(1.5f).AddToQueue();
-
+ 
+       target.AttackCreatureWithID(attackRandomEnemy());
+       
+       
         //TurnManager.Instance.EndTurn();
     }
 
