@@ -894,7 +894,7 @@ public class CreatureLogic: ICharacter
 
    //Remove Buff is in BuffEffect Script
 
-   public void RemoveRandomBuff()
+    public BuffEffect RandomBuff()
     {
         var randList = new List<BuffEffect>();
 
@@ -907,28 +907,15 @@ public class CreatureLogic: ICharacter
         if(randList.Count>=1)
         {
             BuffEffect buff = randList[Random.Range(0,randList.Count)];
-            buff.UndoBuffEffect();
-            buff.UnregisterCooldown();
-            buffEffects.Remove(buff);
-
-            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
-
+            return buff;
         }
-       
+
+        else return null;
+
+        
     }
 
-    public void RemoveBuff(BuffEffect buff)
-    {
-
-            buff.UndoBuffEffect();
-            buff.UnregisterCooldown();
-            buffEffects.Remove(buff);
-
-            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
-       
-    }
-
-   public void RemoveRandomDebuff()
+    public BuffEffect RandomDebuff()
     {
         var randList = new List<BuffEffect>();
 
@@ -941,13 +928,45 @@ public class CreatureLogic: ICharacter
         if(randList.Count>=1)
         {
             BuffEffect buff = randList[Random.Range(0,randList.Count)];
+            return buff;
+        }
+        else return null;
+
+        
+    }
+
+
+
+   public void RemoveRandomBuff()
+    {
+        BuffEffect buff = RandomBuff();
+        if (buff != null)
+        {
+            RemoveBuff(buff);
+        }
+       
+    }
+
+
+
+   public void RemoveRandomDebuff()
+    {
+        BuffEffect buff = RandomDebuff();
+        if (buff != null)
+        {
+            RemoveBuff(buff);
+        }
+       
+    }
+
+    public void RemoveBuff(BuffEffect buff)
+    {
+
             buff.UndoBuffEffect();
             buff.UnregisterCooldown();
             buffEffects.Remove(buff);
 
             new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
-
-        }
        
     }
 
