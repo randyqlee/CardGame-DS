@@ -37,9 +37,9 @@ public class DragonsDance : CreatureEffect {
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
+                creature.SplashAttackDamage(target,creature.AttackDamage);
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
-                    DealDamageEffect(cl, creature.AttackDamage);
                     AddBuff(cl, "Silence", buffCooldown);
                     cl.RemoveRandomBuff();
                 }

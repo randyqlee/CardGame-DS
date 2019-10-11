@@ -52,6 +52,8 @@ public class SpinningSmash : CreatureEffect
 
             if(effectChance)
             { 
+
+                creature.SplashAttackDamage(target,creature.AttackDamage);
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
                     DealDamageEffect(cl, creature.AttackDamage);

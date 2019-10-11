@@ -26,9 +26,11 @@ public class RainOfStones : CreatureEffect
         if (CanUseAbility())
         {
             ShowAbility();
+
+            creature.SplashAttackDamage(target, creature.AttackDamage);
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                DealDamageEffect(cl, creature.AttackDamage);
+                
                 foreach (CreatureEffect ce in cl.creatureEffects)
                 {
                     AddBuff (cl, "Silence", buffCooldown);

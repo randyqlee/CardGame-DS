@@ -28,11 +28,9 @@ public class CrowHunt : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                foreach(CreatureLogic cl in owner.EnemyList())
-                {
-                    DealDamageEffect(cl, creature.AttackDamage);
-                }
 
+                creature.SplashAttackDamage(target, creature.AttackDamage);
+               
                 foreach(CreatureLogic cl in owner.AllyList())
                 {
                     AddBuff(target, "Lucky", buffCooldown);
