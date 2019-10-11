@@ -56,7 +56,6 @@ public class SpinningSmash : CreatureEffect
                 creature.SplashAttackDamage(target,creature.AttackDamage);
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
-                    DealDamageEffect(cl, creature.AttackDamage);
                     AddBuff(cl, "CrippledStrike", buffCooldown);
                 }  
 
