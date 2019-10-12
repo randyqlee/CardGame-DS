@@ -5,7 +5,9 @@ using UnityEngine;
 public class AddBuff_Generic : CreatureEffect
 {
     public int buffCooldown = 2;
-    public string buffName = "Lucky";
+    public string buffName1 = "Lucky";
+    public string buffName2 = "Retaliate";
+    public string buffName3 = "Recovery";
 
     public AddBuff_Generic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
@@ -28,7 +30,9 @@ public class AddBuff_Generic : CreatureEffect
         {
             ShowAbility();
 
-            AddBuff(creature, buffName, buffCooldown);
+            AddBuff(creature, buffName1, buffCooldown);
+            AddBuff(creature, buffName2, buffCooldown);
+            AddBuff(creature, buffName3, buffCooldown);
        
             base.UseEffect();
         }
