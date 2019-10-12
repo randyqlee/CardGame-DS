@@ -25,36 +25,39 @@ public class CriticalError : CreatureEffect
         if (CanUseAbility())
         {
             ShowAbility();
+
+            creature.SplashAttackDamage(target,creature.AttackDamage);
             
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                DealDamageEffect(cl, creature.AttackDamage);
-
-                var buffList = new List<BuffEffect>();
-
-                foreach (BuffEffect be in cl.buffEffects)
+                if (!cl.isDead)
                 {
-                    if(be.isBuff)
+                    var buffList = new List<BuffEffect>();
+
+                    foreach (BuffEffect be in cl.buffEffects)
                     {
-                        buffList.Add(be);
+                        if(be.isBuff)
+                        {
+                            buffList.Add(be);
+                        }
                     }
-                }
 
-                bool buffRemoved = false;
+                    bool buffRemoved = false;
 
-                if (buffList != null)
-                {
-                    foreach(BuffEffect be in buffList)
+                    if (buffList != null)
                     {
-                        cl.RemoveBuff(be);
-                        buffRemoved = true;
+                        foreach(BuffEffect be in buffList)
+                        {
+                            cl.RemoveBuff(be);
+                            buffRemoved = true;
+                        }
                     }
-                }
 
 
-                if(buffRemoved)
-                {
-                    AddBuff (cl, "Silence", buffCooldown);
+                    if(buffRemoved)
+                    {
+                        AddBuff (cl, "Silence", buffCooldown);
+                    }
                 }
 
             }

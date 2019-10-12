@@ -354,8 +354,8 @@ public class CreatureLogic: ICharacter
                     
                     effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
                     
-                    effect.RegisterCooldown();
-                    effect.RegisterEventEffect();
+                    //effect.RegisterCooldown();
+                    //effect.RegisterEventEffect();
 
                     if (ae.icon != null)
                     effect.abilityPreviewSprite = ae.icon;
@@ -660,6 +660,60 @@ public class CreatureLogic: ICharacter
         }
     }
 
+    public void TakeSplashDamage(CreatureLogic source, int damage)
+    {
+  
+        if(!hasBless)
+        {
+            if(hasHorror && source.CriticalChance == 1)
+                damage = damage * 2;
+            
+            int finalDamage = DamageReduction*damage - DamageReductionAdditive;
+            int healthAfter = Health;
+            int spillDamage = 0;
+            
+            if (Armor > 0)
+            {
+                Debug.Log("Armor: " + Armor);
+                Debug.Log("Final Damage: " + finalDamage);
+                if (Armor > finalDamage)
+                {
+                    Armor -= finalDamage;
+                }
+                else if (Armor == finalDamage)
+                {
+                    Armor = 0;
+                }
+                else if (Armor < finalDamage)
+                {
+                    spillDamage = Armor - finalDamage;                    
+                    Armor = 0;
+                    healthAfter += spillDamage;
+                }
+            }
+
+            else
+            {
+                healthAfter-=finalDamage;
+            }
+
+            lastDamageValue = finalDamage;
+
+            if (healthAfter <= 0 && hasEndure)
+            {
+                Health = 1;
+            }
+            else
+                Health = healthAfter;
+
+            if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
+            e_IsComputeDamage();
+
+
+
+        }
+    }
+
     // for non-attack damage
     public void TakeOtherDamage(int damage)
     {
@@ -829,7 +883,7 @@ public class CreatureLogic: ICharacter
 	                    
 
                     //enemy.TakeDamage(creature.AttackDamage);      
-                    enemy.TakeDamage(this, splashDamage);      
+                    enemy.TakeSplashDamage(this, splashDamage);      
                    
                    new UpdateHealthCommand(enemy.UniqueCreatureID, enemy.Health).AddToQueue();
                 }                

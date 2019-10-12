@@ -46,10 +46,8 @@ public class AmputationMagic : CreatureEffect
 
             if(effectChance)
             { 
-                foreach(CreatureLogic cl in owner.EnemyList())
-                {
-                    DealDamageEffect(cl, creature.AttackDamage);
-                }           
+                creature.SplashAttackDamage(target,creature.AttackDamage);
+
                 creature.CriticalChance -= 1;
             }
 

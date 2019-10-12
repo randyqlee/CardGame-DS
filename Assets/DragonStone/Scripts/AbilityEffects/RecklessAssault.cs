@@ -25,9 +25,10 @@ public class RecklessAssault : CreatureEffect
         if(CanUseAbility())
         {   
             ShowAbility();
-            int damage = creature.Health / 2;
+            int damage = creature.Health;
+            int heal = creature.Health/2;
             DealDamageEffect(target, damage);
-            creature.Heal(0-damage);
+            creature.Heal(0-heal);
             
             base.UseEffect();
         }

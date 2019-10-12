@@ -26,10 +26,12 @@ public class FlyFly : CreatureEffect
         if (CanUseAbility())
         {
             ShowAbility();
+
+            creature.SplashAttackDamage(target, creature.AttackDamage);
             
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                DealDamageEffect(cl, creature.AttackDamage);
+                
                 AddBuff (cl, "CrippledStrike", buffCooldown);
 
             }

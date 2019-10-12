@@ -28,10 +28,17 @@ public class Sinkhole : CreatureEffect
         {
             ShowAbility();
             int totalDamage = 0;
+
+            creature.SplashAttackDamage(target,creature.AttackDamage);
+            
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                DealDamageEffect(cl, creature.AttackDamage);
-                totalDamage += creature.AttackDamage;
+                if (cl != target)
+                {
+                    
+                    totalDamage += creature.AttackDamage;
+                }
+                
                 foreach (CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.remainingCooldown += increaseCD;

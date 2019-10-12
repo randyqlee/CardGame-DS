@@ -13,13 +13,27 @@ public class ToothForATooth : CreatureEffect
 
    public override void RegisterEventEffect()
     {
-    
-       creature.e_IsAttacked += UseEffect;      
+        foreach (CreatureLogic cl in owner.AllyList())
+        {
+            if (cl != creature)
+            {
+                cl.e_IsAttacked += UseEffect;
+            }
+
+        }
+  
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_IsAttacked -= UseEffect;          
+        foreach (CreatureLogic cl in owner.AllyList())
+        {
+            if (cl != creature)
+            {
+                cl.e_IsAttacked -= UseEffect;
+            }
+
+        }      
     }
 
     public override void UseEffect(CreatureLogic target)

@@ -28,9 +28,9 @@ public class StormOfMidnight : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
+                creature.SplashAttackDamage(target,creature.AttackDamage);
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
-                    DealDamageEffect(cl, creature.AttackDamage);
                     AddBuff(cl, "AntiBuff", buffCooldown);
                 }
             }  

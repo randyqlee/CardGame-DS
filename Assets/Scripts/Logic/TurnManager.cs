@@ -180,6 +180,18 @@ public class TurnManager : MonoBehaviour {
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
 
                 }
+
+                foreach (Player player in Player.Players)
+                {
+                    foreach(CreatureLogic cl in player.AllyList())
+                    {
+                        foreach (CreatureEffect ce in cl.creatureEffects)
+                        {
+                            ce.RegisterCooldown();
+                            ce.RegisterEventEffect();
+                        }
+                    }
+                }
 /*
                 int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
                 for (int i = 0; i < initDrawEquip; i++)

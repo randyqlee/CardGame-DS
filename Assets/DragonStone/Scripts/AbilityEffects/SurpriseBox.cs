@@ -28,9 +28,9 @@ public class SurpriseBox : CreatureEffect
         if (CanUseAbility())
         {
             ShowAbility();
+            creature.SplashAttackDamage(target,damage);
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                DealDamageEffect(cl, damage);
                 DebuffList randomDebuff = GetRandomEnum<DebuffList>();
                 AddBuff(cl, randomDebuff.ToString(), buffCooldown);
             }           
