@@ -30,7 +30,7 @@ public class AmputationMagic : CreatureEffect
             
             if(Random.Range(0,100)<=creature.chance)
             {
-                ShowAbility();
+                //ShowAbility();
                 
                 effectChance = true;
                 creature.CriticalChance += 1;
@@ -46,6 +46,7 @@ public class AmputationMagic : CreatureEffect
 
             if(effectChance)
             { 
+                ShowAbility();
                 creature.SplashAttackDamage(target,creature.AttackDamage);
 
                 creature.CriticalChance -= 1;

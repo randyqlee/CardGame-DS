@@ -32,7 +32,7 @@ public class Shatter :CreatureEffect
             
             if(Random.Range(0,100)<=creature.chance)
             {
-                ShowAbility();
+                
                 
                 effectChance = true;
                 creature.CriticalChance += 1;
@@ -48,6 +48,7 @@ public class Shatter :CreatureEffect
 
             if(effectChance)
             {            
+                ShowAbility();
                 AddBuff(target, "Brand", buffCooldown);
                 creature.CriticalChance -= 1;
             }

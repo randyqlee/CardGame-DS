@@ -32,7 +32,7 @@ public class SpinningSmash : CreatureEffect
             
             if(Random.Range(0,100)<=creature.chance)
             {
-                ShowAbility();
+                //ShowAbility();
                 
                 effectChance = true;
                 if(creature.Armor > 0)
@@ -53,6 +53,7 @@ public class SpinningSmash : CreatureEffect
             if(effectChance)
             { 
 
+                ShowAbility();
                 creature.SplashAttackDamage(target,creature.AttackDamage);
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
