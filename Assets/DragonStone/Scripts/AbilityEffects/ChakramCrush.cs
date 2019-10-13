@@ -15,15 +15,16 @@ public class ChakramCrush : CreatureEffect
     public override void RegisterEventEffect()
     {
        //creature.e_CreatureOnTurnStart += UseEffect;      
-       creature.e_PreAttackEvent += UseEffect; 
+       //creature.e_PreAttackEvent += UseEffect; 
+       creature.e_AfterAttacking += UseEffect; 
       
     }
 
     public override void UnRegisterEventEffect()
     {
          //creature.e_CreatureOnTurnStart -= UseEffect;  
-         creature.e_PreAttackEvent -= UseEffect;
-         
+         //creature.e_PreAttackEvent -= UseEffect;
+         creature.e_AfterAttacking -= UseEffect; 
     }
 
     public override void UseEffect(CreatureLogic target)

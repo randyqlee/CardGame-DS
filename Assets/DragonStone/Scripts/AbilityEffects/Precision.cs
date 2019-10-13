@@ -15,15 +15,15 @@ public class Precision : CreatureEffect
     public override void RegisterEventEffect()
     {
        creature.e_PreAttackEvent += CheckChance;      
-       creature.e_AfterAttacking += UseEffect;  
-       
+       //creature.e_AfterAttacking += UseEffect;  
+       creature.e_PreAttackEvent += UseEffect;
     }
 
     public override void UnRegisterEventEffect()
     {
         creature.e_PreAttackEvent -= CheckChance;  
-        creature.e_AfterAttacking -= UseEffect;
-                  
+        //creature.e_AfterAttacking -= UseEffect;
+        creature.e_PreAttackEvent -= UseEffect;          
     }
 
     public void CheckChance(CreatureLogic target)
