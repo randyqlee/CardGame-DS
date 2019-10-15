@@ -32,32 +32,23 @@ public class CriticalError : CreatureEffect
             {
                 if (!cl.isDead)
                 {
-                    var buffList = new List<BuffEffect>();
-
+                    bool buffExists = false;
                     foreach (BuffEffect be in cl.buffEffects)
                     {
                         if(be.isBuff)
                         {
-                            buffList.Add(be);
+                            buffExists = true;
+                            break;
                         }
                     }
 
-                    bool buffRemoved = false;
-
-                    if (buffList != null)
+                    if (buffExists)
                     {
-                        foreach(BuffEffect be in buffList)
-                        {
-                            cl.RemoveBuff(be);
-                            buffRemoved = true;
-                        }
-                    }
-
-
-                    if(buffRemoved)
-                    {
+                        cl.RemoveRandomBuff();
                         AddBuff (cl, "Silence", buffCooldown);
+
                     }
+
                 }
 
             }

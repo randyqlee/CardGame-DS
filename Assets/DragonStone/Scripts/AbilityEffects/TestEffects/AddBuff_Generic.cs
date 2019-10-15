@@ -9,6 +9,8 @@ public class AddBuff_Generic : CreatureEffect
     public string buffName2 = "Retaliate";
     public string buffName3 = "Recovery";
 
+    public string buffName4 = "IncreaseAttack";
+
     public AddBuff_Generic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -33,6 +35,7 @@ public class AddBuff_Generic : CreatureEffect
             AddBuff(creature, buffName1, buffCooldown);
             AddBuff(creature, buffName2, buffCooldown);
             AddBuff(creature, buffName3, buffCooldown);
+            AddBuff(creature, buffName4, buffCooldown);
        
             base.UseEffect();
         }

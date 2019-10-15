@@ -32,8 +32,9 @@ public class ChakramCrush : CreatureEffect
         if(creatureEffectCooldown <= 0)
         {
             ShowAbility();
-            AddBuff(target, "Stun", buffCooldown);
             creature.SplashAttackDamage(target, creature.AttackDamage);
+            AddBuff(target, "Stun", buffCooldown);
+           
 
             base.UseEffect();
         }

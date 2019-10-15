@@ -10,6 +10,8 @@ public class BladeFan : CreatureEffect
 {
     public int buffCount = 3;
 
+    public bool stayActive = false;
+
     public BladeFan(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -18,12 +20,14 @@ public class BladeFan : CreatureEffect
    public override void RegisterEventEffect()
     {
     
-       creature.e_AfterAttacking += UseEffect;        
+       creature.e_AfterAttacking += UseEffect;
+       creature.e_CreatureOnTurnEnd += GainExtraTurn;        
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_AfterAttacking += UseEffect;            
+        creature.e_AfterAttacking += UseEffect;
+        creature.e_CreatureOnTurnEnd -= GainExtraTurn;                
     }
 
     public override void UseEffect(CreatureLogic target)
@@ -34,6 +38,7 @@ public class BladeFan : CreatureEffect
             {
                 ShowAbility();
 
+                stayActive = false;
 
                 var buffList = new List<BuffEffect>();
 
@@ -59,7 +64,7 @@ public class BladeFan : CreatureEffect
 
                 if(buffRemoved > buffCount)
                 {
-                    GainExtraTurn();
+                    stayActive = true;
                 }
 
             }
@@ -70,6 +75,12 @@ public class BladeFan : CreatureEffect
 
     public void GainExtraTurn()
     {
-        creature.AttacksLeftThisTurn++;        
+        if (stayActive)
+        {
+            creature.isActive = true; 
+            creature.AttacksLeftThisTurn++;
+            new CreatureColorCommand(creature,false).AddToQueue();
+            stayActive = false; 
+        }      
     }
 }
