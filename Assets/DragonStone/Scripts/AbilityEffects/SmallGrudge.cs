@@ -28,7 +28,7 @@ public class SmallGrudge : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                AddBuff(creature, "IncreasedAttack", buffCooldown);
+                AddBuff(creature, "IncreaseAttack", buffCooldown);
                 target.RemoveRandomBuff();
             }
             

@@ -195,7 +195,7 @@ public class CreatureEffect
         
 
         //if buff, can only affect allies
-        if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed)
+        if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed && !target.isDead)
         //if(buffEffect.isBuff)
         {
             //check if same team
@@ -206,13 +206,17 @@ public class CreatureEffect
         }
 
         //if debuff, can only affect enemies
-        if(buffEffect.isDebuff && creature.canDebuff && target.canBeDebuffed)
+        if(buffEffect.isDebuff && creature.canDebuff && target.canBeDebuffed && !target.isDead)
         {
             //check if same team
             if(target.owner != creature.owner)
             {
                 target.AddBuff(buffEffect);        
             }
+
+            else
+                target.AddBuff(buffEffect); 
+
         }
         
         // Debug.Log("Is Buff? " +buffEffect.isBuff);

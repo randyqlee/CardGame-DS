@@ -29,7 +29,7 @@ public class CoyRevenge : CreatureEffect
             if (target.owner == owner)
             {
                 ShowAbility();
-                AddBuff(creature, "IncreasedAttack",buffCooldown);
+                AddBuff(creature, "IncreaseAttack",buffCooldown);
             }
             base.UseEffect();
         }

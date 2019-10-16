@@ -77,9 +77,8 @@ public class BladeFan : CreatureEffect
     {
         if (stayActive)
         {
-            creature.isActive = true; 
-            creature.AttacksLeftThisTurn++;
-            new CreatureColorCommand(creature,false).AddToQueue();
+            creature.ExtraTurn();
+            
             stayActive = false; 
         }      
     }

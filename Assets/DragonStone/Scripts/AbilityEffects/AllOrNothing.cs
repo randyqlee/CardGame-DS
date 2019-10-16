@@ -28,7 +28,7 @@ public class AllOrNothing : CreatureEffect
             {
                 ShowAbility();
                 
-                AddBuff(creature, "IncreasedAttack", buffCooldown);
+                AddBuff(creature, "IncreaseAttack", buffCooldown);
                 creature.SplashAttackDamage(target, creature.AttackDamage);
                 foreach (CreatureLogic cl in owner.EnemyList())
                 {

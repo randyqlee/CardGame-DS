@@ -32,7 +32,7 @@ public class SpellOfStrengthening : CreatureEffect
             {
 
                 AddBuff(creature, "Immunity",buffCooldown);
-                AddBuff(creature, "IncreasedAttack",buffCooldown);
+                AddBuff(creature, "IncreaseAttack",buffCooldown);
                 AddBuff(creature, "Defense",buffCooldown);
             }
             

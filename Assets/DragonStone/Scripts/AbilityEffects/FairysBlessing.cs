@@ -31,7 +31,7 @@ public class FairysBlessing : CreatureEffect
             {
                 cl.Heal(healValue);
                 AddBuff(cl, "Immunity", buffCooldown);
-                AddBuff(cl, "IncreasedAttack", buffCooldown);
+                AddBuff(cl, "IncreaseAttack", buffCooldown);
             }
                      
             base.UseEffect();

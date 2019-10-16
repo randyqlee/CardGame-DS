@@ -31,7 +31,7 @@ public class UnleashedFury : CreatureEffect
         {
             ShowAbility();
             creature.AttacksLeftThisTurn++;
-            AddBuff(creature, "IncreasedAttack", buffCooldown);
+            AddBuff(creature, "IncreaseAttack", buffCooldown);
             AddBuff(creature, "Immunity", buffCooldown);
 
         }                             

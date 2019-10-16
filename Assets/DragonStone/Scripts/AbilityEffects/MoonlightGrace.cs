@@ -60,7 +60,7 @@ public class MoonlightGrace : CreatureEffect
                     }
                 }
 
-                AddBuff(creature, "IncreasedAttack", buffCooldown);
+                AddBuff(creature, "IncreaseAttack", buffCooldown);
 
                 creature.isPrimaryForm = true;
                 

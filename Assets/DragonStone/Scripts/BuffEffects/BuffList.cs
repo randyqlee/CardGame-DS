@@ -2,7 +2,7 @@
 	
 	Defense,
 	Immunity,
-	IncreasedAttack,
+	IncreaseAttack,
 	//IncreaseDefense,
 	Shield,
 	Lucky,

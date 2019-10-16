@@ -357,6 +357,7 @@ public class TurnManager : MonoBehaviour {
 
         else
         {
+            if(e_GameOver != null)
             e_GameOver.Invoke();
         }
     }

@@ -493,6 +493,14 @@ public class CreatureLogic: ICharacter
         owner.CheckIfGameOver();           
     }
 
+    public void ExtraTurn()
+    {
+        isActive = true; 
+        AttacksLeftThisTurn++;
+        new CreatureColorCommand(this,false).AddToQueue();
+
+    }
+
     public void Revive()
     {
         if (!hasCurse)
@@ -515,6 +523,7 @@ public class CreatureLogic: ICharacter
             new UpdateAttackCommand(ID, Attack).AddToQueue();
             new UpdateHealthCommand(ID, MaxHealth).AddToQueue();
             new UpdateArmorCommand(ID, Armor).AddToQueue();
+            new CreatureColorCommand(this,false).AddToQueue();
         }
 
     }
@@ -1030,7 +1039,8 @@ public class CreatureLogic: ICharacter
         foreach (BuffEffect be in buffEffects)
         {          
             be.UndoBuffEffect();                
-            be.UnregisterCooldown();                         
+            be.UnregisterCooldown();
+            new DestroyBuffCommand(be, this.UniqueCreatureID).AddToQueue();                         
         }
         buffEffects.Clear();
     }//RemoveAllBuffs
