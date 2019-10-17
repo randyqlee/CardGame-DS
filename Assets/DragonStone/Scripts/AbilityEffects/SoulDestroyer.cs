@@ -13,13 +13,15 @@ public class SoulDestroyer : CreatureEffect
 
     public override void RegisterEventEffect()
     {
-       creature.e_ThisCreatureDies += UseEffect;      
+       foreach(CreatureLogic cl in owner.EnemyList())
+            cl.e_ThisCreatureDies += UseEffect;       
  
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_ThisCreatureDies -= UseEffect;  
+       foreach(CreatureLogic cl in owner.EnemyList())
+            cl.e_ThisCreatureDies -= UseEffect;      
          
     }
 
@@ -27,22 +29,18 @@ public class SoulDestroyer : CreatureEffect
     {
         if (creatureEffectCooldown <= 0)
         {
-            foreach (CreatureLogic cl in owner.EnemyList())
+
+            if(Random.Range(0,100)<=creature.chance)
             {
-                if (cl == target)
-                {
-                    if(Random.Range(0,100)<=creature.chance)
-                    {
-                        ShowAbility();
-                        target.hasCurse = true;
+                ShowAbility();
+                target.hasCurse = true;
 
-                        AddBuff(creature, "Resurrect", buffCooldown);
-                    }
-
-                }
+                AddBuff(creature, "Resurrect", buffCooldown);
+                
             }
 
             base.UseEffect();
+            
         }
     }
             

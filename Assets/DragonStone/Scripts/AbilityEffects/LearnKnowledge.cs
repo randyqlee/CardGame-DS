@@ -13,14 +13,15 @@ public class LearnKnowledge : CreatureEffect
 
     public override void RegisterEventEffect()
     {
-    
-       creature.e_buffApplied += BuffApplied;      
+        foreach(CreatureLogic cl in owner.EnemyList())
+            cl.e_buffApplied += BuffApplied;      
     }
 
     public override void UnRegisterEventEffect()
     {
 
-        creature.e_buffApplied -= BuffApplied;          
+        foreach(CreatureLogic cl in owner.EnemyList())
+            cl.e_buffApplied -= BuffApplied;         
     }
 
     public void BuffApplied(CreatureLogic target, BuffEffect be)

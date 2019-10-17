@@ -29,13 +29,13 @@ public class DarkRecovery : CreatureEffect
         {
             ShowAbility();
 
-            target.e_ThisCreatureDies += GainExtraTurn;
+            target.e_ThisCreatureDies += GainExtraTurnAfterAttack;
             int damage = target.Health / 2;
             new DealDamageCommand(target.ID, damage, healthAfter: target.TakeOtherDamageVisual(damage), armorAfter:target.TakeArmorDamageVisual(damage)).AddToQueue();
             target.TakeOtherDamage (damage);
 
             creature.Heal(damage);
-            target.e_ThisCreatureDies -= GainExtraTurn;
+            target.e_ThisCreatureDies -= GainExtraTurnAfterAttack;
 
             base.UseEffect();
 
@@ -43,8 +43,14 @@ public class DarkRecovery : CreatureEffect
         }
     }
 
-    public void GainExtraTurn(CreatureLogic target)
+    public void GainExtraTurnAfterAttack(CreatureLogic target)
     {
-        creature.AttacksLeftThisTurn++;        
+        creature.e_AfterAttacking += ExtraTurn;        
+    }
+
+    public void ExtraTurn(CreatureLogic target)
+    {
+        creature.ExtraTurn();  
+        creature.e_AfterAttacking -= ExtraTurn;      
     }
 }

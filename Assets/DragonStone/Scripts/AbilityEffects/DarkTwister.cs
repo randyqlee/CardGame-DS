@@ -30,7 +30,8 @@ public class DarkTwister : CreatureEffect
             if(Random.Range(0,100)<=creature.chance)
             {
                 ShowAbility();
-                creature.SplashAttackDamage(target, value);
+                creature.SplashAttackDamage(target, value); 
+                DealDamageEffect(target, damage);               
                 foreach(CreatureLogic cl in owner.AllyList())
                 {
                     cl.Heal(value);
