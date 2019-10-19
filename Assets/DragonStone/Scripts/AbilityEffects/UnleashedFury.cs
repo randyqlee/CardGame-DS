@@ -40,7 +40,7 @@ public class UnleashedFury : CreatureEffect
     {
         if(CanUseAbility())
         {
-            ShowAbility();
+            //ShowAbility();
             if (!target.isDead)
             {
                 creature.AttackCreature(target);

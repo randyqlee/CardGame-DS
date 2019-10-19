@@ -16,13 +16,15 @@ public class FateOfDestruction : CreatureEffect
     public override void RegisterEventEffect()
     {
        creature.e_PreAttackEvent += IncreaseAttackCount;
-       creature.e_SecondAttack += UseEffect;       
+       creature.e_SecondAttack += UseEffect;  
+       //creature.e_PreAttackEvent += UseEffect;          
     }
 
     public override void UnRegisterEventEffect()
     {
          creature.e_PreAttackEvent -= IncreaseAttackCount;
-        creature.e_SecondAttack -= UseEffect;          
+         creature.e_SecondAttack -= UseEffect;     
+         //creature.e_PreAttackEvent -= UseEffect;      
     }
 
     void IncreaseAttackCount(CreatureLogic target)
@@ -33,8 +35,10 @@ public class FateOfDestruction : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
+                AddBuff (target, "Bomb", buffCooldown);
                 creature.AttacksLeftThisTurn++;
                 chanceEffect = true;
+
             }
             else
             {
@@ -46,13 +50,14 @@ public class FateOfDestruction : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if (CanUseAbility() && chanceEffect)
+        if (CanUseAbility() && chanceEffect)       
         {
-            ShowAbility();
+            //ShowAbility();
             if(!target.isDead)     
             {     
                 creature.AttackCreature(target);
-                AddBuff (target, "Bomb", buffCooldown);
+                //AddBuff (target, "Bomb", buffCooldown);               
+                
             }
 
             base.UseEffect();  

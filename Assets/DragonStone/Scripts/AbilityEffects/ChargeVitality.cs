@@ -42,13 +42,13 @@ public class ChargeVitality : CreatureEffect
             List<CreatureLogic> sortedList = owner.SortAllyListByHealth();
             if (sortedList.Count > 1)
             {
-                ShowAbility();
+                //ShowAbility();
                 int count = 0;
                 for (int i = 0; i<sortedList.Count && count < maxNumberOfAllies; i++)
                 {
                     if (sortedList[i] != creature)
                     {
-                        sortedList[i].Heal(healValue);
+                        sortedList[i].Heal(healValue);                        
                         count++;
                     }
                 }
@@ -60,7 +60,7 @@ public class ChargeVitality : CreatureEffect
     {
         if (CanUseAbility())
         {
-            ShowAbility();
+            //ShowAbility();
             if(!target.isDead)          
                 creature.AttackCreature(target);
             base.UseEffect();  

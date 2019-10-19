@@ -31,7 +31,7 @@ public class DarkTwister : CreatureEffect
             {
                 ShowAbility();
                 creature.SplashAttackDamage(target, value); 
-                DealDamageEffect(target, damage);               
+                //DealDamageEffect(target, damage);               
                 foreach(CreatureLogic cl in owner.AllyList())
                 {
                     cl.Heal(value);

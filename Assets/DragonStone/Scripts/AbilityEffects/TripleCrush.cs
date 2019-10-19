@@ -7,6 +7,7 @@ public class TripleCrush : CreatureEffect
 
     public int buffCooldown = 1;
     public int multiplier = 3;
+    
     public TripleCrush(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -14,14 +15,21 @@ public class TripleCrush : CreatureEffect
 
     public override void RegisterEventEffect()
     {    
+       
        creature.e_AfterAttacking += UseEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-         creature.e_AfterAttacking -= UseEffect;          
+                 
+        creature.e_AfterAttacking -= UseEffect;
+       
     }
 
+    
+     
+    
+    
     public override void UseEffect(CreatureLogic target)
     {
         if (creatureEffectCooldown <= 0)
@@ -29,6 +37,7 @@ public class TripleCrush : CreatureEffect
             //Attack inflicts Brand on target enemy and deals 3 times your damage this turn.
             ShowAbility();
             AddBuff(target, "Brand", buffCooldown);
+            
             int damage = multiplier * creature.AttackDamage;
             new DealDamageCommand(target.ID, damage, healthAfter: target.TakeOtherDamageVisual(creature.DealOtherDamage(damage)), armorAfter: target.TakeArmorDamageVisual(creature.DealOtherDamage(damage))).AddToQueue();
             target.TakeOtherDamage(damage);

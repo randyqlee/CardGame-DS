@@ -29,7 +29,14 @@ public class DarkGuardianAngel : CreatureEffect
             ShowAbility();
             
             creature.SplashAttackDamage(target, creature.AttackDamage);
-            AddBuff(target, "Unhealable", buffCooldown);
+            //AddBuff(target, "Unhealable", buffCooldown);
+            
+            foreach(CreatureLogic cl in owner.EnemyList())
+            {
+                    AddBuff(cl, "Unhealable", buffCooldown);
+            }
+
+            
             
             foreach(CreatureLogic cl in owner.AllyList())
             {
