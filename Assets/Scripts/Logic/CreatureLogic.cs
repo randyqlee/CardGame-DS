@@ -542,43 +542,57 @@ public class CreatureLogic: ICharacter
         
         AttacksLeftThisTurn--;         
 
-        AttackDamage = DealDamage(Attack);
 
-        if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
-        {          
-            target.TakeDamage(this, AttackDamage);
+        if(!target.isDead)
+        {
+            AttackDamage = DealDamage(Attack);
+
+            if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
+            {          
+                target.TakeDamage(this, AttackDamage);
+                
+            }
+
+            int targetHealthAfter = target.Health;
+            int attackerHealthAfter = Health;
+            int targetArmorAfter = target.Armor;
+            new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, targetArmorAfter, CanAttack).AddToQueue();
             
-        }
+            if(this.e_AfterAttacking != null)
+            this.e_AfterAttacking.Invoke(target);
 
-        int targetHealthAfter = target.Health;
-        int attackerHealthAfter = Health;
-        int targetArmorAfter = target.Armor;
-        new CreatureAttackCommand(target.UniqueCreatureID, UniqueCreatureID, target.targetAttackDamage, AttackDamage, attackerHealthAfter, targetHealthAfter, targetArmorAfter, CanAttack).AddToQueue();
+            if (target.lastDamageValue > 0)
+            {
+                if(e_IsDamagedByAttack != null)
+                    e_IsDamagedByAttack.Invoke(this, target, target.lastDamageValue); 
+                
+                target.TriggerThisWhenAttacked(this);
+
+            }
         
-        if(this.e_AfterAttacking != null)
-        this.e_AfterAttacking.Invoke(target);
+            if(!CanAttack)
+            {
+                new EndTurnCommand().AddToQueue();
+                OnTurnEnd();
+            }
+            else
+            {            
+                if(e_SecondAttack != null)
+                e_SecondAttack.Invoke(target);    
+            }   
 
-        if (target.lastDamageValue > 0)
-        {
-            if(e_IsDamagedByAttack != null)
-                e_IsDamagedByAttack.Invoke(this, target, target.lastDamageValue); 
-            
-            target.TriggerThisWhenAttacked(this);
-
+        } else {
+             if(!CanAttack)
+            {
+                new EndTurnCommand().AddToQueue();
+                OnTurnEnd();
+            }
+            else
+            {            
+                if(e_SecondAttack != null)
+                e_SecondAttack.Invoke(target);    
+            }   
         }
-       
-        if(!CanAttack)
-        {
-            new EndTurnCommand().AddToQueue();
-            OnTurnEnd();
-        }
-        else
-        {            
-            if(e_SecondAttack != null)
-            e_SecondAttack.Invoke(target);    
-        }   
-
-
     } 
 
     public void TriggerThisWhenAttacked (CreatureLogic attacker)

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class DarkRecovery : CreatureEffect
-{
+{   
+
+    public bool stayActive = false;
 
     public DarkRecovery(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
@@ -13,44 +16,56 @@ public class DarkRecovery : CreatureEffect
     public override void RegisterEventEffect()
     {
         creature.e_PreAttackEvent += UseEffect; 
+        creature.e_CreatureOnTurnEnd += GainExtraTurn;        
+       
       
     }
 
     public override void UnRegisterEventEffect()
     {
          creature.e_PreAttackEvent -= UseEffect;
+         creature.e_CreatureOnTurnEnd -= GainExtraTurn;
+         
          
     }
 
     public override void UseEffect(CreatureLogic target)
     {
-        //if(creatureEffectCooldown <= 0 && !hasUsedEffect)
+        
         if(creatureEffectCooldown <= 0)
         {
             ShowAbility();
+            stayActive = false;
 
-            target.e_ThisCreatureDies += GainExtraTurnAfterAttack;
-            int damage = target.Health / 2;
+           
+            int damage = target.MaxHealth / 2;
             new DealDamageCommand(target.ID, damage, healthAfter: target.TakeOtherDamageVisual(damage), armorAfter:target.TakeArmorDamageVisual(damage)).AddToQueue();
             target.TakeOtherDamage (damage);
 
             creature.Heal(damage);
-            target.e_ThisCreatureDies -= GainExtraTurnAfterAttack;
+            
+
+            if(target.isDead)
+            {
+                stayActive = true;
+            }
 
             base.UseEffect();
 
 
         }
     }
+    
 
-    public void GainExtraTurnAfterAttack(CreatureLogic target)
+    public void GainExtraTurn()
     {
-        creature.e_AfterAttacking += ExtraTurn;        
+        if (stayActive)
+        {
+            creature.ExtraTurn();
+            
+            stayActive = false; 
+        }      
     }
 
-    public void ExtraTurn(CreatureLogic target)
-    {
-        creature.ExtraTurn();  
-        creature.e_AfterAttacking -= ExtraTurn;      
-    }
+   
 }
