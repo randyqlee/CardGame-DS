@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Armor : BuffEffect
 {
-    int specialValue = 2;
+    int specialValue;
 
     public Armor(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
     {
         buffIcon = Resources.Load<Sprite>("BuffIcons/Armor");
         isBuff = true;
+        specialValue = defaultArmor;
     
     }
 

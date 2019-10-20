@@ -649,12 +649,14 @@ public class CreatureLogic: ICharacter
                 else if (Armor == finalDamage)
                 {
                     Armor = 0;
+                    source.DestroyArmor();
                 }
                 else if (Armor < finalDamage)
                 {
-                    spillDamage = Armor - finalDamage;                    
+                    spillDamage = finalDamage - armor;                    
                     Armor = 0;
-                    healthAfter += spillDamage;
+                    source.DestroyArmor();
+                    healthAfter -= spillDamage;
                 }
             }
 
@@ -934,6 +936,16 @@ public class CreatureLogic: ICharacter
                 
                 if (be.buffCooldown < buff.buffCooldown)
                     be.buffCooldown = buff.buffCooldown;
+
+            
+            //for Armor Update
+            // if (be.GetType().Name == "Armor")
+            // {
+                           
+            //     be.target.Armor = be.defaultArmor;
+            // }
+            
+                
 
                 buffExists = true;
 

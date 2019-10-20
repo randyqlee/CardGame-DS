@@ -24,11 +24,12 @@ public class TheCunning : CreatureEffect
     {
         if (creatureEffectCooldown <= 0)
         {
-            ShowAbility();
+           
             if(Random.Range(0,100)<=creature.chance)
             {
+                ShowAbility();
                 List<BuffEffect> buffList = new List<BuffEffect>();
-                if (target.buffEffects != null)
+                if (target.buffEffects != null && target.buffEffects.Count > 0)
                 {
                     foreach(BuffEffect be in target.buffEffects)
                     {
@@ -38,7 +39,7 @@ public class TheCunning : CreatureEffect
                         }
                     }
                 }
-                if (buffList != null)
+                if (buffList != null && buffList.Count>0)
                 {
                     int i = Random.Range(0,buffList.Count);
                     AddBuff(creature, buffList[i].Name, buffList[i].buffCooldown);
@@ -47,6 +48,7 @@ public class TheCunning : CreatureEffect
 
             }
 
+            //Test OK
             int buffCount = 0;
             foreach (BuffEffect be in creature.buffEffects)
             {

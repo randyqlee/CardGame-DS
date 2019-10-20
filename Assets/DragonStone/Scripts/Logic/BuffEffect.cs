@@ -17,6 +17,8 @@ public class BuffEffect
     public bool isBuff;
     public bool isDebuff;
 
+    public int defaultArmor = 2;
+
     public Sprite buffIcon;
 
     //DS
