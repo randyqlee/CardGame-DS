@@ -122,8 +122,11 @@ public class BuffEffect
     {
         //Debug.Log("Remove Buff " +this.GetType().Name);
         UndoBuffEffect();
-        UnregisterCooldown();        
+        UnregisterCooldown();
+
+       
         target.buffEffects.Remove(this);       
+        
          
         new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
 

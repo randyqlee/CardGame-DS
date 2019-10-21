@@ -8,6 +8,7 @@ public class UpdateArmorCommand : Command {
     //private int amount;
     private int armorAfter;
     //private int attackBefore;
+    private CreatureLogic targetHero;
 
     public UpdateArmorCommand( int targetID, int armorAfter)
     {
@@ -15,6 +16,8 @@ public class UpdateArmorCommand : Command {
         //this.amount = amount;
         this.armorAfter = armorAfter;
         //this.attackBefore = attackBefore;
+        targetHero = CreatureLogic.CreaturesCreatedThisGame[targetID];
+        
     }
 
     public override void StartCommandExecution()
@@ -25,6 +28,22 @@ public class UpdateArmorCommand : Command {
        
             // target is a creature
             target.GetComponent<OneCreatureManager>().ChangeArmor(armorAfter);
+
+            //Test Script for armor buff destroy
+            Debug.Log("Command Hero Name: " +targetHero.Name);
+            if(armorAfter <=0)
+            {
+                for(int i = targetHero.buffEffects.Count-1; i>=0; i--)
+                {
+                    if(targetHero.buffEffects[i].Name == "Armor")
+                    {
+                         Debug.Log("Command Buff: " +targetHero.buffEffects[i].Name);
+                         targetHero.RemoveBuff(targetHero.buffEffects[i]);
+                    }
+                    
+                }
+            }
+            
         
         CommandExecutionComplete();
     }

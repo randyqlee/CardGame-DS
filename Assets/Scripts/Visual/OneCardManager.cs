@@ -29,8 +29,8 @@ public class OneCardManager : MonoBehaviour {
     {
         if (cardAsset != null)
             ReadCardFromAsset();
-        else
-            Debug.Log("cardAsset = null");
+        // else
+        //     Debug.Log("cardAsset = null");
     }
 
 

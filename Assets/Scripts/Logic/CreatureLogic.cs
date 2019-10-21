@@ -15,6 +15,9 @@ public class CreatureLogic: ICharacter
     public bool isDead;
 
     public bool isActive;
+
+    [HideInInspector]
+    public BuffEffect testBuff;
 /*    
     {
         get{ return isActiveValue; }
@@ -132,11 +135,26 @@ public class CreatureLogic: ICharacter
         set
         {
             if (value <= 0)
-                DestroyArmor();
-            else
-                armor = value;
+            {
+                armor = 0;
+                value = armor;
 
-            new UpdateArmorCommand(ID, value).AddToQueue();
+                new UpdateArmorCommand(ID, value).AddToQueue();                
+                
+                                 
+                
+                
+                this.DestroyArmor();
+            }                
+                
+            else
+            {
+                armor = value;
+                new UpdateArmorCommand(ID, value).AddToQueue();
+            }
+                
+
+            
         }
     }
 
@@ -314,7 +332,8 @@ public class CreatureLogic: ICharacter
 
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID(); 
-        Name = this.GetType().Name.ToString();
+        //Name = this.GetType().Name.ToString();
+        Name = ca.cardName;
 
        
         //DS
@@ -448,6 +467,7 @@ public class CreatureLogic: ICharacter
 
     public void DestroyArmor()
     {
+        
 
     }
 
@@ -649,13 +669,15 @@ public class CreatureLogic: ICharacter
                 else if (Armor == finalDamage)
                 {
                     Armor = 0;
-                    source.DestroyArmor();
+                    //source.DestroyArmor();
+                    DestroyArmor();
                 }
                 else if (Armor < finalDamage)
                 {
-                    spillDamage = finalDamage - armor;                    
+                    spillDamage = finalDamage - Armor;                    
                     Armor = 0;
-                    source.DestroyArmor();
+                    //source.DestroyArmor();
+                    DestroyArmor();
                     healthAfter -= spillDamage;
                 }
             }
@@ -939,11 +961,11 @@ public class CreatureLogic: ICharacter
 
             
             //for Armor Update
-            // if (be.GetType().Name == "Armor")
-            // {
+            if (be.GetType().Name == "Armor")
+            {
                            
-            //     be.target.Armor = be.defaultArmor;
-            // }
+                be.target.Armor = be.defaultArmor;
+            }
             
                 
 
