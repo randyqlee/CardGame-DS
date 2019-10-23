@@ -28,7 +28,7 @@ public class PrayerOfProtection : CreatureEffect
 
             ShowAbility();
             creature.RemoveDeBuffsAll();
-            AddBuff(creature, "Invincible", buffCooldown);
+            AddBuff(creature, "Invincibility", buffCooldown);
             base.UseEffect();
         }
     }

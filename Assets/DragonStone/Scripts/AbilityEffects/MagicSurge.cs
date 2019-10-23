@@ -13,7 +13,7 @@ public class MagicSurge : CreatureEffect
     public override void RegisterEventEffect()
     {  
     
-        creature.e_PreAttackEvent -= PreAttack;  
+        creature.e_PreAttackEvent += PreAttack;  
         
        creature.e_AfterAttacking += UseEffect;      
     }

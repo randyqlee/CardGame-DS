@@ -14,7 +14,7 @@ public class DragonAttack : CreatureEffect
     public override void RegisterEventEffect()
     {  
     
-        creature.e_PreAttackEvent -= PreAttack;  
+        creature.e_PreAttackEvent += PreAttack;  
         
        creature.e_AfterAttacking += UseEffect;      
     }

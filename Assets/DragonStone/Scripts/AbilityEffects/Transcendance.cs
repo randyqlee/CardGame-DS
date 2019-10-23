@@ -27,16 +27,11 @@ public class Transcendance : CreatureEffect
     {
         if(CanUseAbility())
         { 
-            if(ChanceOK(creature.chance))
-            {  
-                ShowAbility();
-                AddBuff(creature, "IncreaseAttack", buffCooldown);
-                foreach (CreatureEffect ce in creature.creatureEffects)
-                {
-                    ce.remainingCooldown = 0;
-                    ce.UpdateCooldown();
-                
-                }
+            if(ChanceOK(creature.chance) && creature.hasStun == false)
+            {
+                    ShowAbility();
+                    AddBuff(creature, "IncreaseAttack", buffCooldown);
+                    creature.ExtraTurn();
             }
                 
             base.UseEffect();

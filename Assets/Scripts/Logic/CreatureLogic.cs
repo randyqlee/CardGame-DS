@@ -214,10 +214,12 @@ public class CreatureLogic: ICharacter
     {
         get{return criticalFactor;}
         set{
-            if(value < 1)
+            if(value <= 1)
                 criticalFactor = 1;
             else
                 criticalFactor = 2;
+
+            Debug.Log("CritFactor: " + criticalFactor);
         }
     }
 
@@ -524,7 +526,8 @@ public class CreatureLogic: ICharacter
     public void ExtraTurn()
     {
         isActive = true; 
-        AttacksLeftThisTurn++;
+        if (AttacksLeftThisTurn == 0)
+            AttacksLeftThisTurn++;
         new CreatureColorCommand(this,false).AddToQueue();
 
     }
@@ -634,7 +637,7 @@ public class CreatureLogic: ICharacter
     public int DealDamage(int amount)
     {
         int damage = amount*criticalFactor;
-
+ 
         //if(e_IsComputeDamage!=null)
         //e_IsComputeDamage();
 
@@ -1083,23 +1086,22 @@ public class CreatureLogic: ICharacter
     {
 
             buff.UndoBuffEffect();
-            buff.UnregisterCooldown();
-            buffEffects.Remove(buff);
+            buff.UnregisterCooldown();         
 
             new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
-       
+            buffEffects.Remove(buff);
     }
 
     public void RemoveAllBuffs()
     {
-        if(buffEffects != null)
-        foreach (BuffEffect be in buffEffects)
-        {          
-            be.UndoBuffEffect();                
-            be.UnregisterCooldown();
-            new DestroyBuffCommand(be, this.UniqueCreatureID).AddToQueue();                         
+        int i = buffEffects.Count;
+        if(buffEffects.Count > 0)
+        {
+            for(int x = i-1; x>=0; x--)
+            {
+                buffEffects[x].RemoveBuff();
+            }
         }
-        buffEffects.Clear();
     }//RemoveAllBuffs
 
     public void RemoveDeBuffsAll()

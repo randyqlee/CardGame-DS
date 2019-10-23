@@ -37,7 +37,7 @@ public class ReturnedDice : CreatureEffect
                 AddBuff(cl, "Unlucky", buffCooldown2);
                 AddBuff(cl, "Silence", buffCooldown2);
 
-                AddBuff(cl, "Evade", buffCooldown);
+                AddBuff(cl, "Evasion", buffCooldown);
             }
 
             foreach(CreatureLogic cl in owner.EnemyList())

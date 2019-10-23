@@ -35,7 +35,7 @@ public class Alert : CreatureEffect
                     ce.UpdateCooldown();
                 }
                 
-                AddBuff(cl, "Evade", buffCooldown);
+                AddBuff(cl, "Evasion", buffCooldown);
             }
                      
             base.UseEffect();

@@ -33,7 +33,7 @@ public class CrowHunt : CreatureEffect
                
                 foreach(CreatureLogic cl in owner.AllyList())
                 {
-                    AddBuff(target, "Lucky", buffCooldown);
+                    AddBuff(cl, "Lucky", buffCooldown);
                 }
                 
             }

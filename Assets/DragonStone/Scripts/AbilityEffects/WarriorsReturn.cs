@@ -26,22 +26,14 @@ public class WarriorsReturn : CreatureEffect
     {
         if(CanUseAbility() && ChanceOK(creature.chance))
         {   
-            
-
-            bool isAnAllyDead = false;
-            foreach (CreatureLogic cl in owner.DeadAllyList())
-            {
-                isAnAllyDead = true;
-                    break;
-            }
-
-            if (isAnAllyDead)
+            List<CreatureLogic> deadAllyList = owner.DeadAllyList();
+            if (deadAllyList.Count > 0)
             {
                 ShowAbility();
 
-                int i = Random.Range(0,owner.DeadAllyList().Count);
+                int i = Random.Range(0,deadAllyList.Count);
                 
-                CreatureLogic ally = owner.deadAllies[i];
+                CreatureLogic ally = deadAllyList[i];
 
                 ShowAbility();
                 ally.Revive();

@@ -17,7 +17,7 @@ public class Eternity : CreatureEffect
     
        TurnManager.Instance.e_EndOfRound += UseEffect;
 
-       creature.e_ThisCreatureDies += Revive;      
+       //creature.e_ThisCreatureDies += Revive;      
     }
 
     public override void UnRegisterEventEffect()
@@ -40,6 +40,10 @@ public class Eternity : CreatureEffect
 
             if (ChanceOK(creature.chance))
             {
+                if (creature.isDead)
+                {
+                    new ReviveCommand(creature).AddToQueue();
+                }
 
             }         
 
@@ -47,6 +51,7 @@ public class Eternity : CreatureEffect
         }
     }
 
+/*
     public void Revive (CreatureLogic target)
     {
         if (ChanceOK(creature.chance))
@@ -59,4 +64,5 @@ public class Eternity : CreatureEffect
         }      
 
     }
+    */
 }
