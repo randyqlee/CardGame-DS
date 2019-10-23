@@ -139,12 +139,8 @@ public class CreatureLogic: ICharacter
                 armor = 0;
                 value = armor;
 
-                new UpdateArmorCommand(ID, value).AddToQueue();                
-                
-                                 
-                
-                
-                this.DestroyArmor();
+                new UpdateArmorCommand(ID, value).AddToQueue();                   
+                //this.DestroyArmor();
             }                
                 
             else
@@ -467,7 +463,19 @@ public class CreatureLogic: ICharacter
 
     public void DestroyArmor()
     {
-        
+         if(Armor <=0)
+            {
+                for(int i = this.buffEffects.Count-1; i>=0; i--)
+                {
+                    Debug.Log("Hero Name : " +this.Name);
+                    if(this.buffEffects[i].Name == "Armor")
+                    {
+                         Debug.Log("Command Buff: " +this.buffEffects[i].Name);
+                         this.RemoveBuff(this.buffEffects[i]);
+                    }
+                    
+                }
+            }
 
     }
 
@@ -670,15 +678,15 @@ public class CreatureLogic: ICharacter
                 {
                     Armor = 0;
                     //source.DestroyArmor();
-                    DestroyArmor();
+                    this.DestroyArmor();
                 }
                 else if (Armor < finalDamage)
                 {
-                    spillDamage = finalDamage - Armor;                    
+                    spillDamage = Armor- finalDamage;                    
                     Armor = 0;
                     //source.DestroyArmor();
-                    DestroyArmor();
-                    healthAfter -= spillDamage;
+                    this.DestroyArmor();
+                    healthAfter += spillDamage;
                 }
             }
 
@@ -895,7 +903,7 @@ public class CreatureLogic: ICharacter
         //Subscribe all creature pre-attack abilities here
         if(e_PreAttackEvent != null)
            this.e_PreAttackEvent.Invoke(target);
-           new DelayCommand(1.5f).AddToQueue();
+           new DelayCommand(0.5f).AddToQueue();
 
         if(!pauseAttack)
             new StartAttackSequenceCommand(this, target).AddToQueue();
@@ -960,10 +968,11 @@ public class CreatureLogic: ICharacter
                     be.buffCooldown = buff.buffCooldown;
 
             
-            //for Armor Update
+            //Set Armor to Original Value when re-applied
             if (be.GetType().Name == "Armor")
             {
                            
+                if(be.target.Armor < be.defaultArmor)
                 be.target.Armor = be.defaultArmor;
             }
             

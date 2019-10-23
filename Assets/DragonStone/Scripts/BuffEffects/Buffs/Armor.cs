@@ -11,6 +11,7 @@ public class Armor : BuffEffect
         buffIcon = Resources.Load<Sprite>("BuffIcons/Armor");
         isBuff = true;
         specialValue = defaultArmor;
+        //specialValue = 50;
     
     }
 
@@ -29,7 +30,7 @@ public class Armor : BuffEffect
         //int healthAfter = target.Health - specialValue;
         //new UpdateHealthCommand(target.ID, healthAfter).AddToQueue();    
         
-        target.Armor -= specialValue;        
+        target.Armor = 0;        
     }
 
 
