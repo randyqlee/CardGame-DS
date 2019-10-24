@@ -469,7 +469,7 @@ public class CreatureLogic: ICharacter
             {
                 for(int i = this.buffEffects.Count-1; i>=0; i--)
                 {
-                    Debug.Log("Hero Name : " +this.Name);
+                    Debug.Log("Destroy Armor Hero Name : " +this.Name);
                     if(this.buffEffects[i].Name == "Armor")
                     {
                          Debug.Log("Command Buff: " +this.buffEffects[i].Name);
@@ -741,11 +741,13 @@ public class CreatureLogic: ICharacter
                 else if (Armor == finalDamage)
                 {
                     Armor = 0;
+                    this.DestroyArmor();
                 }
                 else if (Armor < finalDamage)
                 {
                     spillDamage = Armor - finalDamage;                    
                     Armor = 0;
+                    this.DestroyArmor();
                     healthAfter += spillDamage;
                 }
             }
@@ -789,11 +791,13 @@ public class CreatureLogic: ICharacter
             else if (Armor == finalOtherDamage)
             {
                 Armor = 0;
+                this.DestroyArmor();
             }
             else if (Armor < finalOtherDamage)
             {
                 spillDamage = Armor - finalOtherDamage;
                 Armor = 0;
+                this.DestroyArmor();
                 healthAfter += spillDamage; 
             }
         }
@@ -835,12 +839,16 @@ public class CreatureLogic: ICharacter
             else if (armorValue == damage)
             {
                 armorValue = 0;
+                this.DestroyArmor();
+                Debug.Log("Hero: " +this.Name);
             }
-            else
+            else if (Armor < finalOtherDamage)
             {
                 spillDamage = armorValue - finalOtherDamage;
                 armorValue = 0;
-                healthAfter -= spillDamage; 
+                this.DestroyArmor();
+                Debug.Log("Hero: " +this.Name);
+                healthAfter += spillDamage; 
             }
         }
 
@@ -873,12 +881,16 @@ public class CreatureLogic: ICharacter
             else if (armorValue == damage)
             {
                 armorValue = 0;
+                Debug.Log("Hero Armor: " +this.Name);
+                this.DestroyArmor();
             }
-            else
+            else if (Armor < finalOtherDamage)
             {
                 spillDamage = armorValue - finalOtherDamage;
                 armorValue = 0;
-                healthAfter -= spillDamage; 
+                Debug.Log("Hero Armor: " +this.Name);
+                this.DestroyArmor();
+                healthAfter += spillDamage; 
             }
 
             return armorValue;

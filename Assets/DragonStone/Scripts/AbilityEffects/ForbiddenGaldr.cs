@@ -34,7 +34,10 @@ public class ForbiddenGaldr : CreatureEffect
                     cl.Heal(armor);
                 }
                 
-                DealDamageEffect(target, armor);
+                foreach(CreatureLogic cl in owner.EnemyList())
+                {
+                    DealDamageEffect(cl, armor);
+                }               
 
                 base.UseEffect();
             }

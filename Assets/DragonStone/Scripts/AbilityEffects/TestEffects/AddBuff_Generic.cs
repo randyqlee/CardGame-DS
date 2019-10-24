@@ -33,7 +33,7 @@ public class AddBuff_Generic : CreatureEffect
             ShowAbility();
 
             //AddBuff(creature, buffName1, buffCooldown);
-            //AddBuff(creature, buffName2, buffCooldown);
+            AddBuff(creature, buffName2, buffCooldown);
             //AddBuff(creature, buffName3, buffCooldown);
             //AddBuff(creature, buffName4, buffCooldown);
        
