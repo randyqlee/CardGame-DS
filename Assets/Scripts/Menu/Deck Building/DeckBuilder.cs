@@ -29,12 +29,18 @@ public class DeckBuilder : MonoBehaviour
     public GameObject DeckCompleteFrame;
 
     private List<CardAsset> deckList = new List<CardAsset>();
+
     private Dictionary<CardAsset, CardNameRibbon> ribbons = new Dictionary<CardAsset, CardNameRibbon>();
 
     public bool InDeckBuildingMode{ get; set;}
     private CharacterAsset buildingForCharacter;
 
     public static int deckNumber;
+
+    public int currentDeckNumber {
+        get
+        { return deckNumber; }
+    }
 
 
     void Awake()
@@ -247,6 +253,21 @@ public class DeckBuilder : MonoBehaviour
 
     }
 
+    public void RemoveCardFromAllDecks(GameObject go)
+    {
+
+        CardAsset asset = go.GetComponent<AddCardToDeck>().cardAsset;
+
+        foreach (DeckInfo di in  DecksStorage.Instance.AllDecks)
+        {
+            for (int i = di.Cards.Count - 1 ; i >= 0; i--)
+            {
+                if (asset == di.Cards[i])
+                    RemoveCard(go);
+            }
+        }
+    }
+
     public void BuildADeckFor(CharacterAsset asset)
     {
         InDeckBuildingMode = true;
@@ -446,7 +467,7 @@ public class DeckBuilder : MonoBehaviour
 
     }
 
-    void UpdateCollectionPanel()
+    public void UpdateCollectionPanel()
     {
         foreach(GameObject go in goDeckList)
         {

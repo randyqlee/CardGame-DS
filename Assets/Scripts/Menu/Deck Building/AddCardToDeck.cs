@@ -149,10 +149,21 @@ public class AddCardToDeck : MonoBehaviour {
         //}
 
         //DS check if this item is already added in Deck
-        if(!isAdded)
-            DeckBuilder.Instance.AddCard(asset);
+
+        if (DeckBuilder.Instance != null)
+        {
+            if(!isAdded)
+                DeckBuilder.Instance.AddCard(asset);
+            else
+                DeckBuilder.Instance.RemoveCard(gameObject);
+        }
         else
-            DeckBuilder.Instance.RemoveCard(gameObject);
+        {
+            if(!isAdded)
+                GetComponentInParent<DeckBuilderTest>().AddCard(asset);
+            else
+                GetComponentInParent<DeckBuilderTest>().RemoveCard(gameObject);
+        }
     }
 
     public void RemoveFromDeck()
@@ -161,8 +172,17 @@ public class AddCardToDeck : MonoBehaviour {
         if (asset == null)
             return;
 
-        if(isAdded)
-            DeckBuilder.Instance.RemoveCard(gameObject);
+        if (DeckBuilder.Instance != null)
+        {
+            if(isAdded)
+                DeckBuilder.Instance.RemoveCard(gameObject);
+        }
+        else
+        {
+            if(isAdded)
+                GetComponentInParent<DeckBuilderTest>().RemoveCard(gameObject);
+
+        }
     }
 
     public void BuyCard()

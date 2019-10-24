@@ -5,6 +5,7 @@ using System.Linq;
 
 public class CardCollection : MonoBehaviour 
 {
+    public bool Testing_Own_All = true;
     public int DefaultNumberOfBasicCards = 1; // how many cards of basic rarity should a character have by default;
 
     public static CardCollection Instance;
@@ -55,7 +56,13 @@ public class CardCollection : MonoBehaviour
             else if (PlayerPrefs.HasKey("NumberOf" + ca.name))
                 QuantityOfEachCard.Add(ca, PlayerPrefs.GetInt("NumberOf" + ca.name));
             else
-                QuantityOfEachCard.Add(ca, 0);
+            {
+                if (Testing_Own_All)
+                    QuantityOfEachCard.Add(ca, 1);
+
+                else
+                    QuantityOfEachCard.Add(ca, 0);
+            }
         }
 
 

@@ -339,6 +339,7 @@ public class CollectionBrowser : MonoBehaviour {
         }
 
         CreateCards(CardCollection.Instance.GetAllCards());
+        //DeckBuilder.Instance.LoadDeck(DeckBuilder.Instance.currentDeckNumber);
     }
 
     public void RemoveCreatureInCollection(CardAsset ca)
@@ -360,13 +361,14 @@ public class CollectionBrowser : MonoBehaviour {
                 PlayerPrefs.SetInt("NumberOf" + ca.name, CardCollection.Instance.QuantityOfEachCard[ca]--);
 
                 LockedCards.Add(go);
-                OwnedCards.Remove(go);    
+                OwnedCards.Remove(go);
 
-                //DeckBuilder.Instance.RemoveCardFromAllDecks(ca);            
+                //DeckBuilder.Instance.RemoveCardFromAllDecks(go);            
             }            
         }
 
         CreateCards(CardCollection.Instance.GetAllCards());
+        //DeckBuilder.Instance.LoadDeck(DeckBuilder.Instance.currentDeckNumber);
 
         
     }
@@ -485,6 +487,7 @@ public class CollectionBrowser : MonoBehaviour {
                 CreatedCards.Add(go);
             }
         }
+        DeckBuilder.Instance.UpdateCollectionPanel();
 
 
     }
