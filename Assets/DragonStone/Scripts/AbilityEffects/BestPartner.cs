@@ -20,14 +20,12 @@ public class BestPartner : CreatureEffect
    public override void RegisterEventEffect()
     {
     
-       creature.e_AfterAttacking += UseEffect;
-       creature.e_CreatureOnTurnEnd += GainExtraTurn;        
+       creature.e_PreAttackEvent += UseEffect;          
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_AfterAttacking += UseEffect;
-        creature.e_CreatureOnTurnEnd -= GainExtraTurn;                
+        creature.e_PreAttackEvent -= UseEffect;                 
     }
 
     public override void UseEffect(CreatureLogic target)
@@ -38,34 +36,12 @@ public class BestPartner : CreatureEffect
             {
                 ShowAbility();
 
-                stayActive = false;
-
-                var buffList = new List<BuffEffect>();
-
-                foreach (BuffEffect be in target.buffEffects)
+                if (owner.AllyList().Count > 1)
                 {
-                    if(be.isBuff)
-                    {
-                        buffList.Add(be);
-                    }
+                    CreatureLogic ally = owner.GetRandomAlly(creature);
+                    CreatureLogic.CreaturesCreatedThisGame[ally.ID].AttackCreatureWithID(target.ID);
                 }
 
-                int buffRemoved = 0;
-
-                if (buffList != null)
-                {
-                    foreach(BuffEffect be in buffList)
-                    {
-                        target.RemoveBuff(be);
-                        buffRemoved++;
-                    }
-                }
-
-
-                if(buffRemoved > buffCount)
-                {
-                    stayActive = true;
-                }
 
             }
             
@@ -73,13 +49,4 @@ public class BestPartner : CreatureEffect
         }
     }
 
-    public void GainExtraTurn()
-    {
-        if (stayActive)
-        {
-            creature.ExtraTurn();
-            
-            stayActive = false; 
-        }      
-    }
 }
