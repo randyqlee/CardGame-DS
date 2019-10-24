@@ -13,27 +13,60 @@ public class NaturesProtection : CreatureEffect
 
    public override void RegisterEventEffect()
     {
-    
-       creature.e_IsAttacked += UseEffect;      
+       creature.e_PreAttackEvent += PrimaryEffect;     
+       creature.e_IsAttacked += SecondaryEffect;      
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_IsAttacked -= UseEffect;          
+        creature.e_PreAttackEvent -= PrimaryEffect;
+        creature.e_IsAttacked -= SecondaryEffect;          
+    }
+
+    public void PrimaryEffect (CreatureLogic target)
+    {
+
+        if(CanUseAbility())
+        {   
+            if (ChanceOK(creature.chance))
+            {
+                if (creature.isPrimaryForm)
+                {
+                    ShowAbility();
+                    target.RemoveRandomBuff();
+                    AddBuff(target, "Poison", buffCooldown);                    
+                }
+     
+            }
+            base.UseEffect();
+        }
+
+    }
+
+    public void SecondaryEffect (CreatureLogic target)
+    {
+
+        if(CanUseAbility())
+        {   
+            if (ChanceOK(creature.chance))
+            {
+                if (!creature.isPrimaryForm)
+                {
+                    if (target == creature)
+                    {
+                        ShowAbility();
+                        AddBuff(owner.GetRandomAlly(creature), "Armor",buffCooldown);
+                    }
+                }
+            }
+            base.UseEffect();
+        }
+        
     }
 
     public override void UseEffect(CreatureLogic target)
     {
-        if (ChanceOK(creature.chance))
-        {
-            if (target == creature)
-            {
-                ShowAbility();
 
-                AddBuff(owner.GetRandomAlly(creature), "Armor",buffCooldown);
-            }
-            base.UseEffect();
-        }
 
     }
 }

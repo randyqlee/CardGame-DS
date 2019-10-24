@@ -112,6 +112,15 @@ public class CreatureEffect
             
     }
 
+    public void RefreshCreatureEffectCooldown()
+    {       
+        remainingCooldown = 0;
+       
+
+        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+            
+    }
+
     public virtual void UpdateCooldown ()
     {
         new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
