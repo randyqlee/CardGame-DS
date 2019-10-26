@@ -182,7 +182,8 @@ public class TurnManager : MonoBehaviour {
                 }
 
                 foreach (Player player in Player.Players)
-                {
+                {                    
+                    
                     foreach(CreatureLogic cl in player.AllyList())
                     {
                         foreach (CreatureEffect ce in cl.creatureEffects)

@@ -5,15 +5,16 @@ using UnityEngine;
 public class ToothForATooth : CreatureEffect
 {
     public int buffCooldown = 1;
+    List<CreatureLogic> heroAllies = new List<CreatureLogic>();
 
     public ToothForATooth(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
-        
+        heroAllies = owner.AllyList();
     }
 
    public override void RegisterEventEffect()
     {
-        foreach (CreatureLogic cl in owner.AllyList())
+        foreach (CreatureLogic cl in heroAllies)
         {
             if (cl != creature)
             {
@@ -26,7 +27,7 @@ public class ToothForATooth : CreatureEffect
 
     public override void UnRegisterEventEffect()
     {
-        foreach (CreatureLogic cl in owner.AllyList())
+        foreach (CreatureLogic cl in heroAllies)
         {
             if (cl != creature)
             {
@@ -43,7 +44,7 @@ public class ToothForATooth : CreatureEffect
             if (target.owner == owner)
             {
                 ShowAbility();
-                AddBuff(creature, "Lucky",buffCooldown);
+                AddBuff(target, "Lucky",buffCooldown);
             }
             base.UseEffect();
         }

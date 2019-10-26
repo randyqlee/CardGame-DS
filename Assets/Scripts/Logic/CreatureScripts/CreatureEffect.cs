@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 
@@ -28,6 +29,7 @@ public class CreatureEffect
     [HideInInspector]
     public CreatureLogic creature;
 
+   
    
 
     //DS
@@ -71,6 +73,11 @@ public class CreatureEffect
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
     public virtual void RegisterEventEffect()
+    {
+        
+    }
+
+    public virtual void RegisterAuraEffect()
     {
         
     }
@@ -197,6 +204,9 @@ public class CreatureEffect
             hasUsedEffect = true;
 
     }
+
+    
+
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
         //the BuffEffect will be instantiated here

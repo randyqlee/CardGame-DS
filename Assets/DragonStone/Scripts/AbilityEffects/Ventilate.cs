@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ventilate : CreatureEffect{
     public int buffCooldown = 1;
+    public int ventilateChance = 35;
+
     public Ventilate(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -24,7 +26,8 @@ public class Ventilate : CreatureEffect{
     {
         if(CanUseAbility())
         {   
-            if(ChanceOK(creature.chance))
+            //if(ChanceOK(creature.chance))
+            if(ChanceOK(ventilateChance))
             {
                 ShowAbility();
                 CreatureLogic cl = owner.GetRandomAlly(creature);
