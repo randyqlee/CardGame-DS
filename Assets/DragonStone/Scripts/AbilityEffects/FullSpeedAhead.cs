@@ -34,7 +34,7 @@ public class FullSpeedAhead : CreatureEffect
                 {
                     foreach(CreatureEffect ce in cl.creatureEffects)
                     {
-                        ce.ReduceCreatureEffectCooldown();
+                        ce.SkillReduceCreatureEffectCooldown();
                     }
                     AddBuff(cl, "Lucky", buffCooldown);
                 }

@@ -8,7 +8,8 @@ public class IllusionOfTime : CreatureEffect
 
     public IllusionOfTime(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
-        
+       //cant refresh this cooldown
+       this.cooldownCantChange = true;
     }
 
     public override void RegisterEventEffect()
@@ -31,7 +32,7 @@ public class IllusionOfTime : CreatureEffect
                 cl.RemoveDeBuffsAll();
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
-                    ce.RefreshCreatureEffectCooldown();
+                    ce.SkillRefreshCreatureEffectCooldown();
                 }
 
 

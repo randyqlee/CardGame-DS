@@ -23,13 +23,11 @@ public class CreatureEffect
 
     public AbilityCard abilityCard;
 
-
-
-
     [HideInInspector]
     public CreatureLogic creature;
 
-   
+   [HideInInspector]
+    public bool cooldownCantChange = false;
    
 
     //DS
@@ -112,19 +110,26 @@ public class CreatureEffect
     {       
         if(remainingCooldown > 0 && !isCooldownPaused){
             remainingCooldown--;
-        }
-        
-
-        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
-            
+            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+        }            
     }
 
-    public void RefreshCreatureEffectCooldown()
+    public void SkillReduceCreatureEffectCooldown()
     {       
-        remainingCooldown = 0;
-       
+        if(remainingCooldown > 0 && !isCooldownPaused && !cooldownCantChange)
+        {
+            remainingCooldown--;
+            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+        }            
+    }
 
-        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+    public void SkillRefreshCreatureEffectCooldown()
+    {       
+        if(!cooldownCantChange)
+        {
+            remainingCooldown = 0;
+            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+        }    
             
     }
 

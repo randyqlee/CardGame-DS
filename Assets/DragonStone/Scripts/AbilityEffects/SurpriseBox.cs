@@ -28,13 +28,22 @@ public class SurpriseBox : CreatureEffect
         if (CanUseAbility())
         {
             ShowAbility();
-            DealDamageEffect(target,damage);
+            //DealDamageEffect(target,damage);
             //creature.SplashAttackDamage(target,damage);
             foreach(CreatureLogic cl in owner.EnemyList())
-            {
-                DebuffList randomDebuff = GetRandomEnum<DebuffList>();
-                AddBuff(cl, randomDebuff.ToString(), buffCooldown);
-            }           
+            {               
+               if(!cl.isDead)
+               {
+                   DealDamageEffect(cl, damage);
+                   if(!cl.isDead) 
+                   {
+                       DebuffList randomDebuff = GetRandomEnum<DebuffList>();
+                       AddBuff(cl, randomDebuff.ToString(), buffCooldown);
+                   }                   
+               }              
+                
+            }   
+
             base.UseEffect();
 
         }

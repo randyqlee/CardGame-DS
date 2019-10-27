@@ -35,7 +35,7 @@ public class Ventilate : CreatureEffect{
                 {
                     foreach(CreatureEffect ce in cl.creatureEffects)
                     {
-                        ce.RefreshCreatureEffectCooldown();
+                        ce.SkillRefreshCreatureEffectCooldown();
                     }
                     AddBuff(cl, "Lucky",buffCooldown);
                 }

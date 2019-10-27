@@ -8,7 +8,7 @@ public class RabbitsAgility : CreatureEffect
 
     public RabbitsAgility(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
-        
+        this.cooldownCantChange = true;
     }
     public override void RegisterEventEffect()
     {
@@ -32,7 +32,7 @@ public class RabbitsAgility : CreatureEffect
             {
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
-                    ce.RefreshCreatureEffectCooldown();
+                    ce.SkillRefreshCreatureEffectCooldown();
                 }
                 AddBuff(cl, "Evasion",buffCooldown);
             }
