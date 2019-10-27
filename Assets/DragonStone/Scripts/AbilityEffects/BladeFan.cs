@@ -26,7 +26,7 @@ public class BladeFan : CreatureEffect
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_AfterAttacking += UseEffect;
+        creature.e_AfterAttacking -= UseEffect;
         creature.e_CreatureOnTurnEnd -= GainExtraTurn;                
     }
 

@@ -8,9 +8,8 @@ using UnityEngine;
 
 public class BestPartner : CreatureEffect 
 {
-    public int buffCount = 3;
-
-    public bool stayActive = false;
+    
+   
 
     public BestPartner(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
@@ -20,12 +19,14 @@ public class BestPartner : CreatureEffect
    public override void RegisterEventEffect()
     {
     
-       creature.e_PreAttackEvent += UseEffect;          
+       creature.e_PreAttackEvent += UseEffect; 
+                
     }
 
     public override void UnRegisterEventEffect()
     {
-        creature.e_PreAttackEvent -= UseEffect;                 
+        creature.e_PreAttackEvent -= UseEffect;   
+                       
     }
 
     public override void UseEffect(CreatureLogic target)
@@ -39,7 +40,12 @@ public class BestPartner : CreatureEffect
                 if (owner.AllyList().Count > 1)
                 {
                     CreatureLogic ally = owner.GetRandomAlly(creature);
-                    CreatureLogic.CreaturesCreatedThisGame[ally.ID].AttackCreatureWithID(target.ID);
+                    
+                    ally.AttacksLeftThisTurn++;
+                    ally.PreAttack(target);
+
+                     
+                    //CreatureLogic.CreaturesCreatedThisGame[ally.ID].AttackCreatureWithID(target.ID);
                 }
 
 
