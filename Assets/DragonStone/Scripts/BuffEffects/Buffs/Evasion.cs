@@ -14,11 +14,14 @@ public class Evasion : BuffEffect
 
     public override void CauseBuffEffect()
     {        
-        target.chanceTakeDamageFromAttack = target.chanceTakeDamageFromAttack * (specialValue/100);    
+        //target.chanceTakeDamageFromAttack = target.chanceTakeDamageFromAttack * (specialValue/100);    
+        target.chanceTakeDamageFromAttack = specialValue; 
+         
     }
 
     public override void UndoBuffEffect()
     {
-        target.chanceTakeDamageFromAttack = target.chanceTakeDamageFromAttack / (specialValue/100);    ;    
+        //target.chanceTakeDamageFromAttack = target.chanceTakeDamageFromAttack / (specialValue/100);   
+         target.chanceTakeDamageFromAttack = 100f;      
     }
 }

@@ -61,6 +61,9 @@ public class CreatureLogic: ICharacter
     public delegate void PreAttackEvent(CreatureLogic target);    
     public event PreAttackEvent e_PreAttackEvent;
 
+    public delegate void PreAttackEvent2(CreatureLogic source, CreatureLogic target);    
+    public event PreAttackEvent2 e_PreAttackEvent2;
+
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
@@ -578,11 +581,21 @@ public class CreatureLogic: ICharacter
         {
             AttackDamage = DealDamage(Attack);
 
-            if (Random.Range(0,100) <= chanceTakeDamageFromAttack)
+            
+            if (Random.Range(0,100) <= target.chanceTakeDamageFromAttack)
             {          
                 target.TakeDamage(this, AttackDamage);
+               
                 
+            } else if (Random.Range(0,100) > target.chanceTakeDamageFromAttack)
+            {
+                AttackDamage = 0;
+                target.TakeDamage(this, AttackDamage);
+                 
             }
+
+           
+
 
             int targetHealthAfter = target.Health;
             int attackerHealthAfter = Health;
@@ -919,6 +932,12 @@ public class CreatureLogic: ICharacter
         if(e_PreAttackEvent != null)
            this.e_PreAttackEvent.Invoke(target);
            new DelayCommand(0.5f).AddToQueue();
+           
+         //DS: send this CL as arguement
+         if(e_PreAttackEvent2 != null)
+           this.e_PreAttackEvent2.Invoke(this, target);
+           new DelayCommand(0.5f).AddToQueue();
+           
 
         if(!pauseAttack)
             new StartAttackSequenceCommand(this, target).AddToQueue();

@@ -17,7 +17,7 @@ public class Transcendance : CreatureEffect
    public override void RegisterEventEffect()
     {
 
-        Debug.Log("enemy hero count: " +enemyList.Count);
+       
         foreach(CreatureLogic cl in enemyList)
         {
             
