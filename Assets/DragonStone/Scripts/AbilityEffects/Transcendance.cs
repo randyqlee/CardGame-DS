@@ -6,27 +6,44 @@ public class Transcendance : CreatureEffect
 {
 
     public int buffCooldown = 1;
+    List<CreatureLogic> enemyList = new List<CreatureLogic>();
+
     public Transcendance(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
-        
+        //enemyList = owner.EnemyList();
+        enemyList = owner.otherPlayer.AllyList();
     }
 
    public override void RegisterEventEffect()
     {
-        foreach(CreatureLogic cl in owner.EnemyList())
-            cl.e_CreatureOnTurnEnd += UseEffect;      
+
+        Debug.Log("enemy hero count: " +enemyList.Count);
+        foreach(CreatureLogic cl in enemyList)
+        {
+            
+            //Debug.Log("enemy hero: " +cl.Name);
+            cl.e_CreatureOnTurnEnd += UseEffect;
+             
+        }
+            
     }
 
     public override void UnRegisterEventEffect()
     {
-        foreach(CreatureLogic cl in owner.EnemyList())
-            cl.e_CreatureOnTurnEnd -= UseEffect;               
+        foreach(CreatureLogic cl in enemyList)
+        {
+            cl.e_CreatureOnTurnEnd -= UseEffect;  
+                 
+        }
+                
     }
 
-    public override void UseEffect(CreatureLogic target)
+    public override void UseEffect()
     {
-        if(CanUseAbility())
-        { 
+        //if(CanUseAbility())
+        //{ 
+            Debug.Log("This skill: " +this.Name);
+
             if(ChanceOK(creature.chance) && creature.hasStun == false)
             {
                     ShowAbility();
@@ -35,6 +52,6 @@ public class Transcendance : CreatureEffect
             }
                 
             base.UseEffect();
-        }
+        //}
     }
 }
