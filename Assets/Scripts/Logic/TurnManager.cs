@@ -166,7 +166,7 @@ public class TurnManager : MonoBehaviour {
                 }
          
                 // draw 4 cards for first player and 5 for second player
-                int initDraw = GlobalSettings.Instance.HeroesCount;
+/*                int initDraw = GlobalSettings.Instance.HeroesCount;
                 for (int i = 0; i < initDraw; i++)
                 {            
                     // second player draws a card
@@ -177,6 +177,23 @@ public class TurnManager : MonoBehaviour {
                     //DS
                     //put the creatures on table
                     whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
+                    whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
+
+                }
+*/
+
+                for (int i = 0; i < BattleStartInfo.EnemyDeck.Cards.Count; i++)
+                {            
+                    // second player draws a card
+                    whoGoesSecond.DrawACard(true);
+                    whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
+                    
+                }
+
+                for (int i = 0; i < BattleStartInfo.SelectedDeck.Cards.Count; i++)
+                {            
+
+                    whoGoesFirst.DrawACard(true);
                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
 
                 }
