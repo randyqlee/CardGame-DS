@@ -61,9 +61,6 @@ public class CreatureLogic: ICharacter
     public delegate void PreAttackEvent(CreatureLogic target);    
     public event PreAttackEvent e_PreAttackEvent;
 
-    public delegate void PreAttackEvent2(CreatureLogic source, CreatureLogic target);    
-    public event PreAttackEvent2 e_PreAttackEvent2;
-
     public delegate void CreatureOnTurnEnd();    
     public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
 
@@ -72,6 +69,9 @@ public class CreatureLogic: ICharacter
 
     public delegate void IsAttacked(CreatureLogic creature);    
     public event IsAttacked e_IsAttacked;
+
+    public delegate void PreDealDamage(CreatureLogic source);    
+    public event PreDealDamage e_PreDealDamage;
 
     public delegate void IsAttackedBy(CreatureLogic source);    
     public event IsAttackedBy e_IsAttackedBy;
@@ -580,6 +580,8 @@ public class CreatureLogic: ICharacter
         if(!target.isDead)
         {
             AttackDamage = DealDamage(Attack);
+            
+
 
             
             if (Random.Range(0,100) <= target.chanceTakeDamageFromAttack)
@@ -670,9 +672,16 @@ public class CreatureLogic: ICharacter
 
     //input: DealDamage
     //for attack damage
+    
     public void TakeDamage(CreatureLogic source, int damage)
     {
-  
+        
+        //this - attacker
+        
+        if(e_PreDealDamage != null)
+            e_PreDealDamage.Invoke(source); 
+        
+        
         if(!hasBless)
         {
             if(hasHorror && source.CriticalChance == 1)
@@ -708,6 +717,7 @@ public class CreatureLogic: ICharacter
 
             else
             {
+               
                 healthAfter-=finalDamage;
             }
 
@@ -719,6 +729,8 @@ public class CreatureLogic: ICharacter
             }
             else
                 Health = healthAfter;
+
+            
 
             if(e_IsAttacked != null)
             e_IsAttacked.Invoke(this); 
@@ -932,11 +944,7 @@ public class CreatureLogic: ICharacter
         if(e_PreAttackEvent != null)
            this.e_PreAttackEvent.Invoke(target);
            new DelayCommand(0.5f).AddToQueue();
-           
-         //DS: send this CL as arguement
-         if(e_PreAttackEvent2 != null)
-           this.e_PreAttackEvent2.Invoke(this, target);
-           new DelayCommand(0.5f).AddToQueue();
+            
            
 
         if(!pauseAttack)

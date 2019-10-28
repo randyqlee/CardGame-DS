@@ -4,66 +4,58 @@ using UnityEngine;
 
 public class NarrowEscape : CreatureEffect
 {
-    List<CreatureLogic> enemyList = new List<CreatureLogic>();
-    CreatureLogic thisSource;
-    CreatureLogic thisTarget;
-
+ 
+    int tempDamageReduction;
 
     public NarrowEscape(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
-        enemyList = owner.otherPlayer.AllyList();
+        tempDamageReduction = creature.DamageReduction;
     }
 
    public override void RegisterEventEffect()
     {
-        foreach(CreatureLogic cl in enemyList)
-        {
-            
-            //Debug.Log("enemy hero: " +cl.Name);
-            cl.e_PreAttackEvent2 += UseEffect;
-             
-        }
-
+       
+        creature.e_PreDealDamage += UseEffect;
+        creature.e_IsAttacked += DamageReductionReturn;
 
     }
 
     public override void UnRegisterEventEffect()
     {
-        foreach(CreatureLogic cl in enemyList)
-        {  
-            
-            cl.e_PreAttackEvent2 -= UseEffect;
-             
-        }
+           creature.e_PreDealDamage -= UseEffect;
+           creature.e_IsAttacked -= DamageReductionReturn;
     }
 
-    public void UseEffect(CreatureLogic source, CreatureLogic target)
+    //
+    public override void UseEffect(CreatureLogic attacker)
     {
         if(CanUseAbility())
-        {   
-            
-           if(ChanceOK(creature.chance) && target == creature)
+        {               
+           if(ChanceOK(creature.chance))
             {
-                ShowAbility();
+               
 
-                //method here
-                Debug.Log("hero source: " +source.Name);
-                Debug.Log("hero target: " +target.Name);
-                Debug.Log("hero this: " +this.Name);
+                int totalLife = creature.Health + creature.Armor;
+                  
 
-                int sourceAttackDamage = source.DealDamage(source.Attack);
-                int targetsTotalLife = target.Health = target.Armor;
-
-                if(sourceAttackDamage >= targetsTotalLife)                
-                source.chanceTakeDamageFromAttack-=200;
-
+                if(attacker.AttackDamage >= totalLife)
+                {
+                    ShowAbility();
+                    creature.DamageReduction = 0;
+                    Debug.Log("Damage Reduction Value Pre-Attack: " +creature.DamageReduction);
+                }
+                
             }
  
 
             base.UseEffect();
         }
-    }
+    }//Use Effect
 
-    
+    public void DamageReductionReturn(CreatureLogic target)
+    {
+        creature.DamageReduction = tempDamageReduction;
+        Debug.Log("Damage Reduction Value Post Attack: " +creature.DamageReduction);
+    }
 
 }
