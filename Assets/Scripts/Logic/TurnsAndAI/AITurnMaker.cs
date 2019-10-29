@@ -45,6 +45,8 @@ public class AITurnMaker: TurnMaker {
         //if (Random.Range(0, 2) == 0)
             strategyAttackFirst = true;
 
+        yield return new WaitForSeconds(2f);
+
         while (MakeOneAIMove(strategyAttackFirst))
         {
             //yield return null;

@@ -110,10 +110,14 @@ public class TurnManager : MonoBehaviour {
 
     void Start()
     {
-        OnGameStart();
+        //OnGameStart();
+        StartCoroutine(OnGameStart());
     }
 
-    public void OnGameStart()
+
+
+    //public void OnGameStart()
+    IEnumerator OnGameStart()
     {
 
         CardLogic.CardsCreatedThisGame.Clear();
@@ -133,7 +137,110 @@ public class TurnManager : MonoBehaviour {
 
         }
 
-        Sequence s = DOTween.Sequence();
+                Player whoGoesFirst;
+                Player whoGoesSecond;
+
+                if (Tutorial1.Instance != null && Tutorial1.Instance.tutorialState != TutorialState.COMPLETED)
+                {
+                    whoGoesFirst = Player.Players[1];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+
+                }
+
+                else
+                {
+                    int rnd = Random.Range(0,2);  // 2 is exclusive boundary
+                    // Debug.Log(Player.Players.Length);
+                    whoGoesFirst = Player.Players[rnd];
+                    // Debug.Log(whoGoesFirst);
+                    whoGoesSecond = whoGoesFirst.otherPlayer;
+                    // Debug.Log(whoGoesSecond);
+                }
+         
+                // draw 4 cards for first player and 5 for second player
+/*                int initDraw = GlobalSettings.Instance.HeroesCount;
+                for (int i = 0; i < initDraw; i++)
+                {            
+                    // second player draws a card
+                    whoGoesSecond.DrawACard(true);
+                    // first player draws a card
+                    whoGoesFirst.DrawACard(true);
+                
+                    //DS
+                    //put the creatures on table
+                    whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
+                    whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
+
+                }
+*/
+
+yield return null;
+
+                int cardCountSecond = whoGoesSecond.deck.cards.Count;
+
+                 //for (int i = 0; i < BattleStartInfo.EnemyDeck.Cards.Count; i++)
+                 for (int i = 0; i < cardCountSecond; i++)
+                 {            
+                     // second player draws a card
+                     whoGoesSecond.DrawACard(true);
+                     yield return null;
+                     whoGoesSecond.PlayACreatureFromHand(whoGoesSecond.hand.CardsInHand[0], 0);
+                    
+                 }
+
+yield return null;
+
+            int cardCountFirst = whoGoesFirst.deck.cards.Count;
+
+                 //for (int i = 0; i < BattleStartInfo.SelectedDeck.Cards.Count; i++)
+                 for (int i = 0; i < cardCountFirst; i++)
+                 {            
+
+                     whoGoesFirst.DrawACard(true);
+                     yield return null;
+                     whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
+
+                 }
+
+yield return null;
+
+                foreach (Player player in Player.Players)
+                {                    
+                    
+                    foreach(CreatureLogic cl in player.AllyList())
+                    {
+                        foreach (CreatureEffect ce in cl.creatureEffects)
+                        {
+                            ce.RegisterCooldown();
+                            ce.RegisterEventEffect();
+                        }
+                    }
+                }
+
+                //SAVE Info on who's the original first player
+                firstPlayer = whoGoesFirst;
+
+
+                //DS
+                //Display skills panel of player only
+
+                if(Tutorial1.Instance == null || Tutorial1.Instance.tutorialState == TutorialState.COMPLETED)
+                {
+                    if(whoGoesFirst.PArea.owner == AreaPosition.Low)
+                    new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
+                    else
+                    new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
+
+
+                    new StartATurnCommand(whoGoesFirst).AddToQueue();
+                }
+yield return null;
+StopCoroutine(OnGameStart());
+
+
+/*
+       Sequence s = DOTween.Sequence();
         //s.Append(Player.Players[0].PArea.Portrait.transform.DOMove(Player.Players[0].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
         //s.Insert(0f, Player.Players[1].PArea.Portrait.transform.DOMove(Player.Players[1].PArea.PortraitPosition.position, 0.5f).SetEase(Ease.InQuad));
         s.PrependInterval(0.5f);  
@@ -210,25 +317,25 @@ public class TurnManager : MonoBehaviour {
                         }
                     }
                 }
-/*
-                int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
-                for (int i = 0; i < initDrawEquip; i++)
-                {            
+
+                //int initDrawEquip = GlobalSettings.Instance.HeroesEquipCount;
+                //for (int i = 0; i < initDrawEquip; i++)
+                //{            
                     // second player draws a card
-                    whoGoesSecond.DrawACard(true);
+                //    whoGoesSecond.DrawACard(true);
                     // first player draws a card
-                    whoGoesFirst.DrawACard(true);
+                //    whoGoesFirst.DrawACard(true);
                 
                     //DS
                     //play spell to use the equip ability of creature
                     
-                    whoGoesSecond.PlayEquipCreatureFromHand(whoGoesSecond.hand.CardsInHand[0]);
+                //    whoGoesSecond.PlayEquipCreatureFromHand(whoGoesSecond.hand.CardsInHand[0]);
 
                     
-                    whoGoesFirst.PlayEquipCreatureFromHand(whoGoesFirst.hand.CardsInHand[0]);
+                //    whoGoesFirst.PlayEquipCreatureFromHand(whoGoesFirst.hand.CardsInHand[0]);
 
-                }
-*/
+                //}
+
                 //SAVE Info on who's the original first player
                 firstPlayer = whoGoesFirst;
 
@@ -256,8 +363,7 @@ public class TurnManager : MonoBehaviour {
 
                 
             });
-
-
+*/
     }
 
 
