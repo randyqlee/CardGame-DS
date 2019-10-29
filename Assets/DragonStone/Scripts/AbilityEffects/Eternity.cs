@@ -16,16 +16,18 @@ public class Eternity : CreatureEffect
     {
     
        TurnManager.Instance.e_EndOfRound += UseEffect;
+       creature.e_PreAttackEvent += UseEffect;
 
        //creature.e_ThisCreatureDies += Revive;      
     }
 
     public override void UnRegisterEventEffect()
     {
-        TurnManager.Instance.e_EndOfRound -= UseEffect;          
+        TurnManager.Instance.e_EndOfRound -= UseEffect;        
+        creature.e_PreAttackEvent -= UseEffect; 
     }
 
-    public override void UseEffect(CreatureLogic target)
+    public override void UseEffect()
     {
         if(CanUseAbility())
         {   
