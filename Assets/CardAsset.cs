@@ -50,6 +50,8 @@ public class CardAsset : ScriptableObject
     public string cardName;
     public string Description;  // Description for spell or character
 	public Sprite CardImage;
+
+    public Sprite CardImage_Secondary;
     public Sprite HeroPortrait;
 
     public int cardCost = 100;

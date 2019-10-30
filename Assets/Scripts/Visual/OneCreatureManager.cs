@@ -13,6 +13,8 @@ public class OneCreatureManager : MonoBehaviour
     public Text AttackText;
     [Header("Image References")]
     public Image CreatureGraphicImage;
+    public Sprite CreatureGraphicImage_Primary;
+    public Sprite CreatureGraphicImage_Secondary;
     public Image CreatureGlowImage;
 
     public BuffPanel buffPanel;
@@ -79,8 +81,14 @@ public class OneCreatureManager : MonoBehaviour
     public void ReadCreatureFromAsset()
     {
         // Change the card graphic sprite
-        CreatureGraphicImage.sprite = cardAsset.CardImage;
 
+        CreatureGraphicImage_Primary = cardAsset.CardImage;
+        CreatureGraphicImage_Secondary = cardAsset.CardImage_Secondary;
+        
+        CreatureGraphicImage.sprite = CreatureGraphicImage_Primary;
+        //CreatureGraphicImage.sprite = cardAsset.CardImage;
+
+ 
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
         if(ArmorText!=null)
