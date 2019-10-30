@@ -28,7 +28,7 @@ public class MagicSurge : CreatureEffect
     {
         if (CanUseAbility())
         {
-            ShowAbility();
+            //ShowAbility();
             creature.CriticalChance += 1;
         }
 

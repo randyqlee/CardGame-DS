@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarriorsReturn : CreatureEffect
 {
-    public int healValue = 8;
+    public int healValue;
 
     public WarriorsReturn(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
@@ -22,7 +22,7 @@ public class WarriorsReturn : CreatureEffect
         TurnManager.Instance.e_EndOfRound -= UseEffect;          
     }
 
-    public override void UseEffect(CreatureLogic target)
+    public override void UseEffect()
     {
         if(CanUseAbility() && ChanceOK(creature.chance))
         {   
@@ -37,6 +37,7 @@ public class WarriorsReturn : CreatureEffect
 
                 ShowAbility();
                 ally.Revive();
+                healValue = ally.MaxHealth;
                 ally.Health = healValue;
                 new UpdateHealthCommand(ally.ID, ally.Health).AddToQueue();
             }

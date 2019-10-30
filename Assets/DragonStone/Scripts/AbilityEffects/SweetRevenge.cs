@@ -36,7 +36,7 @@ public class SweetRevenge : CreatureEffect
                 List<CreatureLogic> sortedList = owner.SortAllyListByHealth();
                 if (sortedList.Count > 1)
                 {
-                    ShowAbility();
+                    //ShowAbility();
                     int count = 0;
                     for (int i = 0; i<sortedList.Count && count < maxNumberOfAllies; i++)
                     {
