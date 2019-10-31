@@ -306,6 +306,8 @@ public class CreatureLogic: ICharacter
     public bool pauseAttack = false;
     public bool hasStun = false;
 
+    public bool extraTurn = false;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
@@ -425,6 +427,7 @@ public class CreatureLogic: ICharacter
         // will be granted by Player
 
         isActive = true;
+        extraTurn = false;
 
         AttacksLeftThisTurn = attacksForOneTurn + attackTurnModifier; 
         //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects       
@@ -445,17 +448,28 @@ public class CreatureLogic: ICharacter
     }
 
     public void OnTurnEnd(){
-        isActive = false;
-        AttacksLeftThisTurn = 0;
+        if(!extraTurn)
+        {
+            isActive = false;
+            AttacksLeftThisTurn = 0;
 
 
-        //DS "color" Creature that already attacked
-            new CreatureColorCommand(this,true).AddToQueue();
+            //DS "color" Creature that already attacked
+                new CreatureColorCommand(this,true).AddToQueue();
 
-        //if (owner.ExtraCreatureTurn != 0)
-        //    owner.ExtraCreatureTurn = 0;
+            //if (owner.ExtraCreatureTurn != 0)
+            //    owner.ExtraCreatureTurn = 0;
 
-        //TODO:  End of Turn Effects
+            //TODO:  End of Turn Effects
+        }
+        else
+        {
+            isActive = true;
+            if (AttacksLeftThisTurn == 0)
+                AttacksLeftThisTurn++;
+            new CreatureColorCommand(this,false).AddToQueue();
+            extraTurn = false;
+        }
 
 
         if(e_CreatureOnTurnEnd != null)
@@ -528,10 +542,8 @@ public class CreatureLogic: ICharacter
 
     public void ExtraTurn()
     {
-        isActive = true; 
-        if (AttacksLeftThisTurn == 0)
-            AttacksLeftThisTurn++;
-        new CreatureColorCommand(this,false).AddToQueue();
+        extraTurn = true;
+
 
     }
 

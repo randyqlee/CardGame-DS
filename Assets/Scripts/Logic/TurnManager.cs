@@ -215,6 +215,7 @@ yield return null;
                             ce.RegisterCooldown();
                             ce.RegisterEventEffect();
                         }
+                        cl.OnTurnStart();
                     }
                 }
 

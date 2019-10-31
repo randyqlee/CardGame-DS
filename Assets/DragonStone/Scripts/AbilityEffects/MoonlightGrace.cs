@@ -27,7 +27,7 @@ public class MoonlightGrace : CreatureEffect
     {
         
 
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             ShowAbility();
             

@@ -46,7 +46,7 @@ public class SoaringWings : CreatureEffect
     {
         
 
-        if(creatureEffectCooldown <= 0)
+        if(CanUseAbility())
         {
             ShowAbility();
             
@@ -55,7 +55,7 @@ public class SoaringWings : CreatureEffect
                 creature.isPrimaryForm = false;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();
                 AddBuff(creature, "Armor", buffCooldown);
-                creature.ExtraTurn();
+                
                 if(critFlag)
                 {
                     creature.CriticalChance -= 1;
@@ -70,11 +70,12 @@ public class SoaringWings : CreatureEffect
                 creature.isPrimaryForm = true;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();
                 AddBuff(creature, "IncreaseAttack", buffCooldown);
-                creature.ExtraTurn();
+                
                 
             }
 
             base.UseEffect();
+            creature.ExtraTurn();
         }
 
 

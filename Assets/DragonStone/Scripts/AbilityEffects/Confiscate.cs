@@ -16,10 +16,16 @@ public class Confiscate : CreatureEffect
       
     }
 
+    public override void UnRegisterEventEffect()
+    {
+        creature.e_PreAttackEvent -= UseEffect; 
+      
+    }
+
     public override void UseEffect(CreatureLogic target)
     {
 
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             ShowAbility();
             

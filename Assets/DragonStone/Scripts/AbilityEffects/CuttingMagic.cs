@@ -24,7 +24,7 @@ public class CuttingMagic : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             ShowAbility();
 

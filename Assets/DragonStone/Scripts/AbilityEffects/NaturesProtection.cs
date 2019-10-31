@@ -59,7 +59,7 @@ public class NaturesProtection : CreatureEffect
                     }
                 }
             }
-            base.UseEffect();
+            //base.UseEffect();
         }
         
     }

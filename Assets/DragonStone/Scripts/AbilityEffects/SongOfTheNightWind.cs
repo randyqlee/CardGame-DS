@@ -24,7 +24,7 @@ public class SongOfTheNightWind : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             ShowAbility();
             foreach(CreatureLogic cl in owner.AllyList())

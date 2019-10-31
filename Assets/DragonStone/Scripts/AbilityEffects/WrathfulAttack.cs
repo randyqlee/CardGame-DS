@@ -26,7 +26,7 @@ public class WrathfulAttack : CreatureEffect
 
     public void CheckChance(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             effectChance = false;
             
@@ -43,7 +43,7 @@ public class WrathfulAttack : CreatureEffect
     }
     public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
 
             if(effectChance)

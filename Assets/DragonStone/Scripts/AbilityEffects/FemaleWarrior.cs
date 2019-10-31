@@ -27,7 +27,7 @@ public class FemaleWarrior : CreatureEffect
 
     public override void UseEffect(CreatureLogic target)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             if(Random.Range(0,100)<=creature.chance)
             {

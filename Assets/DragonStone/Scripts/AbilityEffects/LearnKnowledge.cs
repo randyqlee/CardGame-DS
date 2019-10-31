@@ -26,7 +26,7 @@ public class LearnKnowledge : CreatureEffect
 
     public void BuffApplied(CreatureLogic target, BuffEffect be)
     {
-        if(creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             if (target.owner != owner && be.isBuff)
             {
