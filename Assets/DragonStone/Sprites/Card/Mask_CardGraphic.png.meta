@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 84dc3e073c21675428a148bc229d2bd5
+guid: 99557b0944c759b4aad0b78490acd23b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlueSymbol_0
+    21300000: Mask_CardGraphic_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -107,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueSymbol_0
+      name: Mask_CardGraphic_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 4
-        width: 171
-        height: 174
+        y: 0
+        width: 1266
+        height: 2293
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc5bcf6eb0de604db75253220263780
+      spriteID: 1f08e971095bd614ab03bd7c69cea689
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 820edc5652762ac448cbf9c2613ca1df
+    spriteID: fc39f11edbfdf2743a38fd2d9a984ac9
     vertices: []
     indices: 
     edges: []

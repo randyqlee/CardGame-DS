@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 84dc3e073c21675428a148bc229d2bd5
+guid: 09dab6b7107942b4497bf81fec981cfd
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlueSymbol_0
+    21300000: Card Icons_0
+    21300002: Card Icons_1
+    21300004: Card Icons_2
+    21300006: Card Icons_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -107,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueSymbol_0
+      name: Card Icons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 4
-        width: 171
-        height: 174
+        y: 463
+        width: 405
+        height: 353
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +124,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc5bcf6eb0de604db75253220263780
+      spriteID: b5b1acf50ab2409418e72d5ec7350a67
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card Icons_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 464
+        width: 352
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8edee9fd01949459718be276dc1ea1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card Icons_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 405
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68764ea1c4f17a1438158d881d2e6174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card Icons_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 0
+        width: 405
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feb1cb9393be40b4daa887929fd7aab9
       vertices: []
       indices: 
       edges: []
@@ -129,7 +192,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 820edc5652762ac448cbf9c2613ca1df
+    spriteID: 93aced75e6d9d7544bf69f0248516185
     vertices: []
     indices: 
     edges: []

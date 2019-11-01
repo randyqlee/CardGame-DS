@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 84dc3e073c21675428a148bc229d2bd5
+guid: 83a4c242c954ca847a967a33df2f6637
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlueSymbol_0
+    21300000: Card Glow_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -107,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueSymbol_0
+      name: Card Glow_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 4
-        width: 171
-        height: 174
+        x: 197
+        y: 218
+        width: 1503
+        height: 2655
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc5bcf6eb0de604db75253220263780
+      spriteID: b73a1dbea35233544a8c90f1d47bed4a
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 820edc5652762ac448cbf9c2613ca1df
+    spriteID: 5671425854df9274ea892956bd8c3c3d
     vertices: []
     indices: 
     edges: []

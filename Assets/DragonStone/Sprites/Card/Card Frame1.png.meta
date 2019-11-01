@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 84dc3e073c21675428a148bc229d2bd5
+guid: edef37d837600f542afe45abe1ccb22f
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlueSymbol_0
+    21300000: Card Frame1_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -47,7 +47,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 85, y: 87, z: 79, w: 87}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -107,21 +107,21 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueSymbol_0
+      name: Card Frame1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 4
-        width: 171
-        height: 174
+        x: 68
+        y: 63
+        width: 1406
+        height: 2604
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc5bcf6eb0de604db75253220263780
+      spriteID: 1df684db160bcca46b036708c08c4822
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 820edc5652762ac448cbf9c2613ca1df
+    spriteID: 330544c78e344bd4886271f871a016d0
     vertices: []
     indices: 
     edges: []
