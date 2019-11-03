@@ -11,6 +11,8 @@ public class OneCreatureManager : MonoBehaviour
     public Text HealthText;
     public Text ArmorText;
     public Text AttackText;
+    public Text NameText;
+
     [Header("Image References")]
     public Image CreatureGraphicImage;
     public Sprite CreatureGraphicImage_Primary;
@@ -91,6 +93,8 @@ public class OneCreatureManager : MonoBehaviour
  
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
+        NameText.text = cardAsset.cardName.ToString();
+
         if(ArmorText!=null)
         ArmorText.text = cardAsset.Armor.ToString();
 
