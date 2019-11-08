@@ -8,6 +8,13 @@ public class PlayerStartInfo
     public CharacterAsset playerClass;
 }
 
+public enum GameMode
+{
+    PvP,
+    PvAI,
+    AIvAI
+}
+
 public static class BattleStartInfo  
 {
     public static PlayerStartInfo[] PlayerInfos; 
@@ -15,6 +22,8 @@ public static class BattleStartInfo
     public static DeckInfo SelectedDeck;
 
     public static DeckInfo EnemyDeck;
+
+    public static GameMode gameMode;
 
 
 }

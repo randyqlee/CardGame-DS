@@ -19,6 +19,25 @@ public class MenuForHeroTest : MonoBehaviour
         
     }
 
+    public void SetGameMode(string gameMode)
+    {
+        switch (gameMode)
+        {
+            case "PvP":
+            BattleStartInfo.gameMode = GameMode.PvP;
+            break;
+
+            case "PvAI":
+            BattleStartInfo.gameMode = GameMode.PvAI;
+            break;
+
+            case "AIvAI":
+            BattleStartInfo.gameMode = GameMode.AIvAI;
+            break;
+
+        }
+    }
+
     public void CopyDeckInfo()
     {
         BattleStartInfo.EnemyDeck = new DeckInfo(TOP_DeckBuildingScreen.deckList);
