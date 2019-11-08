@@ -16,12 +16,12 @@ public class EndTurnCommand : Command
          //DS
         //new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
 
-         TurnManager.Instance.EndTurn();  
+         
  
          //CommandExecutionComplete();
 
         Sequence s = DOTween.Sequence();
-        s.PrependInterval(2f);
+        //s.PrependInterval(2f);
         s.OnComplete(()=>
         {
             new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
@@ -30,6 +30,8 @@ public class EndTurnCommand : Command
         }
         
         );
+
+        TurnManager.Instance.EndTurn();  
             
         
     }

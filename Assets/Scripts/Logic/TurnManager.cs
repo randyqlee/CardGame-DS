@@ -621,7 +621,8 @@ StopCoroutine(OnGameStart());
                 {
                     if (!cl.isDead && !cl.hasStun)
                     {
-                        cl.isActive = true;
+                        //cl.isActive = true;
+                        cl.OnTurnStart();
 
                         //DS reset "color" of creature
                         new CreatureColorCommand(cl,false).AddToQueue();
