@@ -21,7 +21,7 @@ public class StartATurnCommand : Command {
         //CommandExecutionComplete();
 
         Sequence s = DOTween.Sequence();
-        //s.AppendInterval(2f);
+        s.AppendInterval(1f);
         s.OnComplete(()=>
         {
             new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();

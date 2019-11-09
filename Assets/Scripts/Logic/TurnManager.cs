@@ -123,6 +123,27 @@ public class TurnManager : MonoBehaviour {
         CardLogic.CardsCreatedThisGame.Clear();
         CreatureLogic.CreaturesCreatedThisGame.Clear();
 
+        if (BattleStartInfo.gameMode.ToString() != null)
+        {
+            switch (BattleStartInfo.gameMode)
+            {
+                case GameMode.PvAI:
+                    TurnMaker tm = GlobalSettings.Instance.TopPlayer.GetComponent<TurnMaker>();
+                    Destroy(tm);
+                    GlobalSettings.Instance.TopPlayer.gameObject.AddComponent<AITurnMaker>();
+                    break;
+                
+                case GameMode.AIvAI:
+                    TurnMaker tm1 = GlobalSettings.Instance.TopPlayer.GetComponent<TurnMaker>();
+                    Destroy(tm1);
+                    GlobalSettings.Instance.TopPlayer.gameObject.AddComponent<AITurnMaker>();
+                    TurnMaker tm2 = GlobalSettings.Instance.LowPlayer.GetComponent<TurnMaker>();
+                    Destroy(tm2);
+                    GlobalSettings.Instance.LowPlayer.gameObject.AddComponent<AITurnMaker>();
+                    break;
+            }
+        }
+
         //DS - use this sequence later on for any Start of Battle loading/animation effects
 
         foreach (Player p in Player.Players)
@@ -600,7 +621,8 @@ StopCoroutine(OnGameStart());
                 {
                     if (!cl.isDead && !cl.hasStun)
                     {
-                        cl.isActive = true;
+                        //cl.isActive = true;
+                        cl.OnTurnStart();
 
                         //DS reset "color" of creature
                         new CreatureColorCommand(cl,false).AddToQueue();
