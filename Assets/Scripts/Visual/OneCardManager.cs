@@ -53,6 +53,7 @@ public class OneCardManager : MonoBehaviour {
     public void ReadCardFromAsset()
     {
         
+        Debug.Log("One Card Mgr Read Card From Asset");
         // universal actions for any Card
         // 1) apply tint
         if (cardAsset.characterAsset != null)
@@ -78,7 +79,8 @@ public class OneCardManager : MonoBehaviour {
         // 5) Change the card graphic sprite
         CardGraphicImage.sprite = cardAsset.CardImage;
 
-
+        AttackText.text = cardAsset.Attack.ToString();
+        HealthText.text = cardAsset.MaxHealth.ToString();
 
         if (cardAsset.MaxHealth != 0)
         {
