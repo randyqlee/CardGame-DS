@@ -24,6 +24,7 @@ public class TableVisual : MonoBehaviour
 
     // A 3D collider attached to this game object
     private BoxCollider col;
+    
 
     // PROPERTIES
 
@@ -249,7 +250,15 @@ public class TableVisual : MonoBehaviour
     void AddSkillsToPanel(OneCreatureManager manager, int UniqueID)
     {
         CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[UniqueID];
+        
+        //Create portraitWSkill Gameobject
         GameObject ps = GameObject.Instantiate (GlobalSettings.Instance.PortraitWSkillsPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
+
+         GameObject portrait = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, ps.GetComponent<PortraitWSkill>().portrait.transform) as GameObject;
+            portrait.GetComponent<AbilityCard>().abilityImage.sprite = cl.ca.HeroPortrait;            
+            manager.portraitPreview = portrait;
+            
+
         foreach (CreatureEffect ce in cl.creatureEffects)
         {
              //GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
@@ -260,6 +269,13 @@ public class TableVisual : MonoBehaviour
              ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
 
+             if(ce.skillType == SkillType.Ultimate)
+             portrait.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
+             else
+             portrait.GetComponent<AbilityCard>().abilityCooldownText.text = "";
+          
+
+
              OneCardManager ocm = ac.GetComponent<AbilityCard>().abilityCardPreview.GetComponent<OneCardManager>();
              ocm.NameText.text = ce.Name;
              ocm.ManaCostText.text = ce.creatureEffectCooldown.ToString();
@@ -267,7 +283,12 @@ public class TableVisual : MonoBehaviour
              ocm.CardGraphicImage.sprite = ce.abilityPreviewSprite;
 
              manager.abilityCard.Add(ac);
+
              ce.abilityCard = ac.GetComponent<AbilityCard>();
+
+              if(ce.skillType == SkillType.Ultimate)
+              ce.abilityCard = portrait.GetComponent<AbilityCard>();
+
 
           
              new UpdateCooldownCommand (ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
@@ -276,12 +297,28 @@ public class TableVisual : MonoBehaviour
             
         }
 
-         GameObject portrait = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, ps.GetComponent<PortraitWSkill>().portrait.transform) as GameObject;
-            portrait.GetComponent<AbilityCard>().abilityImage.sprite = cl.ca.HeroPortrait;
-            portrait.GetComponent<AbilityCard>().abilityCooldownText.text = "";
-            manager.portraitPreview = portrait;
-
         
+
+
+        // foreach (CreatureEffect ce in cl.creatureEffects)
+        // {
+                         
+
+        //      if (ce.abilityPreviewSprite!=null) 
+        //      {
+             
+        //      if(ce.skillType == SkillType.Ultimate)
+        //      portrait.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
+        //      else
+        //      portrait.GetComponent<AbilityCard>().abilityCooldownText.text = "";         
+
+        //      new UpdateCooldownCommand (ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
+
+        //      }
+            
+        // }    
+
+            
             
     }
 

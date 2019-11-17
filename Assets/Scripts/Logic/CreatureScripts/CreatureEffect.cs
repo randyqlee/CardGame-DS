@@ -23,11 +23,14 @@ public class CreatureEffect
 
     public AbilityCard abilityCard;
 
+    public SkillType skillType;
+
     [HideInInspector]
     public CreatureLogic creature;
 
    [HideInInspector]
     public bool cooldownCantChange = false;
+    
    
 
     //DS

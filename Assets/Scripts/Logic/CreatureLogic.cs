@@ -382,6 +382,7 @@ public class CreatureLogic: ICharacter
                     if (ae.icon != null)
                     effect.abilityPreviewSprite = ae.icon;
                     effect.abilityDescription = ae.description;
+                    effect.skillType = ae.skillType;
 
                     creatureEffects.Add(effect);
  

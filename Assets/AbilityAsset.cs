@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SkillType
+{
+    Chance,
+    Ultimate
+}
+
 [System.Serializable]
 public class AbilityAsset {
 
@@ -13,6 +19,8 @@ public class AbilityAsset {
 	public string abilityEffect;
 
 	public int abilityCoolDown;
+
+	public SkillType skillType;
 
 
 }
