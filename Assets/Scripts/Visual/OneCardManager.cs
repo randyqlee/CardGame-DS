@@ -13,6 +13,9 @@ public class OneCardManager : MonoBehaviour {
     public Text DescriptionText;
     public Text HealthText;
     public Text AttackText;
+
+    public Text ChanceText;
+   
     [Header("Image References")]
     public Image CardTopRibbonImage;
     public Image CardLowRibbonImage;
@@ -81,13 +84,18 @@ public class OneCardManager : MonoBehaviour {
 
         AttackText.text = cardAsset.Attack.ToString();
         HealthText.text = cardAsset.MaxHealth.ToString();
+        if(ChanceText != null)
+        ChanceText.text = cardAsset.Chance.ToString();
+       
 
         if (cardAsset.MaxHealth != 0)
         {
             // this is a creature
             if(AttackText != null){
-            AttackText.text = cardAsset.Attack.ToString();
-            HealthText.text = cardAsset.MaxHealth.ToString();
+                AttackText.text = cardAsset.Attack.ToString();
+                HealthText.text = cardAsset.MaxHealth.ToString();
+                if(ChanceText != null)
+                ChanceText.text = cardAsset.Chance.ToString();
             }
         }
 
