@@ -18,6 +18,7 @@ public class OneCreatureManager : MonoBehaviour
     public Sprite CreatureGraphicImage_Primary;
     public Sprite CreatureGraphicImage_Secondary;
     public Image CreatureGlowImage;
+    public GameObject Armor;
 
     public BuffPanel buffPanel;
 
@@ -168,10 +169,12 @@ public class OneCreatureManager : MonoBehaviour
     public void ChangeArmor(int armorAfter)
     {
         
-        if(armorAfter <0)
+        if(armorAfter <=0)
         {
             ArmorText.text = 0.ToString();
+            Armor.SetActive(false);
         }else{
+            Armor.SetActive(true);
             ArmorText.text = armorAfter.ToString();
         }
     }//Change Attack
