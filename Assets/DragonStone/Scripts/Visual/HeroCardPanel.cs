@@ -27,11 +27,14 @@ public class HeroCardPanel : MonoBehaviour {
 
 	void Setup()
 	{		
-		int creatureID = GetComponentInParent<IDHolder>().UniqueID;
+		
+		
+		int creatureID = GetComponentInParent<IDHolder>().UniqueID;		
 		GameObject creature = IDHolder.GetGameObjectWithID(creatureID);
 		CreatureLogic cl = CreatureLogic.CreaturesCreatedThisGame[creatureID];
-		//Setup Hero Preview	
-		heroImage.sprite = cl.ca.CardImage;
+
+		//Setup Hero Preview			
+		heroImage.sprite = cl.ca.CardImage;		
 		heroname.text = cl.ca.name;
 
 		//Setup Ability Cards

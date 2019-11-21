@@ -258,6 +258,9 @@ public class TableVisual : MonoBehaviour
             portrait.GetComponent<AbilityCard>().abilityImage.sprite = cl.ca.HeroPortrait;            
             manager.portraitPreview = portrait;
             
+            portrait.GetComponent<AbilityCard>().abilityCardPreview.GetComponent<OneCardManager>().cardAsset = cl.ca;
+           IDHolder id = portrait.AddComponent<IDHolder>();
+           id.UniqueID = UniqueID;
 
         foreach (CreatureEffect ce in cl.creatureEffects)
         {
