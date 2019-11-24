@@ -24,8 +24,9 @@ public class EndTurnCommand : Command
         //s.PrependInterval(2f);
         s.OnComplete(()=>
         {
-            new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+            //new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
             //TurnManager.Instance.EndTurn();  
+            
             Command.CommandExecutionComplete();
         }
         

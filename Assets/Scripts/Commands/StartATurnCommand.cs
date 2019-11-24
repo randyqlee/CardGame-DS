@@ -24,7 +24,11 @@ public class StartATurnCommand : Command {
         s.AppendInterval(1f);
         s.OnComplete(()=>
         {
+            if(p.PArea.owner == AreaPosition.Top)
+            new ShowMessageCommand("Enemy Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+            else
             new ShowMessageCommand("Your Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
+
             TurnManager.Instance.whoseTurn = p; 
             Command.CommandExecutionComplete();
         }

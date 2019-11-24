@@ -519,7 +519,8 @@ public class CreatureLogic: ICharacter
         {
             if(effect !=null)
             {
-                ce.remainingCooldown = ce.creatureEffectCooldown;
+                ce.remainingCooldown = ce.creatureEffectCooldown; 
+
                 ce.WhenACreatureDies();
                 ce.UnRegisterEventEffect();
                 ce.UnregisterCooldown();                                   

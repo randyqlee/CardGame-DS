@@ -235,6 +235,14 @@ yield return null;
                         {
                             ce.RegisterCooldown();
                             ce.RegisterEventEffect();
+
+                            //DS Test: 24 Nov 2019. Initialize Ultimate Skill CD to 1.  
+                            if(ce.skillType == SkillType.Ultimate)
+                            {
+                                ce.remainingCooldown = 1;
+                                new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
+                            }
+                            
                         }
                         cl.OnTurnStart();
                     }

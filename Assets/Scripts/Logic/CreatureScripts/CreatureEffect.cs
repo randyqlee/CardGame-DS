@@ -49,8 +49,10 @@ public class CreatureEffect
         this.owner = owner;
         this.creatureEffectCooldown = creatureEffectCooldown;
         
-        //initialize remaining cooldown
-        remainingCooldown = creatureEffectCooldown;
+        
+        remainingCooldown = creatureEffectCooldown;      
+
+
         Name = this.GetType().Name.ToString();
         
     }
@@ -99,14 +101,16 @@ public class CreatureEffect
     {
         //creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
         TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
-        creature.e_CreatureOnTurnEnd += ResetCreatureEffectCooldown;
+        //creature.e_CreatureOnTurnEnd += ResetCreatureEffectCooldown;
+         TurnManager.Instance.e_ResetRound += ResetCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
         //creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
         TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
-        creature.e_CreatureOnTurnEnd -= ResetCreatureEffectCooldown;
+        //creature.e_CreatureOnTurnEnd -= ResetCreatureEffectCooldown;
+         TurnManager.Instance.e_ResetRound -= ResetCreatureEffectCooldown;
     }
 
     public void ReduceCreatureEffectCooldown()
@@ -114,7 +118,8 @@ public class CreatureEffect
         if(remainingCooldown > 0 && !isCooldownPaused){
             remainingCooldown--;
             new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
-        }            
+        }      
+        //ResetCreatureEffectCooldown();      
     }
 
     public void SkillReduceCreatureEffectCooldown()
