@@ -26,7 +26,7 @@ public class Recovery : BuffEffect {
         
          //target.e_CreatureOnTurnStart -= healEffect;
          //target.e_PreAttackEvent -= healEffect;
-         TurnManager.Instance.e_ResetRound += healEffect;
+         TurnManager.Instance.e_ResetRound -= healEffect;
     }
 
     public void healEffect()
