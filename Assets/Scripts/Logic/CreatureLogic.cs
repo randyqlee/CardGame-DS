@@ -14,7 +14,7 @@ public class CreatureLogic: ICharacter
     public bool Frozen = false;
     public bool isDead;
 
-    public bool isActive;
+    public bool isActive;  
 
     [HideInInspector]
     public BuffEffect testBuff;
@@ -115,6 +115,7 @@ public class CreatureLogic: ICharacter
 
     // current health of this creature
     private int health;
+    
     public int Health
     {
         get{ return health; }
@@ -123,8 +124,8 @@ public class CreatureLogic: ICharacter
         {                 
             if (value > MaxHealth)
                 health = MaxHealth;
-            else if (value <= 0)
-                Die();
+            //else if (value <= 0)                
+                //Die();
             else
                 health = value;
         }
@@ -477,7 +478,7 @@ public class CreatureLogic: ICharacter
             e_CreatureOnTurnEnd.Invoke();               
         
         
-
+        
         //TODO:  Buff Duration Reduction                       
     }
 

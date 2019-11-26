@@ -323,6 +323,23 @@ public class Player : MonoBehaviour, ICharacter
 //            EndTurnEvent.Invoke();
         ManaThisTurn -= bonusManaThisTurn;
         bonusManaThisTurn = 0;
+        
+        
+        //DS TEST
+        foreach(CreatureLogic cl in table.CreaturesOnTable)
+        {
+          if(cl.Health<=0 && !cl.isDead)     
+          cl.Die();
+        } 
+
+      foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
+        {
+          if(cl.Health<=0 && !cl.isDead)     
+          cl.Die();    
+        } 
+        
+        //DS TEST   
+        
         GetComponent<TurnMaker>().StopAllCoroutines();
 
         //new EndTurnCommand().AddToQueue();
@@ -375,11 +392,15 @@ public class Player : MonoBehaviour, ICharacter
       otherPlayer.isDeadStatus.Clear();
 
       foreach(CreatureLogic cl in table.CreaturesOnTable){
-          isDeadStatus.Add(cl.isDead);     
+          isDeadStatus.Add(cl.isDead);
+
+        
       } 
 
       foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable){
-          otherPlayer.isDeadStatus.Add(cl.isDead);     
+          otherPlayer.isDeadStatus.Add(cl.isDead);    
+
+          
       } 
 
         if(!isDeadStatus.Contains(false))
