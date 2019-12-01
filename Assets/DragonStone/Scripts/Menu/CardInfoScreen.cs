@@ -17,16 +17,25 @@ public class CardInfoScreen : MonoBehaviour {
 	public Material greyScaleMaterial;
 
 	GameObject cardGO;
+
 	public void SetCardGO(GameObject go) { cardGO = go; } 
-	CardAsset cardAsset;
+
+	public CardAsset cardAsset;
+
 	public void SetCardAsset(CardAsset asset) { cardAsset = asset; } 
 	// Use this for initialization
-	void Start () {
-		
+	
+	void OnEnable () 
+	{
+		ShowCardInfo(cardGO);
+
+		GetComponentInChildren<HeroCardPanelInfoScreen>().Setup();
+			GetComponentInChildren<OneCardManager>().ReadCardFromAsset();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		
 	}
 
@@ -35,61 +44,67 @@ public class CardInfoScreen : MonoBehaviour {
 		SetCardGO(go);
 		AddCardToDeck cardComponent = go.GetComponent<AddCardToDeck>();
 		SetCardAsset(cardComponent.cardAsset);
+		
+		GetComponentInChildren<HeroCardPanelInfoScreen>().cardA = cardAsset;
+		GetComponentInChildren<OneCardManager>().cardAsset = cardAsset;
 
-		panelImage.sprite = cardAsset.CardImage;
-		panelText.text = cardAsset.name;
+		// if(panelImage != null)
+		// panelImage.sprite = cardAsset.CardImage;
 
-		buyText.color = Color.black;
+		// if(panelText != null)
+		// panelText.text = cardAsset.name;
 
-		if (!cardComponent.isAdded)
-		{
+		// buyText.color = Color.black;
 
-			if (cardComponent.isOwned)
-			{
-				if (cardAsset.Rarity == RarityOptions.Common)
-				{
-					buyButton.gameObject.SetActive(false);
-					sellButton.gameObject.SetActive(false);
-					panelImage.material = null;
+		// if (!cardComponent.isAdded)
+		// {
 
-				}
-				else
-				{
-					buyButton.gameObject.SetActive(false);
-					sellButton.gameObject.SetActive(true);
-					sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
+		// 	if (cardComponent.isOwned)
+		// 	{
+		// 		if (cardAsset.Rarity == RarityOptions.Common)
+		// 		{
+		// 			buyButton.gameObject.SetActive(false);
+		// 			sellButton.gameObject.SetActive(false);
+		// 			panelImage.material = null;
 
-					panelImage.material = null;
+		// 		}
+		// 		else
+		// 		{
+		// 			buyButton.gameObject.SetActive(false);
+		// 			sellButton.gameObject.SetActive(true);
+		// 			sellText.text = "+" + (cardAsset.cardCost/2 ).ToString();
 
-				}
+		// 			//panelImage.material = null;
+
+		// 		}
 				
-			}
-			else
-			{
-				sellButton.gameObject.SetActive(false);
-				buyButton.gameObject.SetActive(true);
-				buyButton.interactable = true;
-				buyText.text = "-" + cardAsset.cardCost.ToString();
+		// 	}
+		// 	else
+		// 	{
+		// 		sellButton.gameObject.SetActive(false);
+		// 		buyButton.gameObject.SetActive(true);
+		// 		buyButton.interactable = true;
+		// 		buyText.text = "-" + cardAsset.cardCost.ToString();
 
-				panelImage.material = greyScaleMaterial;
+		// 		panelImage.material = greyScaleMaterial;
 
-				if(ShopManager.Instance.Dust - cardAsset.cardCost < 0)
-				{
-					buyText.color = Color.red;
-					buyButton.interactable = false;
+		// 		if(ShopManager.Instance.Dust - cardAsset.cardCost < 0)
+		// 		{
+		// 			buyText.color = Color.red;
+		// 			buyButton.interactable = false;
 
-				}
-			}
-		}
+		// 		}
+		// 	}
+		// }
 
-		else
-		{
-			buyButton.gameObject.SetActive(false);
-			sellButton.gameObject.SetActive(false);
-			panelImage.material = null;
-		}
+		// else
+		// {
+		// 	buyButton.gameObject.SetActive(false);
+		// 	sellButton.gameObject.SetActive(false);
+		// 	panelImage.material = null;
+		// }
 
-	}
+	}//ShowCard Info
 
 	public void BuyCard()
 	{
