@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bomb : BuffEffect {
    
-    int bombDamage = 10;
+    int bombDamage = 5;
     int bombCooldown;
 	
     public Bomb(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)

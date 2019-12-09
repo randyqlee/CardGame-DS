@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Poison : BuffEffect {
 
-    public int poisonDamage = 10;
+    public int poisonDamage = 3;
     
 	
     public Poison(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)

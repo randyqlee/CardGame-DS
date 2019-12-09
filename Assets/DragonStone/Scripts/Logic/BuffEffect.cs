@@ -18,7 +18,7 @@ public class BuffEffect
     public bool isDebuff;
 
     [HideInInspector]
-    public int defaultArmor = 2;
+    public int defaultArmor = 10;
 
     public Sprite buffIcon;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Recovery : BuffEffect {
 
-    public int healValue = 15;
+    public int healValue = 4;
     
 	
     public Recovery(CreatureLogic source, CreatureLogic target, int buffCooldown) : base (source, target, buffCooldown)
