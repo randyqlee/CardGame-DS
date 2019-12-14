@@ -2,24 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum HeroSelect
-{
-	Pick,
-	Fixed,
-	Random
-}
 
 public class CampaignAsset : ScriptableObject {
 
-	[Header("Heroes")]
+	[Header("Levels")]
 
-	public HeroSelect AlliesSelect = HeroSelect.Fixed;
-	public List<CardAsset> fixedAllies;
+	public List<LevelAsset> levels;
 
-	public List<CardAsset> fixedEnemies;
-
-	[Header("Rewards")]
-	public int gold;
-	public int dust;
-	public List<CardAsset> cards;
 }
