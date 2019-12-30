@@ -20,6 +20,7 @@ public abstract class DraggingActions : MonoBehaviour {
         }
     }
 
+    //returns either TopPlayer or LowPlayer
     protected virtual Player playerOwner
     {
         get{

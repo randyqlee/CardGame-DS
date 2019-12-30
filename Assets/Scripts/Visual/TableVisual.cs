@@ -263,15 +263,34 @@ public class TableVisual : MonoBehaviour
            IDHolder id = portrait.AddComponent<IDHolder>();
            id.UniqueID = UniqueID;
 
+           
+           //Set the tag of the Portraits
+           foreach(Transform t in portrait.GetComponent<AbilityCard>().GetComponentsInChildren<Transform>())           
+           {
+               t.tag = owner.ToString()+"Creature";
+           }
+
+           //DS:  Assign reference creature gameobject to AbilityCard
+           //portrait.GetComponent<AbilityCard>().referenceCreature = manager.gameObject;
+
+           portrait.GetComponentInChildren<DragUltiAttack>().manager = manager;
+           portrait.GetComponentInChildren<DragUltiAttack>().whereIsThisCreature = manager.gameObject.GetComponent<WhereIsTheCardOrCreature>();
+
         foreach (CreatureEffect ce in cl.creatureEffects)
         {
              //GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, GetComponentInParent<PlayerArea>().skillPanel.abilities.transform) as GameObject;
              
              GameObject ac = GameObject.Instantiate (GlobalSettings.Instance.AbilityCardPreviewPrefab, ps.GetComponent<PortraitWSkill>().skills.transform) as GameObject;
 
+           
+
              if (ce.abilityPreviewSprite!=null) {
              ac.GetComponent<AbilityCard>().abilityImage.sprite = ce.abilityPreviewSprite;            
              ac.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
+
+           
+
+             
 
              if(ce.skillType == SkillType.Ultimate)
              portrait.GetComponent<AbilityCard>().abilityCooldownText.text = ce.remainingCooldown.ToString();
@@ -298,6 +317,8 @@ public class TableVisual : MonoBehaviour
              new UpdateCooldownCommand (ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
 
              }
+
+           
             
         }
 

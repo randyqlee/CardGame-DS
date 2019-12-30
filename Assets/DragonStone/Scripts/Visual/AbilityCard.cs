@@ -14,6 +14,13 @@ public class AbilityCard : MonoBehaviour {
 	public Image CooldownOverlay;
 
 	public GameObject abilityCardPreview;
+	public GameObject target;
+
+	public int skillCooldown;
+
+	bool test;
+
+	//public GameObject referenceCreature;
 
 
 
@@ -31,6 +38,10 @@ public class AbilityCard : MonoBehaviour {
 
 	public void UpdateCooldown(int cooldown, int originalCooldown)
 	{
+		
+		//used in permissive check for DragUltiAttack.cs
+		skillCooldown = cooldown;
+
 		if(cooldown == 0)
 		{
 			if(abilityCooldownText!=null)
@@ -55,8 +66,17 @@ public class AbilityCard : MonoBehaviour {
 				CooldownOverlay.fillAmount = fillValue;
 			
 		}
-		
-		
 
+		
+		
+				
+	}
+
+	public bool CanUlti(bool canUlti)
+	{
+		if(skillCooldown <= 0)
+		return canUlti = true;
+		else
+		return canUlti = false;
 	}
 }

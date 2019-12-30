@@ -56,7 +56,7 @@ public class OneCardManager : MonoBehaviour {
     public void ReadCardFromAsset()
     {
         
-        Debug.Log("One Card Mgr Read Card From Asset");
+        //Debug.Log("One Card Mgr Read Card From Asset");
         // universal actions for any Card
         // 1) apply tint
         if (cardAsset.characterAsset != null)

@@ -7,11 +7,21 @@ public class SkillHoverPreview: MonoBehaviour
 {
     public GameObject previewGameObject;
 
+
+    public GameObject previewGameObjectCreature;
+	public List<GameObject> previewCreatureAbility = new List<GameObject>();
+	public float TargetScaleCreature;
+
+	Vector3 curPosition;
+	Vector3 lastPosition;
  
     void OnMouseDown()
     {
         ShowPreview();
-      
+
+        curPosition = Input.mousePosition;
+		lastPosition = curPosition;
+
 
     }
 
@@ -22,6 +32,23 @@ public class SkillHoverPreview: MonoBehaviour
 
     }
 
+    //prevent the preview card from being dragged when attacking
+	void Update()
+	{
+		curPosition = Input.mousePosition;
+
+		if (previewGameObject.activeSelf && gameObject.GetComponent<DraggingActions>().CanDrag)
+		{
+			if (curPosition != lastPosition)
+			{
+				previewGameObject.SetActive(false);
+			}
+		}
+		lastPosition = curPosition;
+	}
+
+
+    
     // OTHER METHODS
 
 //DS
@@ -32,7 +59,7 @@ public class SkillHoverPreview: MonoBehaviour
 
     }
 
-    void HidePreview()
+    public void HidePreview()
     {
         previewGameObject.SetActive(false);
 
