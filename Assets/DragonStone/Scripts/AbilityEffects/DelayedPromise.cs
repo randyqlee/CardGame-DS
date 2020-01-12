@@ -34,10 +34,10 @@ public class DelayedPromise : CreatureEffect
             foreach(CreatureLogic cl in owner.EnemyList())
             {
                                 
-                AddBuff(cl, "Silence", buffCooldown);
+                AddBuff(cl, "DecreaseAttack", buffCooldown);
                 
             }
-            AddBuff(target, "Stun", buffCooldown);
+            AddBuff(target, "Berserk", buffCooldown);
                      
             base.UseEffect();
         }

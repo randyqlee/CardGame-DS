@@ -5,6 +5,8 @@ using UnityEngine;
 public class ForbiddenGaldr : CreatureEffect
 {
  
+    int fixedDamage = 5;
+    
     public ForbiddenGaldr(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -36,7 +38,7 @@ public class ForbiddenGaldr : CreatureEffect
                 
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
-                    DealDamageEffect(cl, armor);
+                    DealDamageEffect(cl, armor+fixedDamage);
                 }               
 
                 base.UseEffect();

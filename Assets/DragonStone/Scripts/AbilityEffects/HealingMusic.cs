@@ -32,7 +32,7 @@ public class HealingMusic : CreatureEffect
             {
                 ShowAbility();
                 creature.RemoveDeBuffsAll();
-                AddBuff(creature, "Immunity", buffCooldown);
+                AddBuff(creature, "Resurrect", buffCooldown);
 
             }
 

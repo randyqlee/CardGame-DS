@@ -50,7 +50,7 @@ public class Bombardment : CreatureEffect
                         if(Random.Range(0,100)<=creature.chance)
                         {
                             ShowAbility();
-                            AddBuff(enemy, "Stun", buffCooldown);
+                            AddBuff(enemy, "CrippledStrike", buffCooldown);
                         }
 
                         validTargets.RemoveAt(j);

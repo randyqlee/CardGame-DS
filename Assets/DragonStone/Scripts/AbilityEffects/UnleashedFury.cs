@@ -32,7 +32,7 @@ public class UnleashedFury : CreatureEffect
             ShowAbility();
             creature.AttacksLeftThisTurn++;
             AddBuff(creature, "IncreaseAttack", buffCooldown);
-            AddBuff(creature, "Immunity", buffCooldown);
+            AddBuff(creature, "Retaliate", buffCooldown);
 
         }                             
     }

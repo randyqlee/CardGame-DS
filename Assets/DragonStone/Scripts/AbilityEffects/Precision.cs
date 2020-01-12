@@ -73,7 +73,7 @@ public class Precision : CreatureEffect
 
             if(effectChance)
             {
-                AddBuff(target, "Brand", buffCooldown);
+                AddBuff(target, "Unlucky", buffCooldown);
                 creature.CriticalChance -= 1;
             }
 

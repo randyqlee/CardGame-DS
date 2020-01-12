@@ -29,7 +29,7 @@ public class PartingGift : CreatureEffect
         {
             ShowAbility();
             AddBuff(creature, "LifeSteal",buffCooldown);
-            AddBuff(target, "Stun",buffCooldown);
+            AddBuff(target, "Poison",buffCooldown);
 
             foreach (CreatureEffect ce in target.creatureEffects)
             {

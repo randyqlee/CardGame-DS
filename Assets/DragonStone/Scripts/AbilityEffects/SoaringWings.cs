@@ -54,7 +54,7 @@ public class SoaringWings : CreatureEffect
             {
                 creature.isPrimaryForm = false;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();
-                AddBuff(creature, "Armor", buffCooldown);
+                AddBuff(creature, "Invincibility", buffCooldown);
                 
                 if(critFlag)
                 {
@@ -69,7 +69,7 @@ public class SoaringWings : CreatureEffect
 
                 creature.isPrimaryForm = true;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();
-                AddBuff(creature, "IncreaseAttack", buffCooldown);
+                AddBuff(creature, "Taunt", buffCooldown);
                 
                 
             }

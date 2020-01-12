@@ -32,7 +32,7 @@ public class WishOfImmortality : CreatureEffect
             {
 
                 AddBuff(creature, "Immunity",buffCooldown);
-                AddBuff(creature, "Armor",buffCooldown);
+                AddBuff(creature, "Defense",buffCooldown);
             }
             
             base.UseEffect();

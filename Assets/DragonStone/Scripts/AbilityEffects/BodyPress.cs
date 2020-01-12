@@ -28,7 +28,7 @@ public class BodyPress : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                AddBuff(creature, "Armor", buffCooldown);
+                AddBuff(creature, "LifeSteal", buffCooldown);
                 AddBuff(creature, "Taunt", buffCooldown);
             }
             

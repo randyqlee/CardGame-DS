@@ -43,7 +43,7 @@ public class MoonlightGrace : CreatureEffect
                     }
                 }
 
-                AddBuff(creature, "Armor", buffCooldown);
+                AddBuff(creature, "Shield", buffCooldown);
 
                 creature.isPrimaryForm = false;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();
@@ -61,7 +61,7 @@ public class MoonlightGrace : CreatureEffect
                     }
                 }
 
-                AddBuff(creature, "IncreaseAttack", buffCooldown);
+                AddBuff(creature, "Recovery", buffCooldown);
 
                 creature.isPrimaryForm = true;
                 new CreatureTransformCommand (creature.UniqueCreatureID, creature.isPrimaryForm).AddToQueue();

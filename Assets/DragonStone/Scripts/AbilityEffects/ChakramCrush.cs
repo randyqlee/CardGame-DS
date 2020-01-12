@@ -33,7 +33,7 @@ public class ChakramCrush : CreatureEffect
         {
             ShowAbility();
             creature.SplashAttackDamage(target, creature.AttackDamage);
-            AddBuff(target, "Stun", buffCooldown);
+            AddBuff(target, "Berserk", buffCooldown);
            
 
             base.UseEffect();

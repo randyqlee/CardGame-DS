@@ -41,7 +41,7 @@ public class Serenity : CreatureEffect {
                     //Temp
                     cl.Heal(heal);
 
-                    AddBuff(cl, "Lucky", buffCooldown);
+                    AddBuff(cl, "Recovery", buffCooldown);
                     AddBuff(cl, "Immunity", buffCooldown);
             }
             base.UseEffect();                             
