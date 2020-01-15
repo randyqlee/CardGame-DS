@@ -5,6 +5,8 @@ using UnityEngine;
 public class AmputationMagic : CreatureEffect
 {
     bool effectChance = false;
+    int buffCooldown = 1;
+
     public AmputationMagic(Player owner, CreatureLogic creature, int creatureEffectCooldown): base(owner, creature, creatureEffectCooldown)
     {
         
@@ -33,7 +35,7 @@ public class AmputationMagic : CreatureEffect
                 //ShowAbility();
                 
                 effectChance = true;
-                creature.CriticalChance += 1;
+                //creature.CriticalChance += 1;
 
             }
         }
@@ -49,7 +51,9 @@ public class AmputationMagic : CreatureEffect
                 ShowAbility();
                 creature.SplashAttackDamage(target,creature.AttackDamage);
 
-                creature.CriticalChance -= 1;
+                //creature.CriticalChance -= 1;
+
+                AddBuff(target, "Poison", buffCooldown);
             }
 
             base.UseEffect();

@@ -40,6 +40,7 @@ public class Berserk : BuffEffect {
 
  
        target.AttackCreatureWithID(attackRandomEnemy());
+       new ShowBuffPreviewCommand(this, target.ID, this.GetType().Name+" Effect").AddToQueue();
        
        
         //TurnManager.Instance.EndTurn();

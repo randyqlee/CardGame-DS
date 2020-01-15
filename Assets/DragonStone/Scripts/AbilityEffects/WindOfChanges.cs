@@ -34,10 +34,13 @@ public class WindOfChanges : CreatureEffect
             {
                 cl.RemoveAllBuffs();
             }
+            
             foreach(CreatureLogic cl in owner.EnemyList())
             {
                 AddBuff(cl, "Silence", buffCooldown);
             }
+
+            
 
             base.UseEffect();
 

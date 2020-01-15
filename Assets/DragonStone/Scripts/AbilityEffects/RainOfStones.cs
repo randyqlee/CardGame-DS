@@ -33,12 +33,15 @@ public class RainOfStones : CreatureEffect
                 
                 foreach (CreatureEffect ce in cl.creatureEffects)
                 {
-                    AddBuff (cl, "Silence", buffCooldown);
+                    //AddBuff (cl, "Silence", buffCooldown);
                     ce.remainingCooldown = ce.creatureEffectCooldown;
                     ce.UpdateCooldown();
                 }
 
-            }  
+            }
+
+            AddBuff (target, "Silence", buffCooldown);
+
             base.UseEffect();
         }
 

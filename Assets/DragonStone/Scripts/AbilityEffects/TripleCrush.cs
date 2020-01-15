@@ -32,10 +32,11 @@ public class TripleCrush : CreatureEffect
     
     public override void UseEffect(CreatureLogic target)
     {
-        if (creatureEffectCooldown <= 0)
+        if (CanUseAbility())
         {
             //Attack inflicts Brand on target enemy and deals 3 times your damage this turn.
             ShowAbility();
+            
             AddBuff(target, "Brand", buffCooldown);
             
             int damage = multiplier * creature.AttackDamage;

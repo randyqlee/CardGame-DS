@@ -41,7 +41,9 @@ public class CreatureEffect
     public bool isCooldownPaused = false;
     
     
-
+    //Events
+    public delegate void AddBuffEvent();    
+    public event AddBuffEvent e_AddBuffEvent;   
    
     public CreatureEffect(Player owner, CreatureLogic creature, int creatureEffectCooldown)
     {
