@@ -217,98 +217,6 @@ public class Player : MonoBehaviour, ICharacter
 
         else
         {
-
-
-            // add one mana crystal to the pool;
-            //Debug.Log("In ONTURNSTART for "+ gameObject.name);
-            usedHeroPowerThisTurn = false;
-            ManaThisTurn++;
-            ManaLeft = ManaThisTurn;
-            
-            //ORIGINAL SCRIPT
-            //foreach (CreatureLogic cl in table.CreaturesOnTable)
-            //  cl.OnTurnStart();
-            
-            
-            
-            //DS: Use this if you want each PLayer Turn all creatures are active
-            //foreach (CreatureLogic cl in table.CreaturesOnTable)  
-            //    if (!cl.isDead)   
-            //    {   
-            //     cl.OnTurnStart();
-            //     cl.e_CreatureOnTurnEnd += OnTurnEnd;
-            //    }
-            // PArea.HeroPower.WasUsedThisTurn = false;
-
-            //logic to check if creature not dead
-
-
-            //DS
-            //HideHand();
-            //otherPlayer.HideHand();
-
-            //DS
-            //Iterate through Creatures on table so that only 1 creature gets active each turn
-        // Debug.Log("Creature Index: " +creatureTurn);       
-        
-        
-        //DS
-
-    /*
-        if(!gameIsOver)
-        {
-            //if dead, pass on the turn to other player
-            if (table.CreaturesOnTable[creatureTurn].isDead)
-            { 
-                    table.CreaturesOnTable[creatureTurn].OnTurnEnd();
-                    TurnManager.Instance.EndTurn();
-
-            }
-
-
-
-
-            //iterate if dead
-            //while(table.CreaturesOnTable[creatureTurn].isDead)
-            //{
-            // if(creatureTurn < table.CreaturesOnTable.Count)
-            //     creatureTurn++;                         
-            // if(creatureTurn >= table.CreaturesOnTable.Count)
-            //     creatureTurn = 0; 
-            // }
-
-            else
-            {
-
-                creatureTurn -= ExtraCreatureTurn;
-                if(creatureTurn<0)
-                creatureTurn = table.CreaturesOnTable.Count-1;
-
-            //DS
-            //Remove for Round reset testing
-            //table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
-
-                table.CreaturesOnTable[creatureTurn].OnTurnStart(); 
-                //ShowHand(table.CreaturesOnTable[creatureTurn]);
-            }
-                //DS
-                //DrawAbilityCards(table.CreaturesOnTable[creatureTurn]);
-
-                if(creatureTurn < table.CreaturesOnTable.Count)
-                    creatureTurn++;                              
-                if(creatureTurn >= table.CreaturesOnTable.Count)
-                    creatureTurn = 0;
-
-                ExtraCreatureTurn--;
-        }     
-        
-        //table.CreaturesOnTable[creatureTurn].OnTurnStart();
-
-    */  
-
-               
-            PArea.HeroPower.WasUsedThisTurn = false;
-
             //DS
             HighlightPlayableCards();
         }
@@ -318,69 +226,23 @@ public class Player : MonoBehaviour, ICharacter
 
     public void OnTurnEnd()
     {
-
-//        if(EndTurnEvent != null)
-//            EndTurnEvent.Invoke();
-        ManaThisTurn -= bonusManaThisTurn;
-        bonusManaThisTurn = 0;
         
-        
-        //DS TEST
+        /* REPLACED with TM.EndTurnCleanup()
         foreach(CreatureLogic cl in table.CreaturesOnTable)
         {
           if(cl.Health<=0 && !cl.isDead)     
           cl.Die();
         } 
 
-      foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
+        foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
         {
           if(cl.Health<=0 && !cl.isDead)     
           cl.Die();    
         } 
-        
-        //DS TEST   
-        
+        */
+
         GetComponent<TurnMaker>().StopAllCoroutines();
-
-        //new EndTurnCommand().AddToQueue();
-
-        //Check if Game Over - all creatures empty
-        //CheckIfGameOver();
-
-        //cl active this turn needs to have attacksleft this turn set to 0
-
-        //DS
         HighlightPlayableCards(true);
-
-
- /*       
-        bool allCreaturesFinished = true;
-        foreach (CreatureLogic cl in table.CreaturesOnTable)  
-            if (cl.isActive)   
-            {
-                allCreaturesFinished = false;
-                break;
-            }
-
-        if (allCreaturesFinished)
-        {
-            if(EndTurnEvent != null)
-                EndTurnEvent.Invoke();
-            ManaThisTurn -= bonusManaThisTurn;
-            bonusManaThisTurn = 0;
-            GetComponent<TurnMaker>().StopAllCoroutines();
-
-            new EndTurnCommand().AddToQueue();
-
-            //Check if Game Over - all creatures empty
-            //CheckIfGameOver();
-
-            //cl active this turn needs to have attacksleft this turn set to 0
-
-            //DS
-            HighlightPlayableCards(true);
-        }
-*/
         
     }
 
@@ -557,39 +419,19 @@ public class Player : MonoBehaviour, ICharacter
     // 2nd overload - by logic units
     public void PlayACreatureFromHand(CardLogic playedCard, int tablePos)
     {
-        // Debug.Log(ManaLeft);
-        // Debug.Log(playedCard.CurrentManaCost);
-        ManaLeft -= playedCard.CurrentManaCost;
-        // Debug.Log("Mana Left after played a creature: " + ManaLeft);
-        // create a new creature object and add it to Table
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
 
-        //DS
-        //DS this is just an optional script if we want to monitor all CL in game
-        //no logical or visual function
-        //GameObject.Find("CardLogic").GetComponent<AllCardLogic>().creatureLogic.Add(newCreature);
-
-        //HeroLogic newCreature = new HeroLogic(this, playedCard.ca);
         table.CreaturesOnTable.Insert(tablePos, newCreature);
-        // 
+
         new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
-        // cause battlecry Effect
+
         if (newCreature.isEquip)
         {
         
             if (newCreature.effect != null)
                 newCreature.effect.WhenACreatureIsPlayed();
         }
-        // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
-
-        //DS
-        //comment out
-        //HighlightPlayableCards();
-
-        //DS
-        //DS COMMENT OUT GETACARDNOTFROMDECK
-        //DrawAbilityCards(newCreature);
     }
 
     public void PlayEquipCreatureFromHand(CardLogic playedCard)
@@ -640,44 +482,20 @@ public class Player : MonoBehaviour, ICharacter
     // METHOD TO SHOW GLOW HIGHLIGHTS
     public void HighlightPlayableCards(bool removeAllHighlights = false)
     {
-        //Debug.Log("HighlightPlayable remove: "+ removeAllHighlights);
-        foreach (CardLogic cl in hand.CardsInHand)
-        {
-            GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCardID);
-            if (g!=null)
-                g.GetComponent<OneCardManager>().CanBePlayedNow = (cl.CurrentManaCost <= ManaLeft) && !removeAllHighlights;
-        }
 
-        foreach (CreatureLogic crl in table.CreaturesOnTable)
+        foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
-            if (!crl.isDead)
+            if (!cl.isDead)
             {
                 
-                GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
+                GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCreatureID);
                 if(g!= null)
                 //DS
                 {
-                    g.GetComponent<OneCreatureManager>().CanAttackNow = (crl.AttacksLeftThisTurn > 0) && !removeAllHighlights;
-                    
-                    
+                    g.GetComponent<OneCreatureManager>().CanAttackNow = (cl.AttacksLeftThisTurn > 0) && !removeAllHighlights;                                  
                 }
-
-                //DS
-                //insert here script to clear the hand and call the "Hand" or Abilities for the HIghlighted Creature
-                
-                //ClearHand();
-                //DrawAbilityCards(crl);
-
-                //DS
-            }
-            
-           
+            }     
         }   
-        // highlight hero power
-        PArea.HeroPower.Highlighted = (!usedHeroPowerThisTurn) && (ManaLeft > 1) && !removeAllHighlights;
-
-        //DS
-        //HideHand();
     }
 
     //DS

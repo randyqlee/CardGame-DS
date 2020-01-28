@@ -424,6 +424,8 @@ public class CreatureLogic: ICharacter
     // METHODS
     public void OnTurnStart()
     {
+
+        //insert here the creature color command
         
        
         // will be granted by Player
