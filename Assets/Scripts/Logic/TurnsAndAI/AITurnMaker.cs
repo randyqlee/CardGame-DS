@@ -103,7 +103,7 @@ public class AITurnMaker: TurnMaker {
         }
         return false;
     }
-
+/*
     bool UseHeroPower()
     {
         if (p.ManaLeft >= 2 && !p.usedHeroPowerThisTurn)
@@ -116,7 +116,7 @@ public class AITurnMaker: TurnMaker {
         }
         return false;
     }
-
+*/
     bool CanACreatureAttack()
     {
         bool canAttack = false;

@@ -19,10 +19,6 @@ public class Player : MonoBehaviour, ICharacter
     public PlayerArea PArea;
     // a script of type Spell effect that will be used for our hero power
     // (essenitially, using hero power is like playing a spell in a way)
-    public SpellEffect HeroPowerEffect;
-    // a flag not to use hero power twice
-    public bool usedHeroPowerThisTurn = false;
-
 
     //REFERENCCES To enemy and ally creatures (including self)
     public List<CreatureLogic> enemies = new List<CreatureLogic>();
@@ -471,13 +467,6 @@ public class Player : MonoBehaviour, ICharacter
         new GameOverCommand(this).AddToQueue();
     }
 
-    // use hero power - activate is effect like you`ve payed a spell
-    public void UseHeroPower()
-    {
-        ManaLeft -= 2;
-        usedHeroPowerThisTurn = true;
-        HeroPowerEffect.ActivateEffect();
-    }
 
     // METHOD TO SHOW GLOW HIGHLIGHTS
     public void HighlightPlayableCards(bool removeAllHighlights = false)
@@ -556,14 +545,6 @@ public class Player : MonoBehaviour, ICharacter
         PArea.Portrait.charAsset = charAsset;
         PArea.Portrait.ApplyLookFromAsset();
 
-        if (charAsset.HeroPowerName != null && charAsset.HeroPowerName != "")
-        {
-            HeroPowerEffect = System.Activator.CreateInstance(System.Type.GetType(charAsset.HeroPowerName)) as SpellEffect;
-        }
-        else
-        {
-            Debug.LogWarning("Check hero powr name for character " + charAsset.ClassName);
-        }
     }
 
     public void TransmitInfoAboutPlayerToVisual()
