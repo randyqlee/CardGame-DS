@@ -149,7 +149,7 @@ public class DragUltiAttack : DraggingActions {
                 // attack character
                 Debug.Log("Attacking "+Target);
                 Debug.Log("TargetID: " + targetID);
-                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
+//                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
                 targetValid = true;
 
                 //DS - fix, set ThisPreviewEnabled back to True

@@ -7,7 +7,7 @@ public class HeroPowerDrawCardTakeDamage : SpellEffect {
     {
         // Take 2 damage
         //new DealDamageCommand(TurnManager.Instance.whoseTurn.PlayerID, 2, TurnManager.Instance.whoseTurn.Health - 2).AddToQueue();
-        TurnManager.Instance.whoseTurn.Health -= 2;
+//        TurnManager.Instance.whoseTurn.Health -= 2;
         // Draw a card
         TurnManager.Instance.whoseTurn.DrawACard();
 

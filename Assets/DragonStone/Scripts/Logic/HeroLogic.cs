@@ -117,6 +117,7 @@ public class HeroLogic : ICharacter {
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();
     }
 
+/*
     public void GoFace()
     {
         AttacksLeftThisTurn--;
@@ -124,7 +125,7 @@ public class HeroLogic : ICharacter {
         //new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, false).AddToQueue();
         owner.otherPlayer.Health -= Attack;
     }
-
+*/
     public void AttackCreature (HeroLogic target)
     {
         AttacksLeftThisTurn--;

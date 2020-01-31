@@ -72,51 +72,6 @@ public class AITurnMaker: TurnMaker {
         return AttackWithACreature();
     }
 
-    bool PlayACardFromHand()
-    {
-        foreach (CardLogic c in p.hand.CardsInHand)
-        {
-            if (c.CanBePlayed)
-            {
-                if (c.ca.MaxHealth == 0)
-                {
-                    // code to play a spell from hand
-                    // TODO: depending on the targeting options, select a random target.
-                    if (c.ca.Targets == TargetingOptions.NoTarget)
-                    {
-                        p.PlayASpellFromHand(c, null);
-                        InsertDelay(1.5f);
-                        //Debug.Log("Card: " + c.ca.name + " can be played");
-                        return true;
-                    }                        
-                }
-                else
-                {
-                    // it is a creature card
-                    p.PlayACreatureFromHand(c, 0);
-                    InsertDelay(1.5f);
-                    return true;
-                }
-
-            }
-            //Debug.Log("Card: " + c.ca.name + " can NOT be played");
-        }
-        return false;
-    }
-/*
-    bool UseHeroPower()
-    {
-        if (p.ManaLeft >= 2 && !p.usedHeroPowerThisTurn)
-        {
-            // use HP
-            p.UseHeroPower();
-            InsertDelay(1.5f);
-            //Debug.Log("AI used hero power");
-            return true;
-        }
-        return false;
-    }
-*/
     bool CanACreatureAttack()
     {
         bool canAttack = false;

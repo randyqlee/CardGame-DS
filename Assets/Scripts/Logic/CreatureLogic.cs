@@ -579,14 +579,6 @@ public class CreatureLogic: ICharacter
 
     }
 
-    public void GoFace()
-    {
-        AttacksLeftThisTurn--;
-        int targetHealthAfter = owner.otherPlayer.Health - Attack;
-        //new CreatureAttackCommand(owner.otherPlayer.PlayerID, UniqueCreatureID, 0, Attack, Health, targetHealthAfter, CanAttack).AddToQueue();
-        owner.otherPlayer.Health -= Attack;
-    }
-
     public void AttackCreature (CreatureLogic target)
     {
         lastDamageValue = 0;

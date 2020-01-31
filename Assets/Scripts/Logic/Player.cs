@@ -33,12 +33,6 @@ public class Player : MonoBehaviour, ICharacter
 
     // a static array that will store both players, should always have 2 players
     public static Player[] Players;
-
-    // this value used exclusively for our coin spell
-    private int bonusManaThisTurn = 0;
-    private int creatureTurn;
-
-    private List<bool> isDeadStatus = new List<bool>();
     public bool gameIsOver = false;
 
 
@@ -47,6 +41,14 @@ public class Player : MonoBehaviour, ICharacter
     public int ID
     {
         get{ return PlayerID; }
+    }
+
+    public int health;
+
+    public int Health
+    {
+        get{ return health; }
+        set{}
     }
 
     // opponent player
@@ -61,73 +63,11 @@ public class Player : MonoBehaviour, ICharacter
         }
     }
 
-    // total mana crystals that this player has this turn
-    private int manaThisTurn;
-    public int ManaThisTurn
-    {
-        get{ return manaThisTurn;}
-        set
-        {
-            if (value < 0)
-                manaThisTurn = 0;
-            else if (value > PArea.ManaBar.Crystals.Length)
-                manaThisTurn = PArea.ManaBar.Crystals.Length;
-            else
-                manaThisTurn = value;
-            //PArea.ManaBar.TotalCrystals = manaThisTurn;
-            // DS new UpdateManaCrystalsCommand(this, manaThisTurn, manaLeft).AddToQueue();
-        }
-    }
-
-    // full mana crystals available right now to play cards / use hero power 
-    private int manaLeft;
-    public int ManaLeft
-    {
-        get
-        { return manaLeft;}
-        set
-        {
-            if (value < 0)
-                manaLeft = 0;
-            else if (value > PArea.ManaBar.Crystals.Length)
-                manaLeft = PArea.ManaBar.Crystals.Length;
-            else
-                manaLeft = value;
-            
-            //PArea.ManaBar.AvailableCrystals = manaLeft;
-            //DS new UpdateManaCrystalsCommand(this, ManaThisTurn, manaLeft).AddToQueue();
-            //Debug.Log(ManaLeft);
-
-            //DS
-            //comment out
-            //if (TurnManager.Instance.whoseTurn == this)
-            //    HighlightPlayableCards();
-        }
-    }
-
-    private int health;
-
-    public int Health
-    {
-        get { return health;}
-        set
-        {
-            if (value > charAsset.MaxHealth)
-                health = charAsset.MaxHealth;
-            else
-                health = value;
-            
-            //DS
-            // if (value <= 0)
-            //     Die(); 
-        }
-    }
-
     // CODE FOR EVENTS TO LET CREATURES KNOW WHEN TO CAUSE EFFECTS
     public delegate void VoidWithNoArguments();
-    //public event VoidWithNoArguments CreaturePlayedEvent;
-    //public event VoidWithNoArguments SpellPlayedEvent;
-    //public event VoidWithNoArguments StartTurnEvent;
+    public event VoidWithNoArguments CreaturePlayedEvent;
+    public event VoidWithNoArguments SpellPlayedEvent;
+    public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
 
        
@@ -210,20 +150,6 @@ public class Player : MonoBehaviour, ICharacter
     public void OnTurnEnd()
     {
         
-        /* REPLACED with TM.EndTurnCleanup()
-        foreach(CreatureLogic cl in table.CreaturesOnTable)
-        {
-          if(cl.Health<=0 && !cl.isDead)     
-          cl.Die();
-        } 
-
-        foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
-        {
-          if(cl.Health<=0 && !cl.isDead)     
-          cl.Die();    
-        } 
-        */
-
         GetComponent<TurnMaker>().StopAllCoroutines();
         HighlightPlayableCards(true);
         
@@ -232,40 +158,16 @@ public class Player : MonoBehaviour, ICharacter
     public void CheckIfGameOver()
     {
 
-      
-      isDeadStatus.Clear();
-      otherPlayer.isDeadStatus.Clear();
-
-      foreach(CreatureLogic cl in table.CreaturesOnTable){
-          isDeadStatus.Add(cl.isDead);
-
-        
-      } 
-
-      foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable){
-          otherPlayer.isDeadStatus.Add(cl.isDead);    
-
-          
-      } 
-
-        if(!isDeadStatus.Contains(false))
+        if (AllyList().Count <= 0)
+        {
             Die();
-            //return true;
-        else if(!otherPlayer.isDeadStatus.Contains(false))
+        }
+
+        if (EnemyList().Count <= 0)
+        {
             otherPlayer.Die();
-            //return true;
-        
+        }
 
-    }//Check if Game is Over
-
-    // STUFF THAT OUR PLAYER CAN DO
-
-    // get mana from coin or other spells 
-    public void GetBonusMana(int amount)
-    {
-        bonusManaThisTurn += amount;
-        ManaThisTurn += amount;
-        ManaLeft += amount;
     }
 
     // FOR TESTING ONLY
@@ -376,7 +278,7 @@ public class Player : MonoBehaviour, ICharacter
     // this method is called from Logic, for example by AI
     public void PlayASpellFromHand(CardLogic playedCard, ICharacter target)
     {
-        ManaLeft -= playedCard.CurrentManaCost;
+ //       ManaLeft -= playedCard.CurrentManaCost;
         // cause effect instantly:
         if (playedCard.effect != null)
             playedCard.effect.ActivateEffect(playedCard.ca.specialSpellAmount, target);
@@ -525,14 +427,7 @@ public class Player : MonoBehaviour, ICharacter
     //DS
 */
     // START GAME METHODS
-    public void LoadCharacterInfoFromAsset()
-    {
-        Health = charAsset.MaxHealth;
-        // change the visuals for portrait, hero power, etc...
-        PArea.Portrait.charAsset = charAsset;
-        PArea.Portrait.ApplyLookFromAsset();
 
-    }
 
     public void TransmitInfoAboutPlayerToVisual()
     {

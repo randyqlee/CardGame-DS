@@ -22,7 +22,7 @@ public class BiteOwner : CreatureEffect
     {
         //Debug.Log("InCauseEffect: owner: "+ owner + " creatureEffectCooldown: "+ creatureEffectCooldown);
         //new DealDamageCommand(owner.PlayerID, creatureEffectCooldown, owner.Health - creatureEffectCooldown).AddToQueue();
-        owner.Health -= creatureEffectCooldown;
+//        owner.Health -= creatureEffectCooldown;
     }
 
 
