@@ -43,14 +43,6 @@ public class Player : MonoBehaviour, ICharacter
         get{ return PlayerID; }
     }
 
-    public int health;
-
-    public int Health
-    {
-        get{ return health; }
-        set{}
-    }
-
     // opponent player
     public Player otherPlayer
     {
@@ -63,11 +55,27 @@ public class Player : MonoBehaviour, ICharacter
         }
     }
 
+//ONLY NEEDED DUE TO INTERFACE
+    private int health;
+
+    public int Health
+    {
+        get { return health;}
+        set
+        {
+            if (value > charAsset.MaxHealth)
+                health = charAsset.MaxHealth;
+            else
+                health = value;
+
+        }
+    }
+
     // CODE FOR EVENTS TO LET CREATURES KNOW WHEN TO CAUSE EFFECTS
     public delegate void VoidWithNoArguments();
-    public event VoidWithNoArguments CreaturePlayedEvent;
-    public event VoidWithNoArguments SpellPlayedEvent;
-    public event VoidWithNoArguments StartTurnEvent;
+    //public event VoidWithNoArguments CreaturePlayedEvent;
+    //public event VoidWithNoArguments SpellPlayedEvent;
+    //public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
 
        
@@ -150,6 +158,20 @@ public class Player : MonoBehaviour, ICharacter
     public void OnTurnEnd()
     {
         
+        /* REPLACED with TM.EndTurnCleanup()
+        foreach(CreatureLogic cl in table.CreaturesOnTable)
+        {
+          if(cl.Health<=0 && !cl.isDead)     
+          cl.Die();
+        } 
+
+        foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
+        {
+          if(cl.Health<=0 && !cl.isDead)     
+          cl.Die();    
+        } 
+        */
+
         GetComponent<TurnMaker>().StopAllCoroutines();
         HighlightPlayableCards(true);
         
@@ -158,17 +180,12 @@ public class Player : MonoBehaviour, ICharacter
     public void CheckIfGameOver()
     {
 
-        if (AllyList().Count <= 0)
+        if (AllyList().Count == 0)
         {
             Die();
         }
 
-        if (EnemyList().Count <= 0)
-        {
-            otherPlayer.Die();
-        }
-
-    }
+    }//Check if Game is Over
 
     // FOR TESTING ONLY
     void Update()
@@ -255,44 +272,6 @@ public class Player : MonoBehaviour, ICharacter
     // 2 METHODS FOR PLAYING SPELLS
     // 1st overload - takes ids as arguments
     // it is cnvenient to call this method from visual part
-    public void PlayASpellFromHand(int SpellCardUniqueID, int TargetUniqueID)
-    {
-        if (TargetUniqueID < 0)
-            PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], null);
-        else if (TargetUniqueID == ID)
-        {
-            PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], this);
-        }
-        else if (TargetUniqueID == otherPlayer.ID)
-        {
-            PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], this.otherPlayer);
-        }
-        else
-        {
-            // target is a creature
-            //PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], CreatureLogic.CreaturesCreatedThisGame[TargetUniqueID]);
-        }          
-    }
-
-    // 2nd overload - takes CardLogic and ICharacter interface - 
-    // this method is called from Logic, for example by AI
-    public void PlayASpellFromHand(CardLogic playedCard, ICharacter target)
-    {
- //       ManaLeft -= playedCard.CurrentManaCost;
-        // cause effect instantly:
-        if (playedCard.effect != null)
-            playedCard.effect.ActivateEffect(playedCard.ca.specialSpellAmount, target);
-        else
-        {
-            Debug.LogWarning("No effect found on card " + playedCard.ca.name);
-        }
-        // no matter what happens, move this card to PlayACardSpot
-        new PlayASpellCardCommand(this, playedCard).AddToQueue();
-        // remove this card from hand
-        hand.CardsInHand.Remove(playedCard);
-        // check if this is a creature or a spell
-    }
-
 
     // METHODS TO PLAY CREATURES 
     // 1st overload - by ID
@@ -427,7 +406,14 @@ public class Player : MonoBehaviour, ICharacter
     //DS
 */
     // START GAME METHODS
+    public void LoadCharacterInfoFromAsset()
+    {
+        Health = charAsset.MaxHealth;
+        // change the visuals for portrait, hero power, etc...
+        PArea.Portrait.charAsset = charAsset;
+        PArea.Portrait.ApplyLookFromAsset();
 
+    }
 
     public void TransmitInfoAboutPlayerToVisual()
     {

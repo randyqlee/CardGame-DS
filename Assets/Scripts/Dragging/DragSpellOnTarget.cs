@@ -115,13 +115,13 @@ public class DragSpellOnTarget : DraggingActions {
             switch (Targets)
             {
                 case TargetingOptions.AllCharacters: 
-                    owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+//                    owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                     targetValid = true;
                     break;
                 case TargetingOptions.AllCreatures:
                     if (Target.tag.Contains("Creature"))
                     {
-                        owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+//                        owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                         targetValid = true;
                     }
                     break;
@@ -132,7 +132,7 @@ public class DragSpellOnTarget : DraggingActions {
                         if ((tag.Contains("Low") && Target.tag.Contains("Top"))
                            || (tag.Contains("Top") && Target.tag.Contains("Low")))
                         {
-                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+///                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
                         }
                     }
@@ -144,7 +144,7 @@ public class DragSpellOnTarget : DraggingActions {
                         if ((tag.Contains("Low") && Target.tag.Contains("Top"))
                             || (tag.Contains("Top") && Target.tag.Contains("Low")))
                         {
-                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+//                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
                         }
                     }
@@ -156,7 +156,7 @@ public class DragSpellOnTarget : DraggingActions {
                         if ((tag.Contains("Low") && Target.tag.Contains("Low"))
                             || (tag.Contains("Top") && Target.tag.Contains("Top")))
                         {
-                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+//                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
                         }
                     }
@@ -168,7 +168,7 @@ public class DragSpellOnTarget : DraggingActions {
                         if ((tag.Contains("Low") && Target.tag.Contains("Low"))
                             || (tag.Contains("Top") && Target.tag.Contains("Top")))
                         {
-                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
+//                            owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
                         }
                     }
