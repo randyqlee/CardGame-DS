@@ -26,7 +26,7 @@ public class ExtraTurn : BuffEffect {
     public void Extraturn()
     {
         TurnManager.Instance.TurnCounter++;
-        target.owner.ExtraCreatureTurn = 1;
+//        target.owner.ExtraCreatureTurn = 1;
 
         Debug.Log("Extra Turn! ");
     }

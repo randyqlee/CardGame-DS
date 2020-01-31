@@ -37,19 +37,6 @@ public class Player : MonoBehaviour, ICharacter
     // this value used exclusively for our coin spell
     private int bonusManaThisTurn = 0;
     private int creatureTurn;
-    private int extraCreatureTurn=0;
-
-    public int ExtraCreatureTurn
-    {
-        get{return extraCreatureTurn;}
-        set{
-            if(value >= 1)
-            extraCreatureTurn = 1;
-            else
-            extraCreatureTurn = 0;
-        }
-    }
-
 
     private List<bool> isDeadStatus = new List<bool>();
     public bool gameIsOver = false;
