@@ -115,12 +115,8 @@ public class Player : MonoBehaviour, ICharacter
     {
 
         foreach (CreatureLogic cl in table.CreaturesOnTable)  
-        if (!cl.isDead)   
         {   
-
-             cl.OnTurnStart();
-
-            
+             cl.OnTurnStart();            
         }
         isRoundOver = false;
     }
@@ -128,27 +124,32 @@ public class Player : MonoBehaviour, ICharacter
 
     public virtual void OnTurnStart()
     {
+        PArea.ControlsON = true;
 
+        //check if Round is over
         if (isRoundOver)
         {
             OnReset();
-
         }
 
+        //flag to test if a CL is active for a player for this turn. if none, end player's turn
         bool hasActiveCL = false;
 
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
             if (cl.isActive && cl.AttacksLeftThisTurn > 0)
+            {
                 hasActiveCL = true;
+                break;
+            }
         }
 
+        //if no active CL for the player, end turn
         if(!hasActiveCL)
             new EndTurnCommand().AddToQueue();
 
-        else
+        else //highlight playable creatures
         {
-            //DS
             HighlightPlayableCards();
         }
     }
@@ -158,29 +159,17 @@ public class Player : MonoBehaviour, ICharacter
     public void OnTurnEnd()
     {
         
-        /* REPLACED with TM.EndTurnCleanup()
-        foreach(CreatureLogic cl in table.CreaturesOnTable)
-        {
-          if(cl.Health<=0 && !cl.isDead)     
-          cl.Die();
-        } 
-
-        foreach(CreatureLogic cl in otherPlayer.table.CreaturesOnTable)
-        {
-          if(cl.Health<=0 && !cl.isDead)     
-          cl.Die();    
-        } 
-        */
-
         GetComponent<TurnMaker>().StopAllCoroutines();
         HighlightPlayableCards(true);
+        PArea.ControlsON = false;
+
         
     }
 
     public void CheckIfGameOver()
     {
 
-        if (AllyList().Count == 0)
+        if (table.CreaturesOnTable.Count == 0)
         {
             Die();
         }
@@ -197,12 +186,6 @@ public class Player : MonoBehaviour, ICharacter
     // draw a single card from the deck
     public void DrawACard(bool fast = false)
     {
-
-
-
-
-
-
         if (deck.cards.Count > 0)
         {
             if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
@@ -215,11 +198,7 @@ public class Player : MonoBehaviour, ICharacter
                 // 2) logic: remove the card from the deck
                 deck.cards.RemoveAt(0);
                 // 2) create a command
-                new DrawACardCommand(hand.CardsInHand[0], this, fast, fromDeck: true).AddToQueue(); 
-
-                
-
-                
+                new DrawACardCommand(hand.CardsInHand[0], this, fast, fromDeck: true).AddToQueue();                 
             }
         }
         else
@@ -228,46 +207,6 @@ public class Player : MonoBehaviour, ICharacter
         }
        
     }
-
-    // get card NOT from deck (a token or a coin)
-
-//DS COMMENT OUT GETACARDNOTFROMDECK
-
-/*
-    public void GetACardNotFromDeck(CardAsset cardAsset)
-    {
-        if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
-        {
-            // 1) logic: add card to hand
-            CardLogic newCard = new CardLogic(cardAsset);
-            newCard.owner = this;
-            hand.CardsInHand.Insert(0, newCard);
-
-            // 2) send message to the visual Deck
-            new DrawACardCommand(hand.CardsInHand[0], this, fast: true, fromDeck: false).AddToQueue(); 
-        }
-        // no removal from deck because the card was not in the deck
-    }
-
-    //DS
-    //overload of GetACardNotFromDeck
-    public void GetACardNotFromDeck(CardAsset cardAsset, int heroID)
-    {
-        if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
-        {
-            // 1) logic: add card to hand
-            CardLogic newCard = new CardLogic(cardAsset);
-            newCard.owner = this;
-            newCard.heroID = heroID;
-            hand.CardsInHand.Insert(0, newCard);
-
-            // 2) send message to the visual Deck
-            new DrawACardCommand(hand.CardsInHand[0], this, fast: true, fromDeck: false).AddToQueue(); 
-        }
-        // no removal from deck because the card was not in the deck
-    }
-*/
-
 
     // 2 METHODS FOR PLAYING SPELLS
     // 1st overload - takes ids as arguments
@@ -325,9 +264,6 @@ public class Player : MonoBehaviour, ICharacter
         // block both players from taking new moves 
         gameIsOver = true;
 
-        
-
-
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;
 
@@ -342,69 +278,15 @@ public class Player : MonoBehaviour, ICharacter
 
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
-            if (!cl.isDead)
+            GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCreatureID);
+            if(g!= null)
+            //DS
             {
-                
-                GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCreatureID);
-                if(g!= null)
-                //DS
-                {
-                    g.GetComponent<OneCreatureManager>().CanAttackNow = (cl.AttacksLeftThisTurn > 0) && !removeAllHighlights;                                  
-                }
-            }     
+                g.GetComponent<OneCreatureManager>().CanAttackNow = (cl.AttacksLeftThisTurn > 0) && !removeAllHighlights && PArea.ControlsON;                                  
+            }
         }   
     }
 
-    //DS
-
-    public void HideHand()
-    {
-        foreach(OneCardManager card in PArea.handVisual.slots.GetComponentsInChildren<OneCardManager>())
-        {
-            card.gameObject.GetComponentInChildren<Canvas>().gameObject.GetComponent<Canvas>().enabled = false;
-        }
-
-    }
-
-    public void ShowHand(CreatureLogic crl)
-    {
-        foreach(CardLogic cl in hand.CardsInHand)
-        {
-            if(cl.heroID == crl.UniqueCreatureID)
-            {
-                foreach(OneCardManager card in PArea.handVisual.slots.GetComponentsInChildren<OneCardManager>())
-                {
-                    if(card.gameObject.GetComponent<IDHolder>().UniqueID == cl.UniqueCardID)
-                        card.gameObject.GetComponentInChildren<Canvas>().gameObject.GetComponent<Canvas>().enabled = true;
-                }
-
-            }
-        }
-    }
-
-    public void ClearHand()
-    {
-        foreach(CardLogic cl in hand.CardsInHand)
-        {
-            new PlayASpellCardCommand(this, cl).AddToQueue();
-            hand.CardsInHand.Remove(cl);
-        }
-    }
-    //DS
-
-    //DS
-/*
-    public void DrawAbilityCards(CreatureLogic crl)
-    {
-    
-        foreach (CardAsset ca in crl.abilities)
-        {
-            
-           GetACardNotFromDeck(ca,crl.UniqueCreatureID);
-        }
-    }
-    //DS
-*/
     // START GAME METHODS
     public void LoadCharacterInfoFromAsset()
     {
@@ -433,70 +315,43 @@ public class Player : MonoBehaviour, ICharacter
 
     public List<CreatureLogic> EnemyList()
     {
-        enemies.Clear();
-
-        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
-       {
-           CreatureLogic value = creature.Value;
-           if(value.owner != this && !value.isDead && !value.isEquip)
-           {
-               enemies.Add(value);
-           }                     
-       }
-
-       return enemies;
+        return otherPlayer.table.CreaturesOnTable;
     }
 
     public List<CreatureLogic> AllyList()
     {
-        allies.Clear();
-
-        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
-       {
-           CreatureLogic value = creature.Value;
-           if(value.owner == this && !value.isDead && !value.isEquip)
-           {
-               allies.Add(value);
-           }                     
-       }
-
-       return allies;
+        return table.CreaturesOnTable;
     }
 
     public CreatureLogic GetRandomAlly (CreatureLogic exclude = null)
     {
-        if (exclude == null)
-        {
-            int i = Random.Range(0,AllyList().Count);
-            return AllyList()[i];
-        }
-        else
-        {
-            int i = Random.Range(0,AllyList().Count);
-            while (AllyList()[i] == exclude)
-            {
-                i = Random.Range(0,AllyList().Count);
-            }
-            return AllyList()[i];
-        }
+        return GetRandomCreatureFromList (AllyList(), exclude);
     }
 
     public List<CreatureLogic> DeadAllyList()
     {
-        deadAllies.Clear();
-
-        foreach(KeyValuePair<int, CreatureLogic> creature in CreatureLogic.CreaturesCreatedThisGame)
-       {
-           CreatureLogic value = creature.Value;
-           if(value.owner == this && value.isDead && !value.isEquip)
-           {
-               deadAllies.Add(value);
-           }                     
-       }
-
-       return deadAllies;
+        return table.CreaturesOnGraveyard;
     }
 
+    public CreatureLogic GetRandomCreatureFromList (List<CreatureLogic> creatures, CreatureLogic exclude = null)
+    {
+        if (exclude == null)
+        {
+            int i = Random.Range(0,creatures.Count);
+            return creatures[i];
+        }
+
+        else
+        {
+            int i = Random.Range(0,creatures.Count);
+            while (creatures[i] == exclude)
+            {
+                i = Random.Range(0,creatures.Count);
+            }
+            return creatures[i];
+        }
+
+    }
     public List<CreatureLogic> SortAllyListByHealth()
     {
         var returnList = AllyList();

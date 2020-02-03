@@ -27,12 +27,13 @@ public class EndTurnCommand : Command
             //new ShowMessageCommand("End Turn!", GlobalSettings.Instance.MessageTime).AddToQueue();
             //TurnManager.Instance.EndTurn();  
             
-            Command.CommandExecutionComplete();
+           // Command.CommandExecutionComplete();
         }
         
         );
 
         TurnManager.Instance.EndTurn();  
+        Command.CommandExecutionComplete();
             
         
     }

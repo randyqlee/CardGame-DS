@@ -183,6 +183,7 @@ public class TurnManager : MonoBehaviour {
         yield return null;
 
         //initialize creature effectes
+        /* transfer this to CL
         foreach (Player player in Player.Players)
         {                    
             
@@ -204,6 +205,7 @@ public class TurnManager : MonoBehaviour {
                 cl.OnTurnStart();
             }
         }
+        */
         //DS
         //Display skills panel of player only
 

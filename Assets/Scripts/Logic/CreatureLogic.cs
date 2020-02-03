@@ -339,35 +339,7 @@ public class CreatureLogic: ICharacter
         //Name = this.GetType().Name.ToString();
         Name = ca.cardName;
 
-       
-        //DS
-        //Add activator for abilities
-
-        /* Replace with Abilities SO
-        if (ca.abilityEffect != null)
-        {
-            foreach (AbilityEffect ae in ca.abilityEffect)
-            {
-                if (ae.CreatureScriptName != null && ae.CreatureScriptName != "")
-                {
-                    effect = System.Activator.CreateInstance(System.Type.GetType(ae.CreatureScriptName), new System.Object[]{owner, this, ae.coolDown}) as CreatureEffect;
-                    effect.RegisterCooldown();
-                    effect.RegisterEventEffect();
-
-                    if (ae.abilityImage != null)
-                    effect.abilityPreviewSprite = ae.abilityImage;
-                    effect.abilityDescription = ae.abilityDescription;
-
-                    creatureEffects.Add(effect);
-
-                   
-                   
-                    
-                }
-            }
-        }
-        */
-
+        //attach ability scripts to CL
         if (ca.Abilities != null)
         {
             foreach (AbilityAsset ae in ca.Abilities)
@@ -391,32 +363,25 @@ public class CreatureLogic: ICharacter
             }
         }
 
-
-//for Equip
-/*
-        if (ca.equipAbility != null)
-        {
-            if (ca.equipAbility.abilityEffect != null && ca.equipAbility.abilityEffect != "")
-            {
-                effect = System.Activator.CreateInstance(System.Type.GetType(ca.equipAbility.abilityEffect), new System.Object[]{owner,this}) as CreatureEffect;
-                //effect.RegisterCooldown();
-                //effect.RegisterEventEffect();
-
-                if (ca.equipAbility.icon != null)
-                effect.abilityPreviewSprite = ca.equipAbility.icon;
-                effect.abilityDescription = ca.equipAbility.description;
-
-                equipEffect = effect;
-
-            }
-        }
-        */
-
-
-
-        //DS
-
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
+
+        //initialize creature effects
+
+        foreach (CreatureEffect ce in creatureEffects)
+        {
+            ce.RegisterCooldown();
+            ce.RegisterEventEffect();
+
+            //DS Test: 24 Nov 2019. Initialize Ultimate Skill CD to 1.  
+            if(ce.skillType == SkillType.Ultimate)
+            {
+                ce.remainingCooldown = 1;
+                new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
+            }
+            
+        }
+
+
 
     }
 
