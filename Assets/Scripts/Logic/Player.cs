@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour, ICharacter
 {
-
     //DS
     public bool isRoundOver;
-
 
     // PUBLIC FIELDS
     // int ID that we get from ID factory
@@ -20,11 +18,6 @@ public class Player : MonoBehaviour, ICharacter
     // a script of type Spell effect that will be used for our hero power
     // (essenitially, using hero power is like playing a spell in a way)
 
-    //REFERENCCES To enemy and ally creatures (including self)
-    public List<CreatureLogic> enemies = new List<CreatureLogic>();
-    public List<CreatureLogic> allies = new List<CreatureLogic>();
-
-    public List<CreatureLogic> deadAllies = new List<CreatureLogic>();
 
     // REFERENCES TO LOGICAL STUFF THAT BELONGS TO THIS PLAYER
     public Deck deck;
@@ -67,7 +60,6 @@ public class Player : MonoBehaviour, ICharacter
                 health = charAsset.MaxHealth;
             else
                 health = value;
-
         }
     }
 
@@ -89,7 +81,6 @@ public class Player : MonoBehaviour, ICharacter
         Players = GameObject.FindObjectsOfType<Player>();
         // obtain unique id from IDFactory
         PlayerID = IDFactory.GetUniqueID();
-
         isRoundOver = true;
     }
 
@@ -113,7 +104,6 @@ public class Player : MonoBehaviour, ICharacter
 
     public void OnReset()
     {
-
         foreach (CreatureLogic cl in table.CreaturesOnTable)  
         {   
              cl.OnTurnStart();            
@@ -134,7 +124,6 @@ public class Player : MonoBehaviour, ICharacter
 
         //flag to test if a CL is active for a player for this turn. if none, end player's turn
         bool hasActiveCL = false;
-
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
             if (cl.isActive && cl.AttacksLeftThisTurn > 0)
@@ -143,11 +132,9 @@ public class Player : MonoBehaviour, ICharacter
                 break;
             }
         }
-
         //if no active CL for the player, end turn
         if(!hasActiveCL)
             new EndTurnCommand().AddToQueue();
-
         else //highlight playable creatures
         {
             HighlightPlayableCards();
@@ -158,12 +145,9 @@ public class Player : MonoBehaviour, ICharacter
 
     public void OnTurnEnd()
     {
-        
         GetComponent<TurnMaker>().StopAllCoroutines();
         HighlightPlayableCards(true);
         PArea.ControlsON = false;
-
-        
     }
 
     public void CheckIfGameOver()
@@ -223,14 +207,11 @@ public class Player : MonoBehaviour, ICharacter
     public void PlayACreatureFromHand(CardLogic playedCard, int tablePos)
     {
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
-
         table.CreaturesOnTable.Insert(tablePos, newCreature);
-
         new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
 
         if (newCreature.isEquip)
         {
-        
             if (newCreature.effect != null)
                 newCreature.effect.WhenACreatureIsPlayed();
         }
@@ -240,33 +221,24 @@ public class Player : MonoBehaviour, ICharacter
     public void PlayEquipCreatureFromHand(CardLogic playedCard)
     {
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
-
         newCreature.isEquip = true;
-
         if (newCreature.isEquip)
         {
-        
             if (newCreature.equipEffect != null)
             {
-      
-            
                 newCreature.equipEffect.WhenACreatureIsPlayed();
             }
         }
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
-
-
     }
     public void Die()
     {
         // game over
         // block both players from taking new moves 
         gameIsOver = true;
-
         PArea.ControlsON = false;
         otherPlayer.PArea.ControlsON = false;
-
         TurnManager.Instance.StopTheTimer();
         new GameOverCommand(this).AddToQueue();
     }
@@ -275,7 +247,6 @@ public class Player : MonoBehaviour, ICharacter
     // METHOD TO SHOW GLOW HIGHLIGHTS
     public void HighlightPlayableCards(bool removeAllHighlights = false)
     {
-
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
             GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCreatureID);
@@ -294,7 +265,6 @@ public class Player : MonoBehaviour, ICharacter
         // change the visuals for portrait, hero power, etc...
         PArea.Portrait.charAsset = charAsset;
         PArea.Portrait.ApplyLookFromAsset();
-
     }
 
     public void TransmitInfoAboutPlayerToVisual()
@@ -340,7 +310,6 @@ public class Player : MonoBehaviour, ICharacter
             int i = Random.Range(0,creatures.Count);
             return creatures[i];
         }
-
         else
         {
             int i = Random.Range(0,creatures.Count);
@@ -350,16 +319,12 @@ public class Player : MonoBehaviour, ICharacter
             }
             return creatures[i];
         }
-
     }
     public List<CreatureLogic> SortAllyListByHealth()
     {
         var returnList = AllyList();
-
         returnList.Sort(CompareListByHealth);
-
         return returnList;
-
     }
 
     private static int CompareListByHealth(CreatureLogic i1, CreatureLogic i2)

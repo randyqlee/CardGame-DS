@@ -42,7 +42,7 @@ public class GrantLife : CreatureEffect
 
                     int i = Random.Range(0,owner.DeadAllyList().Count);
                     
-                    CreatureLogic ally = owner.deadAllies[i];
+                    CreatureLogic ally = owner.DeadAllyList()[i];
 
                     ShowAbility();
                     ally.Revive();

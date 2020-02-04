@@ -24,5 +24,7 @@ public class CreatureDieCommand : Command
         p.table.CreaturesOnGraveyard.Add(CreatureLogic.CreaturesCreatedThisGame[DeadCreatureID]);
 
         p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);
+
+        Command.CommandExecutionComplete();
     }
 }
