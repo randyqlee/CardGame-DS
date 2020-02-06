@@ -212,8 +212,8 @@ public class Player : MonoBehaviour, ICharacter
 
         if (newCreature.isEquip)
         {
-            if (newCreature.effect != null)
-                newCreature.effect.WhenACreatureIsPlayed();
+            //if (newCreature.effect != null)
+            //    newCreature.effect.WhenACreatureIsPlayed();
         }
         hand.CardsInHand.Remove(playedCard);
     }

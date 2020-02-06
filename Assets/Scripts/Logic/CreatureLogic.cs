@@ -9,9 +9,8 @@ public class CreatureLogic: ICharacter
     public Player owner;
     public string Name;
     public CardAsset ca;
-    public CreatureEffect effect;
+    //public CreatureEffect effect;
     public int UniqueCreatureID;
-    public bool Frozen = false;
     public bool isDead;
 
     public bool isActive;  
@@ -165,7 +164,7 @@ public class CreatureLogic: ICharacter
         get
         {
             bool ownersTurn = (TurnManager.Instance.whoseTurn == owner);
-            return (ownersTurn && (AttacksLeftThisTurn > 0) && !Frozen);
+            return (ownersTurn && (AttacksLeftThisTurn > 0));
         }
         set{}
         
@@ -347,7 +346,7 @@ public class CreatureLogic: ICharacter
                 if (ae.abilityEffect != null && ae.abilityEffect != "")
                 {
                     
-                    effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+                    CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
                     
                     //effect.RegisterCooldown();
                     //effect.RegisterEventEffect();
@@ -485,14 +484,14 @@ public class CreatureLogic: ICharacter
         
         foreach(CreatureEffect ce in creatureEffects)
         {
-            if(effect !=null)
-            {
+            //if(effect !=null)
+            //{
                 ce.remainingCooldown = ce.creatureEffectCooldown; 
 
                 ce.WhenACreatureDies();
                 ce.UnRegisterEventEffect();
                 ce.UnregisterCooldown();                                   
-            }
+            //}
         }        
             
         //if(!hasResurrect)
@@ -526,12 +525,12 @@ public class CreatureLogic: ICharacter
 
             foreach(CreatureEffect ce in creatureEffects)
             {
-                if(effect !=null)
-                {
+                //if(effect !=null)
+                //{
                     ce.remainingCooldown = ce.creatureEffectCooldown;
                     ce.RegisterCooldown();
                     ce.RegisterEventEffect();                                
-                }
+                //}
             }
 
             
