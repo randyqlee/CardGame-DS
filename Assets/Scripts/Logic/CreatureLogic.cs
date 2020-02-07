@@ -9,107 +9,59 @@ public class CreatureLogic: ICharacter
     public Player owner;
     public string Name;
     public CardAsset ca;
-    //public CreatureEffect effect;
     public int UniqueCreatureID;
-    public bool isDead;
 
-    public bool isActive;  
-
-    [HideInInspector]
-    public BuffEffect testBuff;
-/*    
-    {
-        get{ return isActiveValue; }
-
-        set
-        {
-            isActiveValue = value;
-            GameObject g = IDHolder.GetGameObjectWithID(UniqueCreatureID);
-            if (g!= null)
-            {
-                g.GetComponent<OneCreatureManager>().IsActive = isActiveValue;
-            }
-        }
-    }
-*/
-
-
-    public int chance;
-
-    public bool isEquip = false;
-
-    //DS
-    //Adding Abilities
-    public List<AbilityAsset> abilities; 
-
-    public AbilityAsset equipAbility;   
-    
+    //storage for creature effects    
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
     public CreatureEffect equipEffect;
 
     public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
 
-    //public List<CreatureEffect> creatureEffects; 
+    // delegates
 
-    //public List<BuffEffect> buffEffects;
 
-    public delegate void CreatureOnTurnStart();    
-    public event CreatureOnTurnStart e_CreatureOnTurnStart;
+    public bool isDead;
 
-    public delegate void PreAttackEvent(CreatureLogic target);    
-    public event PreAttackEvent e_PreAttackEvent;
+    public bool isActive;  
 
-    public delegate void CreatureOnTurnEnd();    
-    public event CreatureOnTurnEnd e_CreatureOnTurnEnd;   
+    [HideInInspector]
+    //public BuffEffect testBuff;
 
-    public delegate void ThisCreatureDies(CreatureLogic creature);    
-    public event ThisCreatureDies e_ThisCreatureDies;
+    public int chance;
 
-    public delegate void IsAttacked(CreatureLogic creature);    
-    public event IsAttacked e_IsAttacked;
+    public bool isEquip = false;
 
-    public delegate void PreDealDamage(CreatureLogic source);    
-    public event PreDealDamage e_PreDealDamage;
 
-    public delegate void IsAttackedBy(CreatureLogic source);    
-    public event IsAttackedBy e_IsAttackedBy;
+
+    public delegate void VoidWithNoArguments();
+    public event VoidWithNoArguments e_CreatureOnTurnStart;
+    public event VoidWithNoArguments e_CreatureOnTurnEnd;   
+    public event VoidWithNoArguments e_IsComputeDamage;     
+
+
+    public delegate void VoidWithCL(CreatureLogic cl);
+    public event VoidWithCL e_PreAttackEvent;
+    public event VoidWithCL e_BeforeAttacking; 
+    public event VoidWithCL e_PreDealDamage;
+    public event VoidWithCL e_AfterAttacking; 
+    public event VoidWithCL e_SecondAttack; 
+    public event VoidWithCL e_IsAttacked;
+    public event VoidWithCL e_IsAttackedBy;
+    public event VoidWithCL e_ThisCreatureDies;
 
     public delegate void IsDamagedByAttack(CreatureLogic source, CreatureLogic target, int damage);    
     public event IsDamagedByAttack e_IsDamagedByAttack;
 
-
-    public delegate void IsComputeDamage();    
-    public event IsComputeDamage e_IsComputeDamage;     
-
-    public delegate void BeforeAttacking(CreatureLogic target);    
-    public event BeforeAttacking e_BeforeAttacking; 
-    
-    public delegate void AfterAttacking(CreatureLogic target);    
-    public event AfterAttacking e_AfterAttacking; 
-
-    public delegate void SecondAttack(CreatureLogic target);    
-    public event SecondAttack e_SecondAttack; 
-    
     public delegate void BuffApplied(CreatureLogic Target, BuffEffect buff);    
     public event BuffApplied e_buffApplied;     
-    //Debuff flags
-    public bool isAttacked;   
-    
+
     
     // PROPERTIES
     // property from ICharacter interface
     public int ID
     {
         get{ return UniqueCreatureID; }
-    }
-        
-    // the basic health that we have in CardAsset
-    private int baseHealth;
-    // health with all the current buffs taken into account
-    public int MaxHealth
-    {
-        get{ return baseHealth;}
     }
 
     // current health of this creature
@@ -129,68 +81,58 @@ public class CreatureLogic: ICharacter
                 health = value;
         }
     }
+        
+    // the basic health that we have in CardAsset
+    private int baseHealth;
+    // health with all the current buffs taken into account
+    public int MaxHealth
+    {
+        get{ return baseHealth;}
+    }
 
     private int armor;
     public int Armor
     {
         get{ return armor; }
-
         set
         {
             if (value <= 0)
             {
                 armor = 0;
-                value = armor;
-
-                new UpdateArmorCommand(ID, value).AddToQueue();                   
-                //this.DestroyArmor();
-            }                
-                
+                value = armor;                 
+            }                             
             else
             {
                 armor = value;
-                new UpdateArmorCommand(ID, value).AddToQueue();
             }
-                
-
-            
+            new UpdateArmorCommand(ID, value).AddToQueue();                         
         }
     }
 
     // returns true if we can attack with this creature now
     public bool CanAttack
     {
-
         get
         {
             bool ownersTurn = (TurnManager.Instance.whoseTurn == owner);
             return (ownersTurn && (AttacksLeftThisTurn > 0));
-        }
-        set{}
-        
-        
+        }    
     }
 
-    
     // property for Attack
     private int baseAttack;
     public int Attack
     {
         get{ return baseAttack; }
-
         set{ baseAttack = value;}
     }
      
     // number of attacks for one turn if (attacksForOneTurn==2) => Windfury
     public int attacksForOneTurn = 1;
-
     private int attacksLeftThisTurn;
     public int AttacksLeftThisTurn
     {
-        get{
-            return attacksLeftThisTurn;
-        }
-
+        get{return attacksLeftThisTurn;}
         set{
             if(value < 0)
                 attacksLeftThisTurn = 0;
@@ -211,7 +153,6 @@ public class CreatureLogic: ICharacter
         }
     }
 
-
     private int criticalFactor = 1;
     public float CriticalChance
     {
@@ -221,8 +162,6 @@ public class CreatureLogic: ICharacter
                 criticalFactor = 1;
             else
                 criticalFactor = 2;
-
-            Debug.Log("CritFactor: " + criticalFactor);
         }
     }
 
@@ -313,15 +252,9 @@ public class CreatureLogic: ICharacter
     public CreatureLogic(Player owner, CardAsset ca)
     {
 
-        
-        
         this.ca = ca;
 
-        //DS
-        abilities = ca.Abilities;
-        equipAbility = ca.equipAbility;
         chance = ca.Chance;
-
 
         baseHealth = ca.MaxHealth;
         Health = ca.MaxHealth;
