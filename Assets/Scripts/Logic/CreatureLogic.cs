@@ -50,11 +50,11 @@ public class CreatureLogic: ICharacter
     public event VoidWithCL e_IsAttackedBy;
     public event VoidWithCL e_ThisCreatureDies;
 
-    public delegate void IsDamagedByAttack(CreatureLogic source, CreatureLogic target, int damage);    
-    public event IsDamagedByAttack e_IsDamagedByAttack;
+    public delegate void VoidWithCL_CL_int(CreatureLogic source, CreatureLogic target, int damage);    
+    public event VoidWithCL_CL_int e_IsDamagedByAttack;
 
-    public delegate void BuffApplied(CreatureLogic Target, BuffEffect buff);    
-    public event BuffApplied e_buffApplied;     
+    public delegate void VoidWithCL_BE(CreatureLogic Target, BuffEffect buff);    
+    public event VoidWithCL_BE e_buffApplied;     
 
     
     // PROPERTIES
