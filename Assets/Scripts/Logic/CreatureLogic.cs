@@ -23,7 +23,24 @@ public class CreatureLogic: ICharacter
 
     public bool isDead;
 
-    public bool isActive;  
+    public bool isActive; 
+
+    public bool IsActive
+    {
+        get {return isActive;}
+        set
+        {
+            isActive = value;
+            if (!isActive)
+            {
+                new CreatureColorCommand(this,true).AddToQueue();
+            }
+            else
+                new CreatureColorCommand(this,false).AddToQueue();
+
+
+        }
+    } 
 
     [HideInInspector]
     //public BuffEffect testBuff;
@@ -313,72 +330,34 @@ public class CreatureLogic: ICharacter
             
         }
 
-
-
     }
 
     
     // METHODS
     public void OnTurnStart()
     {
-
-        //insert here the creature color command
-        
-       
-        // will be granted by Player
-
-        isActive = true;
+        IsActive = true;
         extraTurn = false;
-
         AttacksLeftThisTurn = attacksForOneTurn + attackTurnModifier; 
-        //TurnOrder:  Check Stun, Ability Cooldown Reduction, Effects       
-
-        //TODO: Buff/Debuff effects (like Poison, Heal)   
-
-         //TODO:  Ability Effects (BattleCry, etc.)
-        foreach(CreatureEffect ce in creatureEffects)
-        {
-            //Debug.Log ("CreatureEffect: " + ce.ToString() + ", CD: " + ce.remainingCooldown);
-        }
-
-//         if(e_CreatureOnTurnStart != null)
-//            e_CreatureOnTurnStart.Invoke();
-
-        
-                
     }
 
-    public void OnTurnEnd(){
+    public void OnTurnEnd()
+    {
         if(!extraTurn)
         {
-            isActive = false;
+            IsActive = false;
             AttacksLeftThisTurn = 0;
-
-
-            //DS "color" Creature that already attacked
-                new CreatureColorCommand(this,true).AddToQueue();
-
-            //if (owner.ExtraCreatureTurn != 0)
-            //    owner.ExtraCreatureTurn = 0;
-
-            //TODO:  End of Turn Effects
         }
         else
         {
-            isActive = true;
+            IsActive = true;
             if (AttacksLeftThisTurn == 0)
                 AttacksLeftThisTurn++;
-            new CreatureColorCommand(this,false).AddToQueue();
             extraTurn = false;
         }
 
-
         if(e_CreatureOnTurnEnd != null)
-            e_CreatureOnTurnEnd.Invoke();               
-        
-        
-        
-        //TODO:  Buff Duration Reduction                       
+            e_CreatureOnTurnEnd.Invoke();              
     }
 
     public void DestroyArmor()
@@ -391,12 +370,11 @@ public class CreatureLogic: ICharacter
                     if(this.buffEffects[i].Name == "Armor")
                     {
                          Debug.Log("Command Buff: " +this.buffEffects[i].Name);
-                         this.RemoveBuff(this.buffEffects[i]);
+                         BuffSystem.Instance.RemoveBuff(this,this.buffEffects[i]);
                     }
                     
                 }
             }
-
     }
 
     public void Die()
@@ -408,11 +386,11 @@ public class CreatureLogic: ICharacter
       
         this.isDead = true;
 
-        this.isActive = false;
+        this.IsActive = false;
 
         
         //Remove all buffs/debuffs        
-        RemoveAllBuffs(); 
+        BuffSystem.Instance.RemoveAllBuffs(this); 
 
         
         foreach(CreatureEffect ce in creatureEffects)
@@ -445,8 +423,6 @@ public class CreatureLogic: ICharacter
     public void ExtraTurn()
     {
         extraTurn = true;
-
-
     }
 
     public void Revive()
@@ -464,46 +440,32 @@ public class CreatureLogic: ICharacter
                     ce.RegisterCooldown();
                     ce.RegisterEventEffect();                                
                 //}
-            }
-
-            
+            }            
             new CreatureResurrectCommand(UniqueCreatureID, owner).AddToQueue(); 
             new UpdateAttackCommand(ID, Attack).AddToQueue();
             new UpdateHealthCommand(ID, MaxHealth).AddToQueue();
             new UpdateArmorCommand(ID, Armor).AddToQueue();
             new CreatureColorCommand(this,false).AddToQueue();
         }
-
     }
 
     public void AttackCreature (CreatureLogic target)
     {
-        lastDamageValue = 0;
-        
+        lastDamageValue = 0;        
         AttacksLeftThisTurn--;         
-
-
         if(!target.isDead)
         {
-            AttackDamage = DealDamage(Attack);
-            
-
-
+            AttackDamage = DealDamage(Attack);          
             
             if (Random.Range(0,100) <= target.chanceTakeDamageFromAttack)
             {          
                 target.TakeDamage(this, AttackDamage);
-               
-                
-            } else if (Random.Range(0,100) > target.chanceTakeDamageFromAttack)
+            } 
+            else if (Random.Range(0,100) > target.chanceTakeDamageFromAttack)
             {
                 AttackDamage = 0;
                 target.TakeDamage(this, AttackDamage);
-                 
             }
-
-           
-
 
             int targetHealthAfter = target.Health;
             int attackerHealthAfter = Health;
@@ -549,10 +511,8 @@ public class CreatureLogic: ICharacter
 
     public void TriggerThisWhenAttacked (CreatureLogic attacker)
     {
-
         if(e_IsAttackedBy != null)
             e_IsAttackedBy.Invoke(attacker);
-
     }
 
     public int DealDamage(int amount)
@@ -569,21 +529,12 @@ public class CreatureLogic: ICharacter
     public int DealOtherDamage(int amount)
     {
         int damage = amount*OtherFactor;
-
-        //if(e_IsComputeDamage!=null)
-        //e_IsComputeDamage();
-
         return damage;
     }
-
-    //input: DealDamage
-    //for attack damage
     
     public void TakeDamage(CreatureLogic source, int damage)
     {
-        
-        //this - attacker
-        
+
         if(e_PreDealDamage != null)
             e_PreDealDamage.Invoke(source); 
         
@@ -896,67 +847,11 @@ public class CreatureLogic: ICharacter
             enemies.Clear();
     }
 
-
-
-
-
-    public void AddBuff(BuffEffect buff)
+    public void E_buffApplied (BuffEffect buff)
     {
-        bool buffExists = false;
-
-        //check if same buff already exists, just update the buff
-        foreach (BuffEffect be in buffEffects)
-        {
-            if (be.GetType().Name == buff.GetType().Name)
-            {
-                be.source = buff.source;
-                be.target = buff.target;
-                
-                if (be.buffCooldown < buff.buffCooldown)
-                    be.buffCooldown = buff.buffCooldown;
-
-            
-            //Set Armor to Original Value when re-applied
-            if (be.GetType().Name == "Armor")
-            {
-                           
-                if(be.target.Armor < be.defaultArmor)
-                be.target.Armor = be.defaultArmor;
-            }
-            
-                
-
-                buffExists = true;
-
-                new UpdateBuffCommand(be).AddToQueue();
-
-                new ShowBuffPreviewCommand(buff, this.ID, buff.GetType().Name).AddToQueue();
-
-                if(e_buffApplied!=null)
-                    e_buffApplied(this, buff);
-                
-            }
-        }
-
-        //if buff is new, add it to the CL
-
-        if (!buffExists)
-        {
-            buff.RegisterCooldown();
-            
-            buff.CauseBuffEffect();
-            buffEffects.Add(buff);
-
-           new AddBuffCommand(buff, UniqueCreatureID).AddToQueue();
-
-           new ShowBuffPreviewCommand(buff, this.ID, buff.GetType().Name).AddToQueue();
-
-                if(e_buffApplied!=null)
-                    e_buffApplied(this, buff);
-        }
-        
-
-    }   
+        if(e_buffApplied!=null)
+            e_buffApplied(this, buff);
+    }  
 
     
 
@@ -1003,83 +898,7 @@ public class CreatureLogic: ICharacter
         
     }
 
-
-
-   public void RemoveRandomBuff()
-    {
-        BuffEffect buff = RandomBuff();
-        if (buff != null)
-        {
-            RemoveBuff(buff);
-        }
-       
-    }
-
-
-
-   public void RemoveRandomDebuff()
-    {
-        BuffEffect buff = RandomDebuff();
-        if (buff != null)
-        {
-            RemoveBuff(buff);
-        }
-       
-    }
-
-    public void RemoveBuff(BuffEffect buff)
-    {
-
-            buff.UndoBuffEffect();
-            buff.UnregisterCooldown();         
-
-            new DestroyBuffCommand(buff, this.UniqueCreatureID).AddToQueue();
-            buffEffects.Remove(buff);
-    }
-
-    public void RemoveAllBuffs()
-    {
-        int i = buffEffects.Count;
-        if(buffEffects.Count > 0)
-        {
-            for(int x = i-1; x>=0; x--)
-            {
-                buffEffects[x].RemoveBuff();
-            }
-        }
-    }//RemoveAllBuffs
-
-    public void RemoveDeBuffsAll()
-    {
-        int i = this.buffEffects.Count;
-        int buffCounter = 0;
-        for(int x = i-1; x>=0; x--)
-        {
-            if(this.buffEffects[x].isDebuff)
-            {
-                this.buffEffects[x].RemoveBuff();
-                buffCounter++;
-            }            
-        }
-    }
-
-    public void RemoveBuffsAll()
-    {
-        int i = this.buffEffects.Count;
-        int buffCounter = 0;
-        for(int x = i-1; x>=0; x--)
-        {
-            if(this.buffEffects[x].isBuff)
-            {
-                this.buffEffects[x].RemoveBuff();
-                buffCounter++;
-            }            
-        }
-    }
-
-    
-
-    
+   
     public void Heal(int amount)
     {
         ChangeHealth(amount, healFactor);

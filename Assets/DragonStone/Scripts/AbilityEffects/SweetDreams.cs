@@ -31,7 +31,7 @@ public class SweetDreams : CreatureEffect{
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                target.RemoveBuffsAll();
+                RemoveBuffsAll(target);
                 AddBuff(target, "AntiBuff", buffCooldown);                
             }
             

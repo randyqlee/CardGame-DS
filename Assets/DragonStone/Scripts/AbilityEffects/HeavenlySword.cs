@@ -36,7 +36,7 @@ public class HeavenlySword : CreatureEffect {
 
     public override void UseEffect(CreatureLogic target)
     {                   
-        target.RemoveRandomBuff();            
+        RemoveRandomBuff(target);            
         base.UseEffect();    
             
     }

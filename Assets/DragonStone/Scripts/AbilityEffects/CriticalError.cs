@@ -44,7 +44,7 @@ public class CriticalError : CreatureEffect
 
                     if (buffExists)
                     {
-                        cl.RemoveRandomBuff();
+                        RemoveRandomBuff(cl);
                         AddBuff (cl, "Silence", buffCooldown);
 
                     }

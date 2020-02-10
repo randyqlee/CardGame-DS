@@ -56,7 +56,7 @@ public class Bomb : BuffEffect {
     public void stunEffect()
     {
           if(bombCooldown <= 0)
-          base.AddBuff(target, "Stun", 1);
+          BuffSystem.Instance.AddBuff(source, target, "Stun", 1);
     }
 
     

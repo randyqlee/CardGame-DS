@@ -33,7 +33,7 @@ public class Judge : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                target.RemoveRandomBuff();                
+                RemoveRandomBuff(target);                
                 
                 AddBuff(creature, "Retaliate", buffCooldown);                
             }

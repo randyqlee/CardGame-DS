@@ -31,7 +31,7 @@ public class HealingMusic : CreatureEffect
             if(Random.Range(0,100)<=creature.chance)
             {
                 ShowAbility();
-                creature.RemoveDeBuffsAll();
+                RemoveDeBuffsAll(creature);
                 AddBuff(creature, "Resurrect", buffCooldown);
 
             }

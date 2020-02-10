@@ -32,7 +32,7 @@ public class AlterEgoAttack : CreatureEffect
             AddBuff(creature, "Invincibility",buffCooldown);
             AddBuff(creature, "Resurrect",buffCooldown2);
             
-            target.RemoveRandomBuff();
+            RemoveRandomBuff(target);
 
             base.UseEffect();
 

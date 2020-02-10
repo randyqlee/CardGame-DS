@@ -30,7 +30,7 @@ public class SongOfDestiny : CreatureEffect
 
             ShowAbility();
             
-            target.RemoveBuffsAll();
+            RemoveBuffsAll(target);
 
             if (target.Health > 10)
             {

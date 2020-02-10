@@ -40,7 +40,7 @@ public class LittleHummingBird : CreatureEffect
                         {
                             sortedList[i].Heal(healValue);
                             count++;
-                            sortedList[i].RemoveRandomDebuff();
+                            RemoveRandomDebuff(sortedList[i]);
                         }
                     }
                 }

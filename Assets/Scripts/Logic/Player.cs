@@ -126,7 +126,7 @@ public class Player : MonoBehaviour, ICharacter
         bool hasActiveCL = false;
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
-            if (cl.isActive && cl.AttacksLeftThisTurn > 0)
+            if (cl.IsActive && cl.AttacksLeftThisTurn > 0)
             {
                 hasActiveCL = true;
                 break;

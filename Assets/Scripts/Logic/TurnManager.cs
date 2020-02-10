@@ -364,7 +364,7 @@ public class TurnManager : MonoBehaviour {
         {
             foreach(CreatureLogic cl in p.AllyList())
             {
-                if (cl.isActive && cl.AttacksLeftThisTurn > 0)
+                if (cl.IsActive && cl.AttacksLeftThisTurn > 0)
                 {
                     isRoundOver = false;
 
@@ -391,7 +391,7 @@ public class TurnManager : MonoBehaviour {
                         cl.OnTurnStart();
 
                         //DS reset "color" of creature
-                        new CreatureColorCommand(cl,false).AddToQueue();
+                        //new CreatureColorCommand(cl,false).AddToQueue();
 
                    }
                 }

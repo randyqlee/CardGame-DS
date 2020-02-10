@@ -33,7 +33,7 @@ public class Capture : CreatureEffect
             {
                 if (target.buffEffects[i].isBuff)
                 {
-                    target.RemoveBuff(target.buffEffects[i]);
+                    BuffSystem.Instance.RemoveBuff(target,target.buffEffects[i]);
                     DealDamageEffect(target, damage);
                 }
             }

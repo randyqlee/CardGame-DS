@@ -62,7 +62,7 @@ public class MagicSurge : CreatureEffect
                 {
                     foreach(BuffEffect be in buffList)
                     {
-                        cl.RemoveBuff(be);
+                        BuffSystem.Instance.RemoveBuff(cl,be);
                         buffRemoved = true;
                     }
                 }

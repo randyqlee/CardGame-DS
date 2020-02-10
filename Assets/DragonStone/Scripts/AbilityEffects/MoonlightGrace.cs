@@ -37,7 +37,7 @@ public class MoonlightGrace : CreatureEffect
                 {
                     if (!cl.isDead)
                     {
-                        cl.RemoveDeBuffsAll();
+                        RemoveDeBuffsAll(cl);
                         AddBuff(cl, "Immunity", otherCooldown);
 
                     }
@@ -55,7 +55,7 @@ public class MoonlightGrace : CreatureEffect
                 {
                     if (!cl.isDead)
                     {
-                        cl.RemoveBuffsAll();
+                        RemoveBuffsAll(cl);
                         AddBuff(cl, "AntiBuff", otherCooldown);
 
                     }

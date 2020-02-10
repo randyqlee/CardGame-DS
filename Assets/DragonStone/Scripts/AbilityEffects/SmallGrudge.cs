@@ -29,7 +29,7 @@ public class SmallGrudge : CreatureEffect
             {
                 ShowAbility();
                 AddBuff(creature, "IncreaseAttack", buffCooldown);
-                target.RemoveRandomBuff();
+                RemoveRandomBuff(target);
             }
             
             base.UseEffect();

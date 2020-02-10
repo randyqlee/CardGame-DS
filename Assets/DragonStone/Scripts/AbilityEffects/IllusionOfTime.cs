@@ -29,7 +29,7 @@ public class IllusionOfTime : CreatureEffect
             ShowAbility();
             foreach(CreatureLogic cl in owner.AllyList())
             {
-                cl.RemoveDeBuffsAll();
+                RemoveDeBuffsAll(cl);
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.SkillRefreshCreatureEffectCooldown();

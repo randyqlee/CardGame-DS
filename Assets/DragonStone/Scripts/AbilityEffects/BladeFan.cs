@@ -56,7 +56,7 @@ public class BladeFan : CreatureEffect
                 {
                     foreach(BuffEffect be in buffList)
                     {
-                        target.RemoveBuff(be);
+                        BuffSystem.Instance.RemoveBuff(target,be);
                         buffRemoved++;
                     }
                 }

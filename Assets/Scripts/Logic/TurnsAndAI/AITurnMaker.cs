@@ -18,7 +18,7 @@ public class AITurnMaker: TurnMaker {
 
         foreach (CreatureLogic cl in p.table.CreaturesOnTable)
         {
-            if (cl.isActive)
+            if (cl.IsActive)
                 hasActiveCL = true;
         }
 

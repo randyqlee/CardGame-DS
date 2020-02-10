@@ -28,11 +28,11 @@ public class WindOfChanges : CreatureEffect
             ShowAbility();
             foreach(CreatureLogic cl in owner.AllyList())
             {
-                cl.RemoveAllBuffs();
+                RemoveAllBuffs(cl);
             }           
             foreach(CreatureLogic cl in owner.EnemyList())
             {
-                cl.RemoveAllBuffs();
+                RemoveAllBuffs(cl);
             }
             
             foreach(CreatureLogic cl in owner.EnemyList())

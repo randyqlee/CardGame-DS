@@ -33,7 +33,7 @@ public class NaturesProtection : CreatureEffect
                 if (creature.isPrimaryForm)
                 {
                     ShowAbility();
-                    target.RemoveRandomBuff();
+                    RemoveRandomBuff(target);
                     AddBuff(target, "Poison", buffCooldown);                    
                 }
      

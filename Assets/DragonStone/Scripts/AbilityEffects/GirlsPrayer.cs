@@ -33,7 +33,7 @@ public class GirlsPrayer : CreatureEffect
                 foreach (CreatureLogic cl in owner.AllyList())
                 {
                     ShowAbility();
-                    cl.RemoveRandomDebuff();
+                    RemoveRandomDebuff(cl);
                     AddBuff(cl, "Recovery", buffCooldown);
                 }
             }

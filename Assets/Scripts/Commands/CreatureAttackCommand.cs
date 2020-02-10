@@ -31,8 +31,13 @@ public class CreatureAttackCommand : Command
     {
         //Debug.Log ("StartCommand CreatureAttackCommand");
         GameObject Attacker = IDHolder.GetGameObjectWithID(AttackerUniqueID);
+        GameObject Target = IDHolder.GetGameObjectWithID(TargetUniqueID);
 
-        //Debug.Log(TargetUniqueID);
-        Attacker.GetComponent<CreatureAttackVisual>().AttackTarget(TargetUniqueID, DamageTakenByTarget, DamageTakenByAttacker, AttackerHealthAfter, TargetHealthAfter, TargetArmorAfter, AttackerUniqueID, CanAttack);
+        //check first if gameobjects still exist, to account for possible delays
+        if (Attacker != null && Target != null)
+        {
+            //Debug.Log(TargetUniqueID);
+            Attacker.GetComponent<CreatureAttackVisual>().AttackTarget(TargetUniqueID, DamageTakenByTarget, DamageTakenByAttacker, AttackerHealthAfter, TargetHealthAfter, TargetArmorAfter, AttackerUniqueID, CanAttack);
+        }
     }
 }

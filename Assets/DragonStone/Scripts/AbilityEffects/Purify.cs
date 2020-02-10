@@ -28,7 +28,7 @@ public class Purify : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                creature.RemoveDeBuffsAll();
+                RemoveDeBuffsAll(creature);
                 AddBuff(creature, "Recovery", buffCooldown);
                 
             }

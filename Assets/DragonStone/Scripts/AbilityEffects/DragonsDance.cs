@@ -41,7 +41,7 @@ public class DragonsDance : CreatureEffect {
                 foreach(CreatureLogic cl in owner.EnemyList())
                 {
                     AddBuff(cl, "Silence", buffCooldown);
-                    cl.RemoveRandomBuff();
+                    RemoveRandomBuff(cl);
                 }
   
             }

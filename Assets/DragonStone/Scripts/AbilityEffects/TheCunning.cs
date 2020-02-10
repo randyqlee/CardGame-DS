@@ -43,7 +43,7 @@ public class TheCunning : CreatureEffect
                 {
                     int i = Random.Range(0,buffList.Count);
                     AddBuff(creature, buffList[i].Name, buffList[i].buffCooldown);
-                    target.RemoveBuff(buffList[i]);
+                    BuffSystem.Instance.RemoveBuff(target,buffList[i]);
                 }
 
             }

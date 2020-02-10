@@ -39,7 +39,7 @@ public class Confiscate : CreatureEffect
 
             if (target.buffEffects != null)
             {
-                target.RemoveBuffsAll();
+                RemoveBuffsAll(target);
             }
 
             AddBuff(creature, "Recovery", buffCooldown);

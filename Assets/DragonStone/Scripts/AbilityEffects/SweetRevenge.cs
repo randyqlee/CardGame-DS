@@ -31,7 +31,7 @@ public class SweetRevenge : CreatureEffect
                 ShowAbility();
                 foreach(CreatureLogic cl in owner.AllyList())
                 {
-                    cl.RemoveRandomDebuff();
+                    RemoveRandomDebuff(cl);
                 }
                 List<CreatureLogic> sortedList = owner.SortAllyListByHealth();
                 if (sortedList.Count > 1)

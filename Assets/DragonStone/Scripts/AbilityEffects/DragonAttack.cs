@@ -39,7 +39,7 @@ public class DragonAttack : CreatureEffect
     {
         if (CanUseAbility())
         {
-            target.RemoveBuffsAll();
+            RemoveBuffsAll(target);
 
             AddBuff(target, "Stun",buffCooldown);
 

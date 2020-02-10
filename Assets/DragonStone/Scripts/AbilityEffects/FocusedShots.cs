@@ -39,7 +39,7 @@ public class FocusedShots : CreatureEffect
     {
         if (CanUseAbility())
         {
-            target.RemoveBuffsAll();
+            RemoveBuffsAll(target);
 
             AddBuff(target, "Bomb",buffCooldown);
 

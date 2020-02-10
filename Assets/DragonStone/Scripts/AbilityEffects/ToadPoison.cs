@@ -27,7 +27,7 @@ public class ToadPoison : CreatureEffect
             if(ChanceOK(creature.chance))
             {
                 ShowAbility();
-                target.RemoveRandomBuff();
+                RemoveRandomBuff(target);
                 
                 AddBuff(target, "Poison", buffCooldown);
                 AddBuff(target, "AntiBuff", buffCooldown);

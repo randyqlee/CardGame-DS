@@ -35,7 +35,17 @@ public class CreatureEffect
 
     //DS
     public int creatureEffectCooldown;
+
+//    public int remainingCD;
     public int remainingCooldown;
+//    {
+//        get {return remainingCD;}
+//        set
+//        {
+//            remainingCD = value;
+//            UpdateCooldown();
+//        }
+//    }
     public bool hasUsedEffect = false;
 
     public bool isCooldownPaused = false;
@@ -224,55 +234,53 @@ public class CreatureEffect
 
     public virtual void AddBuff(CreatureLogic target, string buffName, int buffCooldown)
     {
-        //the BuffEffect will be instantiated here
-        BuffEffect buffEffect = System.Activator.CreateInstance(System.Type.GetType(buffName), new System.Object[]{creature, target, buffCooldown}) as BuffEffect;
-        
 
-        //if buff, can only affect allies
-        if(buffEffect.isBuff && creature.canBuff && target.canBeBuffed && !target.isDead)
-        //if(buffEffect.isBuff)
-        {
-            //check if same team
-            if(target.owner == creature.owner)
-            {
-                target.AddBuff(buffEffect);        
-            }
-        }
-
-        //if debuff, can only affect enemies
-        if(buffEffect.isDebuff && creature.canDebuff && target.canBeDebuffed && !target.isDead)
-        {
-            //check if same team
-            if(target.owner != creature.owner)
-            {
-                target.AddBuff(buffEffect);        
-            }
-
-            else
-                target.AddBuff(buffEffect); 
-
-        }
-        
-        // Debug.Log("Is Buff? " +buffEffect.isBuff);
-        // Debug.Log("can Buff? " +creature.canBuff);
-        // Debug.Log("target can be Buffed? " +target.canBeBuffed);
-
-        // Debug.Log("Is Debuff? " +buffEffect.isDebuff);
-        // Debug.Log("can Debuff? " +creature.canDebuff);
-        // Debug.Log("target can be Debuffed? " +target.canBeDebuffed);
-        
-
-        //the logic of adding buff to the CReatureLogic will be in a method at CreatureLogic
-        //target.AddBuff(buffEffect);
+        BuffSystem.Instance.AddBuff(this.creature, target, buffName, buffCooldown);
        
     }
 
-
-
-    public virtual void RemoveBuff(CreatureLogic target, BuffEffect buff)
+    public void RemoveBuff(CreatureLogic creature, BuffEffect buff)
     {
 
-    }     
+        BuffSystem.Instance.RemoveBuff(creature, buff);
+       
+    }
+
+    public void RemoveRandomBuff(CreatureLogic creature)
+    {
+
+        BuffSystem.Instance.RemoveRandomBuff(creature);
+       
+    }
+
+    public void RemoveRandomDebuff(CreatureLogic creature)
+    {
+
+        BuffSystem.Instance.RemoveRandomDebuff(creature);
+       
+    }
+
+    public void RemoveAllBuffs(CreatureLogic creature)
+    {
+
+        BuffSystem.Instance.RemoveAllBuffs(creature);
+       
+    }
+
+    public void RemoveDeBuffsAll(CreatureLogic creature)
+    {
+
+        BuffSystem.Instance.RemoveDeBuffsAll(creature);
+       
+    }
+
+    public void RemoveBuffsAll(CreatureLogic creature)
+    {
+
+        BuffSystem.Instance.RemoveBuffsAll(creature);
+       
+    }
+
 
     public virtual void ShowAbility()
     {
