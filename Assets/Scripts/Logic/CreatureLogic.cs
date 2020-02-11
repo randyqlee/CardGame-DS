@@ -593,7 +593,7 @@ public class CreatureLogic: ICharacter
             e_IsAttacked.Invoke(this); 
 
             if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
-            e_IsComputeDamage();
+            e_IsComputeDamage.Invoke();
 
 
 
@@ -649,7 +649,7 @@ public class CreatureLogic: ICharacter
                 Health = healthAfter;
 
             if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
-            e_IsComputeDamage();
+            e_IsComputeDamage.Invoke();
 
 
 
@@ -699,7 +699,7 @@ public class CreatureLogic: ICharacter
             Health = healthAfter;
 
         if(e_IsComputeDamage!=null && (damage - DamageReductionAdditive) > 0)
-            e_IsComputeDamage();
+            e_IsComputeDamage.Invoke();
 
     }
 
@@ -850,7 +850,7 @@ public class CreatureLogic: ICharacter
     public void E_buffApplied (BuffEffect buff)
     {
         if(e_buffApplied!=null)
-            e_buffApplied(this, buff);
+            e_buffApplied.Invoke(this, buff);
     }  
 
     
