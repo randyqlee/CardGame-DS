@@ -42,6 +42,23 @@ public class CreatureLogic: ICharacter
         }
     } 
 
+    public bool isValidTarget;
+    public bool IsValidTarget
+    {
+        get {return isValidTarget;}
+        set
+        {
+            isValidTarget = value;
+            
+            GameObject g = IDHolder.GetGameObjectWithID(UniqueCreatureID);
+            if(g!= null)
+            //DS
+            {
+                g.GetComponent<OneCreatureManager>().IsValidTarget = value;
+            }
+        }
+    }
+
     [HideInInspector]
     //public BuffEffect testBuff;
 
@@ -66,6 +83,7 @@ public class CreatureLogic: ICharacter
     public event VoidWithCL e_IsAttacked;
     public event VoidWithCL e_IsAttackedBy;
     public event VoidWithCL e_ThisCreatureDies;
+    public event VoidWithCL e_IsValidTarget;
 
     public delegate void VoidWithCL_CL_int(CreatureLogic source, CreatureLogic target, int damage);    
     public event VoidWithCL_CL_int e_IsDamagedByAttack;
@@ -339,6 +357,7 @@ public class CreatureLogic: ICharacter
         IsActive = true;
         extraTurn = false;
         AttacksLeftThisTurn = attacksForOneTurn + attackTurnModifier; 
+        IsValidTarget = false;
     }
 
     public void OnTurnEnd()

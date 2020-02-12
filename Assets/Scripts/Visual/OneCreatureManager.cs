@@ -18,6 +18,8 @@ public class OneCreatureManager : MonoBehaviour
     public Sprite CreatureGraphicImage_Primary;
     public Sprite CreatureGraphicImage_Secondary;
     public Image CreatureGlowImage;
+
+    public Image ValidTargetGlowImage;
     public GameObject Armor;
 
     public BuffPanel buffPanel;
@@ -50,6 +52,23 @@ public class OneCreatureManager : MonoBehaviour
 
             //CreatureGlowImage.enabled = value;
             new CreatureGlowCommand(CreatureGlowImage, value).AddToQueue();
+        }
+    }
+
+    private bool isValidTarget = false;
+    public bool IsValidTarget
+    {
+        get
+        {
+            return isValidTarget;
+        }
+
+        set
+        {
+            isValidTarget = value;
+
+            //CreatureGlowImage.enabled = value;
+            new CreatureGlowCommand(ValidTargetGlowImage, value).AddToQueue();
         }
     }
 
@@ -196,4 +215,5 @@ public class OneCreatureManager : MonoBehaviour
         // s.OnComplete(() => GlobalSettings.Instance.GameOverPanel.SetActive(true));            
         
     }
+
 }
