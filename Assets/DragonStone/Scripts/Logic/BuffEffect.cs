@@ -13,7 +13,23 @@ public class BuffEffect
     [HideInInspector]
     public CreatureLogic target;
 
-    public int buffCooldown;
+    public int buffCD;
+
+    public int buffCooldown
+    {
+        get {return buffCD;}
+        set
+        {
+            buffCD = value;
+            if(buffCD > 0)
+            {
+                new UpdateBuffCommand(this).AddToQueue();
+            }
+            if(buffCD <= 0)
+                RemoveBuff();
+        }
+    }
+
     public bool isBuff;
     public bool isDebuff;
 
@@ -32,13 +48,8 @@ public class BuffEffect
         this.target = target;
         this.buffCooldown = buffCooldown;
 
-    //DS
-    //Added buffID for Logic and Visual link
         this.buffID = IDFactory.GetUniqueID();
-
         Name = this.GetType().Name.ToString();
-        
-
     }
 
 
@@ -50,14 +61,11 @@ public class BuffEffect
     public virtual void RegisterCooldown()
     {
         TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
-        //target.e_CreatureOnTurnEnd += ReduceCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
-        TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
-        //target.e_CreatureOnTurnEnd -= ReduceCreatureEffectCooldown;
-        
+        TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;        
     }
 
     public virtual void CauseBuffEffect(){}
@@ -65,42 +73,33 @@ public class BuffEffect
     public virtual void UndoBuffEffect(){}
 
     public void ReduceCreatureEffectCooldown()
-    {       
+    { 
+        buffCooldown--;
+        /*      
         if(buffCooldown > 0)
         {
             buffCooldown--;
-            //insert UpdateBuffCommand to update the cooldown text
             new UpdateBuffCommand(this).AddToQueue();
-
-        
-
         }
         if(buffCooldown <= 0)
-
             RemoveBuff();
-            
-                        
+        */
     }
 
+/* NO NEED IF PROP IS USED
     public virtual void UpdateCooldown()
     {
         new UpdateBuffCommand(this).AddToQueue();
     }
-    
+*/    
 
     public virtual void RemoveBuff()
     {
-        //Debug.Log("Remove Buff " +this.GetType().Name);
         UndoBuffEffect();
         UnregisterCooldown();
-
-       
         target.buffEffects.Remove(this);       
-        
-         
         new DestroyBuffCommand(this, target.UniqueCreatureID).AddToQueue();
 
-        
     }//RemoveBuff     
 
 }

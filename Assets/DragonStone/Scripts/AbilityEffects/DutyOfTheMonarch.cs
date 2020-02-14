@@ -34,13 +34,13 @@ public class DutyOfTheMonarch : CreatureEffect
                     foreach(CreatureEffect ce in cl.creatureEffects)
                     {
                         ce.remainingCooldown -= changeCD;
-                        ce.UpdateCooldown();
+                       // ce.UpdateCooldown();
                     }
                     foreach(BuffEffect be in cl.buffEffects)
                     {
                         if (be.isBuff)
                             be.buffCooldown += changeCD;
-                            be.UpdateCooldown();
+                            //be.UpdateCooldown();
                     }
 
                 }

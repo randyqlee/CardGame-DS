@@ -39,7 +39,7 @@ public class SealMagic : CreatureEffect
                     foreach (CreatureEffect ce in cl.creatureEffects)
                     {
                         ce.remainingCooldown = ce.creatureEffectCooldown;
-                        ce.UpdateCooldown();
+                        //ce.UpdateCooldown();
                     }
                 }
                 else
@@ -47,7 +47,7 @@ public class SealMagic : CreatureEffect
                     foreach (CreatureEffect ce in cl.creatureEffects)
                     {
                         ce.remainingCooldown += changeCD;
-                        ce.UpdateCooldown();
+                        //ce.UpdateCooldown();
                     }
 
                 }

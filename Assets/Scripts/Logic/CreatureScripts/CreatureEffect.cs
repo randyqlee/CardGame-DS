@@ -36,54 +36,39 @@ public class CreatureEffect
     //DS
     public int creatureEffectCooldown;
 
-//    public int remainingCD;
-    public int remainingCooldown;
-//    {
-//        get {return remainingCD;}
-//        set
-//        {
-//            remainingCD = value;
-//            UpdateCooldown();
-//        }
-//    }
+    public int remainingCD;
+    public int remainingCooldown
+    {
+        get {return remainingCD;}
+        set
+        {
+            remainingCD = value;
+            if (remainingCD <= 0)
+                remainingCD = 0;
+            new UpdateCooldownCommand (abilityCard, remainingCD, creatureEffectCooldown).AddToQueue();
+        }
+    }
     public bool hasUsedEffect = false;
 
     public bool isCooldownPaused = false;
     
-    
-    //Events
-    public delegate void AddBuffEvent();    
-    public event AddBuffEvent e_AddBuffEvent;   
    
     public CreatureEffect(Player owner, CreatureLogic creature, int creatureEffectCooldown)
     {
         this.creature = creature;
         this.owner = owner;
-        this.creatureEffectCooldown = creatureEffectCooldown;
-        
+        this.creatureEffectCooldown = creatureEffectCooldown;        
         
         remainingCooldown = creatureEffectCooldown;      
-
-
-        Name = this.GetType().Name.ToString();
-        
+        Name = this.GetType().Name.ToString();        
     }
 
-
-    public CreatureEffect(Player owner)
-    {
-
-        this.owner = owner;
-        Name = this.GetType().Name.ToString();
-        
-    }
-
+//USED FOR EQUIP ONLY
     public CreatureEffect(Player owner, CreatureLogic creature)
     {
         this.creature = creature;
         this.owner = owner;
-        Name = this.GetType().Name.ToString();
-        
+        Name = this.GetType().Name.ToString();        
     }
 
     // METHODS FOR SPECIAL FX THAT LISTEN TO EVENTS
@@ -129,7 +114,7 @@ public class CreatureEffect
     {       
         if(remainingCooldown > 0 && !isCooldownPaused){
             remainingCooldown--;
-            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+            //new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
         }      
         //ResetCreatureEffectCooldown();      
     }
@@ -139,7 +124,7 @@ public class CreatureEffect
         if(remainingCooldown > 0 && !isCooldownPaused && !cooldownCantChange)
         {
             remainingCooldown--;
-            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+            //new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
         }            
     }
 
@@ -148,15 +133,17 @@ public class CreatureEffect
         if(!cooldownCantChange)
         {
             remainingCooldown = 0;
-            new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+            //new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
         }    
             
     }
 
+/* NO NEED IF PROP IS USED
     public virtual void UpdateCooldown ()
     {
         new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
     }
+*/
 
     public void ResetCreatureEffectCooldown()
     {       
@@ -177,7 +164,7 @@ public class CreatureEffect
             remainingCooldown = 0;
         }
 
-        new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
+        //new UpdateCooldownCommand (this.abilityCard, remainingCooldown, creatureEffectCooldown).AddToQueue();
             
     }
 

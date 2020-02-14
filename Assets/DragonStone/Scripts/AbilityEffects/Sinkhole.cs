@@ -42,7 +42,7 @@ public class Sinkhole : CreatureEffect
                 foreach (CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.remainingCooldown += increaseCD;
-                    ce.UpdateCooldown();
+                    //ce.UpdateCooldown();
                 }
                 creature.Heal(totalDamage);
 

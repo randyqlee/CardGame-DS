@@ -32,7 +32,7 @@ public class ReturnedDice : CreatureEffect
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.remainingCooldown = ce.creatureEffectCooldown;
-                    ce.UpdateCooldown();
+                   // ce.UpdateCooldown();
                 }
                 AddBuff(cl, "Unlucky", buffCooldown2);
                 AddBuff(cl, "Silence", buffCooldown2);
@@ -45,7 +45,7 @@ public class ReturnedDice : CreatureEffect
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.remainingCooldown = ce.creatureEffectCooldown;
-                    ce.UpdateCooldown();
+                   // ce.UpdateCooldown();
                 }
                 AddBuff(cl, "Unlucky", buffCooldown2);
                 AddBuff(cl, "Silence", buffCooldown2);

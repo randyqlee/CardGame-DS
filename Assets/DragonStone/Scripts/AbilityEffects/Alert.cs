@@ -32,7 +32,7 @@ public class Alert : CreatureEffect
                 foreach(CreatureEffect ce in cl.creatureEffects)
                 {
                     ce.remainingCooldown -= reduceCD;
-                    ce.UpdateCooldown();
+                   // ce.UpdateCooldown();
                 }
                 
                 AddBuff(cl, "Evasion", buffCooldown);
