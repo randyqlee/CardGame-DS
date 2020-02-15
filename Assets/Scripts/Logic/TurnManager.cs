@@ -299,6 +299,7 @@ public class TurnManager : MonoBehaviour {
         // stop timer
         timer.StopTimer();
         EndTurnCleanup();
+        yield return null;
         whoseTurn.OnTurnEnd();      
         yield return new WaitForSeconds(0.5f);
 
@@ -312,7 +313,10 @@ public class TurnManager : MonoBehaviour {
             foreach(CreatureLogic cl in player.AllyList())
             {
                 if(cl.Health<=0 && !cl.isDead)     
-                cl.Die();
+                {
+                    cl.Die();
+                    
+                }
             }
         }
     }

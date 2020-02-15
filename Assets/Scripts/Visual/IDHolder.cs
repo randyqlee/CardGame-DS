@@ -16,10 +16,11 @@ public class IDHolder : MonoBehaviour {
     {
         foreach (IDHolder i in allIDHolders)
         {
-            if (i.UniqueID == ID && i.gameObject!=null)
-            {
-                return i.gameObject;
-            }
+            if (i != null)
+                if (i.UniqueID == ID)
+                {
+                    return i.gameObject;
+                }
         }
         return null;
     }

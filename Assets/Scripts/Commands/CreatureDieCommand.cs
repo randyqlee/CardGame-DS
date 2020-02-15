@@ -25,6 +25,8 @@ public class CreatureDieCommand : Command
 
         p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);
 
+        p.CheckIfGameOver();
+
         Command.CommandExecutionComplete();
     }
 }

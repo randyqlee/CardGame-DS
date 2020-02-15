@@ -436,7 +436,7 @@ public class CreatureLogic: ICharacter
         if(e_ThisCreatureDies != null)
         e_ThisCreatureDies.Invoke(this);
         
-        owner.CheckIfGameOver();           
+        //owner.CheckIfGameOver();           
     }
 
     public void ExtraTurn()

@@ -114,6 +114,7 @@ public class Player : MonoBehaviour, ICharacter
 
     public virtual void OnTurnStart()
     {
+        TargetSystem.Instance.ClearAllEnemiesAsTargets(otherPlayer);
         PArea.ControlsON = true;
 
         //check if Round is over
@@ -152,9 +153,9 @@ public class Player : MonoBehaviour, ICharacter
 
     public void CheckIfGameOver()
     {
-
+        Debug.Log("CreaturesOnTable " + table.CreaturesOnTable.Count);
         if (table.CreaturesOnTable.Count == 0)
-        {
+        {            
             Die();
         }
 
