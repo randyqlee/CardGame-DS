@@ -27,7 +27,7 @@ public class GirlsPrayer : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
             
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
 
                 foreach (CreatureLogic cl in owner.AllyList())

@@ -31,7 +31,7 @@ public class Precision : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
             effectChance = false;
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
 
                 ShowAbility();
@@ -49,7 +49,7 @@ public class Precision : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
             /*
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 int i = Random.Range(0,owner.table.CreaturesOnTable.Count);
                 while (owner.table.CreaturesOnTable[i].isDead && owner.table.CreaturesOnTable[i] != creature)

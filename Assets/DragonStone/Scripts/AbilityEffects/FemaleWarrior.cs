@@ -29,7 +29,7 @@ public class FemaleWarrior : CreatureEffect
     {
         if (CanUseAbility())
         {
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 ShowAbility();
                 foreach(CreatureLogic cl in owner.AllyList())

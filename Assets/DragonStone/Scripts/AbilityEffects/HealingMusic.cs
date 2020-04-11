@@ -28,7 +28,7 @@ public class HealingMusic : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
             
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 ShowAbility();
                 RemoveDeBuffsAll(creature);

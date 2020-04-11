@@ -30,7 +30,7 @@ public class LearnKnowledge : CreatureEffect
         {
             if (target.owner != owner && be.isBuff)
             {
-                if(Random.Range(0,100)<=creature.chance)
+                if(ChanceOK(creature.chance))
                 {
                     ShowAbility();
                     AddBuff (creature, "Armor", buffCooldown);

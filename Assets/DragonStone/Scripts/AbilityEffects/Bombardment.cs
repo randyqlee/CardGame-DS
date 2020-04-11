@@ -47,7 +47,7 @@ public class Bombardment : CreatureEffect
                         int j = Random.Range(0,validTargets.Count);
                         CreatureLogic enemy = validTargets[j];
 
-                        if(Random.Range(0,100)<=creature.chance)
+                        if(ChanceOK(creature.chance))
                         {
                             ShowAbility();
                             AddBuff(enemy, "CrippledStrike", buffCooldown);

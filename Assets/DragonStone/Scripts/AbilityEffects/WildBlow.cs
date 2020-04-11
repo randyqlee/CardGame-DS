@@ -30,7 +30,7 @@ public class WildBlow : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
             effectChance = false;
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 ShowAbility();                
                 effectChance = true;

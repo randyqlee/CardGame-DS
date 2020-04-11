@@ -28,7 +28,7 @@ public class AncientPower : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
         //Chance to Silence and deal 7 damage to all enemies with debuffs
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 
                 foreach (CreatureLogic enemy in owner.EnemyList())

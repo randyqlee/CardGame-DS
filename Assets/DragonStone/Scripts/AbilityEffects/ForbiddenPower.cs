@@ -30,7 +30,7 @@ public class ForbiddenPower : CreatureEffect
         {
             effectChance = false;
             
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 
                 

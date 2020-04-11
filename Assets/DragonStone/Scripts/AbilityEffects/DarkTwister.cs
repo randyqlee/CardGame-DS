@@ -27,7 +27,7 @@ public class DarkTwister : CreatureEffect
         if (creatureEffectCooldown <= 0)
         {
         
-            if(Random.Range(0,100)<=creature.chance)
+            if(ChanceOK(creature.chance))
             {
                 ShowAbility();
                 //creature.SplashAttackDamage(target, value); 
