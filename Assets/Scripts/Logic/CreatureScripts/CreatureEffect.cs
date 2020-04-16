@@ -103,7 +103,7 @@ public class CreatureEffect
         //TurnManager.Instance.e_ResetRound += ResetCreatureEffectCooldown;
 
          this.creature.timer.e_fullATB += ReduceCreatureEffectCooldown;
-         this.creature.timer.e_fullATB += ResetCreatureEffectCooldown;
+         this.creature.timer.e_ResetCD += ResetCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
@@ -115,7 +115,7 @@ public class CreatureEffect
         //TurnManager.Instance.e_ResetRound -= ResetCreatureEffectCooldown;
 
          this.creature.timer.e_fullATB -= ReduceCreatureEffectCooldown;
-         this.creature.timer.e_fullATB -= ResetCreatureEffectCooldown;
+         this.creature.timer.e_ResetCD -= ResetCreatureEffectCooldown;
     }
 
     public void ReduceCreatureEffectCooldown()

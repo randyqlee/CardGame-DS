@@ -328,7 +328,7 @@ public class CreatureLogic: ICharacter
 
         this.Speed = ca.Speed;
         if (this.Speed == 0)
-            this.Speed = defaultSpeed;
+            this.Speed = Random.Range(1,6)*100;
 
         // Remove Charge
         // if (ca.Charge)
@@ -377,11 +377,11 @@ public class CreatureLogic: ICharacter
             ce.RegisterEventEffect();
 
             //DS Test: 24 Nov 2019. Initialize Ultimate Skill CD to 1.  
-            if(ce.skillType == SkillType.Ultimate)
-            {
-                ce.remainingCooldown = 1;
-                new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
-            }
+            //if(ce.skillType == SkillType.Ultimate)
+            //{
+            //    ce.remainingCooldown = 1;
+            //    new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
+            //}
             
         }
 
@@ -404,11 +404,14 @@ public class CreatureLogic: ICharacter
     {
         if(!extraTurn)
         {
-            IsActive = false;
-            AttacksLeftThisTurn = 0;
-            //change to command
-            //timer.ResetTurn();
-            new TimerResetCommand(this).AddToQueue();
+            if (isActive)
+            {
+                IsActive = false;
+                AttacksLeftThisTurn = 0;
+                //change to command
+                //timer.ResetTurn();
+                new TimerResetCommand(this).AddToQueue();
+            }
         }
         else
         {

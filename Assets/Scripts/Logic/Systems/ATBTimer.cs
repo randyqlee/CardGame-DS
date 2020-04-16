@@ -23,6 +23,7 @@ public class ATBTimer
 
 public delegate void noInput();
         public event noInput e_fullATB;
+        public event noInput e_ResetCD;
 
     public ATBTimer(CreatureLogic cl, int Speed)
     {
@@ -70,6 +71,7 @@ public delegate void noInput();
 		turn = 0;
         new UpdateEnergyCommand(owner.UniqueCreatureID, turn*GlobalATB.Instance.globalATB).AddToQueue();
 		e_turnEnd(owner);
+        e_ResetCD();
 	}
 
 	public void modifyATB (float value)
