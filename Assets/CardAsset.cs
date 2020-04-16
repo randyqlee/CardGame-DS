@@ -69,6 +69,8 @@ public class CardAsset : ScriptableObject
     //DS
     public int Chance;
 
+    public int Speed = 200;
+
 
     //DS
     [Header("Abilities")]

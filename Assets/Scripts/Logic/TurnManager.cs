@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour {
     // for Singleton Pattern
     public static TurnManager Instance;
 
+    public GlobalATB globalATB;
+
     // PRIVATE FIELDS
     // reference to a timer to measure 
     public RopeTimer timer;
@@ -50,7 +52,8 @@ public class TurnManager : MonoBehaviour {
 
             TurnMaker tm = whoseTurn.GetComponent<TurnMaker>();
             // player`s method OnTurnStart() will be called in tm.OnTurnStart();
-            tm.OnTurnStart();
+            
+            //tm.OnTurnStart();
 
             if (tm is PlayerTurnMaker)
             {
@@ -82,6 +85,7 @@ public class TurnManager : MonoBehaviour {
     {
         Instance = this;
         timer = GetComponent<RopeTimer>();
+        globalATB = GetComponent<GlobalATB>();
 
         roundCounter = 1;
         
@@ -90,7 +94,17 @@ public class TurnManager : MonoBehaviour {
     void Start()
     {
         //OnGameStart();
-        StartCoroutine(OnGameStart());
+
+        StartCoroutine (GameLoop());
+        
+    }
+
+	IEnumerator GameLoop()
+	{
+        yield return StartCoroutine(OnGameStart());
+
+        yield return StartCoroutine(StartBattle());
+
     }
 
 
@@ -217,11 +231,36 @@ public class TurnManager : MonoBehaviour {
             new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
             //start the turn for 1st player
-            new StartATurnCommand(whoGoesFirst).AddToQueue();
+            //new StartATurnCommand(whoGoesFirst).AddToQueue();
         }
 
         yield return null;
+
+        
+        
         StopCoroutine(OnGameStart());
+
+    }
+
+    IEnumerator StartBattle()
+    {
+        ActivateCLTimers();
+
+        globalATB.RunGlobalATB();
+        yield return null;
+
+    }
+
+    void ActivateCLTimers()
+    {
+        foreach (Player p in Player.Players)
+        {
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                cl.timer.Start();
+            }
+
+        }
 
     }
 

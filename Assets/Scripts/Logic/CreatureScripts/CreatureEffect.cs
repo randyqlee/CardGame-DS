@@ -97,17 +97,25 @@ public class CreatureEffect
     public virtual void RegisterCooldown()
     {
         //creature.e_CreatureOnTurnStart += ReduceCreatureEffectCooldown;
-        TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
+        
         //creature.e_CreatureOnTurnEnd += ResetCreatureEffectCooldown;
-         TurnManager.Instance.e_ResetRound += ResetCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound += ReduceCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound += ResetCreatureEffectCooldown;
+
+         this.creature.timer.e_fullATB += ReduceCreatureEffectCooldown;
+         this.creature.timer.e_fullATB += ResetCreatureEffectCooldown;
     }
 
     public virtual void UnregisterCooldown()
     {
         //creature.e_CreatureOnTurnStart -= ReduceCreatureEffectCooldown;
-        TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
+        
         //creature.e_CreatureOnTurnEnd -= ResetCreatureEffectCooldown;
-         TurnManager.Instance.e_ResetRound -= ResetCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound -= ReduceCreatureEffectCooldown;
+        //TurnManager.Instance.e_ResetRound -= ResetCreatureEffectCooldown;
+
+         this.creature.timer.e_fullATB -= ReduceCreatureEffectCooldown;
+         this.creature.timer.e_fullATB -= ResetCreatureEffectCooldown;
     }
 
     public void ReduceCreatureEffectCooldown()

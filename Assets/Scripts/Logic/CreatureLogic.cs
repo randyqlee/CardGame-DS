@@ -11,6 +11,8 @@ public class CreatureLogic: ICharacter
     public CardAsset ca;
     public int UniqueCreatureID;
 
+    public int defaultSpeed = 100;
+
     //storage for creature effects    
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
@@ -114,6 +116,30 @@ public class CreatureLogic: ICharacter
                 //Die();
             else
                 health = value;
+        }
+    }
+
+    private int speed;
+    
+    public int Speed
+    {
+        get{ return speed; }
+
+        set
+        {                 
+            speed = value;
+        }
+    }
+
+    private int energy;
+    
+    public int Energy
+    {
+        get{ return energy; }
+
+        set
+        {                 
+            energy = value;
         }
     }
         
@@ -282,6 +308,8 @@ public class CreatureLogic: ICharacter
 
     public bool extraTurn = false;
 
+    public ATBTimer timer;
+
 
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
@@ -297,6 +325,11 @@ public class CreatureLogic: ICharacter
         
         attacksForOneTurn = ca.AttacksForOneTurn;
 
+
+        this.Speed = ca.Speed;
+        if (this.Speed == 0)
+            this.Speed = defaultSpeed;
+
         // Remove Charge
         // if (ca.Charge)
         //     AttacksLeftThisTurn = attacksForOneTurn;
@@ -305,6 +338,10 @@ public class CreatureLogic: ICharacter
         UniqueCreatureID = IDFactory.GetUniqueID(); 
         //Name = this.GetType().Name.ToString();
         Name = ca.cardName;
+
+        this.timer = new ATBTimer(this,Speed);
+        
+
 
         //attach ability scripts to CL
         if (ca.Abilities != null)
@@ -348,6 +385,9 @@ public class CreatureLogic: ICharacter
             
         }
 
+
+
+
     }
 
     
@@ -366,6 +406,9 @@ public class CreatureLogic: ICharacter
         {
             IsActive = false;
             AttacksLeftThisTurn = 0;
+            //change to command
+            //timer.ResetTurn();
+            new TimerResetCommand(this).AddToQueue();
         }
         else
         {
@@ -505,7 +548,7 @@ public class CreatureLogic: ICharacter
         
             if(!CanAttack)
             {
-                new EndTurnCommand().AddToQueue();
+                //new EndTurnCommand().AddToQueue();
                 OnTurnEnd();
             }
             else
@@ -517,7 +560,7 @@ public class CreatureLogic: ICharacter
         } else {
              if(!CanAttack)
             {
-                new EndTurnCommand().AddToQueue();
+                //new EndTurnCommand().AddToQueue();
                 OnTurnEnd();
             }
             else

@@ -11,6 +11,8 @@ public class OneCreatureManager : MonoBehaviour
     public Text HealthText;
     public Text ArmorText;
     public Text AttackText;
+
+    public Text EnergyText;
     public Text NameText;
 
     [Header("Image References")]
@@ -185,6 +187,11 @@ public class OneCreatureManager : MonoBehaviour
         }
     }//Change Attack
 
+    public void ChangeEnergy(float energy)
+    {
+        int energyInt = (int)energy;
+        EnergyText.text =  energyInt.ToString();
+    }//Change Attack
     public void ChangeArmor(int armorAfter)
     {
         
