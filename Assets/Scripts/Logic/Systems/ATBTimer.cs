@@ -8,10 +8,20 @@ public class ATBTimer
 
     public CreatureLogic owner;
 
-	public float baseSpeed;
-	float rate;
+	public int baseSpeed;
+    public int currSpeed;
+	
 
-	public float turn = 0;
+    public int _energy = 0;
+	public int energy
+    {
+        get{return _energy;}
+        set
+        {
+            _energy = value;
+            new UpdateEnergyCommand(owner.UniqueCreatureID, energy).AddToQueue();
+        }
+    }
 
 	public bool isPaused = false;
 
@@ -46,17 +56,15 @@ public delegate void noInput();
 
     void ComputeRate()
     {
-        this.rate = baseSpeed/GlobalATB.Instance.globalATB;
+        currSpeed = baseSpeed;
     }
 
     void OnTick()
     {
         if (GlobalATB.Instance.tick && !isPaused)
 		{
-			turn += rate;
-            new UpdateEnergyCommand(owner.UniqueCreatureID, turn*GlobalATB.Instance.globalATB).AddToQueue();
-
-			if (turn >= 1)
+			energy += currSpeed;
+			if (energy >= GlobalATB.Instance.globalATB)
 			{
                     e_fullATB();
 					
@@ -68,17 +76,14 @@ public delegate void noInput();
 	public void ResetTurn()
 	{
         Debug.Log ("Reset Turn");
-		turn = 0;
-        new UpdateEnergyCommand(owner.UniqueCreatureID, turn*GlobalATB.Instance.globalATB).AddToQueue();
+		energy = 0;
 		e_turnEnd(owner);
         e_ResetCD();
 	}
 
-	public void modifyATB (float value)
+	public void modifyATB (int value)
 	{
-		turn = turn + value;
-        new UpdateEnergyCommand(owner.UniqueCreatureID, turn*GlobalATB.Instance.globalATB).AddToQueue();
-
+		energy += value;
 	}
 
 }

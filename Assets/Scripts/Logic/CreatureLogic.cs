@@ -485,11 +485,6 @@ public class CreatureLogic: ICharacter
         //owner.CheckIfGameOver();           
     }
 
-    public void ExtraTurn()
-    {
-        extraTurn = true;
-    }
-
     public void Revive()
     {
         if (!hasCurse)
@@ -1029,6 +1024,22 @@ public class CreatureLogic: ICharacter
         new UpdateHealthCommand(ID, healthAfter).AddToQueue();        
         Health += amount;
     }
+
+    public void ExtraTurn()
+    {
+        extraTurn = true;
+    }
+
+    public void ExtraAttack()
+    {
+        AttacksLeftThisTurn++;
+    }
+
+    public void Transform()
+    {
+        //transform mechanic;
+    }
+
 
     
     // STATIC For managing IDs

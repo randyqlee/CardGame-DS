@@ -6,7 +6,7 @@ public class GlobalATB : MonoBehaviour
 {
     public static GlobalATB Instance;
 
-	public float globalATB = 1400;
+	public int globalATB = 1400;
 	public float maxCharacterTurn = 10f;
 
     public bool tick = false;
@@ -79,7 +79,7 @@ public class GlobalATB : MonoBehaviour
         {
             foreach (CreatureLogic cl in p.table.CreaturesOnTable)
             {
-                if (cl.timer.turn >= 1)
+                if (cl.timer.energy >= globalATB)
                 {
                     activeCL.Add(cl);
                 }
@@ -122,7 +122,7 @@ public class GlobalATB : MonoBehaviour
 
     int CompareCLTurn(CreatureLogic i1, CreatureLogic i2)
     {
-        return i1.timer.turn.CompareTo(i2.timer.turn); 
+        return i1.timer.energy.CompareTo(i2.timer.energy); 
     }
 
 

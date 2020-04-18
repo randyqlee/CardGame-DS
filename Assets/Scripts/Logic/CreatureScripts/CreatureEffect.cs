@@ -342,4 +342,67 @@ public class CreatureEffect
 
     }
 
+    public virtual void IncreaseSkillCD (CreatureLogic target, int value)
+    {
+        foreach (CreatureEffect ce in target.creatureEffects)
+        {
+            ce.remainingCooldown += value;
+        }
+
+    }
+
+    public virtual void DecreaseSkillCD (CreatureLogic target, int value)
+    {
+        foreach (CreatureEffect ce in target.creatureEffects)
+        {
+            ce.remainingCooldown -= value;
+        }
+
+    }
+
+    public virtual void SetSkillCD (CreatureLogic target, int value)
+    {
+        foreach (CreatureEffect ce in target.creatureEffects)
+        {
+            ce.remainingCooldown = value;
+        }
+
+    }
+
+    public virtual void IncreaseEnergy (CreatureLogic target, int value)
+    {
+        target.timer.energy += value;
+    }
+
+    public virtual void DecreaseEnergy (CreatureLogic target, int value)
+    {
+        target.timer.energy -= value;
+    }
+
+    public virtual void SetEnergy (CreatureLogic target, int value)
+    {
+        target.timer.energy = value;
+    }
+
+    public void RestoreHP (CreatureLogic target, int value)
+    {
+        target.Heal(value);
+    }
+
+    public void ExtraTurn (CreatureLogic target)
+    {
+        target.ExtraTurn();
+    }
+
+    public void ExtraAttack (CreatureLogic target)
+    {
+        target.ExtraAttack();
+    }
+
+    public void Transform (CreatureLogic target)
+    {
+        target.Transform();
+    }
+
+
 }
