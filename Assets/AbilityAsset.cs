@@ -5,7 +5,8 @@ using UnityEngine;
 public enum SkillType
 {
     Chance,
-    Ultimate
+    Ultimate,
+	Rune
 }
 
 [System.Serializable]

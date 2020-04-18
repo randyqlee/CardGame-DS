@@ -91,12 +91,12 @@ public class OneCreatureManager : MonoBehaviour
             if (hasAttacked)
             {
                 
-                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.25f);
+                //image.color = new Color(image.color.r, image.color.g, image.color.b, 0.25f);
 
             }
             else
             {
-                image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+                //image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
 
             }
         }

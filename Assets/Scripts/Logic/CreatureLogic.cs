@@ -16,7 +16,7 @@ public class CreatureLogic: ICharacter
     //storage for creature effects    
     public List<CreatureEffect> creatureEffects = new List<CreatureEffect>(); 
 
-    public CreatureEffect equipEffect;
+    public List<CreatureEffect> equipEffects = new List<CreatureEffect>();
 
     public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
 
@@ -386,6 +386,29 @@ public class CreatureLogic: ICharacter
         }
 
 
+        //attach EQUIP ability scripts to CL
+        if (ca.EquipAbilities != null)
+        {
+            foreach (AbilityAsset ae in ca.EquipAbilities)
+            {
+                if (ae.abilityEffect != null && ae.abilityEffect != "")
+                {
+                    
+                    CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+                    
+                    //effect.RegisterCooldown();
+                    //effect.RegisterEventEffect();
+
+                    if (ae.icon != null)
+                    effect.abilityPreviewSprite = ae.icon;
+                    effect.abilityDescription = ae.description;
+                    effect.skillType = ae.skillType;
+
+                    equipEffects.Add(effect);
+ 
+                }
+            }
+        }
 
 
     }

@@ -219,6 +219,7 @@ public class Player : MonoBehaviour, ICharacter
         hand.CardsInHand.Remove(playedCard);
     }
 
+/*
     public void PlayEquipCreatureFromHand(CardLogic playedCard)
     {
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
@@ -233,6 +234,8 @@ public class Player : MonoBehaviour, ICharacter
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
     }
+*/
+
     public void Die()
     {
         // game over

@@ -76,7 +76,7 @@ public class CardAsset : ScriptableObject
     [Header("Abilities")]
     public List<AbilityAsset> Abilities;
 
-    public AbilityAsset equipAbility;
+    public List<AbilityAsset> EquipAbilities;
 
     public TypesOfCards TypeOfCard = TypesOfCards.Creature;
     public CharacterAsset characterAsset; 
