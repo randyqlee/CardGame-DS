@@ -46,8 +46,9 @@ public class CardAsset : ScriptableObject
     // this object will hold the info about the most general card
     [Header("General info")]
 
-    [TextArea(2,3)]
     public string cardName;
+    
+    [TextArea(2,3)]
     public string Description;  // Description for spell or character
 	public Sprite CardImage;
 
@@ -77,6 +78,12 @@ public class CardAsset : ScriptableObject
     public List<AbilityAsset> Abilities;
 
     public List<AbilityAsset> EquipAbilities;
+
+    public List<SkillAsset> Skills;
+
+    public List<SkillAsset> EquipSkills;
+
+    public List<SkillAsset> Runes;
 
     public TypesOfCards TypeOfCard = TypesOfCards.Creature;
     public CharacterAsset characterAsset; 

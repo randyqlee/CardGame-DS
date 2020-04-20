@@ -4,7 +4,7 @@ using UnityEditor;
 static class CardUnityIntegration 
 {
 
-	[MenuItem("Assets/Create/CardAsset")]
+	[MenuItem("CreateSO/CardAsset")]
 	public static void CreateYourScriptableObject() {
 		ScriptableObjectUtility2.CreateAsset<CardAsset>();
 	}

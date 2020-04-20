@@ -18,6 +18,8 @@ public class CreatureLogic: ICharacter
 
     public List<CreatureEffect> equipEffects = new List<CreatureEffect>();
 
+    public List<CreatureEffect> runeEffects = new List<CreatureEffect>();
+
     public List<BuffEffect> buffEffects = new List<BuffEffect>(); 
 
     // delegates
@@ -73,7 +75,8 @@ public class CreatureLogic: ICharacter
     public delegate void VoidWithNoArguments();
     public event VoidWithNoArguments e_CreatureOnTurnStart;
     public event VoidWithNoArguments e_CreatureOnTurnEnd;   
-    public event VoidWithNoArguments e_IsComputeDamage;     
+    public event VoidWithNoArguments e_IsComputeDamage; 
+    public event VoidWithNoArguments e_ActivateRune;      
 
 
     public delegate void VoidWithCL(CreatureLogic cl);
@@ -340,21 +343,19 @@ public class CreatureLogic: ICharacter
         Name = ca.cardName;
 
         this.timer = new ATBTimer(this,Speed);
-        
 
 
         //attach ability scripts to CL
-        if (ca.Abilities != null)
+
+
+        if (ca.Skills != null)
         {
-            foreach (AbilityAsset ae in ca.Abilities)
+            foreach (SkillAsset ae in ca.Skills)
             {
                 if (ae.abilityEffect != null && ae.abilityEffect != "")
                 {
                     
                     CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
-                    
-                    //effect.RegisterCooldown();
-                    //effect.RegisterEventEffect();
 
                     if (ae.icon != null)
                     effect.abilityPreviewSprite = ae.icon;
@@ -367,26 +368,53 @@ public class CreatureLogic: ICharacter
             }
         }
 
-        CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
+        else
 
-        //initialize creature effects
-
-        foreach (CreatureEffect ce in creatureEffects)
+        if (ca.Abilities != null)
         {
-            ce.RegisterCooldown();
-            ce.RegisterEventEffect();
+            foreach (AbilityAsset ae in ca.Abilities)
+            {
+                if (ae.abilityEffect != null && ae.abilityEffect != "")
+                {
+                    
+                    CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
 
-            //DS Test: 24 Nov 2019. Initialize Ultimate Skill CD to 1.  
-            //if(ce.skillType == SkillType.Ultimate)
-            //{
-            //    ce.remainingCooldown = 1;
-            //    new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
-            //}
-            
+                    if (ae.icon != null)
+                    effect.abilityPreviewSprite = ae.icon;
+                    effect.abilityDescription = ae.description;
+                    effect.skillType = ae.skillType;
+
+                    creatureEffects.Add(effect);
+ 
+                }
+            }
         }
 
 
         //attach EQUIP ability scripts to CL
+
+        if (ca.EquipSkills != null)
+        {
+            foreach (SkillAsset ae in ca.EquipSkills)
+            {
+                if (ae.abilityEffect != null && ae.abilityEffect != "")
+                {
+                    
+                    CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+
+                    if (ae.icon != null)
+                    effect.abilityPreviewSprite = ae.icon;
+                    effect.abilityDescription = ae.description;
+                    effect.skillType = ae.skillType;
+
+                    equipEffects.Add(effect);
+ 
+                }
+            }
+
+        }
+
+        else
         if (ca.EquipAbilities != null)
         {
             foreach (AbilityAsset ae in ca.EquipAbilities)
@@ -395,9 +423,6 @@ public class CreatureLogic: ICharacter
                 {
                     
                     CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
-                    
-                    //effect.RegisterCooldown();
-                    //effect.RegisterEventEffect();
 
                     if (ae.icon != null)
                     effect.abilityPreviewSprite = ae.icon;
@@ -410,11 +435,65 @@ public class CreatureLogic: ICharacter
             }
         }
 
+        //attach RUNE ability scripts to CL
+
+        if (ca.Runes != null)
+        {
+            foreach (SkillAsset ae in ca.Runes)
+            {
+                if (ae.abilityEffect != null && ae.abilityEffect != "")
+                {
+                    
+                    CreatureEffect effect = System.Activator.CreateInstance(System.Type.GetType(ae.abilityEffect), new System.Object[]{owner, this, ae.abilityCoolDown}) as CreatureEffect;
+
+                    if (ae.icon != null)
+                    effect.abilityPreviewSprite = ae.icon;
+                    effect.abilityDescription = ae.description;
+                    effect.skillType = ae.skillType;
+
+                    runeEffects.Add(effect);
+ 
+                }
+            }
+
+        }
+
+        CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
+
+        //initialize creature effects
+
+        foreach (CreatureEffect ce in creatureEffects)
+        {
+            ce.RegisterCooldown();
+            ce.RegisterEventEffect();
+            
+        }
+
+        foreach (CreatureEffect ce in equipEffects)
+        {
+            ce.RegisterCooldown();
+            ce.RegisterEventEffect();
+            
+        }
+
+        foreach (CreatureEffect ce in runeEffects)
+        {
+            ce.RegisterCooldown();
+            ce.RegisterEventEffect();
+            
+        }
+
 
     }
 
     
     // METHODS
+
+    public void ActivateRune()
+    {
+        if (e_ActivateRune != null)
+                    e_ActivateRune();
+    }
     public void OnTurnStart()
     {
         IsActive = true;

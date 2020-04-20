@@ -244,10 +244,28 @@ public class TurnManager : MonoBehaviour {
 
     IEnumerator StartBattle()
     {
+        //call RuneStartOfGameEvent
+
+        ActivateRune();
+
+
         ActivateCLTimers();
 
         globalATB.RunGlobalATB();
         yield return null;
+
+    }
+
+    void ActivateRune()
+    {
+        foreach (Player p in Player.Players)
+        {
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                cl.ActivateRune();
+            }
+
+        }
 
     }
 
