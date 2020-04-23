@@ -115,10 +115,14 @@ public class CreatureLogic: ICharacter
         {                 
             if (value > MaxHealth)
                 health = MaxHealth;
-            //else if (value <= 0)                
-                //Die();
+            else if (value <= 0)                
+                Die();
             else
                 health = value;
+            
+            Debug.Log("ID: " + ID);
+
+            new UpdateHealthCommand(ID, Health).AddToQueue();
         }
     }
 
@@ -152,6 +156,7 @@ public class CreatureLogic: ICharacter
     public int MaxHealth
     {
         get{ return baseHealth;}
+        set{ baseHealth = value;}
     }
 
     private int armor;
@@ -290,7 +295,17 @@ public class CreatureLogic: ICharacter
 
     [HideInInspector]
     public bool canBeAttacked = true;
-    public bool hasTaunt = false;
+
+
+    public bool permanentTaunt = false;
+
+    private bool hasTaunt;
+
+    public bool HasTaunt
+    {
+        get {return hasTaunt;}
+        set {hasTaunt = value && permanentTaunt;}
+    }
 
     public bool hasBless = false;
 
@@ -319,30 +334,9 @@ public class CreatureLogic: ICharacter
     {
 
         this.ca = ca;
-
-        chance = ca.Chance;
-
-        baseHealth = ca.MaxHealth;
-        Health = ca.MaxHealth;
-        baseAttack = ca.Attack;
-        
-        attacksForOneTurn = ca.AttacksForOneTurn;
-
-
-        this.Speed = ca.Speed;
-        if (this.Speed == 0)
-            this.Speed = Random.Range(1,6)*100;
-
-        // Remove Charge
-        // if (ca.Charge)
-        //     AttacksLeftThisTurn = attacksForOneTurn;
-
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID(); 
-        //Name = this.GetType().Name.ToString();
-        Name = ca.cardName;
 
-        this.timer = new ATBTimer(this,Speed);
 
 
         //attach ability scripts to CL
@@ -460,6 +454,30 @@ public class CreatureLogic: ICharacter
 
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
 
+        chance = ca.Chance;
+
+        MaxHealth = ca.MaxHealth;
+        Health = ca.MaxHealth;
+        Attack = ca.Attack;
+        
+        attacksForOneTurn = ca.AttacksForOneTurn;
+
+
+        this.Speed = ca.Speed;
+        if (this.Speed == 0)
+            this.Speed = Random.Range(1,6)*100;
+        
+        //Name = this.GetType().Name.ToString();
+        Name = ca.cardName;
+
+        this.timer = new ATBTimer(this,Speed);
+
+        HasTaunt = false;
+
+        // Remove Charge
+        // if (ca.Charge)
+        //     AttacksLeftThisTurn = attacksForOneTurn;
+
         //initialize creature effects
 
         foreach (CreatureEffect ce in creatureEffects)
@@ -546,6 +564,8 @@ public class CreatureLogic: ICharacter
 
     public void Die()
     {   
+        OnTurnEnd();
+
         //ORIGINAL SCRIPT
         //owner.table.CreaturesOnTable.Remove(this);        
         
@@ -572,10 +592,29 @@ public class CreatureLogic: ICharacter
             //}
         }        
             
-        //if(!hasResurrect)
-        
-        //REMOVE INSTANTIATED EFFECTS
-        //creatureEffects.Clear();
+        foreach(CreatureEffect ce in equipEffects)
+        {
+            //if(effect !=null)
+            //{
+                ce.remainingCooldown = ce.creatureEffectCooldown; 
+
+                ce.WhenACreatureDies();
+                ce.UnRegisterEventEffect();
+                ce.UnregisterCooldown();                                   
+            //}
+        }
+
+        foreach(CreatureEffect ce in runeEffects)
+        {
+            //if(effect !=null)
+            //{
+                ce.remainingCooldown = ce.creatureEffectCooldown; 
+
+                ce.WhenACreatureDies();
+                ce.UnRegisterEventEffect();
+                ce.UnregisterCooldown();                                   
+            //}
+        }                
         
 
         new CreatureDieCommand(UniqueCreatureID, owner).AddToQueue();         

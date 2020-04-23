@@ -24,7 +24,7 @@ public class Focus : CreatureEffect
          
     }
 
-    public override void UseEffect(CreatureLogic target)
+    public override void UseEffect()
     {
         creature.chance += value;
     }

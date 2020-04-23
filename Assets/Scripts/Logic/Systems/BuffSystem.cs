@@ -16,6 +16,14 @@ public class BuffSystem : MonoBehaviour
 
     }
 
+    public void AddBuffToAllies(CreatureLogic source, Player player, string buffName, int buffCooldown)
+    {
+        foreach (CreatureLogic cl in player.AllyList())
+        {
+            AddBuff(source, cl, buffName, buffCooldown);
+        }
+    }
+
     public void AddBuff(CreatureLogic source, CreatureLogic target, string buffName, int buffCooldown)
     {
 
