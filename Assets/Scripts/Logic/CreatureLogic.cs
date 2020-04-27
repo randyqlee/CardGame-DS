@@ -119,8 +119,6 @@ public class CreatureLogic: ICharacter
                 Die();
             else
                 health = value;
-            
-            Debug.Log("ID: " + ID);
 
             new UpdateHealthCommand(ID, Health).AddToQueue();
         }
@@ -329,6 +327,9 @@ public class CreatureLogic: ICharacter
     public ATBTimer timer;
 
 
+
+
+
     // CONSTRUCTOR
     public CreatureLogic(Player owner, CardAsset ca)
     {
@@ -337,12 +338,17 @@ public class CreatureLogic: ICharacter
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID(); 
 
+        this.timer = new ATBTimer(this,Speed);
 
+        CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
 
-        //attach ability scripts to CL
+        LoadSkills();
 
+    }
 
-        if (ca.Skills != null)
+    void LoadSkills()
+    {
+        if (ca.Skills.Count > 0)
         {
             foreach (SkillAsset ae in ca.Skills)
             {
@@ -364,7 +370,7 @@ public class CreatureLogic: ICharacter
 
         else
 
-        if (ca.Abilities != null)
+        if (ca.Abilities.Count > 0)
         {
             foreach (AbilityAsset ae in ca.Abilities)
             {
@@ -387,7 +393,7 @@ public class CreatureLogic: ICharacter
 
         //attach EQUIP ability scripts to CL
 
-        if (ca.EquipSkills != null)
+        if (ca.EquipSkills.Count > 0)
         {
             foreach (SkillAsset ae in ca.EquipSkills)
             {
@@ -409,7 +415,7 @@ public class CreatureLogic: ICharacter
         }
 
         else
-        if (ca.EquipAbilities != null)
+        if (ca.EquipAbilities.Count > 0)
         {
             foreach (AbilityAsset ae in ca.EquipAbilities)
             {
@@ -431,7 +437,7 @@ public class CreatureLogic: ICharacter
 
         //attach RUNE ability scripts to CL
 
-        if (ca.Runes != null)
+        if (ca.Runes.Count > 0)
         {
             foreach (SkillAsset ae in ca.Runes)
             {
@@ -451,9 +457,27 @@ public class CreatureLogic: ICharacter
             }
 
         }
+    }
 
-        CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
+    
+    // METHODS
 
+    public void ActivateRune()
+    {
+        if (e_ActivateRune != null)
+                    e_ActivateRune();
+    }
+
+    public void OnBattleStart()
+    {
+        //LoadSkills();
+        InitializeCreature();
+        InitializeSkills();
+    }
+    public void InitializeCreature()
+    {
+    
+    
         chance = ca.Chance;
 
         MaxHealth = ca.MaxHealth;
@@ -470,8 +494,6 @@ public class CreatureLogic: ICharacter
         //Name = this.GetType().Name.ToString();
         Name = ca.cardName;
 
-        this.timer = new ATBTimer(this,Speed);
-
         HasTaunt = false;
 
         // Remove Charge
@@ -479,7 +501,11 @@ public class CreatureLogic: ICharacter
         //     AttacksLeftThisTurn = attacksForOneTurn;
 
         //initialize creature effects
+    }
 
+
+    public void InitializeSkills()
+    {
         foreach (CreatureEffect ce in creatureEffects)
         {
             ce.RegisterCooldown();
@@ -501,17 +527,8 @@ public class CreatureLogic: ICharacter
             
         }
 
-
     }
 
-    
-    // METHODS
-
-    public void ActivateRune()
-    {
-        if (e_ActivateRune != null)
-                    e_ActivateRune();
-    }
     public void OnTurnStart()
     {
         IsActive = true;

@@ -71,7 +71,6 @@ public class GlobalATB : MonoBehaviour
 //check all CL on Table if Turn >= 1, then add to ActiveCL list
     void CheckActiveCL()
     {
-        Debug.Log("CheckActiveCL()");
         if (activeCL != null)
 			activeCL.Clear();
 
@@ -88,7 +87,6 @@ public class GlobalATB : MonoBehaviour
 
         if (activeCL.Count > 0)
         {
-            Debug.Log("activeCL !=NUll");
             //sort activeCL
             sortActiveCL = SortCL(activeCL);
             //make the CL with highest >1 turn active, add checks if !stun, etc. else. move to next CL

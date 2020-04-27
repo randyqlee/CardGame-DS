@@ -194,51 +194,29 @@ public class TurnManager : MonoBehaviour {
             whoGoesFirst.PlayACreatureFromHand(whoGoesFirst.hand.CardsInHand[0], 0);
         }
 
-        yield return null;
+        yield return null;       
+        
+        StopCoroutine(OnGameStart());
 
-        //initialize creature effectes
-        /* transfer this to CL
-        foreach (Player player in Player.Players)
-        {                    
-            
-            foreach(CreatureLogic cl in player.AllyList())
-            {
-                foreach (CreatureEffect ce in cl.creatureEffects)
-                {
-                    ce.RegisterCooldown();
-                    ce.RegisterEventEffect();
+    }
 
-                    //DS Test: 24 Nov 2019. Initialize Ultimate Skill CD to 1.  
-                    if(ce.skillType == SkillType.Ultimate)
-                    {
-                        ce.remainingCooldown = 1;
-                        new UpdateCooldownCommand(ce.abilityCard, ce.remainingCooldown, ce.creatureEffectCooldown).AddToQueue();
-                    }
-                    
-                }
-                cl.OnTurnStart();
-            }
-        }
-        */
-        //DS
-        //Display skills panel of player only
-
+    IEnumerator ShowSkillsPanel()
+    {
         if(Tutorial1.Instance == null || Tutorial1.Instance.tutorialState == TutorialState.COMPLETED)
         {
-            if(whoGoesFirst.PArea.owner == AreaPosition.Low)
-            new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
-            else
-            new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
+        //    if(whoGoesFirst.PArea.owner == AreaPosition.Low)
+        //    new ShowSkillsPanelCommand(whoGoesFirst).AddToQueue();
+        //    else
+        //    new ShowSkillsPanelCommand(whoGoesSecond).AddToQueue();
 
             //start the turn for 1st player
             //new StartATurnCommand(whoGoesFirst).AddToQueue();
         }
 
         yield return null;
+        StopCoroutine(ShowSkillsPanel());
 
-        
-        
-        StopCoroutine(OnGameStart());
+
 
     }
 
@@ -246,17 +224,35 @@ public class TurnManager : MonoBehaviour {
     {
         //call RuneStartOfGameEvent
 
-        ActivateRune();
+        yield return StartCoroutine(ActivateCreatures());
 
 
-        ActivateCLTimers();
+        yield return StartCoroutine(ActivateRune());
+
+
+        yield return StartCoroutine(ActivateCLTimers());
 
         globalATB.RunGlobalATB();
         yield return null;
 
     }
 
-    void ActivateRune()
+    IEnumerator ActivateCreatures()
+    {
+        foreach (Player p in Player.Players)
+        {
+            foreach (CreatureLogic cl in p.table.CreaturesOnTable)
+            {
+                cl.OnBattleStart();
+            }
+
+        }
+        yield return null;
+        StopCoroutine(ActivateCreatures());
+    }
+
+
+    IEnumerator ActivateRune()
     {
         foreach (Player p in Player.Players)
         {
@@ -266,10 +262,11 @@ public class TurnManager : MonoBehaviour {
             }
 
         }
-
+        yield return null;
+        StopCoroutine(ActivateRune());
     }
 
-    void ActivateCLTimers()
+    IEnumerator ActivateCLTimers()
     {
         foreach (Player p in Player.Players)
         {
@@ -279,7 +276,8 @@ public class TurnManager : MonoBehaviour {
             }
 
         }
-
+        yield return null;
+        StopCoroutine(ActivateCLTimers());
     }
 
     void Update()
