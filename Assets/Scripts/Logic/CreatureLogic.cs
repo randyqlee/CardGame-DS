@@ -338,7 +338,7 @@ public class CreatureLogic: ICharacter
         this.owner = owner;
         UniqueCreatureID = IDFactory.GetUniqueID(); 
 
-        this.timer = new ATBTimer(this,Speed);
+        
 
         CreaturesCreatedThisGame.Add(UniqueCreatureID, this);
 
@@ -486,6 +486,8 @@ public class CreatureLogic: ICharacter
         
         attacksForOneTurn = ca.AttacksForOneTurn;
 
+        
+
 
         this.Speed = ca.Speed;
         if (this.Speed == 0)
@@ -493,6 +495,8 @@ public class CreatureLogic: ICharacter
         
         //Name = this.GetType().Name.ToString();
         Name = ca.cardName;
+
+        this.timer = new ATBTimer(this,Speed);
 
         HasTaunt = false;
 
