@@ -18,9 +18,9 @@ public class CreatureDieCommand : Command
         //p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);
 
 
-
+Debug.Log("CreaturesOnTable " + p.table.CreaturesOnTable.Count);
         p.table.CreaturesOnTable.Remove(CreatureLogic.CreaturesCreatedThisGame[DeadCreatureID]);
-
+Debug.Log("CreaturesOnTable " + p.table.CreaturesOnTable.Count);
         p.table.CreaturesOnGraveyard.Add(CreatureLogic.CreaturesCreatedThisGame[DeadCreatureID]);
 
         p.PArea.tableVisual.RemoveCreatureWithID(DeadCreatureID);

@@ -53,6 +53,8 @@ public class GlobalATB : MonoBehaviour
 
         else CheckActiveCL ();
 
+        StopCoroutine(RunTick());
+
     }
 
     public void ATBTimerFull()
@@ -76,6 +78,7 @@ public class GlobalATB : MonoBehaviour
 
         foreach (Player p in Player.Players)
         {
+            Debug.Log("CreaturesOnTable " + p.table.CreaturesOnTable.Count);
             foreach (CreatureLogic cl in p.table.CreaturesOnTable)
             {
                 if (cl.timer.energy >= globalATB)

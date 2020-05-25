@@ -105,6 +105,8 @@ public class TurnManager : MonoBehaviour {
 
         yield return StartCoroutine(StartBattle());
 
+        StopCoroutine(GameLoop());
+
     }
 
 

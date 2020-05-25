@@ -189,6 +189,8 @@ public class TableVisual : MonoBehaviour
         creatureToRemove.SetActive(false);
 
         Command.CommandExecutionComplete();
+
+        StopCoroutine(HideCreature(creatureToRemove));
     }
 
    

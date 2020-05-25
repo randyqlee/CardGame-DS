@@ -75,7 +75,6 @@ public delegate void noInput();
 
 	public void ResetTurn()
 	{
-        Debug.Log ("Reset Turn");
 		energy = 0;
 		e_turnEnd(owner);
         e_ResetCD();
